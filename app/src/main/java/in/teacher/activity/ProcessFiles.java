@@ -141,7 +141,9 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 								String except = e+"";
 								try{
 									sqliteDatabase.execSQL("insert into locked(FileName,LineNumber,StackTrace) values('"+f+"',"+queryIndex+",'"+except.replaceAll("['\"]", " ")+"')");
-								}catch(SQLException ex){}
+								}catch(SQLException ex){
+                                    ex.printStackTrace();
+                                }
 								isException = true;
 							}
 						}

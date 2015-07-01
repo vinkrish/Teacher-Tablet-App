@@ -22,9 +22,7 @@ public class FirstTimeSync implements StringConstant{
 	private SqlDbHelper sqlHandler;
 	private String deviceId, zipFile;
 	private Context context;
-	private Temp t;
 	private int schoolId, block;
-	private JSONObject jsonReceived;
 	private SQLiteDatabase sqliteDatabase;
 
 	public FirstTimeSync(){
@@ -32,11 +30,9 @@ public class FirstTimeSync implements StringConstant{
 		sqlHandler = AppGlobal.getSqlDbHelper();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
 		pDialog = new ProgressDialog(context);
-		t = TempDao.selectTemp(sqliteDatabase);
-		deviceId = t.getDeviceId();
 	}
 
-	private class RunFirstTimeSync extends AsyncTask<String,String,String>{
+	private class RunFirstTimeSync extends AsyncTask<Void, String, Void>{
 
 		protected void onPreExecute(){
 			super.onPreExecute();
@@ -54,9 +50,12 @@ public class FirstTimeSync implements StringConstant{
 		}
 
 		@Override
-		protected String doInBackground(String... params) {
+		protected Void doInBackground(Void... params) {
 			sqlHandler.removeIndex(sqliteDatabase);
 			sqlHandler.dropTrigger(sqliteDatabase);
+
+			Temp t = TempDao.selectTemp(sqliteDatabase);
+			deviceId = t.getDeviceId();
 
 			publishProgress("10");
 
@@ -64,7 +63,7 @@ public class FirstTimeSync implements StringConstant{
 			try{
 				ack_json.put("tab_id", deviceId);
 				Log.d("get_first_files_req", "1");
-				jsonReceived = FirstTimeSyncParser.makePostRequest(request_first_time_sync, ack_json);
+				JSONObject jsonReceived = FirstTimeSyncParser.makePostRequest(request_first_time_sync, ack_json);
 				block = jsonReceived.getInt(TAG_SUCCESS);
 				Log.d("get_first_files_res", "1");
 
@@ -103,8 +102,8 @@ public class FirstTimeSync implements StringConstant{
 			return null;
 		}
 
-		protected void onPostExecute(String s){
-			super.onPostExecute(s);
+		protected void onPostExecute(Void v){
+			super.onPostExecute(v);
 			pDialog.dismiss();
 			if(block!=2 && zipFile!=""){
 				new DownloadModelTask(context, zipFile).execute();

@@ -421,12 +421,12 @@ public class UpdateExamMark extends Fragment {
 			lv.setSelection(firstVisible);
 	}
 
-	class CalledBackLoad extends AsyncTask<String, String, String>{
+	class CalledBackLoad extends AsyncTask<Void, Void, Void>{
 		protected void onPreExecute(){
 			super.onPreExecute();
 		}
 		@Override
-		protected String doInBackground(String... params) {
+		protected Void doInBackground(Void... params) {
 
 			String subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
             String className = ClasDao.getClassName(classId, sqliteDatabase);
@@ -462,8 +462,8 @@ public class UpdateExamMark extends Fragment {
 
 			return null;
 		}
-		protected void onPostExecute(String s){
-			super.onPostExecute(s);
+		protected void onPostExecute(Void v){
+			super.onPostExecute(v);
 			if(teacherName.length()>11){
 				name.setText(teacherName.substring(0, 9)+"...");
 			}else{

@@ -280,7 +280,7 @@ public class UpdateActivityMark extends Fragment {
 		return view;
 	}
 
-	class CalledSubmit extends AsyncTask<String, String, String>{
+	class CalledSubmit extends AsyncTask<Void, Void, Void>{
 		ProgressDialog pDialog = new ProgressDialog(act);
 
 		protected void onPreExecute(){
@@ -292,13 +292,13 @@ public class UpdateActivityMark extends Fragment {
 		}
 
 		@Override
-		protected String doInBackground(String... params) {
+		protected Void doInBackground(Void... params) {
 			pushSubmit();
 			return null;
 		}
 
-		protected void onPostExecute(String s){
-			super.onPostExecute(s);
+		protected void onPostExecute(Void v){
+			super.onPostExecute(v);
 			pDialog.dismiss();
 			ReplaceFragment.clearBackStack(getFragmentManager());
 			ReplaceFragment.replace(new ActivityExam(), getFragmentManager());
