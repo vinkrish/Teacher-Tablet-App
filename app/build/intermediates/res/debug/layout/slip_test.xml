@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/layout_black"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/dashboardButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.1"
+            android:background="@color/layout_black"
+            android:drawableLeft="@drawable/dashboard"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:onClick="toDashbord"
+            android:paddingLeft="10dp"
+            android:text="@string/dashboard"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#333333" />
+
+        <Button
+            android:id="@+id/attendanceButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.1"
+            android:background="@color/universal"
+            android:drawableLeft="@drawable/attendance"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/st"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#333333" />
+
+        <Button
+            android:id="@+id/classSection"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.1"
+            android:background="@color/layout_black"
+            android:drawableLeft="@drawable/user"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dividerup"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/linearLayout1"
+        android:background="#333333" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/dividerup"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/marks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableLeft="@drawable/marks_blue"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="@string/marks"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/grades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/marks"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableLeft="@drawable/grades_grey"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="@string/grades"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/evaluationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout2"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/evaluation"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#3E97D6" />
+
+    <RadioGroup
+        android:id="@+id/evaluationType"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/evaluationText"
+        android:layout_marginLeft="30dp"
+        android:checkedButton="@+id/slipTest"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/slipTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:text="@string/sliptest"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioButton
+            android:id="@+id/projects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:text="@string/projects"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioButton
+            android:id="@+id/activities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activities"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/selectedportion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/evaluationType"
+        android:layout_margin="30dp"
+        android:background="@drawable/sliptest_name"
+        android:gravity="center_vertical"
+        android:hint="@string/portions"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/selecteddate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/selectedportion"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/sliptest_name"
+        android:gravity="center_vertical"
+        android:hint="@string/stdate"
+        android:paddingLeft="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RelativeLayout
+        android:id="@+id/rlhide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selecteddate"
+        android:visibility="visible" >
+
+        <EditText
+            android:id="@+id/stmaxmark"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/sliptest_name"
+            android:hint="@string/maxmark"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@id/stmaxmark"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp" >
+
+            <Button
+                android:id="@+id/sliptestsubmit"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_selector_st"
+                android:padding="10dp"
+                android:text="@string/submit"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/sliptestreset"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/sliptestsubmit"
+                android:background="@drawable/button_selector_st"
+                android:padding="10dp"
+                android:text="@string/reset"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlhide2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selecteddate"
+        android:visibility="invisible" >
+
+        <EditText
+            android:id="@+id/manualportion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/sliptest_name"
+            android:hint="@string/manualportion"
+            android:inputType="textMultiLine"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/stmaxmark2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/manualportion"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/sliptest_name"
+            android:hint="@string/maxmark"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout32"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@id/stmaxmark2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp" >
+
+            <Button
+                android:id="@+id/sliptestsubmit2"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_selector_st"
+                android:padding="10dp"
+                android:text="@string/submit"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/sliptestreset2"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/sliptestsubmit2"
+                android:background="@drawable/button_selector_st"
+                android:padding="10dp"
+                android:text="@string/reset"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/layout/slip_test.xml -->

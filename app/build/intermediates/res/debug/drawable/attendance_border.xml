@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:shape="rectangle">
+    <stroke
+        android:width="0.5dp"
+        android:color="#7D7682" >
+    </stroke>
+    <solid 
+        android:color="#FFFFFF"/>
+</shape>
+<!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/drawable/attendance_border.xml -->

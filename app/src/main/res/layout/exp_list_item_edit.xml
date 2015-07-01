@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:background="#413F42" >
+    
+    <EditText
+        android:id="@+id/enterHomework"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:textColor="#FFFFFF"
+        android:hint="@string/hwmessage"
+        android:inputType="text"/>
+
+    
+    			<RelativeLayout 
+         			android:id="@+id/relativeLayout"
+         			android:layout_below="@id/enterHomework"
+         			android:layout_centerHorizontal="true"
+         			android:layout_width="wrap_content"
+         			android:layout_height="40dp">
+     		    <Button 
+     		        android:id="@+id/submithw"
+     		        android:layout_width="150dp"
+     		        android:layout_height="wrap_content"
+     		        android:gravity="center"
+     		        android:layout_marginRight="20dp"
+     		        android:text="@string/submit"
+     		        android:textColor="#FFFFFF"
+     		        android:textSize="22sp"
+     		        android:background="@drawable/button_selector_hw"/>
+     		    <Button 
+     		        android:id="@+id/resethw"
+     		        android:layout_width="150dp"
+     		        android:layout_height="wrap_content"
+     		        android:gravity="center"
+     		        android:layout_marginLeft="20dp"
+     		        android:layout_toRightOf="@id/submithw"
+     		        android:text="@string/reset"
+     		        android:textColor="#FFFFFF"
+     		        android:textSize="22sp"
+     		        android:background="@drawable/button_selector_hw"/>	
+     		       
+     		    </RelativeLayout>
+    
+
+</RelativeLayout>

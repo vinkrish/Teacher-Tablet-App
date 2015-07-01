@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/queuerl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <TextView 
+        android:id="@+id/tableQuery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="left|center"
+       	android:paddingLeft="10dp"
+       	android:paddingTop="5dp"
+       	android:paddingBottom="5dp"
+        android:textColor="@color/dark_black"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+</LinearLayout>
+
+	

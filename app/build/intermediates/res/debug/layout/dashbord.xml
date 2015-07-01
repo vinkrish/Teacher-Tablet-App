@@ -1,0 +1,666 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/layout_black"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/dashboardButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.1"
+            android:background="@color/universal"
+            android:drawableLeft="@drawable/dashboard"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/dashboard"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#333333" />
+
+        <Button
+            android:id="@+id/attendanceButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.1"
+            android:background="@color/layout_black"
+            android:drawableLeft="@drawable/attendance"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/attendance"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#333333" />
+
+        <Button
+            android:id="@+id/classSection"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.1"
+            android:background="@color/layout_black"
+            android:drawableLeft="@drawable/user"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dividerup"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/linearLayout1"
+        android:background="#333333" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividerup" >
+
+        <LinearLayout
+            android:id="@+id/linearlayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/your_class"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <TextView
+                android:id="@+id/yourClass"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/layoutbelowBC"
+                android:gravity="left|center"
+                android:paddingLeft="15dp"
+                android:text="@string/yourclasses"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#79787D" />
+
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="5"
+                android:verticalSpacing="20dp" >
+            </GridView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:id="@+id/fl3"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginTop="10dp" >
+
+                <ImageView
+                    android:id="@+id/fl3iv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="175dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="290dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="405dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="520dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl2"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="#515450"
+                android:visibility="invisible" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" >
+
+                    <TextView
+                        android:id="@+id/fltv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/fltv"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:id="@+id/flll2"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/fltv"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/es"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/es"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callSlipTest"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/vs"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/vs"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callViewScore"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/se"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/se"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callStructuredExam"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl33"
+                android:layout_width="match_parent"
+                android:layout_height="15dp" >
+
+                <ImageView
+                    android:id="@+id/fl3iv6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="175dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="290dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="405dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="520dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl22"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="#515450"
+                android:visibility="invisible" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" >
+
+                    <TextView
+                        android:id="@+id/fltv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/fltv"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:id="@+id/flll22"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/fltv2"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/es2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/es"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callSlipTest"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/vs2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/vs"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callViewScore"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/se2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/se"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callStructuredExam"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl333"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginTop="-5dp" >
+
+                <ImageView
+                    android:id="@+id/fl3iv11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="175dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="290dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="405dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="520dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl222"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="#515450"
+                android:visibility="invisible" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" >
+
+                    <TextView
+                        android:id="@+id/fltv22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/fltv"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:id="@+id/flll222"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/fltv22"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/es3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/es"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callSlipTest"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/vs3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/vs"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callViewScore"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/se3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/se"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callStructuredExam"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl3333"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginTop="-10dp" >
+
+                <ImageView
+                    android:id="@+id/fl3iv16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="175dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="290dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="405dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/fl3iv20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="520dp"
+                    android:background="@drawable/selection2"
+                    android:contentDescription="@string/cc"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl2222"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="#515450"
+                android:visibility="invisible" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" >
+
+                    <TextView
+                        android:id="@+id/fltv222"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/fltv"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:id="@+id/flll2222"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/fltv222"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/es4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/es"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callSlipTest"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/vs4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/vs"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callViewScore"
+                            android:textColor="#000000" />
+
+                        <Button
+                            android:id="@+id/se4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/button_selector_fl"
+                            android:drawableLeft="@drawable/enterscore"
+                            android:drawablePadding="10dp"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/se"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:onClick="callStructuredExam"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/layout/dashbord.xml -->

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-4380f197282edeccb79e90698d3bf8f6d69efcd6.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/classes-3a29462ac896a07be6f29c217ee60d059b193ecc.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/libs/aws-android-sdk-core-2.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e154f5b66df06dfa421f38c9baaad91c428aeae0">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/aws-android-sdk-core-2.2.1-c4400237b84066efd9ca343e859884f7d1820f8f.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/classes-af2cc97df4e9f75099ce8b7555612c5b4171b585.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-810ca09fd04cb4e0787b2d86e40427cebd1306ac.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/libs/aws-android-sdk-s3-2.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="cabafdaebd650e720a5e2d68bfb0de0b35e5209d">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/aws-android-sdk-s3-2.2.1-0965270e402825a2aebc77438010a6b92f91dc0c.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/classes-9204a91c406cbbad898c02d60e8ebc4bc61aba50.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Downloads/adt-bundle-mac-x86_64-20140702/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-fd593ec8abec247b831efba027176bb4dedc70a9.jar" />
+    </item>
+    <item
+        jar="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/libs/commons-net-3.3.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="cd0d5510908225f76c5fe5a3f1df4fa44866f81e">
+        <dex dex="/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/build/intermediates/pre-dexed/debug/commons-net-3.3-4b42d4f126b65816451ca45bbc2da3c3338c1794.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:state_expanded="true"
+        android:drawable="@drawable/collapsed" />
+    <item
+        android:drawable="@drawable/expanded" />
+
+</selector>
+<!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/drawable/list_view_group_indicator.xml -->
