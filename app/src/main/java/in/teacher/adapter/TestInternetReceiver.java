@@ -17,25 +17,23 @@ public class TestInternetReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("internet", " called");
         this.context = context;
         sharedPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
        // if(NetworkUtils.isNetworkConnected(context)){
-            Log.d("internet", "connected");
             new InternetTask().execute();
        // }
     }
 
-    class InternetTask extends AsyncTask<String, String, String>{
+    class InternetTask extends AsyncTask<Void, Void, Void>{
         boolean connection;
         @Override
-        protected String doInBackground(String... strings) {
+        protected Void doInBackground(Void... params) {
             connection = NetworkUtils.hasInternetAccess();
             return null;
         }
 
-        protected void onPostExecute(String s){
-            super.onPostExecute(s);
+        protected void onPostExecute(Void v){
+            super.onPostExecute(v);
             if(connection) {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putInt("i_failed_status", 0);
