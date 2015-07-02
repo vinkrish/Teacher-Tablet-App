@@ -77,8 +77,7 @@ public class LoginActivity extends BaseActivity {
 
         internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
         int internetBlock = internetPref.getInt("i_failed_status", 0);
-        int ignoreStatus = internetPref.getInt("ignore_status", 1);
-        if(internetBlock == 1 && ignoreStatus == 0){
+        if(internetBlock == 1){
             Intent i = new Intent(this, in.teacher.activity.InternetBlock.class);
             startActivity(i);
         }

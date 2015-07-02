@@ -25,12 +25,12 @@ public class InternetBlock extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internet_block);
-        ignoreText = (LinearLayout)findViewById(R.id.ignore_text);
+        ignoreText = (LinearLayout) findViewById(R.id.ignore_text);
         sharedPref = this.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
 
         Calendar calendar1 = Calendar.getInstance();
         int hour1 = calendar1.get(Calendar.HOUR_OF_DAY);
-        if(hour1>=9 && hour1<=18) {
+        if (hour1 >= 9 && hour1 <= 18) {
             ignoreCount = sharedPref.getInt("ignore_count", 0);
             if (ignoreCount >= 2) {
                 findViewById(R.id.ignore).setVisibility(View.INVISIBLE);
@@ -40,31 +40,19 @@ public class InternetBlock extends BaseActivity {
         }
     }
 
-    public void stepsClicked(View view){
+    public void stepsClicked(View view) {
         ignoreText.setVisibility(view.VISIBLE);
     }
 
-    public void ignoreClicked(View view){
+    public void ignoreClicked(View view) {
         SharedPreferences.Editor editor = sharedPref.edit();
-        Calendar calendar2 = Calendar.getInstance();
-        int hour2 = calendar2.get(Calendar.HOUR_OF_DAY);
-        if(hour2>=9 && hour2<=18){
-            ignoreCount++;
-            editor.putInt("ignore_count", ignoreCount);
-            editor.putInt("ignore_status", 1);
-            editor.apply();
-            Intent intent = new Intent(this, in.teacher.activity.LoginActivity.class);
-            startActivity(intent);
-        }else{
-            editor.putInt("ignore_count", 0);
-            editor.putInt("ignore_status", 1);
-            editor.putInt("i_failed_status", 0);
-            editor.putInt("i_failed_count", 0);
-            editor.apply();
-            Intent intent = new Intent();
-            intent.setClassName("in.teacher.activity", "in.teacher.activity.LoginActivity");
-            startActivity(intent);
-        }
+        ignoreCount++;
+        editor.putInt("ignore_count", ignoreCount);
+        editor.putInt("i_failed_status", 0);
+        editor.putInt("i_failed_count", 0);
+        editor.apply();
+        Intent intent = new Intent(this, in.teacher.activity.LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -79,6 +67,6 @@ public class InternetBlock extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
     }
 }

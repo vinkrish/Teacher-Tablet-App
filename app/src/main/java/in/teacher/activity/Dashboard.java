@@ -243,9 +243,6 @@ public class Dashboard extends BaseActivity {
 			return true;
 
 		case R.id.action_logout:
-            SharedPreferences.Editor editor = internetPref.edit();
-            editor.putInt("ignore_status", 0);
-            editor.apply();
 			Intent intent = new Intent(Dashboard.this, in.teacher.activity.LoginActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);

@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.Calendar;
+
 import in.teacher.util.NetworkUtils;
 
 public class TestInternetReceiver extends BroadcastReceiver {
@@ -18,10 +20,14 @@ public class TestInternetReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-        sharedPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
-       // if(NetworkUtils.isNetworkConnected(context)){
+
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if(hour>=9 && hour<=18) {
+            sharedPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
             new InternetTask().execute();
-       // }
+        }
+
     }
 
     class InternetTask extends AsyncTask<Void, Void, Void>{
