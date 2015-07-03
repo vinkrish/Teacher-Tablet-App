@@ -36,13 +36,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class LoginActivity extends BaseActivity {
-	private int isSync;
 	private Context context;
 	private boolean flag, tvflag, authflag;
 	private int mappedId, sectionId;
-	private String syncTimed, passwordText;
-	private TextView userName,password,timeSync;
-	private SharedPreferences sharedPref, internetPref;
+	private String passwordText;
+	private TextView userName,password;
+	private SharedPreferences sharedPref;
 	private SQLiteDatabase sqliteDatabase;
 	private TextView noWifi;
 
@@ -75,7 +74,7 @@ public class LoginActivity extends BaseActivity {
 		editor.putInt("boot_sync", 0);
 		editor.apply();
 
-        internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
+        SharedPreferences internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
         int internetBlock = internetPref.getInt("i_failed_status", 0);
         if(internetBlock == 1){
             Intent i = new Intent(this, in.teacher.activity.InternetBlock.class);
@@ -96,7 +95,7 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	private void login(){
-		isSync = sharedPref.getInt("is_sync",0);
+		int isSync = sharedPref.getInt("is_sync",0);
 		if(isSync==0){
 			sqliteDatabase = AppGlobal.getSqliteDatabase();
 			ImageView admin = (ImageView)findViewById(R.id.admin);
@@ -113,38 +112,12 @@ public class LoginActivity extends BaseActivity {
 			Log.d("id", android_id);
 			TempDao.updateDeviceId(android_id, sqliteDatabase);
 
-			timeSync = (TextView) findViewById(R.id.syncTime); 
+            TextView timeSync = (TextView) findViewById(R.id.syncTime);
 			userName = (TextView) findViewById(R.id.userName);
 			password = (TextView) findViewById(R.id.password);
-			Button clear = (Button) findViewById(R.id.numclear);
 
 			Temp t = TempDao.selectTemp(sqliteDatabase);
-			syncTimed = t.getSyncTime();
-			timeSync.setText(syncTimed);
-
-			userName.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					if(password.getText().toString().equalsIgnoreCase("|")){
-						password.setText("");
-						password.setHint("Password");
-					}
-					userName.setText("|");
-					tvflag = false;
-				}
-			});
-
-			password.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					if(userName.getText().toString().equalsIgnoreCase("|")){
-						userName.setText("");
-						userName.setHint("Username");
-					}
-					password.setText("|");
-					tvflag = true;
-				}
-			});
+			timeSync.setText(t.getSyncTime());
 
 			int[] buttonIds = {R.id.num1,R.id.num2,R.id.num3,R.id.num4,R.id.num5,R.id.num6,R.id.num7,R.id.num8,R.id.num9,R.id.num0};
 			for(int i=0; i<10; i++){
@@ -200,26 +173,44 @@ public class LoginActivity extends BaseActivity {
 
 				});
 			}
-			clear.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if(tvflag){
-						password.setText("|");
-						if(userName.getText().toString().equalsIgnoreCase("|")){
-							userName.setText("");
-							userName.setHint("Username");
-						}
-					}else{
-						userName.setText("|");
-						if(password.getText().toString().equalsIgnoreCase("|")){
-							password.setText("");
-							password.setHint("Password");
-						}
-					}
-				}
-			});
+            findViewById(R.id.numclear).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (tvflag) {
+                        password.setText("|");
+                        if (userName.getText().toString().equalsIgnoreCase("|")) {
+                            userName.setText("");
+                            userName.setHint("Username");
+                        }
+                    } else {
+                        userName.setText("|");
+                        if (password.getText().toString().equalsIgnoreCase("|")) {
+                            password.setText("");
+                            password.setHint("Password");
+                        }
+                    }
+                }
+            });
 		}
 	}
+
+	public void usernameClicked(View v){
+        if(password.getText().toString().equalsIgnoreCase("|")){
+            password.setText("");
+            password.setHint("Password");
+        }
+        userName.setText("|");
+        tvflag = false;
+    }
+
+    public void passwordClicked(View v){
+        if(userName.getText().toString().equalsIgnoreCase("|")){
+            userName.setText("");
+            userName.setHint("Username");
+        }
+        password.setText("|");
+        tvflag = true;
+    }
 
 	BroadcastReceiver internetReceiver = new BroadcastReceiver() {
 		@Override

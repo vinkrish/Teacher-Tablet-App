@@ -106,7 +106,7 @@ public class MasterAuthentication extends BaseActivity {
 		}
 	}
 	
-	protected void nameClicked(View view){
+	public void nameClicked(View view){
 		if(adminPass.getText().toString().equalsIgnoreCase("|")){
 			adminPass.setText("");
 			adminPass.setHint("Password");
@@ -114,8 +114,8 @@ public class MasterAuthentication extends BaseActivity {
 		adminUser.setText("|");
 		tvflag = false;
 	}
-	
-	protected void passwordClicked(View view){
+
+	public void passwordClicked(View view){
 		if(adminUser.getText().toString().equalsIgnoreCase("|")){
 			adminUser.setText("");
 			adminUser.setHint("Username");
@@ -123,8 +123,8 @@ public class MasterAuthentication extends BaseActivity {
 		adminPass.setText("|");
 		tvflag = true;
 	}
-	
-	protected void clearClicked(View view){
+
+	public void clearClicked(View view){
 		if(tvflag){
 			adminPass.setText("|");
 			if(adminUser.getText().toString().equalsIgnoreCase("|")){

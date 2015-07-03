@@ -1,15 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_micromax"
-    tools:context=".MainActivity" >
+    android:background="@drawable/login_micromax">
 
     <LinearLayout
         android:id="@+id/top_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top" >
+        android:gravity="top">
 
         <TextView
             android:id="@+id/syncTime"
@@ -33,7 +31,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
     </LinearLayout>
-    
+
     <TextView
         android:id="@+id/no_wifi"
         android:layout_width="wrap_content"
@@ -41,8 +39,8 @@
         android:layout_below="@id/top_view"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/ll"
@@ -51,8 +49,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#66FFFFFF"
-        android:orientation="vertical" >
-    </LinearLayout>
+        android:orientation="vertical"></LinearLayout>
 
     <View
         android:id="@+id/viewlayout"
@@ -70,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/login_layout"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/userName"
@@ -79,7 +76,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
             android:background="@drawable/login_field"
+            android:clickable="true"
             android:gravity="center"
+            android:onClick="usernameClicked"
             android:text="@string/username"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
@@ -91,7 +90,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/login_field"
+            android:clickable="true"
             android:gravity="center"
+            android:onClick="passwordClicked"
             android:text="@string/password"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
