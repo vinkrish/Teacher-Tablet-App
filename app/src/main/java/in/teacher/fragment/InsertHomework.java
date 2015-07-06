@@ -49,14 +49,14 @@ import in.teacher.util.ReplaceFragment;
 public class InsertHomework extends Fragment {
     private Context context;
     private Activity act;
-    private int sectionId,teacherId,classId,schoolId, block=0;
+    private int sectionId, teacherId, classId, schoolId, block = 0, noOfHw = 0;
     private long hwId;
-    private String hwDate,rawSubjectIDs,rawHomework;
+    private String hwDate, rawSubjectIDs, rawHomework, prepareSubjectIds, prepareHomeworks;
     private ArrayList<Integer> subjectIdList = new ArrayList<>();
     private ArrayList<String> subjectNameList = new ArrayList<>();
     private List<String> hwMessage;
     private List<Integer> childList1 = new ArrayList<>();
-    private boolean newHw = false;
+    private boolean newHw = false, editingHw;
     private SQLiteDatabase sqliteDatabase;
     private TextView hwTv;
     private ListView lv;
@@ -75,9 +75,9 @@ public class InsertHomework extends Fragment {
         lv = (ListView) view.findViewById(R.id.list);
         HomeworkViewAdapter homeworkViewAdapter = new HomeworkViewAdapter(context, hwList);
         lv.setAdapter(homeworkViewAdapter);
-        hwTv = (TextView)view.findViewById(R.id.hwPleaseTap);
-        Button submit = (Button)view.findViewById(R.id.hwSubmit);
-        Button reset = (Button)view.findViewById(R.id.hwReset);
+        hwTv = (TextView) view.findViewById(R.id.hwPleaseTap);
+        Button submit = (Button) view.findViewById(R.id.hwSubmit);
+        Button reset = (Button) view.findViewById(R.id.hwReset);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +95,7 @@ public class InsertHomework extends Fragment {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!newHw){
+                if (!newHw) {
                     HomeworkDao.deleteHomework(hwId, sqliteDatabase);
                     ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
                 }
@@ -111,20 +111,20 @@ public class InsertHomework extends Fragment {
         hwDate = getToday();
 
         String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-        Button name = (Button)view.findViewById(R.id.classSection);
-        if(teacherName.length()>11){
-            name.setText(teacherName.substring(0, 9)+"...");
-        }else{
+        Button name = (Button) view.findViewById(R.id.classSection);
+        if (teacherName.length() > 11) {
+            name.setText(teacherName.substring(0, 9) + "...");
+        } else {
             name.setText(teacherName);
         }
 
         block = HomeworkDao.isHwPresent(sectionId, getToday(), sqliteDatabase);
         String className = ClasDao.getClassName(classId, sqliteDatabase);
-        String sectionName= SectionDao.getSectionName(sectionId, sqliteDatabase);
+        String sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
 
-        Cursor c = sqliteDatabase.rawQuery("select A.SubjectId, B.SubjectName from subjectteacher A, subjects B where A.SectionId="+sectionId+" and A.SubjectId=B.SubjectId", null);
+        Cursor c = sqliteDatabase.rawQuery("select A.SubjectId, B.SubjectName from subjectteacher A, subjects B where A.SectionId=" + sectionId + " and A.SubjectId=B.SubjectId", null);
         c.moveToFirst();
-        while(!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             subjectIdList.add(c.getInt(c.getColumnIndex("SubjectId")));
             subjectNameList.add(c.getString(c.getColumnIndex("SubjectName")));
             c.moveToNext();
@@ -133,19 +133,19 @@ public class InsertHomework extends Fragment {
         subjectIdList.add(0);
         subjectNameList.add("Extra");
 
-        if(classId==0){
+        if (classId == 0) {
             hwTv.setText("Not a class teacher.");
             lv.setVisibility(View.GONE);
             view.findViewById(R.id.rl).setVisibility(View.GONE);
-        }else{
+        } else {
             StringBuilder hwString = new StringBuilder();
-            hwString.append(className).append("-"+sectionName+"  ").append("Tap on the list to view / assign homework  ").append(getToday());
+            hwString.append(className).append("-" + sectionName + "  ").append("Tap on the list to view / assign homework  ").append(getToday());
             hwTv.setText(hwString);
         }
 
-        Button todayButton = (Button)view.findViewById(R.id.today);
-        Button yesterdayButton = (Button)view.findViewById(R.id.yesterday);
-        Button otherdayButton = (Button)view.findViewById(R.id.otherday);
+        Button todayButton = (Button) view.findViewById(R.id.today);
+        Button yesterdayButton = (Button) view.findViewById(R.id.yesterday);
+        Button otherdayButton = (Button) view.findViewById(R.id.otherday);
 
         todayButton.setActivated(true);
         yesterdayButton.setActivated(false);
@@ -185,7 +185,7 @@ public class InsertHomework extends Fragment {
 
         populateList();
 
-        if(block == 1){
+        if (block == 1) {
             LinearLayout hide = (LinearLayout) view.findViewById(R.id.rl);
             hide.setVisibility(View.GONE);
         }
@@ -193,16 +193,18 @@ public class InsertHomework extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                if(block!=1){
+                if (block != 1) {
+                    editingHw = false;
                     AlertDialog.Builder builder = new AlertDialog.Builder(act);
                     View view2 = act.getLayoutInflater().inflate(R.layout.hw_dialog, null);
-                    TextView hwSub = (TextView)view2.findViewById(R.id.hwtxt);
-                    hwSub.setText(hwList.get(position).getSubject()+" Homework");
-                    final EditText edListChild = (EditText)view2.findViewById(R.id.hwmessage);
+                    TextView hwSub = (TextView) view2.findViewById(R.id.hwtxt);
+                    hwSub.setText(hwList.get(position).getSubject() + " Homework");
+                    final EditText edListChild = (EditText) view2.findViewById(R.id.hwmessage);
                     String s = hwList.get(position).getHomework();
-                    if(s.equals("-")){
+                    if (s.equals("-")) {
                         edListChild.setText("");
-                    }else{
+                    } else {
+                        editingHw = true;
                         edListChild.setText(s);
                     }
                     builder.setView(view2);
@@ -210,36 +212,80 @@ public class InsertHomework extends Fragment {
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if(edListChild.getText().toString().equals("")){
+                            if (edListChild.getText().toString().equals("") && newHw) {
                                 Alert a = new Alert(act);
                                 a.showAlert("Please enter homework");
-                            }else if(newHw){
+                            } else if (newHw && !edListChild.getText().toString().equals("")) {
                                 Homework hw = new Homework();
-                                hw.setClassId(classId+"");
+                                hw.setClassId(classId + "");
                                 hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
                                 hw.setHomework(edListChild.getText().toString());
-                                hw.setSchoolId(schoolId+"");
-                                hw.setSectionId(sectionId+"");
-                                hw.setSubjectIDs(hwList.get(position).getSubjectId()+"");
-                                hw.setTeacherId(teacherId+"");
+                                hw.setSchoolId(schoolId + "");
+                                hw.setSectionId(sectionId + "");
+                                hw.setSubjectIDs(hwList.get(position).getSubjectId() + "");
+                                hw.setTeacherId(teacherId + "");
                                 hw.setHomeworkDate(hwDate);
                                 HomeworkDao.insertHW(hw, sqliteDatabase);
-                                InputMethodManager imm2 = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
                                 ReplaceFragment.replaceNoBackStack(new InsertHomework(), getFragmentManager());
-                            }else{
+                            } else if (editingHw) {
+                                if (noOfHw == 1) {
+                                    if (edListChild.getText().toString().equals("")) {
+                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                    } else {
+                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                        Homework hw = new Homework();
+                                        hw.setClassId(classId + "");
+                                        hw.setHomework(edListChild.getText().toString());
+                                        hw.setSchoolId(schoolId + "");
+                                        hw.setSectionId(sectionId + "");
+                                        hw.setSubjectIDs(childList1.get(position) + "");
+                                        hw.setTeacherId(teacherId + "");
+                                        hw.setHomeworkDate(hwDate);
+                                        HomeworkDao.insertHW(hw, sqliteDatabase);
+                                    }
+                                } else {
+                                    if (edListChild.getText().toString().equals("")) {
+                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                        prepareHomework(position);
+                                        Homework hw = new Homework();
+                                        hw.setClassId(classId + "");
+                                        hw.setHomework(prepareHomeworks);
+                                        hw.setSchoolId(schoolId + "");
+                                        hw.setSectionId(sectionId + "");
+                                        hw.setSubjectIDs(prepareSubjectIds);
+                                        hw.setTeacherId(teacherId + "");
+                                        hw.setHomeworkDate(hwDate);
+                                        HomeworkDao.insertHW(hw, sqliteDatabase);
+                                    } else {
+                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                        prepareUpdateHomework(position, edListChild.getText().toString());
+                                        Homework hw = new Homework();
+                                        hw.setClassId(classId + "");
+                                        hw.setHomework(prepareHomeworks);
+                                        hw.setSchoolId(schoolId + "");
+                                        hw.setSectionId(sectionId + "");
+                                        hw.setSubjectIDs(prepareSubjectIds);
+                                        hw.setTeacherId(teacherId + "");
+                                        hw.setHomeworkDate(hwDate);
+                                        HomeworkDao.insertHW(hw, sqliteDatabase);
+                                    }
+                                }
+                                ReplaceFragment.replaceNoBackStack(new InsertHomework(), getFragmentManager());
+                            } else if(!edListChild.getText().toString().equals("")) {
                                 Homework hw = new Homework();
-                                hw.setClassId(classId+"");
+                                hw.setClassId(classId + "");
                                 hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
                                 hw.setHomework(rawHomework + "#" + edListChild.getText().toString());
-                                hw.setSchoolId(schoolId+"");
-                                hw.setSectionId(sectionId+"");
-                                hw.setSubjectIDs(rawSubjectIDs + "," + hwList.get(position).getSubjectId()+"");
-                                hw.setTeacherId(teacherId+"");
+                                hw.setSchoolId(schoolId + "");
+                                hw.setSectionId(sectionId + "");
+                                hw.setSubjectIDs(rawSubjectIDs + "," + hwList.get(position).getSubjectId() + "");
+                                hw.setTeacherId(teacherId + "");
                                 hw.setHomeworkDate(hwDate);
                                 HomeworkDao.deleteHomework(hwId, sqliteDatabase);
                                 HomeworkDao.insertHW(hw, sqliteDatabase);
-                                InputMethodManager imm2 = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
                                 ReplaceFragment.replaceNoBackStack(new InsertHomework(), getFragmentManager());
                             }
@@ -248,7 +294,7 @@ public class InsertHomework extends Fragment {
                     builder.setNegativeButton("Cancel", null);
                     builder.show();
 
-                }else{
+                } else {
                     Alert a = new Alert(act);
                     a.showAlert("Not allowed to edit homework.");
                 }
@@ -258,35 +304,36 @@ public class InsertHomework extends Fragment {
         return view;
     }
 
-    private void populateList(){
+    private void populateList() {
         childList1.clear();
         List<Homework> listHW = HomeworkDao.selectHomework(sectionId, hwDate, sqliteDatabase);
-        if(listHW.size()!=0){
+        if (listHW.size() != 0) {
+            newHw = false;
             extractHomework(listHW);
             loadHomework();
-            if(block!=1){
+            if (block != 1) {
                 loadSubjects();
             }
-        }else{
+        } else {
             newHw = true;
             loadSubjects();
         }
     }
 
-    private void loadSubjects(){
-        for(int i=0; i<subjectIdList.size(); i++){
-            if(!childList1.contains(subjectIdList.get(i))){
+    private void loadSubjects() {
+        for (int i = 0; i < subjectIdList.size(); i++) {
+            if (!childList1.contains(subjectIdList.get(i))) {
                 hwList.add(new HW(subjectIdList.get(i), subjectNameList.get(i), "-"));
             }
         }
     }
 
-    private void loadHomework(){
+    private void loadHomework() {
         hwList.clear();
         int hwLoop = 0;
-        for(Integer childList11 : childList1){
-            for(int loop=0; loop<subjectIdList.size(); loop++){
-                if(childList11.equals(subjectIdList.get(loop))){
+        for (Integer childList11 : childList1) {
+            for (int loop = 0; loop < subjectIdList.size(); loop++) {
+                if (childList11.equals(subjectIdList.get(loop))) {
                     hwList.add(new HW(subjectIdList.get(loop), subjectNameList.get(loop), hwMessage.get(hwLoop)));
                     break;
                 }
@@ -295,14 +342,15 @@ public class InsertHomework extends Fragment {
         }
     }
 
-    public void extractHomework(List<Homework> homeworkList){
+    public void extractHomework(List<Homework> homeworkList) {
         hwMessage = new ArrayList<>();
-        for(Homework hw: homeworkList){
+        for (Homework hw : homeworkList) {
             hwId = hw.getHomeworkId();
             rawSubjectIDs = hw.getSubjectIDs();
             String splitBy = ",";
             String[] id = rawSubjectIDs.split(splitBy);
-            for(String subjectId: id){
+            for (String subjectId : id) {
+                noOfHw += 1;
                 childList1.add(Integer.parseInt(subjectId));
             }
             rawHomework = hw.getHomework();
@@ -310,6 +358,56 @@ public class InsertHomework extends Fragment {
             String[] message = rawHomework.split(splitBy2);
             hwMessage.addAll(Arrays.asList(message));
         }
+    }
+
+    public void prepareHomework(int exclude) {
+        StringBuilder sub = new StringBuilder();
+        int subLoop = 0;
+        for (Integer i : childList1) {
+            if (subLoop != exclude) {
+                sub.append(",").append(i);
+            }
+            subLoop += 1;
+        }
+        prepareSubjectIds = sub.substring(1, sub.length());
+        StringBuilder mes = new StringBuilder();
+        int mesLoop = 0;
+        for (String m : hwMessage) {
+            if (mesLoop != exclude) {
+                mes.append("#").append(m);
+            }
+            mesLoop += 1;
+        }
+        prepareHomeworks = mes.substring(1, mes.length());
+    }
+
+    public void prepareUpdateHomework(int pos, String update) {
+        StringBuilder sub = new StringBuilder();
+        int idLoop = 0;
+        for (Integer i : childList1) {
+            if (idLoop != pos) {
+                sub.append(",").append(i);
+            } else {
+                if (!update.equals("")) {
+                    sub.append(",").append(i);
+                }
+            }
+            idLoop += 1;
+        }
+        prepareSubjectIds = sub.substring(1, sub.length());
+        StringBuilder mes = new StringBuilder();
+        int mesLoop = 0;
+        for (String m : hwMessage) {
+            if (mesLoop != pos) {
+                mes.append("#").append(m);
+            } else {
+                if (!update.equals("")) {
+                    mes.append("#").append(update);
+                }
+            }
+            mesLoop += 1;
+        }
+        prepareHomeworks = mes.substring(1, mes.length());
     }
 
     private String getToday() {
