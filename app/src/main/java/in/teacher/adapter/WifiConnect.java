@@ -13,8 +13,8 @@ public class WifiConnect extends BroadcastReceiver {
 		boolean isNetworkConnected = NetworkUtils.isNetworkConnected(context);
 		context.sendBroadcast(new Intent("WIFI_STATUS"));
 		if(!isNetworkConnected){
-			WifiManager wifiManager1 = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-			wifiManager1.setWifiEnabled(true);
+			WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+			wifiManager.setWifiEnabled(true);
 		}
 	}
 }

@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -47,6 +48,9 @@ public class TestInternetReceiver extends BroadcastReceiver {
                 editor.putInt("ignore_count", 0);
                 editor.apply();
             }else{
+                WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+                wifiManager.setWifiEnabled(false);
+                wifiManager.setWifiEnabled(true);
                 int internetFailedCount = sharedPref.getInt("i_failed_count", 0);
                 if(internetFailedCount>=17){
                     SharedPreferences.Editor editor = sharedPref.edit();

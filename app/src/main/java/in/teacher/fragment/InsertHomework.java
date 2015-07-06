@@ -86,6 +86,7 @@ public class InsertHomework extends Fragment {
                     Alert hwAlert = new Alert(act);
                     hwAlert.showAlert("Homework is not entered.");
                 } else {
+                    ReplaceFragment.clearBackStack(getFragmentManager());
                     ReplaceFragment.replace(new VerifyHomework(), getFragmentManager());
                 }
             }

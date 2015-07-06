@@ -1,6 +1,10 @@
 package in.teacher.activity;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.List;
 
 import in.teacher.adapter.Alert;
@@ -25,6 +29,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings.Secure;
 import android.util.Log;
@@ -34,6 +39,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends BaseActivity {
 	private Context context;
@@ -335,7 +341,7 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	public void onBackPressed(){
-		/*File sd = Environment.getExternalStorageDirectory();
+		File sd = Environment.getExternalStorageDirectory();
 		File data = Environment.getDataDirectory();
 		FileChannel source=null;
 		FileChannel destination=null;
@@ -352,7 +358,7 @@ public class LoginActivity extends BaseActivity {
 			Toast.makeText(this, "DB Exported!", Toast.LENGTH_LONG).show();
 		} catch(IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	@Override
