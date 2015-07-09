@@ -133,7 +133,7 @@
     <string name="crash">Something went wrong, will be rectified soon.</string>
     <string name="syncing">Tab is in sync, please wait.</string>
     <string name="buffer_full">Please do the sync.</string>
-    <string name="version">Version-0.11</string>
+    <string name="version">Version - 1.0</string>
     <string name="search">Search</string>
     <string name="studentname">Student Name</string>
     <string name="attendinfo">Attendance information</string>

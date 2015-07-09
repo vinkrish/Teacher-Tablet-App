@@ -48,11 +48,10 @@ public class TestInternetReceiver extends BroadcastReceiver {
                 editor.putInt("ignore_count", 0);
                 editor.apply();
             }else{
-                WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-                wifiManager.setWifiEnabled(false);
-                wifiManager.setWifiEnabled(true);
                 int internetFailedCount = sharedPref.getInt("i_failed_count", 0);
                 if(internetFailedCount>=17){
+                    WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+                    wifiManager.setWifiEnabled(true);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putInt("i_failed_status", 1);
                     editor.apply();
@@ -71,6 +70,6 @@ public class TestInternetReceiver extends BroadcastReceiver {
         AlarmManager am =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, TestInternetReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 1, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 5, pi);
     }
 }

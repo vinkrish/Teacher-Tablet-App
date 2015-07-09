@@ -150,8 +150,12 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 					}finally{
 						input.close();
 					}
-					sqliteDatabase.execSQL("update downloadedfile set processed=1 where filename='"+f+"'");
-					file.delete();
+                    try{
+                        sqliteDatabase.execSQL("update downloadedfile set processed=1 where filename='"+f+"'");
+                        file.delete();
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
 				}
 			}catch(IOException e){
 				e.printStackTrace();
