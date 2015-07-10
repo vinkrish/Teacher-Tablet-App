@@ -51,7 +51,7 @@ public class TestInternetReceiver extends BroadcastReceiver {
                 int internetFailedCount = sharedPref.getInt("i_failed_count", 0);
                 if(internetFailedCount>=17){
                     WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-                    wifiManager.setWifiEnabled(true);
+                    wifiManager.setWifiEnabled(false);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putInt("i_failed_status", 1);
                     editor.apply();
