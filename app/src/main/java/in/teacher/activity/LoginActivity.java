@@ -217,13 +217,18 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void syncClicked(View v){
-        SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("manual_sync", 1);
-        editor.putInt("is_sync", 1);
-        editor.apply();
-        Intent intent = new Intent(this, ProcessFiles.class);
-        startActivity(intent);
+        if(NetworkUtils.isNetworkConnected(context)){
+            SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putInt("manual_sync", 1);
+            editor.putInt("is_sync", 1);
+            editor.apply();
+            Intent intent = new Intent(this, ProcessFiles.class);
+            startActivity(intent);
+        }else{
+            Alert a = new Alert(this);
+            a.showAlert("Please be in wifi zone or check the status of wifi if this button remains red");
+        }
     }
 
     public void usernameClicked(View v) {
