@@ -44,7 +44,7 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 	private SQLiteDatabase sqliteDatabase;
 	private JSONObject jsonReceived;
 	private String deviceId, zipFile;
-	private int schoolId;
+	private int schoolId, manualSync;
 
 	public IntermediateDownloadTask(Context context, String fileName){
 		this.context = context;
@@ -104,13 +104,18 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 	protected void onPostExecute(String s){
 		super.onPostExecute(s);
 		SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+		manualSync = sharedPref.getInt("manual_sync", 0);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		/*PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
 		boolean isScreen = pm.isScreenOn();*/
 		KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 		boolean screenLocked = km.inKeyguardRestrictedInputMode();
 
-		if(screenLocked){
+		if (manualSync == 1) {
+			Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			context.startActivity(intent);
+		} else if(screenLocked) {
 			/*KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE); 
 			final KeyguardManager.KeyguardLock kl = km .newKeyguardLock("MyKeyguardLock"); 
 			try{

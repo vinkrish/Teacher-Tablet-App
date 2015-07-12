@@ -80,11 +80,6 @@
         <activity android:name="in.teacher.activity.BaseActivity" >
         </activity>
 
-        <receiver android:name="in.teacher.adapter.WifiConnect" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
         <receiver android:name="in.teacher.adapter.BootSync" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

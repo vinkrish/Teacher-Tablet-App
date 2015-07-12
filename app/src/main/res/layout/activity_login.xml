@@ -15,8 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="left"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
+            android:padding="10dp"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -25,11 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="right"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
+            android:padding="10dp"
             android:text="@string/version"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
 
     <TextView
@@ -42,14 +40,25 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/sync_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_view"
+        android:layout_alignParentRight="true"
+        android:onClick="syncClicked"
+        android:padding="10dp"
+        android:text="@string/syncme"
+        android:textColor="@color/white"/>
+
+    <View
         android:id="@+id/ll"
         android:layout_width="400dp"
         android:layout_height="395dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#66FFFFFF"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical"></View>
 
     <View
         android:id="@+id/viewlayout"

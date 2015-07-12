@@ -119,6 +119,7 @@
     <string name="nine">9</string>
     <string name="decimal">.</string>
     <string name="minus">-1</string>
+    <string name="syncme">sync the data</string>
     <string name="title_activity_alarm_activiity">AlarmActiviity</string>
     <string name="title_activity_master__auth">Master_Auth</string>
     <string name="adminLogin">Admin Login</string>

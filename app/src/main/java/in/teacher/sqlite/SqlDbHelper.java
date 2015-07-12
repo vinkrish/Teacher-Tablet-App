@@ -182,7 +182,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
 		sqliteDatabase.delete("exmavg", null, null);
 		sqliteDatabase.delete("stavg", null, null);
 		sqliteDatabase.delete("tempattendance", null, null);
-		sqliteDatabase.delete("uploadsql", null, null);
 		sqliteDatabase.delete("downloadedfile", null, null);
 		sqliteDatabase.delete("avgtrack", null, null);
 		sqliteDatabase.delete("activity", null, null);

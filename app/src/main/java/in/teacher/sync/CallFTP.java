@@ -38,7 +38,7 @@ public class CallFTP implements StringConstant{
 	private SqlDbHelper sqlHandler;
 	private SQLiteDatabase sqliteDatabase;
 	private Context appContext;
-	private int schoolId, block, batteryLevel;
+	private int schoolId, block, batteryLevel, manualSync;
 	private String deviceId, zipFile;
 	private IntentFilter ifilter;
 	private Intent batteryStatus;
@@ -144,6 +144,7 @@ public class CallFTP implements StringConstant{
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
 			SharedPreferences sharedPref = appContext.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+            manualSync = sharedPref.getInt("manual_sync", 0);
 			SharedPreferences.Editor editor = sharedPref.edit();
 			KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
 			boolean screenLocked = km.inKeyguardRestrictedInputMode();
@@ -152,7 +153,11 @@ public class CallFTP implements StringConstant{
 			}else if(block==2){
 				editor.putInt("tablet_lock", 2);
 				editor.apply();
-			}else if(screenLocked){
+			}else if(manualSync == 1){
+				Intent intent = new Intent(appContext, in.teacher.activity.LoginActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				appContext.startActivity(intent);
+			} else if(screenLocked){
 				Intent i = new Intent(appContext, in.teacher.activity.ProcessFiles.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				appContext.startActivity(i);
@@ -224,16 +229,13 @@ public class CallFTP implements StringConstant{
 		}
 
 		@Override
-		public void abort() {
-		}
+		public void abort() {}
 
 		@Override
-		public void pause() {
-		}
+		public void pause() {}
 
 		@Override
-		public void resume() {			
-		}
+		public void resume() {}
 	}
 
 }

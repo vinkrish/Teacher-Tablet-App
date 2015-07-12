@@ -11,6 +11,8 @@ import in.teacher.dao.SubActivityDao;
 import in.teacher.dao.TempDao;
 import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Temp;
+import in.teacher.sync.CallFTP;
+import in.teacher.sync.FirstTimeSync;
 import in.teacher.sync.StringConstant;
 import in.teacher.sync.UploadSyncParser;
 import in.teacher.util.AppGlobal;
@@ -50,19 +52,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class ProcessFiles extends BaseActivity implements StringConstant {
+    private Context context;
 	private ProgressBar progressBar;
 	private TextView txtPercentage, txtSync;
 	private SQLiteDatabase sqliteDatabase;
-	private int schoolId;
+	private int schoolId, manualSync;
 	private String deviceId;
 	private boolean isException = false;
+    private boolean isFirstTimeSync = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_process_files);
 
-		//  getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -71,6 +74,11 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 		/*PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 			wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock");
 			wakeLock.acquire();*/
+
+        context = AppGlobal.getContext();
+
+        SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+        manualSync = pref.getInt("manual_sync", 0);
 
 		txtPercentage = (TextView) findViewById(R.id.txtPercentage);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -96,6 +104,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 			Temp t = TempDao.selectTemp(sqliteDatabase);
 			schoolId = t.getSchoolId();
 			deviceId = t.getDeviceId();
+
+            isFirstTimeSync = false;
 
 			publishProgress(40+"",40+"","creating file to be uploaded");
 			createUploadFile();
@@ -159,6 +169,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 				}
 			}catch(IOException e){
 				e.printStackTrace();
+                isFirstTimeSync = true;
 			}
 			Log.d("process_file_res", "...");
 
@@ -173,24 +184,26 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 			}
 			c4.close();
 
-			Log.d("ack_file_req", "...");
-			if(sb.length()>3){
-				try{
-					JSONObject jsonObject = new JSONObject();
-					jsonObject.put("school", schoolId);
-					jsonObject.put("tab_id", deviceId);
-					jsonObject.put("file_name", "'"+sb.substring(0, sb.length()-3)+"'");
-					jsonReceived = UploadSyncParser.makePostRequest(update_processed_file, jsonObject);
-					if(jsonReceived.getInt(TAG_SUCCESS)==1){
-						sqliteDatabase.execSQL("update downloadedfile set isack=1 where processed=1 and filename in ('"+sb.substring(0, sb.length()-3)+"')");
+			if(!isFirstTimeSync) {
+				Log.d("ack_file_req", "...");
+				if (sb.length() > 3) {
+					try {
+						JSONObject jsonObject = new JSONObject();
+						jsonObject.put("school", schoolId);
+						jsonObject.put("tab_id", deviceId);
+						jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
+						jsonReceived = UploadSyncParser.makePostRequest(update_processed_file, jsonObject);
+						if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
+							sqliteDatabase.execSQL("update downloadedfile set isack=1 where processed=1 and filename in ('" + sb.substring(0, sb.length() - 3) + "')");
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-				}catch(JSONException e){
-					e.printStackTrace();
-				}catch(IOException e){
-					e.printStackTrace();
 				}
+				Log.d("ack_file_res", "...");
 			}
-			Log.d("ack_file_res", "...");
 
 			publishProgress("0",0+"","calculating average");
 
@@ -368,16 +381,22 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
 			SharedPreferences sharedPref = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sharedPref.edit();
-			//	editor.putInt("tablet_lock", 0);
 			editor.putInt("is_sync", 0);
 			editor.putInt("sleep_sync", 0);
 			editor.apply();
 
-			if(isException){
+			if (isException) {
 				Intent intent = new Intent(ProcessFiles.this, in.teacher.activity.LockActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
-			}else{
+			} else if (isFirstTimeSync){
+                editor.putInt("first_sync", 1);
+                editor.apply();
+                Log.d("reset", sharedPref.getInt("first_sync", 0)+"");
+                new FirstTimeSync().callFirstTimeSync();
+            } else if(manualSync==1) {
+                new CallFTP().syncFTP();
+            } else {
 				Intent intent = new Intent(ProcessFiles.this, in.teacher.activity.LoginActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
