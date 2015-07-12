@@ -11,6 +11,7 @@ import in.teacher.adapter.Alert;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
+import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Section;
 import in.teacher.sqlite.Teacher;
 import in.teacher.sqlite.Temp;
@@ -25,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -59,6 +61,7 @@ public class LoginActivity extends BaseActivity {
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
         context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
 
         registerReceiver(broadcastReceiver, new IntentFilter("WIFI_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("I_FAILED_ME"));
@@ -98,12 +101,25 @@ public class LoginActivity extends BaseActivity {
             startActivity(i);
         }
 
+        alertSync();
+
+    }
+
+    private void alertSync(){
+        boolean isFile = false;
+        Cursor c = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
+        if(c.getCount()>0){
+            isFile = true;
+        }
+        c.close();
+        if(UploadSqlDao.isUploadSql(sqliteDatabase) || isFile){
+            findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.red));
+        }
     }
 
     private void login() {
         int isSync = sharedPref.getInt("is_sync", 0);
         if (isSync == 0) {
-            sqliteDatabase = AppGlobal.getSqliteDatabase();
             ImageView admin = (ImageView) findViewById(R.id.admin);
             admin.setOnClickListener(new View.OnClickListener() {
                 @Override

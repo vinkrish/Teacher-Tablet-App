@@ -112,6 +112,8 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 		boolean screenLocked = km.inKeyguardRestrictedInputMode();
 
 		if (manualSync == 1) {
+            editor.putInt("manual_sync", 0);
+            editor.apply();
 			Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			context.startActivity(intent);

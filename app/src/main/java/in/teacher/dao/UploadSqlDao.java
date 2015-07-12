@@ -15,7 +15,7 @@ public class UploadSqlDao {
 	
 	public static List<UploadSql> selectUploadSql(SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery("select * from uploadsql", null);
-		List<UploadSql> upList = new ArrayList<UploadSql>();
+		List<UploadSql> upList = new ArrayList<>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			UploadSql up = new UploadSql();
@@ -26,6 +26,17 @@ public class UploadSqlDao {
 		c.close();
 		return upList;
 	}
+
+	public static boolean isUploadSql(SQLiteDatabase sqliteDatabase){
+        Cursor c = sqliteDatabase.rawQuery("select * from uploadsql", null);
+        if(c.getCount()>0){
+            c.close();
+            return true;
+        }else {
+            c.close();
+            return false;
+        }
+    }
 	
 	public static void insertStudentAttendance(StudentAttendance sa, int sectionId, String date, SQLiteDatabase sqliteDatabase){
 		String sql = "insert into studentattendance(SchoolId, ClassId, SectionId, StudentId, DateAttendance, TypeOfLeave) values("+
