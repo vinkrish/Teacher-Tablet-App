@@ -28,6 +28,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -46,12 +47,13 @@ import android.widget.Toast;
 public class LoginActivity extends BaseActivity {
     private Context context;
     private boolean flag, tvflag, authflag;
-    private int mappedId, sectionId;
+    private int mappedId, sectionId, internetStatus;
     private String passwordText;
     private TextView userName, password;
     private SharedPreferences sharedPref;
     private SQLiteDatabase sqliteDatabase;
     private TextView noWifi;
+    private SharedPreferences internetPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,7 @@ public class LoginActivity extends BaseActivity {
         editor.putInt("boot_sync", 0);
         editor.apply();
 
-        SharedPreferences internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
+        internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
         int internetBlock = internetPref.getInt("i_failed_status", 0);
         if (internetBlock == 1) {
             Intent i = new Intent(this, in.teacher.activity.InternetBlock.class);
@@ -107,13 +109,18 @@ public class LoginActivity extends BaseActivity {
 
     private void alertSync(){
         boolean isFile = false;
+        internetStatus = internetPref.getInt("i_failed_count", 0);
+        Log.d("internetFailedCount", internetStatus+"");
         Cursor c = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
         if(c.getCount()>0){
             isFile = true;
         }
         c.close();
-        if(UploadSqlDao.isUploadSql(sqliteDatabase) || isFile){
+        if((UploadSqlDao.isUploadSql(sqliteDatabase) || isFile) && internetStatus!=0){
             findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.red));
+        }else{
+            findViewById(R.id.sync_me).setBackgroundResource(android.R.drawable.btn_default);
+           // findViewById(R.id.sync_me).setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
@@ -227,7 +234,7 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
         }else{
             Alert a = new Alert(this);
-            a.showAlert("Please be in wifi zone or check the status of wifi if this button remains red");
+            a.showAlert("Please be in WiFi zone or check the status of WiFi.");
         }
     }
 
@@ -353,9 +360,9 @@ public class LoginActivity extends BaseActivity {
             }
         }
 
-        Intent intentt = new Intent(this, in.teacher.activity.Dashboard.class);
-        intentt.putExtra("sectionid", String.valueOf(sectionId));
-        startActivity(intentt);
+        Intent intent = new Intent(this, in.teacher.activity.Dashboard.class);
+        intent.putExtra("sectionid", String.valueOf(sectionId));
+        startActivity(intent);
         AnimationUtils.activityEnterVertical(LoginActivity.this);
     }
 
@@ -424,6 +431,7 @@ public class LoginActivity extends BaseActivity {
         updateWifiStatus();
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("INTERNET_STATUS"));
+        alertSync();
         super.onResume();
     }
 

@@ -58,8 +58,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 	private SQLiteDatabase sqliteDatabase;
 	private int schoolId, manualSync;
 	private String deviceId;
-	private boolean isException = false;
-    private boolean isFirstTimeSync = false;
+	private boolean isException = false, isFirstTimeSync = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -395,7 +394,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                 editor.putInt("manual_sync", 0);
                 editor.putInt("first_sync", 1);
                 editor.apply();
-                Log.d("reset", sharedPref.getInt("first_sync", 0)+"");
                 new FirstTimeSync().callFirstTimeSync();
             } else if(manualSync==1) {
                 new CallFTP().syncFTP();

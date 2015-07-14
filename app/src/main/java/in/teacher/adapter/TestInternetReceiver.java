@@ -28,7 +28,6 @@ public class TestInternetReceiver extends BroadcastReceiver {
             sharedPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
             new InternetTask().execute();
         }
-
     }
 
     class InternetTask extends AsyncTask<Void, Void, Void>{
