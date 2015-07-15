@@ -195,7 +195,7 @@ public class InsertCCEStudentProfile extends Fragment {
 				public void onClick(DialogInterface dialog, int which) {
 					if(!edListChild.getText().toString().equals("")){
 						Profile prof = new Profile(studentsArray.get(position).getStudentId(),studentsArray.get(position).getRollNoInClass()+"", studentsArray.get(position).getName(), 
-								edListChild.getText().toString(), profileList.get(position).getWeight(), profileList.get(position).getDaysAttended());
+								edListChild.getText().toString().replaceAll("\n", " "), profileList.get(position).getWeight(), profileList.get(position).getDaysAttended());
 						profileList.set(position, prof);
 						profileAdapter.notifyDataSetChanged();
 					}
@@ -227,7 +227,7 @@ public class InsertCCEStudentProfile extends Fragment {
 				public void onClick(DialogInterface dialog, int which) {
 					if(!edListChild.getText().toString().equals("")){
 						Profile prof = new Profile(studentsArray.get(position).getStudentId(),studentsArray.get(position).getRollNoInClass()+"", studentsArray.get(position).getName(), 
-								profileList.get(position).getHeight(), edListChild.getText().toString(), profileList.get(position).getDaysAttended());
+								profileList.get(position).getHeight(), edListChild.getText().toString().replaceAll("\n"," "), profileList.get(position).getDaysAttended());
 						profileList.set(position, prof);
 						profileAdapter.notifyDataSetChanged();
 					}
@@ -262,7 +262,7 @@ public class InsertCCEStudentProfile extends Fragment {
 				public void onClick(DialogInterface dialog, int which) {
 					if(!edListChild.getText().toString().equals("")){
 						Profile prof = new Profile(studentsArray.get(position).getStudentId(),studentsArray.get(position).getRollNoInClass()+"", studentsArray.get(position).getName(), 
-								profileList.get(position).getHeight(), profileList.get(position).getWeight(), edListChild.getText().toString());
+								profileList.get(position).getHeight(), profileList.get(position).getWeight(), edListChild.getText().toString().replaceAll("\n"," "));
 						profileList.set(position, prof);
 						profileAdapter.notifyDataSetChanged();
 					}

@@ -123,7 +123,7 @@ public class InsertCoSchGrade extends Fragment {
 					ccsg.setAspectId(AspectId);
 					CoSch coSch = coSchList.get(subLoop);
 					ccsg.setGrade(map.get(inGradList.get(subLoop)));
-					ccsg.setDescription(coSch.getRemark().replaceAll("['\"]", " "));
+					ccsg.setDescription(coSch.getRemark().replaceAll("['\"]", " ").replaceAll("\n", "-"));
 					subLoop+=1;
 					cceCoSchGrade.add(ccsg);
 				}

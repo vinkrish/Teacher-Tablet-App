@@ -37,7 +37,7 @@
         android:layout_below="@id/top_view"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/red"
         android:textSize="18sp" />
 
     <Button
