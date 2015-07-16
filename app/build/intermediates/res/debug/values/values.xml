@@ -29,6 +29,7 @@
     <color name="drawer_list_background">#17171A</color>
     <color name="grade_normal">#EAF0E9</color>
     <color name="grade_pressed">#5FB01C</color>
+    <color name="gray_light">#C0C0C0</color>
     <color name="green">#41AB15</color>
     <color name="homework_background">#DFE0DC</color>
     <color name="layout_black">#232422</color>
@@ -153,6 +154,7 @@
     <string name="noatt">Attendance is not taken for this day.</string>
     <string name="nohomework">Homework is not assigned for this day.</string>
     <string name="noofdays">Days Present</string>
+    <string name="ok">OK</string>
     <string name="one">1</string>
     <string name="otherday">Otherday</string>
     <string name="password">Password</string>
@@ -242,6 +244,17 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <!--item name="android:homeAsUpIndicator">@drawable/ic_drawer</item-->
     </style>
+    <!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogSlideAnimation</item>
+    </style>
+    <style name="DialogSlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_bottom_middle</item>
+        <item name="android:windowExitAnimation">@anim/slide_middle_bottom</item>
+    </style>
+    <!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/values/themes.xml -->
+    <eat-comment/>
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_bg</item>
     </style>

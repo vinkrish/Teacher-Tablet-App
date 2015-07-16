@@ -187,4 +187,6 @@
     <string name="internet_steps_6">Select Reboot</string>
     <string name="internet_steps_7">Select OK</string>
 
+    <string name="ok">OK</string>
+
 </resources>

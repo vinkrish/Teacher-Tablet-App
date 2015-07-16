@@ -13,6 +13,7 @@ import in.teacher.model.HW;
 import in.teacher.sqlite.Homework;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +50,6 @@ public class HomeworkView extends Fragment {
 	private SQLiteDatabase sqliteDatabase;
 	private int sectionId,teacherId,classId;
 	private String teacherName,className,sectionName;
-	private Button otherdayButton;
 	private String otherdate,hwDate;
 	private boolean otherdayFlag;
 	private ArrayList<Integer> subjectIdList = new ArrayList<>();
@@ -60,7 +60,8 @@ public class HomeworkView extends Fragment {
 	private TextView hwTv;
 	private ListView lv;
 	private ArrayList<HW> hwList = new ArrayList<>();
-	private HomeworkViewAdapter homeworkViewAdapter; 
+	private HomeworkViewAdapter homeworkViewAdapter;
+	private Button todayButton, yesterdayButton, otherdayButton;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,8 +105,8 @@ public class HomeworkView extends Fragment {
 
 		hwTv = (TextView)view.findViewById(R.id.hwPleaseTap);
 
-		final Button todayButton = (Button)view.findViewById(R.id.today);
-		final Button yesterdayButton = (Button)view.findViewById(R.id.yesterday);
+		todayButton = (Button)view.findViewById(R.id.today);
+		yesterdayButton = (Button)view.findViewById(R.id.yesterday);
 		otherdayButton = (Button)view.findViewById(R.id.otherday);
 
 		todayButton.setOnClickListener(new View.OnClickListener() {
@@ -115,37 +116,8 @@ public class HomeworkView extends Fragment {
 			}
 		});
 
-		yesterdayButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				todayButton.setActivated(false);
-				yesterdayButton.setActivated(true);
-				otherdayButton.setActivated(false);
-				hwDate = getYesterday();
-				updateSubHeader();
-				prepareListData();
-				homeworkViewAdapter.notifyDataSetChanged();
-				showAlertDuplicate();
-			}
-		});
-
-		otherdayButton.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View arg0) {
-				todayButton.setActivated(false);
-				yesterdayButton.setActivated(false);
-				otherdayButton.setActivated(true);
-				if(otherdayFlag){
-					otherdayFlag = false;
-					prepareListData();					
-					homeworkViewAdapter.notifyDataSetChanged();					
-					showAlertDuplicate();
-				}else{
-					DialogFragment newFragment = new DatePickerFragment();
-					newFragment.show(getFragmentManager(), "datePicker");
-				}
-			}
-		});
+		yesterdayButton.setOnClickListener(yesterdayHomework);
+		otherdayButton.setOnClickListener(otherdayHomework);
 		
 		int yesterday = b.getInt("yesterday");
 		int otherday = b.getInt("otherday");
@@ -157,6 +129,38 @@ public class HomeworkView extends Fragment {
 		
 		return view;
 	}
+
+	private View.OnClickListener yesterdayHomework = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			todayButton.setActivated(false);
+			yesterdayButton.setActivated(true);
+			otherdayButton.setActivated(false);
+			hwDate = getYesterday();
+			updateSubHeader();
+			prepareListData();
+			homeworkViewAdapter.notifyDataSetChanged();
+			showAlertDuplicate();
+		}
+	};
+
+	private View.OnClickListener otherdayHomework = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			todayButton.setActivated(false);
+			yesterdayButton.setActivated(false);
+			otherdayButton.setActivated(true);
+			if(otherdayFlag){
+				otherdayFlag = false;
+				prepareListData();
+				homeworkViewAdapter.notifyDataSetChanged();
+				showAlertDuplicate();
+			}else{
+				DialogFragment newFragment = new DatePickerFragment();
+				newFragment.show(getFragmentManager(), "datePicker");
+			}
+		}
+	};
 
 	private void updateSubHeader(){
 		if(classId==0){
@@ -274,7 +278,8 @@ public class HomeworkView extends Fragment {
 				Date d = cal.getTime();
 				Alert alert = new Alert(act);
 				if(GregorianCalendar.getInstance().get(Calendar.YEAR)<cal.get(Calendar.YEAR)){
-					alert.showAlert("Selected future date !");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected Future Date!");
+				//	alert.showAlert("Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.MONTH)<cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
 					alert.showAlert("Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH)<cal.get(Calendar.DAY_OF_MONTH) && 

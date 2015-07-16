@@ -91,31 +91,7 @@ public class Dashbord extends Fragment implements AnimationListener{
 			frameFlag[i] = false;
 		}
 
-		Button attendance = (Button)view.findViewById(R.id.attendanceButton);
-		attendance.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				boolean flag = false;
-				int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
-				if(marked==1){
-					flag = true;
-				}
-				Bundle b = new Bundle();
-				b.putInt("today", 1);
-				b.putInt("yesterday", 0);
-				b.putInt("otherday", 0);
-				if(flag){
-					Fragment fragment = new AbsentList();
-					fragment.setArguments(b);
-					getFragmentManager()
-					.beginTransaction()
-					.setCustomAnimations(animator.fade_in,animator.fade_out)
-					.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-				}else{
-					ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
-				}
-			}
-		});
+		view.findViewById(R.id.attendanceButton).setOnClickListener(enterAttendance);
 
 		cA = new CircleAdapter(context, R.layout.circle_grid, circleArrayGrid);
 		gridView.setAdapter(cA);
@@ -136,6 +112,31 @@ public class Dashbord extends Fragment implements AnimationListener{
 
 		return view;
 	}
+
+	private OnClickListener enterAttendance = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            boolean flag = false;
+            int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
+            if(marked==1){
+                flag = true;
+            }
+            Bundle b = new Bundle();
+            b.putInt("today", 1);
+            b.putInt("yesterday", 0);
+            b.putInt("otherday", 0);
+            if(flag){
+                Fragment fragment = new AbsentList();
+                fragment.setArguments(b);
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(animator.fade_in,animator.fade_out)
+                        .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+            }else{
+                ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
+            }
+        }
+    };
 
 	public void callUpdateTemp(int pos){
 		Temp t = new Temp();

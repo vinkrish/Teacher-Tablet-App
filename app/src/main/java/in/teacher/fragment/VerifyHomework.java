@@ -44,14 +44,11 @@ import android.widget.Toast;
 @SuppressLint("InflateParams")
 public class VerifyHomework extends Fragment {
 	private Context context;
-	private static Activity act;
 	private int sectionId;
-	private List<String> listDataHeader1,hwMessage;
-	private HashMap<String, List<String>> listDataChild1;
+	private List<String> hwMessage;
 	private List<Integer> childList1 = new ArrayList<>();
 	private ArrayList<Integer> subjectIdList = new ArrayList<>();
 	private ArrayList<String> subjectNameList = new ArrayList<>();
-	private ArrayList<String> subNameList1 = new ArrayList<>();
 	private static String hwDate;
 	private SQLiteDatabase sqliteDatabase;
 	private Homework homework;
@@ -66,7 +63,6 @@ public class VerifyHomework extends Fragment {
 		View view = inflater.inflate(R.layout.verify_homework, container, false);
 		context = AppGlobal.getContext();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
-		act = AppGlobal.getActivity();
 		hwDate = getToday();
 		homework = new Homework();
 

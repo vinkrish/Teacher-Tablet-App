@@ -28,8 +28,8 @@ public class ViewQueue extends Fragment {
 	private Context context;
 	private SQLiteDatabase sqliteDatabase;
 	private ListView lv;
-	private ArrayList<UploadSql> queueList = new ArrayList<UploadSql>();
-	private List<UploadSql> uploadSqlList  = new ArrayList<UploadSql>();
+	private ArrayList<UploadSql> queueList = new ArrayList<>();
+	private List<UploadSql> uploadSqlList  = new ArrayList<>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
