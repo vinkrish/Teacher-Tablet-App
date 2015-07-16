@@ -76,79 +76,40 @@ public class VerifyAttendance extends Fragment {
 			name.setText(teacherName);
 		}
 
-		Button submit = (Button) view.findViewById(R.id.submit);
-		Button back = (Button) view.findViewById(R.id.back);
-
 		studentsArray = StudentAttendanceDao.selectTempAttendance(sqliteDatabase);
 		Collections.sort(studentsArray, new StudentsSort());
 
 		populateGridArray();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				Boolean b = studentAttend.get(position);
-				if(!b){
-					ImageView iV = ((RecordHolder)view.getTag()).imageAttend;
-					iV.setImageResource(R.drawable.cross);
-					studentAttend.set(position, true);
-				}
-				if(b){
-					ImageView iV = ((RecordHolder)view.getTag()).imageAttend;
-					iV.setImageResource(R.drawable.tick);
-					studentAttend.set(position, false);
-				}
-				index = gridView.getFirstVisiblePosition();
-				repopulateGridArray();
-			}
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Boolean b = studentAttend.get(position);
+                if (!b) {
+                    ImageView iV = ((RecordHolder) view.getTag()).imageAttend;
+                    iV.setImageResource(R.drawable.cross);
+                    studentAttend.set(position, true);
+                }
+                if (b) {
+                    ImageView iV = ((RecordHolder) view.getTag()).imageAttend;
+                    iV.setImageResource(R.drawable.tick);
+                    studentAttend.set(position, false);
+                }
+                index = gridView.getFirstVisiblePosition();
+                repopulateGridArray();
+            }
 
-		});
+        });
 
-		submit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				int pos = 0;
-				String sql = "delete from studentattendance where SectionId="+sectionId+" and DateAttendance='"+getToday()+"'"; 
-				sqliteDatabase.execSQL(sql);
-				ContentValues cv = new ContentValues();
-				cv.put("Query", sql);
-				sqliteDatabase.insert("uploadsql", null, cv);
-				for(Students s : studentsArray){
-					if(studentAttend.get(pos)){
-						StudentAttendance sa = new StudentAttendance();
-						sa.setSchoolId(schoolId);						
-						sa.setClassId(s.getClassId());
-						sa.setSectionId(s.getSectionId());
-						sa.setStudentId(s.getStudentId());
-						sa.setTypeOfLeave("A");
-						sa.setDateAttendance(getToday());
-						UploadSqlDao.insertStudentAttendance(sa, s.getSectionId(), getToday(), sqliteDatabase);
-					}
-					pos++;
-				}
-				Toast.makeText(context, "attendance has been updated successfully", Toast.LENGTH_LONG).show();
-				
-				Bundle b = new Bundle();
-				b.putInt("today", 1);
-				b.putInt("yesterday", 0);
-				b.putInt("otherday", 0);
-				
-				Fragment fragment = new AbsentList();
-				fragment.setArguments(b);
-				getFragmentManager()
-				.beginTransaction()
-				.setCustomAnimations(animator.fade_in,animator.fade_out)
-				.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-			}
-		});
+        view.findViewById(R.id.submit).setOnClickListener(submitAttendance);
 
-		back.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				ReplaceFragment.replace(new MarkAttendance(),getFragmentManager());
-			}
-		});
+        view.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
+            }
+        });
 
 		return view;
 	}
@@ -158,6 +119,44 @@ public class VerifyAttendance extends Fragment {
 		studentsArray.clear();
 		studentsArrayGrid.clear();
 	}
+
+	private View.OnClickListener submitAttendance = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			int pos = 0;
+			String sql = "delete from studentattendance where SectionId="+sectionId+" and DateAttendance='"+getToday()+"'";
+			sqliteDatabase.execSQL(sql);
+			ContentValues cv = new ContentValues();
+			cv.put("Query", sql);
+			sqliteDatabase.insert("uploadsql", null, cv);
+			for(Students s : studentsArray){
+				if(studentAttend.get(pos)){
+					StudentAttendance sa = new StudentAttendance();
+					sa.setSchoolId(schoolId);
+					sa.setClassId(s.getClassId());
+					sa.setSectionId(s.getSectionId());
+					sa.setStudentId(s.getStudentId());
+					sa.setTypeOfLeave("A");
+					sa.setDateAttendance(getToday());
+					UploadSqlDao.insertStudentAttendance(sa, s.getSectionId(), getToday(), sqliteDatabase);
+				}
+				pos++;
+			}
+			Toast.makeText(context, "attendance has been updated successfully", Toast.LENGTH_LONG).show();
+
+			Bundle b = new Bundle();
+			b.putInt("today", 1);
+			b.putInt("yesterday", 0);
+			b.putInt("otherday", 0);
+
+			Fragment fragment = new AbsentList();
+			fragment.setArguments(b);
+			getFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(animator.fade_in,animator.fade_out)
+					.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+		}
+	};
 
 	private String getToday() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

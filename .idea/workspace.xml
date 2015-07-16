@@ -27,81 +27,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68048eb-9806-460d-bd90-f4e1b459db9c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter$RecordHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter$RecordHolder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter$SampleView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter$SampleView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$3$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$3$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EditSlipTest.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EditSlipTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EnterSlipTestMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EnterSlipTestMark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HasPartition.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HasPartition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ReplaceFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ReplaceFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityMark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_att.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_att.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_act.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_act.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_exam.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_exam.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_exam_sub.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_exam_sub.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_st.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_st.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_st_sub.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_st_sub.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Teacher.iws" />
@@ -122,7 +50,60 @@
     <favorites_list name="Teacher" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="AbsentList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="293" column="0" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+              <folding>
+                <element signature="e#3836#5191#0" expanded="true" />
+                <element signature="e#5190#5191#0" expanded="true" />
+                <element signature="e#5248#6504#0" expanded="true" />
+                <element signature="e#6503#6504#0" expanded="true" />
+                <element signature="e#6560#8046#0" expanded="true" />
+                <element signature="e#8045#8046#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MarkAttendance.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+              <folding>
+                <element signature="e#3473#4310#0" expanded="true" />
+                <element signature="e#4309#4310#0" expanded="true" />
+                <element signature="e#4700#5770#0" expanded="true" />
+                <element signature="e#5769#5770#0" expanded="true" />
+                <element signature="e#5820#7171#0" expanded="true" />
+                <element signature="e#7170#7171#0" expanded="true" />
+                <element signature="e#7225#7670#0" expanded="true" />
+                <element signature="e#7669#7670#0" expanded="true" />
+                <element signature="e#7723#8168#0" expanded="true" />
+                <element signature="e#8167#8168#0" expanded="true" />
+                <element signature="e#8595#8632#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VerifyAttendance.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7808219">
+              <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
+              <folding>
+                <element signature="e#4205#5481#0" expanded="true" />
+                <element signature="e#5480#5481#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -1459,7 +1440,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/FirstTimeSync.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/InternetBlock.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/MasterAuthentication.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_master_authentication.xml" />
@@ -1478,7 +1458,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/search_se_exam.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/search_se_exam_sub.xml" />
@@ -1509,6 +1488,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java" />
       </list>
     </option>
@@ -1551,6 +1532,80 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1607,61 +1662,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1954,20 +1957,23 @@
       <option name="project" value="LOCAL" />
       <updated>1437038679058</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="removed backbutton completely">
+      <created>1437040575000</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1437040575000</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32856122" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.323219" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42216358" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1980,12 +1986,15 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24982105" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27110156" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27110156" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32856122" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.323219" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2013,7 +2022,8 @@
     <MESSAGE value="new line removed in coscholastic grade and cce student profile." />
     <MESSAGE value="new line removed in update coscholastic grade and cce student profile." />
     <MESSAGE value="search student view is aligned properly and code is refactored." />
-    <option name="LAST_COMMIT_MESSAGE" value="search student view is aligned properly and code is refactored." />
+    <MESSAGE value="removed backbutton completely" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed backbutton completely" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2060,7 +2070,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.69863015">
           <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2068,7 +2077,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.29268292">
           <caret line="13" column="130" selection-start-line="13" selection-start-column="124" selection-end-line="13" selection-end-column="130" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2108,24 +2116,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.7191782">
-          <caret line="232" column="34" selection-start-line="232" selection-start-column="34" selection-end-line="232" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47260273">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding>
-            <element signature="e#6804#7260#0" expanded="false" />
-            <element signature="e#7259#7260#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -2149,7 +2139,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="13.356164">
           <caret line="699" column="67" selection-start-line="699" selection-start-column="67" selection-end-line="699" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2157,7 +2146,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44520548">
           <caret line="278" column="37" selection-start-line="278" selection-start-column="37" selection-end-line="278" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2186,7 +2174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.6643836">
           <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2278,10 +2265,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.8658537">
           <caret line="104" column="45" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="45" />
-          <folding>
-            <element signature="e#3183#3495#0" expanded="true" />
-            <element signature="e#3494#3495#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2289,7 +2272,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2298,17 +2280,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="66" column="30" selection-start-line="66" selection-start-column="30" selection-end-line="66" selection-end-column="30" />
           <folding>
-            <element signature="e#5074#5255#0" expanded="true" />
-            <element signature="e#5254#5255#0" expanded="true" />
+            <element signature="e#5074#5255#0" expanded="false" />
+            <element signature="e#5254#5255#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2317,8 +2291,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="57" selection-start-line="117" selection-start-column="57" selection-end-line="117" selection-end-column="57" />
           <folding>
-            <element signature="e#3530#4045#0" expanded="true" />
-            <element signature="e#4044#4045#0" expanded="true" />
+            <element signature="e#4044#4045#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2327,12 +2300,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2804878">
           <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
-          <folding>
-            <element signature="e#2938#3088#0" expanded="true" />
-            <element signature="e#3087#3088#0" expanded="true" />
-            <element signature="e#3139#3451#0" expanded="true" />
-            <element signature="e#3450#3451#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2340,7 +2307,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="355" column="0" selection-start-line="355" selection-start-column="0" selection-end-line="355" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2348,7 +2314,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="281" column="30" selection-start-line="281" selection-start-column="30" selection-end-line="281" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2356,7 +2321,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="191" column="52" selection-start-line="191" selection-start-column="52" selection-end-line="191" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2364,7 +2328,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="291" column="30" selection-start-line="291" selection-start-column="30" selection-end-line="291" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2372,7 +2335,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="103" column="86" selection-start-line="103" selection-start-column="86" selection-end-line="103" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2380,7 +2342,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="129" column="88" selection-start-line="129" selection-start-column="88" selection-end-line="129" selection-end-column="88" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2388,7 +2349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="188" column="30" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2404,7 +2364,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="288" column="30" selection-start-line="288" selection-start-column="30" selection-end-line="288" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2412,7 +2371,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="350" column="50" selection-start-line="350" selection-start-column="50" selection-end-line="350" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2420,7 +2378,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="301" column="30" selection-start-line="301" selection-start-column="30" selection-end-line="301" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2428,7 +2385,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="120" column="86" selection-start-line="120" selection-start-column="86" selection-end-line="120" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2436,7 +2392,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="119" column="77" selection-start-line="119" selection-start-column="77" selection-end-line="119" selection-end-column="77" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2444,7 +2399,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="201" column="30" selection-start-line="201" selection-start-column="30" selection-end-line="201" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2452,7 +2406,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="276" column="30" selection-start-line="276" selection-start-column="30" selection-end-line="276" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2460,15 +2413,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="308" column="30" selection-start-line="308" selection-start-column="30" selection-end-line="308" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.597938">
-          <caret line="129" column="110" selection-start-line="129" selection-start-column="110" selection-end-line="129" selection-end-column="110" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2477,6 +2421,60 @@
         <state vertical-scroll-proportion="0.0927835">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08219178">
+          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="293" column="0" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+          <folding>
+            <element signature="e#3836#5191#0" expanded="true" />
+            <element signature="e#5190#5191#0" expanded="true" />
+            <element signature="e#5248#6504#0" expanded="true" />
+            <element signature="e#6503#6504#0" expanded="true" />
+            <element signature="e#6560#8046#0" expanded="true" />
+            <element signature="e#8045#8046#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding>
+            <element signature="e#3473#4310#0" expanded="true" />
+            <element signature="e#4309#4310#0" expanded="true" />
+            <element signature="e#4700#5770#0" expanded="true" />
+            <element signature="e#5769#5770#0" expanded="true" />
+            <element signature="e#5820#7171#0" expanded="true" />
+            <element signature="e#7170#7171#0" expanded="true" />
+            <element signature="e#7225#7670#0" expanded="true" />
+            <element signature="e#7669#7670#0" expanded="true" />
+            <element signature="e#7723#8168#0" expanded="true" />
+            <element signature="e#8167#8168#0" expanded="true" />
+            <element signature="e#8595#8632#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7808219">
+          <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
+          <folding>
+            <element signature="e#4205#5481#0" expanded="true" />
+            <element signature="e#5480#5481#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

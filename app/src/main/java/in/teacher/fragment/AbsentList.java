@@ -77,6 +77,10 @@ public class AbsentList extends Fragment {
 		sectionId = t.getSectionId();
 		int teacherId = t.getTeacherId();
 
+        todayButton.setOnClickListener(todayAbsentees);
+        yesterdayButton.setOnClickListener(yesterdayAbsentees);
+        otherdayButton.setOnClickListener(otherdayAbsentees);
+
 		String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 		Button name = (Button)view.findViewById(R.id.classSection);
 		if(teacherName.length()>11){
@@ -94,103 +98,7 @@ public class AbsentList extends Fragment {
 		attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
 		gridView.setAdapter(attendanceAdapter);
 
-		todayButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				noAbsentees.setVisibility(View.GONE);
-				todayButton.setActivated(true);
-				yesterdayButton.setActivated(false);
-				otherdayButton.setActivated(false);
-				studentsArray.clear();
-				boolean flag = false;
-				int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
-				if(marked==1){
-					flag = true;
-				}
-				if(flag){
-					String today = getToday();
-				//	List<Integer> studentIdList = sqlHandler.selectStudentIds(today, sectionId);
-					List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(today, sectionId, sqliteDatabase);
-					if(!studentIdList.isEmpty()){
-						studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
-						Collections.sort(studentsArray, new StudentsSort());
-					}else{
-						noAbsentees.setText("No Absentees");
-						noAbsentees.setVisibility(View.VISIBLE);
-					}
-					populateGridArray();
-				}else{
-					ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
-				}
-			}
-		});
-
-		yesterdayButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				noAbsentees.setVisibility(View.GONE);
-				todayButton.setActivated(false);
-				yesterdayButton.setActivated(true);
-				otherdayButton.setActivated(false);
-				studentsArray.clear();
-				String yesterday = getYesterday();
-
-				boolean flag = false;
-				int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, yesterday, sqliteDatabase);
-				if(marked==1){
-					flag = true;
-				}
-				if(flag){
-					List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(yesterday, sectionId, sqliteDatabase);
-					if(!studentIdList.isEmpty()){
-						studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
-						Collections.sort(studentsArray, new StudentsSort());
-					}else{
-						noAbsentees.setVisibility(View.VISIBLE);
-					}
-				}else{
-					noAbsentees.setText("Attendance is not taken for this day");
-					noAbsentees.setVisibility(View.VISIBLE);
-				}
-				populateGridArray();
-			}
-		});
-
-		otherdayButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				noAbsentees.setVisibility(View.GONE);
-				todayButton.setActivated(false);
-				yesterdayButton.setActivated(false);
-				otherdayButton.setActivated(true);
-				studentsArray.clear();
-				if(absentListFlag){
-					boolean flag = false;
-					int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, otherdate, sqliteDatabase);
-					if(marked==1){
-						flag = true;
-					}
-					if(flag){
-						List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(otherdate, sectionId, sqliteDatabase);
-						if(!studentIdList.isEmpty()){
-							studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
-							Collections.sort(studentsArray, new StudentsSort());
-						}else{
-							noAbsentees.setVisibility(View.VISIBLE);
-						}
-					}else{
-						noAbsentees.setText("Attendance is not taken for this day");
-						noAbsentees.setVisibility(View.VISIBLE);
-					}
-					populateGridArray();
-				}else{
-					DialogFragment newFragment = new DatePickerFragment();
-					newFragment.show(getFragmentManager(), "datePicker");
-				}
-			}
-		});
-
-		Bundle b = getArguments();
+        Bundle b = getArguments();
 		int today = b.getInt("today");
 		int yesterday = b.getInt("yesterday");
 		int otherday = b.getInt("otherday");
@@ -209,6 +117,103 @@ public class AbsentList extends Fragment {
 		studentsArray.clear();
 		studentsArrayGrid.clear();
 	}
+
+    private View.OnClickListener todayAbsentees = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            noAbsentees.setVisibility(View.GONE);
+            todayButton.setActivated(true);
+            yesterdayButton.setActivated(false);
+            otherdayButton.setActivated(false);
+            studentsArray.clear();
+            boolean flag = false;
+            int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
+            if(marked==1){
+                flag = true;
+            }
+            if(flag){
+                String today = getToday();
+                //	List<Integer> studentIdList = sqlHandler.selectStudentIds(today, sectionId);
+                List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(today, sectionId, sqliteDatabase);
+                if(!studentIdList.isEmpty()){
+                    studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
+                    Collections.sort(studentsArray, new StudentsSort());
+                }else{
+                    noAbsentees.setText("No Absentees");
+                    noAbsentees.setVisibility(View.VISIBLE);
+                }
+                populateGridArray();
+            }else{
+                ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
+            }
+        }
+    };
+
+    private View.OnClickListener yesterdayAbsentees = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            noAbsentees.setVisibility(View.GONE);
+            todayButton.setActivated(false);
+            yesterdayButton.setActivated(true);
+            otherdayButton.setActivated(false);
+            studentsArray.clear();
+            String yesterday = getYesterday();
+
+            boolean flag = false;
+            int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, yesterday, sqliteDatabase);
+            if(marked==1){
+                flag = true;
+            }
+            if(flag){
+                List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(yesterday, sectionId, sqliteDatabase);
+                if(!studentIdList.isEmpty()){
+                    studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
+                    Collections.sort(studentsArray, new StudentsSort());
+                }else{
+                    noAbsentees.setVisibility(View.VISIBLE);
+                }
+            }else{
+                noAbsentees.setText("Attendance is not taken for this day");
+                noAbsentees.setVisibility(View.VISIBLE);
+            }
+            populateGridArray();
+        }
+    };
+
+    private View.OnClickListener otherdayAbsentees = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            noAbsentees.setVisibility(View.GONE);
+            todayButton.setActivated(false);
+            yesterdayButton.setActivated(false);
+            otherdayButton.setActivated(true);
+            studentsArray.clear();
+            if(absentListFlag){
+                boolean flag = false;
+                int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, otherdate, sqliteDatabase);
+                if(marked==1){
+                    flag = true;
+                }
+                if(flag){
+                    List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(otherdate, sectionId, sqliteDatabase);
+                    if(!studentIdList.isEmpty()){
+                        studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
+                        Collections.sort(studentsArray, new StudentsSort());
+                    }else{
+                        noAbsentees.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    noAbsentees.setText("Attendance is not taken for this day");
+                    noAbsentees.setVisibility(View.VISIBLE);
+                }
+                populateGridArray();
+            }else{
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        }
+    };
+
 	
 	private String getYesterday() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

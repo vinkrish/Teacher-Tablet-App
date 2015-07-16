@@ -76,10 +76,6 @@ public class MarkAttendance extends Fragment {
 		gridView = (GridView) view.findViewById(R.id.gridView);
 		gridView.setAdapter(attendanceAdapter);
 
-		final Button yesterdayButton = (Button)view.findViewById(R.id.yesterday);
-		final Button otherdayButton = (Button)view.findViewById(R.id.otherday);
-		Button verify = (Button) view.findViewById(R.id.verify);
-		Button noAbsent = (Button) view.findViewById(R.id.noAbsentees);
 		ptTV = (TextView) view.findViewById(R.id.pleaseTap);
 
 		Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -106,116 +102,121 @@ public class MarkAttendance extends Fragment {
 		populateGridArray();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view2, int position,
-					long id) {
-				Boolean b = studentAttend.get(position);
-				if(!b){
-					ImageView iV = ((RecordHolder)view2.getTag()).imageAttend;
-					iV.setImageResource(R.drawable.cross);
-					studentAttend.set(position, true);
-				}
-				if(b){
-					ImageView iV = ((RecordHolder)view2.getTag()).imageAttend;
-					iV.setImageResource(R.drawable.tick);
-					studentAttend.set(position, false);
-				}
-				index = gridView.getFirstVisiblePosition();
-				repopulateGridArray();
-			}
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view2, int position,
+                                    long id) {
+                Boolean b = studentAttend.get(position);
+                if (!b) {
+                    ImageView iV = ((RecordHolder) view2.getTag()).imageAttend;
+                    iV.setImageResource(R.drawable.cross);
+                    studentAttend.set(position, true);
+                }
+                if (b) {
+                    ImageView iV = ((RecordHolder) view2.getTag()).imageAttend;
+                    iV.setImageResource(R.drawable.tick);
+                    studentAttend.set(position, false);
+                }
+                index = gridView.getFirstVisiblePosition();
+                repopulateGridArray();
+            }
 
-		});
+        });
 
-		verify.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				sqlHandler.clearTempAttendance(sqliteDatabase);
-				absentCount = 0;
-				int pos = 0;
-				for(Students s : studentsArray){
-					if(studentAttend.get(pos)){
-						TempAttendance ta = new TempAttendance();
-						ta.setStudentId(s.getStudentId());
-						ta.setClassId(s.getClassId());
-						ta.setSectionId(s.getSectionId());
-						ta.setRollNoInClass(s.getRollNoInClass());
-						ta.setName(s.getName());
-						StudentAttendanceDao.insertTempAttendance(ta, sqliteDatabase);
-						absentCount +=1;
-					}
-					pos++;
-				}
-				if(absentCount>0){
-					ReplaceFragment.replace(new VerifyAttendance(), getFragmentManager());
-				}else{
-					Alert a = new Alert(act);
-					a.showAlert("No Absentees are marked.");
-				}	
-			}
-		});
-
-		noAbsent.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(act);
-				builder.setTitle("Notification");
-				builder.setMessage("No absentees today..?");
-				builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {		
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Toast.makeText(context, "no absentees are marked", Toast.LENGTH_LONG).show();
-						StudentAttendanceDao.noAbsentAttendance(schoolId, classId, sectionId, getToday(), sqliteDatabase);
-						Bundle b = new Bundle();
-						b.putInt("today", 1);
-						b.putInt("yesterday", 0);
-						b.putInt("otherday", 0);
-						Fragment fragment = new AbsentList();
-						fragment.setArguments(b);
-						getFragmentManager()
-						.beginTransaction()
-						.setCustomAnimations(animator.fade_in,animator.fade_out)
-						.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-					}
-				});
-				builder.setNegativeButton("Cancel", null);
-				builder.show();
-			}
-		});
-
-		yesterdayButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Bundle b = new Bundle();
-				b.putInt("today", 0);
-				b.putInt("yesterday", 1);
-				b.putInt("otherday", 0);
-				Fragment fragment = new AbsentList();
-				fragment.setArguments(b);
-				getFragmentManager()
-				.beginTransaction()
-				.setCustomAnimations(animator.fade_in,animator.fade_out)
-				.replace(R.id.content_frame, fragment).addToBackStack(null).commit();	
-			}
-		});
-
-		otherdayButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Bundle b = new Bundle();
-				b.putInt("today", 0);
-				b.putInt("yesterday", 0);
-				b.putInt("otherday", 1);
-				Fragment fragment = new AbsentList();
-				fragment.setArguments(b);
-				getFragmentManager()
-				.beginTransaction()
-				.setCustomAnimations(animator.fade_in,animator.fade_out)
-				.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-			}
-		});
+        view.findViewById(R.id.verify).setOnClickListener(verifyAbsentees);
+        view.findViewById(R.id.noAbsentees).setOnClickListener(noAbsentees);
+        view.findViewById(R.id.yesterday).setOnClickListener(yesterdayAbsentees);
+        view.findViewById(R.id.otherday).setOnClickListener(otherdayAbsentees);
 
 		return view;
 	}
+
+    private View.OnClickListener verifyAbsentees = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            sqlHandler.clearTempAttendance(sqliteDatabase);
+            absentCount = 0;
+            int pos = 0;
+            for (Students s : studentsArray) {
+                if (studentAttend.get(pos)) {
+                    TempAttendance ta = new TempAttendance();
+                    ta.setStudentId(s.getStudentId());
+                    ta.setClassId(s.getClassId());
+                    ta.setSectionId(s.getSectionId());
+                    ta.setRollNoInClass(s.getRollNoInClass());
+                    ta.setName(s.getName());
+                    StudentAttendanceDao.insertTempAttendance(ta, sqliteDatabase);
+                    absentCount += 1;
+                }
+                pos++;
+            }
+            if (absentCount > 0) {
+                ReplaceFragment.replace(new VerifyAttendance(), getFragmentManager());
+            } else {
+                Alert a = new Alert(act);
+                a.showAlert("No Absentees are marked.");
+            }
+        }
+    };
+
+    private View.OnClickListener noAbsentees = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(act);
+            builder.setTitle("Notification");
+            builder.setMessage("No absentees today..?");
+            builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(context, "no absentees are marked", Toast.LENGTH_LONG).show();
+                    StudentAttendanceDao.noAbsentAttendance(schoolId, classId, sectionId, getToday(), sqliteDatabase);
+                    Bundle b = new Bundle();
+                    b.putInt("today", 1);
+                    b.putInt("yesterday", 0);
+                    b.putInt("otherday", 0);
+                    Fragment fragment = new AbsentList();
+                    fragment.setArguments(b);
+                    getFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(animator.fade_in,animator.fade_out)
+                            .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+                }
+            });
+            builder.setNegativeButton("Cancel", null);
+            builder.show();
+        }
+    };
+
+	private View.OnClickListener yesterdayAbsentees = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Bundle b = new Bundle();
+			b.putInt("today", 0);
+			b.putInt("yesterday", 1);
+			b.putInt("otherday", 0);
+			Fragment fragment = new AbsentList();
+			fragment.setArguments(b);
+			getFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(animator.fade_in,animator.fade_out)
+					.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+		}
+	};
+
+	private View.OnClickListener otherdayAbsentees = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Bundle b = new Bundle();
+			b.putInt("today", 0);
+			b.putInt("yesterday", 0);
+			b.putInt("otherday", 1);
+			Fragment fragment = new AbsentList();
+			fragment.setArguments(b);
+			getFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(animator.fade_in,animator.fade_out)
+					.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+		}
+	};
 
 	private String getToday() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
