@@ -103,25 +103,22 @@ public class VerifyHomework extends Fragment {
 			hwTv.setText(hwString);
 		}
 
-		Button submit = (Button)view.findViewById(R.id.submit);
-		Button back = (Button) view.findViewById(R.id.back);
+        view.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+            }
+        });
 
-		back.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
-			}
-		});
-
-		submit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(context, "homework has been updated successfully", Toast.LENGTH_LONG).show();
-				HomeworkDao.insertHwPresent(sectionId, getToday(), sqliteDatabase);
-				HomeworkDao.insertHwSql(homework, sqliteDatabase);
-				ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
-			}
-		});
+        view.findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "homework has been updated successfully", Toast.LENGTH_LONG).show();
+                HomeworkDao.insertHwPresent(sectionId, getToday(), sqliteDatabase);
+                HomeworkDao.insertHwSql(homework, sqliteDatabase);
+                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+            }
+        });
 
 		final Button todayButton = (Button)view.findViewById(R.id.today);
 		final Button yesterdayButton = (Button)view.findViewById(R.id.yesterday);
@@ -131,33 +128,8 @@ public class VerifyHomework extends Fragment {
 		yesterdayButton.setActivated(false);
 		otherdayButton.setActivated(false);
 
-		yesterdayButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Bundle b = new Bundle();
-				b.putInt("today", 0);
-				b.putInt("yesterday", 1);
-				b.putInt("otherday", 0);
-				Fragment fragment = new HomeworkView();
-				fragment.setArguments(b);
-				FragmentManager fragmentManager = getFragmentManager();
-				fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();	
-			}
-		});
-
-		otherdayButton.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View arg0) {
-				Bundle b = new Bundle();
-				b.putInt("today", 0);
-				b.putInt("yesterday", 0);
-				b.putInt("otherday", 1);
-				Fragment fragment = new HomeworkView();
-				fragment.setArguments(b);
-				FragmentManager fragmentManager = getFragmentManager();
-				fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-			}
-		});
+		yesterdayButton.setOnClickListener(yesterdayHomework);
+		otherdayButton.setOnClickListener(otherdayHomework);
 
 		prepareListDataNew();
 
@@ -167,6 +139,34 @@ public class VerifyHomework extends Fragment {
 
 		return view;
 	}
+
+	private View.OnClickListener yesterdayHomework = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Bundle b = new Bundle();
+            b.putInt("today", 0);
+            b.putInt("yesterday", 1);
+            b.putInt("otherday", 0);
+            Fragment fragment = new HomeworkView();
+            fragment.setArguments(b);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+        }
+    };
+
+    private View.OnClickListener otherdayHomework = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Bundle b = new Bundle();
+            b.putInt("today", 0);
+            b.putInt("yesterday", 0);
+            b.putInt("otherday", 1);
+            Fragment fragment = new HomeworkView();
+            fragment.setArguments(b);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+        }
+    };
 
 	private String getToday() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

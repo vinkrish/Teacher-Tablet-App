@@ -65,7 +65,6 @@ public class InsertHomework extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_insert_homework, container, false);
 
         context = AppGlobal.getContext();
@@ -75,6 +74,7 @@ public class InsertHomework extends Fragment {
         lv = (ListView) view.findViewById(R.id.list);
         HomeworkViewAdapter homeworkViewAdapter = new HomeworkViewAdapter(context, hwList);
         lv.setAdapter(homeworkViewAdapter);
+
         hwTv = (TextView) view.findViewById(R.id.hwPleaseTap);
         Button submit = (Button) view.findViewById(R.id.hwSubmit);
         Button reset = (Button) view.findViewById(R.id.hwReset);
@@ -150,37 +150,8 @@ public class InsertHomework extends Fragment {
         yesterdayButton.setActivated(false);
         otherdayButton.setActivated(false);
 
-        yesterdayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Bundle b = new Bundle();
-                b.putInt("today", 0);
-                b.putInt("yesterday", 1);
-                b.putInt("otherday", 0);
-                Fragment fragment = new HomeworkView();
-                fragment.setArguments(b);
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
-                        .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-            }
-        });
-
-        otherdayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Bundle b = new Bundle();
-                b.putInt("today", 0);
-                b.putInt("yesterday", 0);
-                b.putInt("otherday", 1);
-                Fragment fragment = new HomeworkView();
-                fragment.setArguments(b);
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
-                        .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-            }
-        });
+        yesterdayButton.setOnClickListener(yesterdayHomework);
+        otherdayButton.setOnClickListener(otherdayHomework);
 
         populateList();
 
@@ -189,119 +160,153 @@ public class InsertHomework extends Fragment {
             hide.setVisibility(View.GONE);
         }
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                if (block != 1) {
-                    editingHw = false;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(act);
-                    View view2 = act.getLayoutInflater().inflate(R.layout.hw_dialog, null);
-                    TextView hwSub = (TextView) view2.findViewById(R.id.hwtxt);
-                    hwSub.setText(hwList.get(position).getSubject() + " Homework");
-                    final EditText edListChild = (EditText) view2.findViewById(R.id.hwmessage);
-                    String s = hwList.get(position).getHomework();
-                    if (s.equals("-")) {
-                        edListChild.setText("");
-                    } else {
-                        editingHw = true;
-                        edListChild.setText(s);
-                    }
-                    builder.setView(view2);
-
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (edListChild.getText().toString().equals("") && newHw) {
-                                Alert a = new Alert(act);
-                                a.showAlert("Please enter homework");
-                            } else if (newHw && !edListChild.getText().toString().equals("")) {
-                                Homework hw = new Homework();
-                                hw.setClassId(classId + "");
-                                hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
-                                hw.setHomework(edListChild.getText().toString());
-                                hw.setSchoolId(schoolId + "");
-                                hw.setSectionId(sectionId + "");
-                                hw.setSubjectIDs(hwList.get(position).getSubjectId() + "");
-                                hw.setTeacherId(teacherId + "");
-                                hw.setHomeworkDate(hwDate);
-                                HomeworkDao.insertHW(hw, sqliteDatabase);
-                                InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
-                                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
-                            } else if (editingHw) {
-                                if (noOfHw == 1) {
-                                    if (edListChild.getText().toString().equals("")) {
-                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
-                                    } else {
-                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
-                                        Homework hw = new Homework();
-                                        hw.setClassId(classId + "");
-                                        hw.setHomework(edListChild.getText().toString());
-                                        hw.setSchoolId(schoolId + "");
-                                        hw.setSectionId(sectionId + "");
-                                        hw.setSubjectIDs(childList1.get(position) + "");
-                                        hw.setTeacherId(teacherId + "");
-                                        hw.setHomeworkDate(hwDate);
-                                        HomeworkDao.insertHW(hw, sqliteDatabase);
-                                    }
-                                } else {
-                                    if (edListChild.getText().toString().equals("")) {
-                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
-                                        prepareHomework(position);
-                                        Homework hw = new Homework();
-                                        hw.setClassId(classId + "");
-                                        hw.setHomework(prepareHomeworks);
-                                        hw.setSchoolId(schoolId + "");
-                                        hw.setSectionId(sectionId + "");
-                                        hw.setSubjectIDs(prepareSubjectIds);
-                                        hw.setTeacherId(teacherId + "");
-                                        hw.setHomeworkDate(hwDate);
-                                        HomeworkDao.insertHW(hw, sqliteDatabase);
-                                    } else {
-                                        HomeworkDao.deleteHomework(hwId, sqliteDatabase);
-                                        prepareUpdateHomework(position, edListChild.getText().toString());
-                                        Homework hw = new Homework();
-                                        hw.setClassId(classId + "");
-                                        hw.setHomework(prepareHomeworks);
-                                        hw.setSchoolId(schoolId + "");
-                                        hw.setSectionId(sectionId + "");
-                                        hw.setSubjectIDs(prepareSubjectIds);
-                                        hw.setTeacherId(teacherId + "");
-                                        hw.setHomeworkDate(hwDate);
-                                        HomeworkDao.insertHW(hw, sqliteDatabase);
-                                    }
-                                }
-                                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
-                            } else if(!edListChild.getText().toString().equals("")) {
-                                Homework hw = new Homework();
-                                hw.setClassId(classId + "");
-                                hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
-                                hw.setHomework(rawHomework + "#" + edListChild.getText().toString());
-                                hw.setSchoolId(schoolId + "");
-                                hw.setSectionId(sectionId + "");
-                                hw.setSubjectIDs(rawSubjectIDs + "," + hwList.get(position).getSubjectId() + "");
-                                hw.setTeacherId(teacherId + "");
-                                hw.setHomeworkDate(hwDate);
-                                HomeworkDao.deleteHomework(hwId, sqliteDatabase);
-                                HomeworkDao.insertHW(hw, sqliteDatabase);
-                                InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
-                                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
-                            }
-                        }
-                    });
-                    builder.setNegativeButton("Cancel", null);
-                    builder.show();
-
-                } else {
-                    Alert a = new Alert(act);
-                    a.showAlert("Not allowed to edit homework.");
-                }
-            }
-        });
+        lv.setOnItemClickListener(clickOnSubject);
 
         return view;
     }
+
+    private AdapterView.OnItemClickListener clickOnSubject = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            if (block != 1) {
+                editingHw = false;
+                AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                View view2 = act.getLayoutInflater().inflate(R.layout.hw_dialog, null);
+                TextView hwSub = (TextView) view2.findViewById(R.id.hwtxt);
+                hwSub.setText(hwList.get(position).getSubject() + " Homework");
+                final EditText edListChild = (EditText) view2.findViewById(R.id.hwmessage);
+                String s = hwList.get(position).getHomework();
+                if (s.equals("-")) {
+                    edListChild.setText("");
+                } else {
+                    editingHw = true;
+                    edListChild.setText(s);
+                }
+                builder.setView(view2);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (edListChild.getText().toString().equals("") && newHw) {
+                            Alert a = new Alert(act);
+                            a.showAlert("Please enter homework");
+                        } else if (newHw && !edListChild.getText().toString().equals("")) {
+                            Homework hw = new Homework();
+                            hw.setClassId(classId + "");
+                            hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
+                            hw.setHomework(edListChild.getText().toString());
+                            hw.setSchoolId(schoolId + "");
+                            hw.setSectionId(sectionId + "");
+                            hw.setSubjectIDs(hwList.get(position).getSubjectId() + "");
+                            hw.setTeacherId(teacherId + "");
+                            hw.setHomeworkDate(hwDate);
+                            HomeworkDao.insertHW(hw, sqliteDatabase);
+                            InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
+                            ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+                        } else if (editingHw) {
+                            if (noOfHw == 1) {
+                                if (edListChild.getText().toString().equals("")) {
+                                    HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                } else {
+                                    HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                    Homework hw = new Homework();
+                                    hw.setClassId(classId + "");
+                                    hw.setHomework(edListChild.getText().toString());
+                                    hw.setSchoolId(schoolId + "");
+                                    hw.setSectionId(sectionId + "");
+                                    hw.setSubjectIDs(childList1.get(position) + "");
+                                    hw.setTeacherId(teacherId + "");
+                                    hw.setHomeworkDate(hwDate);
+                                    HomeworkDao.insertHW(hw, sqliteDatabase);
+                                }
+                            } else {
+                                if (edListChild.getText().toString().equals("")) {
+                                    HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                    prepareHomework(position);
+                                    Homework hw = new Homework();
+                                    hw.setClassId(classId + "");
+                                    hw.setHomework(prepareHomeworks);
+                                    hw.setSchoolId(schoolId + "");
+                                    hw.setSectionId(sectionId + "");
+                                    hw.setSubjectIDs(prepareSubjectIds);
+                                    hw.setTeacherId(teacherId + "");
+                                    hw.setHomeworkDate(hwDate);
+                                    HomeworkDao.insertHW(hw, sqliteDatabase);
+                                } else {
+                                    HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                                    prepareUpdateHomework(position, edListChild.getText().toString());
+                                    Homework hw = new Homework();
+                                    hw.setClassId(classId + "");
+                                    hw.setHomework(prepareHomeworks);
+                                    hw.setSchoolId(schoolId + "");
+                                    hw.setSectionId(sectionId + "");
+                                    hw.setSubjectIDs(prepareSubjectIds);
+                                    hw.setTeacherId(teacherId + "");
+                                    hw.setHomeworkDate(hwDate);
+                                    HomeworkDao.insertHW(hw, sqliteDatabase);
+                                }
+                            }
+                            ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+                        } else if(!edListChild.getText().toString().equals("")) {
+                            Homework hw = new Homework();
+                            hw.setClassId(classId + "");
+                            hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
+                            hw.setHomework(rawHomework + "#" + edListChild.getText().toString());
+                            hw.setSchoolId(schoolId + "");
+                            hw.setSectionId(sectionId + "");
+                            hw.setSubjectIDs(rawSubjectIDs + "," + hwList.get(position).getSubjectId() + "");
+                            hw.setTeacherId(teacherId + "");
+                            hw.setHomeworkDate(hwDate);
+                            HomeworkDao.deleteHomework(hwId, sqliteDatabase);
+                            HomeworkDao.insertHW(hw, sqliteDatabase);
+                            InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
+                            ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+
+            } else {
+                Alert a = new Alert(act);
+                a.showAlert("Not allowed to edit homework.");
+            }
+        }
+    };
+
+    private View.OnClickListener yesterdayHomework = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Bundle b = new Bundle();
+            b.putInt("today", 0);
+            b.putInt("yesterday", 1);
+            b.putInt("otherday", 0);
+            Fragment fragment = new HomeworkView();
+            fragment.setArguments(b);
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+                    .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+        }
+    };
+
+    private View.OnClickListener otherdayHomework = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Bundle b = new Bundle();
+            b.putInt("today", 0);
+            b.putInt("yesterday", 0);
+            b.putInt("otherday", 1);
+            Fragment fragment = new HomeworkView();
+            fragment.setArguments(b);
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+                    .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+        }
+    };
 
     private void populateList() {
         childList1.clear();
