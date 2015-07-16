@@ -86,7 +86,6 @@ public class InsertHomework extends Fragment {
                     Alert hwAlert = new Alert(act);
                     hwAlert.showAlert("Homework is not entered.");
                 } else {
-                    ReplaceFragment.clearBackStack(getFragmentManager());
                     ReplaceFragment.replace(new VerifyHomework(), getFragmentManager());
                 }
             }
@@ -228,7 +227,7 @@ public class InsertHomework extends Fragment {
                                 HomeworkDao.insertHW(hw, sqliteDatabase);
                                 InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
-                                ReplaceFragment.replaceNoBackStack(new InsertHomework(), getFragmentManager());
+                                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
                             } else if (editingHw) {
                                 if (noOfHw == 1) {
                                     if (edListChild.getText().toString().equals("")) {
@@ -272,7 +271,7 @@ public class InsertHomework extends Fragment {
                                         HomeworkDao.insertHW(hw, sqliteDatabase);
                                     }
                                 }
-                                ReplaceFragment.replaceNoBackStack(new InsertHomework(), getFragmentManager());
+                                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
                             } else if(!edListChild.getText().toString().equals("")) {
                                 Homework hw = new Homework();
                                 hw.setClassId(classId + "");
@@ -287,7 +286,7 @@ public class InsertHomework extends Fragment {
                                 HomeworkDao.insertHW(hw, sqliteDatabase);
                                 InputMethodManager imm2 = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm2.hideSoftInputFromWindow(edListChild.getWindowToken(), 0);
-                                ReplaceFragment.replaceNoBackStack(new InsertHomework(), getFragmentManager());
+                                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
                             }
                         }
                     });

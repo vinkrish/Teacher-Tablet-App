@@ -326,7 +326,6 @@ public class SlipTest extends Fragment {
 		st.setSubjectId(subjectId);
 		st.setSlipTestId(-1);
 		SlipTesttDao.insertST(st, sqliteDatabase);
-		ReplaceFragment.clearBackStack(getFragmentManager());
 		ReplaceFragment.replace(new EnterSlipTestMark(), getFragmentManager());
 	}
 
@@ -350,7 +349,6 @@ public class SlipTest extends Fragment {
 		st.setSubjectId(subjectId);
 		st.setSlipTestId(-1);
 		SlipTesttDao.insertST(st, sqliteDatabase);
-		ReplaceFragment.clearBackStack(getFragmentManager());
 		ReplaceFragment.replace(new EnterSlipTestMark(), getFragmentManager());
 	}
 

@@ -128,7 +128,6 @@ public class InsertCoSchGrade extends Fragment {
 					cceCoSchGrade.add(ccsg);
 				}
 				CceCoScholasticGradeDao.insertCoSchGrade(cceCoSchGrade, sqliteDatabase);
-				ReplaceFragment.clearBackStack(getFragmentManager());
 				ReplaceFragment.replace(new Dashbord(), getFragmentManager());
 			}
 		});

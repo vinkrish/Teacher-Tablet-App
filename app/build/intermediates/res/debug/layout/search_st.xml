@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:id="@+id/breadcrum"
@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@color/dark_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/dash"
@@ -57,7 +57,7 @@
         android:background="@color/layoutbelowBC"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingLeft="10dp" >
+        android:paddingLeft="10dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/studName"
@@ -89,21 +89,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="15dp"
-            android:layout_weight="0.21" >
-        </FrameLayout>
+            android:layout_weight="0.21"></FrameLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_below="@id/belowbreadcrum"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="150dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/dash2ndnav"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/slipSearch"
@@ -113,6 +112,7 @@
             android:background="@drawable/left_curve"
             android:gravity="center"
             android:text="@string/sliptest"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
@@ -127,7 +127,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:gravity="center"
-            android:text="@string/se" />
+            android:text="@string/se"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <View
             android:layout_width="1dp"
@@ -140,7 +141,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:gravity="center"
-            android:text="@string/attendance" />
+            android:text="@string/attendance"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
     <LinearLayout
@@ -150,7 +152,7 @@
         android:layout_below="@id/linearLayout1"
         android:layout_marginTop="30dp"
         android:background="@color/layoutbelowBC"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -232,7 +234,6 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lisview" >
-    </ListView>
+        android:layout_below="@id/lisview"></ListView>
 
 </RelativeLayout><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/layout/search_st.xml -->

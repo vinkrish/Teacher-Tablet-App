@@ -118,7 +118,6 @@ public class UpdateCCSGrade extends Fragment {
 					cceCoSchGrade.add(ccsg);
 				}
 				UploadSqlDao.updateCoSchGrade(cceCoSchGrade, sqliteDatabase);
-				ReplaceFragment.clearBackStack(getFragmentManager());
 				ReplaceFragment.replace(new Dashbord(), getFragmentManager());
 			}
 		});

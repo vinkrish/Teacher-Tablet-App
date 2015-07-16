@@ -119,7 +119,6 @@ public class UpdateCCEStudentProfile extends Fragment {
 					cspList.add(csp);
 				}
 				CCEStudentProfileDao.updateCCEStudentProfile(cspList, sqliteDatabase);
-				ReplaceFragment.clearBackStack(getFragmentManager());
 				ReplaceFragment.replace(new Dashbord(), getFragmentManager());
 			}
 		});

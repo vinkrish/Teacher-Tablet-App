@@ -333,7 +333,6 @@ public class EditSlipTest extends Fragment {
 		//	int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(context, sectionId, subjectId, schoolId);
 		//	sqlHandler.updateSlipTestAvg(sectionId, subjectId, updatedSTAvg, schoolId);
 
-		ReplaceFragment.clearBackStack(getFragmentManager());
 		ReplaceFragment.replace(new ViewScore(), getFragmentManager());
 	}
 
@@ -355,7 +354,6 @@ public class EditSlipTest extends Fragment {
 		//	int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(context, sectionId, subjectId, schoolId);
 		//	sqlHandler.updateSlipTestAvg(sectionId, subjectId, updatedSTAvg, schoolId);
 
-		ReplaceFragment.clearBackStack(getFragmentManager());
 		ReplaceFragment.replace(new ViewScore(), getFragmentManager());
 	}
 

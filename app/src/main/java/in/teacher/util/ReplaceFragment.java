@@ -11,13 +11,6 @@ public class ReplaceFragment {
 		fm
 		.beginTransaction()
 		.setCustomAnimations(animator.fade_in,animator.fade_out)
-		.replace(R.id.content_frame, f).addToBackStack(null).commit();
-	}
-	
-	public static void replaceNoBackStack(Fragment f, FragmentManager fm){
-		fm
-		.beginTransaction()
-		.setCustomAnimations(animator.fade_in,animator.fade_out)
 		.replace(R.id.content_frame, f).commit();
 	}
 	

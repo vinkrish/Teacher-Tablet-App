@@ -300,7 +300,6 @@ public class UpdateActivityMark extends Fragment {
 		protected void onPostExecute(Void v){
 			super.onPostExecute(v);
 			pDialog.dismiss();
-			ReplaceFragment.clearBackStack(getFragmentManager());
 			ReplaceFragment.replace(new ActivityExam(), getFragmentManager());
 		}
 

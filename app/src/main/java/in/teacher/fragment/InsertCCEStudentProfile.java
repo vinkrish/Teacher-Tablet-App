@@ -102,7 +102,6 @@ public class InsertCCEStudentProfile extends Fragment {
 					cspList.add(csp);
 				}
 				CCEStudentProfileDao.insertCCEStudentProfile(cspList, sqliteDatabase);
-				ReplaceFragment.clearBackStack(getFragmentManager());
 				ReplaceFragment.replace(new Dashbord(), getFragmentManager());
 			}
 		});

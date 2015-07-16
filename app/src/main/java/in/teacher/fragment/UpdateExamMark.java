@@ -200,7 +200,6 @@ public class UpdateExamMark extends Fragment {
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
 			pDialog.dismiss();
-			ReplaceFragment.clearBackStack(getFragmentManager());
 			ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
 		}
 

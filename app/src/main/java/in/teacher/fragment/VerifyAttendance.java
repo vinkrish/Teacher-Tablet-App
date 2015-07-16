@@ -129,8 +129,6 @@ public class VerifyAttendance extends Fragment {
 				}
 				Toast.makeText(context, "attendance has been updated successfully", Toast.LENGTH_LONG).show();
 				
-				ReplaceFragment.clearBackStack(getFragmentManager());
-				
 				Bundle b = new Bundle();
 				b.putInt("today", 1);
 				b.putInt("yesterday", 0);

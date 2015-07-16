@@ -190,7 +190,6 @@ public class HasPartition extends Fragment {
 		t.setCurrentClass(classId);
 		t.setSubjectId(subId);
 		TempDao.updateSecSubClas(t, sqliteDatabase);
-		ReplaceFragment.clearBackStack(getFragmentManager());
 		ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
 	}
 
