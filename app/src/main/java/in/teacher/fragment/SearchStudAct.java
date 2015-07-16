@@ -61,21 +61,9 @@ public class SearchStudAct extends Fragment {
 		adapter = new StudActAdapter(context, amrList);
 		lv.setAdapter(adapter);
 
-		TextView slipTV = (TextView)view.findViewById(R.id.slipSearch);
-		slipTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudST(), getFragmentManager());
-			}
-		});
-
-		TextView attTV = (TextView)view.findViewById(R.id.attSearch);
-		attTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudAtt(), getFragmentManager());
-			}
-		});
+		view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
+		view.findViewById(R.id.seSearch).setOnClickListener(searchExam);
+		view.findViewById(R.id.attSearch).setOnClickListener(searchAttendance);
 
 		Temp t = TempDao.selectTemp(sqliteDatabase);
 		studentId = t.getStudentId();
@@ -86,6 +74,36 @@ public class SearchStudAct extends Fragment {
 
 		return view;
 	}
+
+	private void clearList(){
+		actIdList.clear();
+		activitiList.clear();
+		avgList1.clear();
+		avgList2.clear();
+		actNameList.clear();
+		amrList.clear();
+	}
+
+	private View.OnClickListener searchSlipTest = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudST(), getFragmentManager());
+		}
+	};
+
+	private View.OnClickListener searchExam = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
+		}
+	};
+
+	private View.OnClickListener searchAttendance = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudAtt(), getFragmentManager());
+		}
+	};
 
 	class CalledBackLoad extends AsyncTask<String, String, String>{
 		protected void onPreExecute(){
@@ -142,15 +160,6 @@ public class SearchStudAct extends Fragment {
 			adapter.notifyDataSetChanged();
 			pDialog.dismiss();
 		}
-	}
-
-	private void clearList(){
-		actIdList.clear();
-		activitiList.clear();
-		avgList1.clear();
-		avgList2.clear();
-		actNameList.clear();
-		amrList.clear();
 	}
 
 }

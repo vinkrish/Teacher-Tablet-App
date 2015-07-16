@@ -61,21 +61,8 @@ public class SearchStudST extends Fragment {
 		studTV = (TextView)view.findViewById(R.id.studName);
 		clasSecTV = (TextView)view.findViewById(R.id.studClasSec);
 
-		TextView attTV = (TextView)view.findViewById(R.id.attSearch);
-		attTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudAtt(), getFragmentManager());
-			}
-		});
-
-		TextView seTV = (TextView)view.findViewById(R.id.seSearch);
-		seTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
-			}
-		});
+		view.findViewById(R.id.attSearch).setOnClickListener(searchAttendance);
+		view.findViewById(R.id.seSearch).setOnClickListener(searchExam);
 
 		Temp t = TempDao.selectTemp(sqliteDatabase);
 		schoolId = t.getSchoolId();
@@ -86,16 +73,42 @@ public class SearchStudST extends Fragment {
 
 		new CalledBackLoad().execute();
 
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				TempDao.updateSubjectId(subIdList.get(pos), sqliteDatabase);
-				ReplaceFragment.replace(new SearchStudSTSub(), getFragmentManager());
-			}
-		});
+		lv.setOnItemClickListener(clickListItem);
 
 		return view;
 	}
+
+	private void clearList(){
+		conductedSTList.clear();
+		absentSTList.clear();
+		amrList.clear();
+		subIdList.clear();
+		subNameList.clear();
+		teacherNameList.clear();
+		progressList.clear();
+	}
+
+	private View.OnClickListener searchAttendance = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudAtt(), getFragmentManager());
+		}
+	};
+
+	private View.OnClickListener searchExam = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
+		}
+	};
+
+    private OnItemClickListener clickListItem = new OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            TempDao.updateSubjectId(subIdList.get(position), sqliteDatabase);
+            ReplaceFragment.replace(new SearchStudSTSub(), getFragmentManager());
+        }
+    };
 
 	class CalledBackLoad extends AsyncTask<String, String, String>{
 		protected void onPreExecute(){
@@ -157,16 +170,6 @@ public class SearchStudST extends Fragment {
 			amrAdapter.notifyDataSetChanged();
 			pDialog.dismiss();
 		}
-	}
-
-	private void clearList(){
-		conductedSTList.clear();
-		absentSTList.clear();
-		amrList.clear();
-		subIdList.clear();
-		subNameList.clear();
-		teacherNameList.clear();
-		progressList.clear();
 	}
 
 }

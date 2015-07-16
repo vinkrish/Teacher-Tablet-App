@@ -65,7 +65,6 @@ public class SearchStudAtt extends Fragment {
 	private JSONObject monthObject;
 	private ArrayList<Amr> amrList;
 	private AttGraph attGraph;
-	private ListView lv;
 	private ProgressDialog pDialog;
 	private TextView studTV, clasSecTV, daysPresent;
 	private ProgressBar pb;
@@ -121,7 +120,7 @@ public class SearchStudAtt extends Fragment {
 		
 		clearList();
 
-		lv = (ListView)view.findViewById(R.id.list);
+		ListView lv = (ListView)view.findViewById(R.id.list);
 		daysPresent = (TextView)view.findViewById(R.id.studentAttendTotal);
 		pb = (ProgressBar)view.findViewById(R.id.studentAttendanceAvg);
 		layout = (LinearLayout) view.findViewById(R.id.chart);
@@ -131,21 +130,8 @@ public class SearchStudAtt extends Fragment {
 		attGraph = new AttGraph(context, amrList);
 		lv.setAdapter(attGraph);
 
-		TextView slipTV = (TextView)view.findViewById(R.id.slipSearch);
-		slipTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudST(), getFragmentManager());
-			}
-		});
-
-		TextView seTV = (TextView)view.findViewById(R.id.seSearch);
-		seTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
-			}
-		});
+        view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
+        view.findViewById(R.id.seSearch).setOnClickListener(searchExam);
 
 		Temp t = TempDao.selectTemp(sqliteDatabase);
 		studentId = t.getStudentId();
@@ -154,6 +140,31 @@ public class SearchStudAtt extends Fragment {
 
 		return view;
 	}
+
+	private void clearList(){
+		amrList.clear();
+		startDateList.clear();
+		endDateList.clear();
+		intMon.clear();
+		stringMon.clear();
+		stringMonth.clear();
+		absentCnt = 0;
+		noOfDays = 0;
+	}
+
+    private View.OnClickListener searchSlipTest = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ReplaceFragment.replace(new SearchStudST(), getFragmentManager());
+        }
+    };
+
+    private View.OnClickListener searchExam = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
+        }
+    };
 
 	class CalledBackLoad extends AsyncTask<String, String, String>{
 		protected void onPreExecute(){
@@ -346,17 +357,6 @@ public class SearchStudAtt extends Fragment {
 			absList.add(StudentAttendanceDao.clasMontAbsCnt(startDate.get(i), endDate.get(i), clasId, sqliteDatabase));
 		}
 		return absList;
-	}
-
-	private void clearList(){
-		amrList.clear();
-		startDateList.clear();
-		endDateList.clear();
-		intMon.clear();
-		stringMon.clear();
-		stringMonth.clear();
-		absentCnt = 0;
-		noOfDays = 0;
 	}
 
 	private void studAvg(){

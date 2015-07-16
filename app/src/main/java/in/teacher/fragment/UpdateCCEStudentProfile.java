@@ -130,7 +130,7 @@ public class UpdateCCEStudentProfile extends Fragment {
 	public class ProfileAdapter extends ArrayAdapter<Profile>{
 		int resource;
 		Context context;
-		ArrayList<Profile> data = new ArrayList<Profile>();
+		ArrayList<Profile> data = new ArrayList<>();
 
 		public ProfileAdapter(Context context, int resource, ArrayList<Profile> listArray) {
 			super(context, resource, listArray);

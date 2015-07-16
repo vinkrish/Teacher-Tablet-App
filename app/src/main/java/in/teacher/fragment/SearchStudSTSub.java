@@ -33,7 +33,7 @@ public class SearchStudSTSub extends Fragment {
 	private Context context;
 	private int schoolId,studentId, subjectId, progres;
 	private String studentName, className, secName, subjectName;
-	private static SQLiteDatabase sqliteDatabase;
+	private SQLiteDatabase sqliteDatabase;
 	private ListView lv;
 	private SearchStAdapter searchAdapter;
 	private ArrayList<Amr> amrList = new ArrayList<>();
@@ -62,29 +62,9 @@ public class SearchStudSTSub extends Fragment {
 		pb = (ProgressBar)view.findViewById(R.id.subAvgProgress);
 		pecent = (TextView)view.findViewById(R.id.percent);
 
-		TextView attTV = (TextView)view.findViewById(R.id.attSearch);
-		attTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudAtt(), getFragmentManager());
-				}
-		});
-
-		TextView seTV = (TextView)view.findViewById(R.id.seSearch);
-		seTV.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
-			}
-		});
-
-		Button stBut = (Button)view.findViewById(R.id.stButton);
-		stBut.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ReplaceFragment.replace(new SearchStudST(), getFragmentManager());
-			}
-		});
+		view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
+		view.findViewById(R.id.seSearch).setOnClickListener(searchExam);
+		view.findViewById(R.id.attSearch).setOnClickListener(searchAttendance);
 
 		Temp t = TempDao.selectTemp(sqliteDatabase);
 		schoolId = t.getSchoolId();
@@ -102,6 +82,35 @@ public class SearchStudSTSub extends Fragment {
 
 		return view;
 	}
+
+	private void clearList(){
+		amrList.clear();
+		dateList.clear();
+		stNameList.clear();
+		maxMarkList.clear();
+		markList.clear();
+	}
+
+	private View.OnClickListener searchSlipTest = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudST(), getFragmentManager());
+		}
+	};
+
+	private View.OnClickListener searchExam = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
+		}
+	};
+
+	private View.OnClickListener searchAttendance = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			ReplaceFragment.replace(new SearchStudAtt(), getFragmentManager());
+		}
+	};
 
 	class CalledBackLoad extends AsyncTask<String, String, String>{
 		protected void onPreExecute(){
@@ -167,14 +176,6 @@ public class SearchStudSTSub extends Fragment {
 			searchAdapter.notifyDataSetChanged();
 			pDialog.dismiss();
 		}
-	}
-
-	private void clearList(){
-		amrList.clear();
-		dateList.clear();
-		stNameList.clear();
-		maxMarkList.clear();
-		markList.clear();
 	}
 
 }
