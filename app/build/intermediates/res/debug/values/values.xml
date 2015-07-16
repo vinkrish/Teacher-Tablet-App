@@ -123,7 +123,6 @@
     <string name="grades">Grades</string>
     <string name="graphcolumn">Percentage %</string>
     <string name="height">Height (cm)</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_world">Hello world!</string>
     <string name="homework">Homework</string>
     <string name="hwmessage">Enter Homework</string>
@@ -138,7 +137,7 @@
     <string name="internet_steps_4">Steps for restarting the tab:</string>
     <string name="internet_steps_5">Hold the power button until a menu pops up</string>
     <string name="internet_steps_6">Select Reboot</string>
-    <string name="internet_steps_7">Select Ok</string>
+    <string name="internet_steps_7">Select OK</string>
     <string name="login">LOGIN</string>
     <string name="manualportion">Enter title of your choice</string>
     <string name="marks">Marks</string>
@@ -218,7 +217,7 @@
     <string name="updatest">Update marks for selected slipTest</string>
     <string name="username">Username</string>
     <string name="verify">Verify</string>
-    <string name="version">Version - 1.0</string>
+    <string name="version">Version - 1.1</string>
     <string name="viewscoreTop">Tap on the sliptest to view detailed info</string>
     <string name="vs">View Score</string>
     <string name="weight">Weight (kg)</string>

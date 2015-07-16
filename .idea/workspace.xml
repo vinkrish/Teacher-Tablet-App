@@ -27,37 +27,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68048eb-9806-460d-bd90-f4e1b459db9c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/CallFTP$CalledFTPSync.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/CallFTP$CalledFTPSync.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/CallFTP$UploadModel.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/CallFTP$UploadModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/util/Constants.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/util/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/DownloadModelTask$DownloadModel.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/DownloadModelTask$DownloadModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/DownloadModelTask.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/DownloadModelTask.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/FirstTimeSync$RunFirstTimeSync.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/FirstTimeSync$RunFirstTimeSync.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/IntermediateDownloadTask$DownloadModel.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/IntermediateDownloadTask$DownloadModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/IntermediateDownloadTask.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/IntermediateDownloadTask.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LockActivity$SendLocked.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LockActivity$SendLocked.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/ProcessFiles$ProcessedFiles.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/ProcessFiles$ProcessedFiles.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/StringConstant.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/StringConstant.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/SyncServiceReceiver.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/SyncServiceReceiver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/UploadError$CalledUploadError.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/sync/UploadError$CalledUploadError.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/util/Util.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/util/Util.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$2$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$2$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$3$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$3$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$4$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$4$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$string.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$style.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$2$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$2$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$3$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$3$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$4$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$4$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/in/teacher/activity/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/in/teacher/activity/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Teacher.iws" />
@@ -78,28 +78,7 @@
     <favorites_list name="Teacher" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="InsertCCEStudentProfile.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="4.3561645">
-              <caret line="264" column="163" selection-start-line="264" selection-start-column="163" selection-end-line="264" selection-end-column="163" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CCEStudentProfileDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/CCEStudentProfileDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="130" selection-start-line="13" selection-start-column="124" selection-end-line="13" selection-end-column="130" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -1436,14 +1415,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudST.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSTSub.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SelectCCEStudentProfile.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StructuredExam.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SubActivityExam.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewQueue.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" />
@@ -1474,19 +1449,23 @@
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlDbHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/UploadSqlDao.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/IntermediateDownloadTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/CallFTP.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/TestInternetReceiver.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" />
       </list>
     </option>
   </component>
@@ -1585,8 +1564,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1647,6 +1624,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1663,7 +1642,7 @@
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="CLVEE58382C" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="CLVD3012D39" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="AVD_for_Nexus_5_by_Google" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -1921,12 +1900,18 @@
       <option name="project" value="LOCAL" />
       <updated>1436863480020</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="new line removed in coscholastic grade and cce student profile.">
+      <created>1436944013670</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1436944013670</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1944,10 +1929,10 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24982105" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27110156" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27110156" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32856122" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1977,7 +1962,8 @@
     <MESSAGE value="red background for sync button is added which indicates there is data either in queue or file to be uploaded" />
     <MESSAGE value="checking network condition before manual sync is added" />
     <MESSAGE value="manual sync is red only when internet is down and there is data to be uploaded" />
-    <option name="LAST_COMMIT_MESSAGE" value="manual sync is red only when internet is down and there is data to be uploaded" />
+    <MESSAGE value="new line removed in coscholastic grade and cce student profile." />
+    <option name="LAST_COMMIT_MESSAGE" value="new line removed in coscholastic grade and cce student profile." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1986,34 +1972,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7026477">
-          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/SlipTestProgress.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.88659793">
@@ -2042,13 +2000,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5048077">
           <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21634616">
-          <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -2108,13 +2059,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2980769">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/NetworkUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.54086536">
@@ -2164,20 +2108,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.32451922">
-          <caret line="232" column="34" selection-start-line="232" selection-start-column="34" selection-end-line="232" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70412517">
-          <caret line="121" column="48" selection-start-line="121" selection-start-column="48" selection-end-line="121" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/BootSync.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2220,20 +2150,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65068495">
-          <caret line="398" column="40" selection-start-line="398" selection-start-column="40" selection-end-line="398" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/platforms/android-22/data/res/drawable-ldpi/btn_default_normal_disable.9.png">
       <provider editor-type-id="images">
         <state />
@@ -2249,20 +2165,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64903843">
-          <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/CallFTP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/UploadSyncParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8716707">
@@ -2274,34 +2176,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33171913">
           <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2260274">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16438356">
-          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/TestInternetReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.527845">
-          <caret line="65" column="42" selection-start-line="65" selection-start-column="42" selection-end-line="65" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6731235">
-          <caret line="72" column="90" selection-start-line="72" selection-start-column="90" selection-end-line="72" selection-end-column="90" />
         </state>
       </provider>
     </entry>
@@ -2329,30 +2203,146 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.69863015">
           <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/CCEStudentProfileDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29268292">
+          <caret line="13" column="130" selection-start-line="13" selection-start-column="124" selection-end-line="13" selection-end-column="130" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35753426">
-          <caret line="125" column="102" selection-start-line="125" selection-start-column="102" selection-end-line="125" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/CCEStudentProfileDao.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="130" selection-start-line="13" selection-start-column="124" selection-end-line="13" selection-end-column="130" />
-          <folding />
+          <caret line="125" column="102" selection-start-line="125" selection-start-column="102" selection-end-line="125" selection-end-column="102" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.3561645">
-          <caret line="264" column="163" selection-start-line="264" selection-start-column="163" selection-end-line="264" selection-end-column="163" />
+        <state vertical-scroll-proportion="0.05479452">
+          <caret line="170" column="25" selection-start-line="170" selection-start-column="25" selection-end-line="170" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48630136">
+          <caret line="115" column="103" selection-start-line="115" selection-start-column="103" selection-end-line="115" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/TestInternetReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52926826">
+          <caret line="65" column="42" selection-start-line="65" selection-start-column="42" selection-end-line="65" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1097561">
+          <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.3237596">
+          <caret line="187" column="45" selection-start-line="187" selection-start-column="45" selection-end-line="187" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28767124">
+          <caret line="63" column="56" selection-start-line="63" selection-start-column="56" selection-end-line="63" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.7191782">
+          <caret line="232" column="34" selection-start-line="232" selection-start-column="34" selection-end-line="232" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47260273">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28082192">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="13.356164">
+          <caret line="699" column="67" selection-start-line="699" selection-start-column="67" selection-end-line="699" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44520548">
+          <caret line="278" column="37" selection-start-line="278" selection-start-column="37" selection-end-line="278" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12328767">
+          <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55479455">
+          <caret line="46" column="35" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/CallFTP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.43835616">
+          <caret line="173" column="16" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23972602">
+          <caret line="221" column="85" selection-start-line="221" selection-start-column="85" selection-end-line="221" selection-end-column="85" />
           <folding />
         </state>
       </provider>

@@ -46,19 +46,19 @@ import android.widget.TextView;
 public class Dashbord extends Fragment implements AnimationListener{
 	private Context context;
 	private int teacherId,sectionId;
-	private ArrayList<Integer> sectionIdList = new ArrayList<Integer>();
-	private ArrayList<Integer> classIdList = new ArrayList<Integer>();
-	private ArrayList<String> classNameList = new ArrayList<String>();
-	private ArrayList<String> sectionNameList = new ArrayList<String>();
+	private ArrayList<Integer> sectionIdList = new ArrayList<>();
+	private ArrayList<Integer> classIdList = new ArrayList<>();
+	private ArrayList<String> classNameList = new ArrayList<>();
+	private ArrayList<String> sectionNameList = new ArrayList<>();
 	private String teacherName;
-	private ArrayList<Integer> subjectIdList = new ArrayList<Integer>();
-	private ArrayList<String> subjectNameList = new ArrayList<String>();
-	private ArrayList<Integer> hasPartitionList = new ArrayList<Integer>();
+	private ArrayList<Integer> subjectIdList = new ArrayList<>();
+	private ArrayList<String> subjectNameList = new ArrayList<>();
+	private ArrayList<Integer> hasPartitionList = new ArrayList<>();
 	private boolean[] frameFlag;
 	private Animation animFadeIn,animFadeOut;
 	private ImageView[] ivList;
 	private SQLiteDatabase sqliteDatabase;
-	private ArrayList<CircleObject> circleArrayGrid = new ArrayList<CircleObject>();
+	private ArrayList<CircleObject> circleArrayGrid = new ArrayList<>();
 	private CircleAdapter cA;
 	private View fl2,fl22,fl222,fl2222;
 	private GridView gridView;
@@ -69,6 +69,7 @@ public class Dashbord extends Fragment implements AnimationListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.dashbord, container, false);
+
 		context = AppGlobal.getContext();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
 

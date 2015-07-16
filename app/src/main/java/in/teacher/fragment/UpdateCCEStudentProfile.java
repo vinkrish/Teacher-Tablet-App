@@ -219,7 +219,7 @@ public class UpdateCCEStudentProfile extends Fragment {
 
 					}else{
 						Profile prof = new Profile(p.getStudentId(),studentsRoll.get(position)+"", p.getName(), 
-								edListChild.getText().toString(), profileList.get(position).getWeight(), profileList.get(position).getDaysAttended());
+								edListChild.getText().toString().replaceAll("\n"," "), profileList.get(position).getWeight(), profileList.get(position).getDaysAttended());
 						profileList.set(position, prof);
 						profileAdapter.notifyDataSetChanged();
 					}
@@ -253,7 +253,7 @@ public class UpdateCCEStudentProfile extends Fragment {
 
 					}else{
 						Profile prof = new Profile(p.getStudentId(),studentsRoll.get(position)+"", p.getName(), 
-								profileList.get(position).getHeight(), edListChild.getText().toString(), profileList.get(position).getDaysAttended());
+								profileList.get(position).getHeight(), edListChild.getText().toString().replaceAll("\n"," "), profileList.get(position).getDaysAttended());
 						profileList.set(position, prof);
 						profileAdapter.notifyDataSetChanged();
 					}
@@ -290,7 +290,7 @@ public class UpdateCCEStudentProfile extends Fragment {
 
 					}else{
 						Profile prof = new Profile(p.getStudentId(),studentsRoll.get(position)+"", p.getName(), 
-								profileList.get(position).getHeight(), profileList.get(position).getWeight(), edListChild.getText().toString());
+								profileList.get(position).getHeight(), profileList.get(position).getWeight(), edListChild.getText().toString().replaceAll("\n"," "));
 						profileList.set(position, prof);
 						profileAdapter.notifyDataSetChanged();
 					}

@@ -47,9 +47,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MarkAttendance extends Fragment {
-	private List<Students> studentsArray = new ArrayList<Students>();
-	private ArrayList<Students> studentsArrayGrid =  new ArrayList<Students>();
-	private List<Boolean> studentAttend = new ArrayList<Boolean>();
+	private List<Students> studentsArray = new ArrayList<>();
+	private ArrayList<Students> studentsArrayGrid =  new ArrayList<>();
+	private List<Boolean> studentAttend = new ArrayList<>();
 	private GridView gridView;
 	private AttendanceAdapter attendanceAdapter;
 	private Context context;
@@ -64,7 +64,8 @@ public class MarkAttendance extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState){
-		View view = inflater.inflate(R.layout.mark_attendance, container, false);		
+		View view = inflater.inflate(R.layout.mark_attendance, container, false);
+
 		act = AppGlobal.getActivity();
 		context = AppGlobal.getContext();
 		sqlHandler = AppGlobal.getSqlDbHelper();

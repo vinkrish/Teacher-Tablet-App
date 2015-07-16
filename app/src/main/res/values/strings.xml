@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="version">Version - 1.1</string>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_master_authentication">MasterAuthentication</string>
     <string name="title_activity_lock">LockActivity</string>
@@ -134,7 +136,7 @@
     <string name="crash">Something went wrong, will be rectified soon.</string>
     <string name="syncing">Tab is in sync, please wait.</string>
     <string name="buffer_full">Please do the sync.</string>
-    <string name="version">Version - 1.0</string>
+
     <string name="search">Search</string>
     <string name="studentname">Student Name</string>
     <string name="attendinfo">Attendance information</string>
@@ -183,9 +185,6 @@
     <string name="internet_steps_4">Steps for restarting the tab:</string>
     <string name="internet_steps_5">Hold the power button until a menu pops up</string>
     <string name="internet_steps_6">Select Reboot</string>
-    <string name="internet_steps_7">Select Ok</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="internet_steps_7">Select OK</string>
 
 </resources>
