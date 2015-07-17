@@ -65,7 +65,6 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 		DownloadModel model = new DownloadModel(context, fileName, mTransferManager);
 		model.download();
 
-
 		while(!downloadCompleted){
 			Log.d("download", "...");
 		}
@@ -106,8 +105,6 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 		SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 		manualSync = sharedPref.getInt("manual_sync", 0);
 		SharedPreferences.Editor editor = sharedPref.edit();
-		/*PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-		boolean isScreen = pm.isScreenOn();*/
 		KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 		boolean screenLocked = km.inKeyguardRestrictedInputMode();
 
@@ -151,7 +148,7 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 				@Override
 				public void progressChanged(ProgressEvent event) {
 					if (event.getEventCode() == ProgressEvent.COMPLETED_EVENT_CODE) {
-						Log.d("downloading", "completed");
+						Log.d("download", "completed");
 						mStatus = Status.COMPLETED;
 						downloadCompleted = true;
 					}

@@ -56,6 +56,11 @@ public class CallFTP implements StringConstant{
 		private JSONObject jsonReceived;
 		@Override
 		protected String doInBackground(String... arg0){
+
+			ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+			batteryStatus = appContext.getApplicationContext().registerReceiver(null, ifilter);
+			batteryLevel = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+
 			mTransferManager = new TransferManager(Util.getCredProvider(appContext));
 			uploadComplete = false;
 			exception = false;
@@ -172,12 +177,8 @@ public class CallFTP implements StringConstant{
 	}
 
 	public void syncFTP(){
-		ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-		batteryStatus = appContext.getApplicationContext().registerReceiver(null, ifilter);
-		batteryLevel = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 		new CalledFTPSync().execute();
 	}
-
 
 	public class UploadModel extends TransferModel {
 		private String fileNam;
