@@ -130,7 +130,7 @@ public class CallFTP implements StringConstant{
 							file.delete();
 							sqliteDatabase.execSQL("update uploadedfile set processed=1 where filename='"+f+"'");
 						}
-					}catch(JSONException e){
+					}catch (JSONException e) {
 						e.printStackTrace();
 					}catch (IOException e) {
 						e.printStackTrace();

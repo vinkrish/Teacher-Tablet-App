@@ -278,8 +278,8 @@ public class HomeworkView extends Fragment {
 				Date d = cal.getTime();
 				Alert alert = new Alert(act);
 				if(GregorianCalendar.getInstance().get(Calendar.YEAR)<cal.get(Calendar.YEAR)){
-                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected Future Date!");
-				//	alert.showAlert("Selected future date !");
+                //    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected Future Date!");
+					alert.showAlert("Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.MONTH)<cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
 					alert.showAlert("Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH)<cal.get(Calendar.DAY_OF_MONTH) && 
