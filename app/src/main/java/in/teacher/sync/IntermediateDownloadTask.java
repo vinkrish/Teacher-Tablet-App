@@ -100,7 +100,6 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
             }
 
         }
-
         return null;
     }
 

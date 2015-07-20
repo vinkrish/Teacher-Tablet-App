@@ -15,8 +15,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,15 +23,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Alert;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.HomeworkViewAdapter;
-import in.teacher.adapter.HwAdapter;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.HomeworkDao;
 import in.teacher.dao.SectionDao;
@@ -43,6 +38,7 @@ import in.teacher.model.HW;
 import in.teacher.sqlite.Homework;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
@@ -83,8 +79,7 @@ public class InsertHomework extends Fragment {
             @Override
             public void onClick(View v) {
                 if (newHw) {
-                    Alert hwAlert = new Alert(act);
-                    hwAlert.showAlert("Homework is not entered.");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Homework is not entered");
                 } else {
                     ReplaceFragment.replace(new VerifyHomework(), getFragmentManager());
                 }
@@ -188,8 +183,7 @@ public class InsertHomework extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (edListChild.getText().toString().equals("") && newHw) {
-                            Alert a = new Alert(act);
-                            a.showAlert("Please enter homework");
+                            CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter homework");
                         } else if (newHw && !edListChild.getText().toString().equals("")) {
                             Homework hw = new Homework();
                             hw.setClassId(classId + "");
@@ -248,7 +242,7 @@ public class InsertHomework extends Fragment {
                                 }
                             }
                             ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
-                        } else if(!edListChild.getText().toString().equals("")) {
+                        } else if (!edListChild.getText().toString().equals("")) {
                             Homework hw = new Homework();
                             hw.setClassId(classId + "");
                             hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
@@ -270,8 +264,7 @@ public class InsertHomework extends Fragment {
                 builder.show();
 
             } else {
-                Alert a = new Alert(act);
-                a.showAlert("Not allowed to edit homework.");
+                CommonDialogUtils.displayAlertWhiteDialog(act, "Not allowed to edit homework");
             }
         }
     };

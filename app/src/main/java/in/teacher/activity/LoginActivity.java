@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.List;
 
-import in.teacher.adapter.Alert;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
@@ -18,6 +17,7 @@ import in.teacher.sqlite.Temp;
 import in.teacher.sync.CallFTP;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
 
@@ -28,14 +28,12 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings.Secure;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,7 +108,6 @@ public class LoginActivity extends BaseActivity {
     private void alertSync(){
         boolean isFile = false;
         internetStatus = internetPref.getInt("i_failed_count", 0);
-        Log.d("internetFailedCount", internetStatus+"");
         Cursor c = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
         if(c.getCount()>0){
             isFile = true;
@@ -138,7 +135,6 @@ public class LoginActivity extends BaseActivity {
             });
 
             String android_id = Secure.getString(getBaseContext().getContentResolver(), Secure.ANDROID_ID);
-            Log.d("id", android_id);
             TempDao.updateDeviceId(android_id, sqliteDatabase);
 
             TextView timeSync = (TextView) findViewById(R.id.syncTime);
@@ -233,8 +229,7 @@ public class LoginActivity extends BaseActivity {
             Intent intent = new Intent(this, ProcessFiles.class);
             startActivity(intent);
         }else{
-            Alert a = new Alert(this);
-            a.showAlert("Please be in WiFi zone or check the status of WiFi.");
+            CommonDialogUtils.displayAlertWhiteDialog(this, "Please be in WiFi zone or check the status of WiFi");
         }
     }
 
@@ -321,8 +316,7 @@ public class LoginActivity extends BaseActivity {
             }
         }
         if (!authflag) {
-            Alert ad = new Alert(LoginActivity.this);
-            ad.showAlert("User is not Authenticated.");
+            CommonDialogUtils.displayAlertWhiteDialog(this, "User is not Authenticated");
         }
         userName.setText("Username");
         password.setText("Password");

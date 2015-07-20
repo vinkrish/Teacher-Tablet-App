@@ -1,7 +1,6 @@
 package in.teacher.fragment;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Alert;
 import in.teacher.adapter.Capitalize;
 import in.teacher.dao.PortionDao;
 import in.teacher.dao.SlipTestMarkDao;
@@ -12,6 +11,7 @@ import in.teacher.sqlite.Portion;
 import in.teacher.sqlite.SlipTestt;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 import java.text.SimpleDateFormat;
@@ -168,17 +168,13 @@ public class EditSlipTest extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if(portion.getText().toString().equals("")){
-					Alert a = new Alert(act);
-					a.showAlert("Please select portion");
+					CommonDialogUtils.displayAlertWhiteDialog(act, "Please select portion");
 				}else if(stdate.getText().toString().equals("")){
-					Alert a = new Alert(act);
-					a.showAlert("Please select slip test date");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please select slip test date");
 				}else if(maxmark.getText().toString().equals("")){
-					Alert a = new Alert(act);
-					a.showAlert("Please enter maximum mark");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter maximum mark");
 				}else if(Double.parseDouble(maxmark.getText().toString())<maxMark){
-					Alert a = new Alert(act);
-					a.showAlert("Entered maximum mark is lesser than stored marks");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Entered maximum mark is lesser than stored marks");
 				}else{
 					submitSlipTest();
 				}
@@ -188,20 +184,15 @@ public class EditSlipTest extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if(portion.getText().toString().equals("")){
-					Alert a = new Alert(act);
-					a.showAlert("Please Select Portion");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please select portion");
 				}else if(stdate.getText().toString().equals("")){
-					Alert a = new Alert(act);
-					a.showAlert("Please select slip test date");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please select slip test date");
 				}else if(manualPortion.getText().toString().equals("")){
-					Alert a = new Alert(act);
-					a.showAlert("Please Enter Title");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please Enter Title");
 				}else if(maxmark2.getText().toString().equals("")){
-					Alert a = new Alert(act);
-					a.showAlert("Please Enter Maximum Mark");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter maximum mark");
 				}else if(Integer.parseInt(maxmark2.getText().toString())<maxMark){
-					Alert a = new Alert(act);
-					a.showAlert("Entered maximum mark is lesser than stored marks");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Entered maximum mark is lesser than stored marks");
 				}else{
 					submitSlipTest2();
 				}
@@ -377,18 +368,14 @@ public class EditSlipTest extends Fragment {
 				Date d = cal.getTime();
 
 				if(GregorianCalendar.getInstance().get(Calendar.YEAR)<cal.get(Calendar.YEAR)){
-					Alert alert = new Alert(act);
-					alert.showAlert("Selected future date !");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.MONTH)<cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
-					Alert alert = new Alert(act);
-					alert.showAlert("Selected future date !");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH)<cal.get(Calendar.DAY_OF_MONTH) && 
 						GregorianCalendar.getInstance().get(Calendar.MONTH)<=cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
-					Alert alert = new Alert(act);
-					alert.showAlert("Selected future date !");
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
 				}else if(Calendar.SUNDAY==cal.get(Calendar.DAY_OF_WEEK)){
-					Alert alert = new Alert(act);
-					alert.showAlert("Sundays are not working days.");	
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Sundays are not working days");
 				}else{
 					otherdate = dateFormat.format(d);
 					dateFlag = true;

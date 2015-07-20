@@ -1,7 +1,6 @@
 package in.teacher.fragment;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Alert;
 import in.teacher.adapter.Capitalize;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TeacherDao;
@@ -11,6 +10,7 @@ import in.teacher.sqlite.CceCoScholasticGrade;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
@@ -174,8 +174,7 @@ public class UpdateCCSGrade extends Fragment {
 				outLoop += 1;
 			}
 		}else{
-			Alert a = new Alert(act);
-			a.showAlert("some student grades are missing, please notify to contact person");
+			CommonDialogUtils.displayAlertWhiteDialog(act, "some student grades are missing, please notify to contact person");
 			submit.setEnabled(false);
 			insertA.setEnabled(false);
 		}

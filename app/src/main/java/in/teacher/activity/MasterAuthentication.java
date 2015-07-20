@@ -1,16 +1,14 @@
 package in.teacher.activity;
 
-import in.teacher.adapter.Alert;
 import in.teacher.sync.FirstTimeSync;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.view.Menu;
@@ -175,8 +173,7 @@ public class MasterAuthentication extends BaseActivity {
 			}
 		}
 		if(!authflag){
-			Alert ad = new Alert(this);
-			ad.showAlert("Admin is not Authenticated");
+			CommonDialogUtils.displayAlertWhiteDialog(this, "Admin is not Authenticated");
 		}
 
 		adminUser.setText("Username");
@@ -193,8 +190,7 @@ public class MasterAuthentication extends BaseActivity {
 			editor.apply();
 			new FirstTimeSync().callFirstTimeSync();
 		}else{
-			Alert alert = new Alert(this);
-			alert.showAlert("Check WiFi");
+            CommonDialogUtils.displayAlertWhiteDialog(this, "Check Wifi");
 		}
 	}
 	

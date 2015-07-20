@@ -1,7 +1,6 @@
 package in.teacher.fragment;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Alert;
 import in.teacher.adapter.AttendanceAdapter;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.StudentsSort;
@@ -14,6 +13,7 @@ import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 import java.text.SimpleDateFormat;
@@ -267,16 +267,15 @@ public class AbsentList extends Fragment {
 				Calendar cal = GregorianCalendar.getInstance();
 				cal.set(year,month,day);
 				Date d = cal.getTime();
-				Alert alert = new Alert(act);
 				if(GregorianCalendar.getInstance().get(Calendar.YEAR)<cal.get(Calendar.YEAR)){
-					alert.showAlert("Selected future date !");
+					CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.MONTH)<cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
-					alert.showAlert("Selected future date !");
+					CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
 				}else if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH)<cal.get(Calendar.DAY_OF_MONTH) && 
 						GregorianCalendar.getInstance().get(Calendar.MONTH)<=cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
-					alert.showAlert("Selected future date !");
+					CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
 				}else if(Calendar.SUNDAY==cal.get(Calendar.DAY_OF_WEEK)){
-					alert.showAlert("Sundays are not working days.");
+					CommonDialogUtils.displayAlertWhiteDialog(act, "Sundays are not working days");
 				}else{
 					otherdate = dateFormat.format(d);
 					absentListFlag = true;

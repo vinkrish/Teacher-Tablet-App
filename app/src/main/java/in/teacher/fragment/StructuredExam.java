@@ -1,7 +1,6 @@
 package in.teacher.fragment;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Alert;
 import in.teacher.adapter.Capitalize;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ClasDao;
@@ -17,6 +16,7 @@ import in.teacher.sqlite.Exams;
 import in.teacher.sqlite.SeObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
@@ -47,7 +47,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class StructuredExam extends Fragment {
@@ -215,8 +214,7 @@ public class StructuredExam extends Fragment {
 					ReplaceFragment.replace(new InsertExamMark(), getFragmentManager());
 				}
 			}else{
-				Alert a = new Alert(act);
-				a.showAlert("Exam mark is not defined");
+				CommonDialogUtils.displayAlertWhiteDialog(act, "Exam mark is not defined");
 			}
 		}
 	}

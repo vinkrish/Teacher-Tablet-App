@@ -2,7 +2,6 @@ package in.teacher.fragment;
 
 import in.teacher.activity.R;
 import in.teacher.activity.R.animator;
-import in.teacher.adapter.Alert;
 import in.teacher.adapter.AttendanceAdapter;
 import in.teacher.adapter.Capitalize;
 import in.teacher.dao.ClasDao;
@@ -16,6 +15,7 @@ import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.sqlite.TempAttendance;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 import in.teacher.adapter.AttendanceAdapter.RecordHolder;
 
@@ -47,61 +47,61 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MarkAttendance extends Fragment {
-	private List<Students> studentsArray = new ArrayList<>();
-	private ArrayList<Students> studentsArrayGrid =  new ArrayList<>();
-	private List<Boolean> studentAttend = new ArrayList<>();
-	private GridView gridView;
-	private AttendanceAdapter attendanceAdapter;
-	private Context context;
-	private Activity act;
-	private SqlDbHelper sqlHandler;
-	private SQLiteDatabase sqliteDatabase;
-	private int schoolId, classId,sectionId,teacherId;
-	private String teacherName;
-	private int index, absentCount;
-	private TextView ptTV;
+    private List<Students> studentsArray = new ArrayList<>();
+    private ArrayList<Students> studentsArrayGrid = new ArrayList<>();
+    private List<Boolean> studentAttend = new ArrayList<>();
+    private GridView gridView;
+    private AttendanceAdapter attendanceAdapter;
+    private Context context;
+    private Activity act;
+    private SqlDbHelper sqlHandler;
+    private SQLiteDatabase sqliteDatabase;
+    private int schoolId, classId, sectionId, teacherId;
+    private String teacherName;
+    private int index, absentCount;
+    private TextView ptTV;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState){
-		View view = inflater.inflate(R.layout.mark_attendance, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.mark_attendance, container, false);
 
-		act = AppGlobal.getActivity();
-		context = AppGlobal.getContext();
-		sqlHandler = AppGlobal.getSqlDbHelper();
-		sqliteDatabase = AppGlobal.getSqliteDatabase();
-		sqlHandler.clearTempAttendance(sqliteDatabase);
+        act = AppGlobal.getActivity();
+        context = AppGlobal.getContext();
+        sqlHandler = AppGlobal.getSqlDbHelper();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+        sqlHandler.clearTempAttendance(sqliteDatabase);
 
-		attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
-		gridView = (GridView) view.findViewById(R.id.gridView);
-		gridView.setAdapter(attendanceAdapter);
+        attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
+        gridView = (GridView) view.findViewById(R.id.gridView);
+        gridView.setAdapter(attendanceAdapter);
 
-		ptTV = (TextView) view.findViewById(R.id.pleaseTap);
+        ptTV = (TextView) view.findViewById(R.id.pleaseTap);
 
-		Temp t = TempDao.selectTemp(sqliteDatabase);
-		schoolId = t.getSchoolId();
-		classId = t.getClassId();
-		sectionId = t.getSectionId();
-		teacherId = t.getTeacherId();
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        schoolId = t.getSchoolId();
+        classId = t.getClassId();
+        sectionId = t.getSectionId();
+        teacherId = t.getTeacherId();
 
-		teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-		Button name = (Button)view.findViewById(R.id.classSection);
-		if(teacherName.length()>11){
-			StringBuilder sb2 = new StringBuilder(teacherName.substring(0, 9)).append("...");
-			name.setText(sb2.toString());
-		}else{
-			name.setText(teacherName);
-		}
+        teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
+        Button name = (Button) view.findViewById(R.id.classSection);
+        if (teacherName.length() > 11) {
+            StringBuilder sb2 = new StringBuilder(teacherName.substring(0, 9)).append("...");
+            name.setText(sb2.toString());
+        } else {
+            name.setText(teacherName);
+        }
 
-		if(classId==0){
-			ptTV.setText("Not a class teacher.");
-			LinearLayout l2 = (LinearLayout)view.findViewById(R.id.linearlayout2);
-			l2.setVisibility(View.GONE);
-		}
+        if (classId == 0) {
+            ptTV.setText("Not a class teacher.");
+            LinearLayout l2 = (LinearLayout) view.findViewById(R.id.linearlayout2);
+            l2.setVisibility(View.GONE);
+        }
 
-		populateGridArray();
+        populateGridArray();
 
-		gridView.setOnItemClickListener(new OnItemClickListener() {
+        gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view2, int position,
                                     long id) {
@@ -127,8 +127,8 @@ public class MarkAttendance extends Fragment {
         view.findViewById(R.id.yesterday).setOnClickListener(yesterdayAbsentees);
         view.findViewById(R.id.otherday).setOnClickListener(otherdayAbsentees);
 
-		return view;
-	}
+        return view;
+    }
 
     private View.OnClickListener verifyAbsentees = new View.OnClickListener() {
         @Override
@@ -152,8 +152,7 @@ public class MarkAttendance extends Fragment {
             if (absentCount > 0) {
                 ReplaceFragment.replace(new VerifyAttendance(), getFragmentManager());
             } else {
-                Alert a = new Alert(act);
-                a.showAlert("No Absentees are marked.");
+                CommonDialogUtils.displayAlertWhiteDialog(act, "No Absentees are marked");
             }
         }
     };
@@ -177,7 +176,7 @@ public class MarkAttendance extends Fragment {
                     fragment.setArguments(b);
                     getFragmentManager()
                             .beginTransaction()
-                            .setCustomAnimations(animator.fade_in,animator.fade_out)
+                            .setCustomAnimations(animator.fade_in, animator.fade_out)
                             .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
                 }
             });
@@ -186,85 +185,85 @@ public class MarkAttendance extends Fragment {
         }
     };
 
-	private View.OnClickListener yesterdayAbsentees = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Bundle b = new Bundle();
-			b.putInt("today", 0);
-			b.putInt("yesterday", 1);
-			b.putInt("otherday", 0);
-			Fragment fragment = new AbsentList();
-			fragment.setArguments(b);
-			getFragmentManager()
-					.beginTransaction()
-					.setCustomAnimations(animator.fade_in,animator.fade_out)
-					.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-		}
-	};
+    private View.OnClickListener yesterdayAbsentees = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Bundle b = new Bundle();
+            b.putInt("today", 0);
+            b.putInt("yesterday", 1);
+            b.putInt("otherday", 0);
+            Fragment fragment = new AbsentList();
+            fragment.setArguments(b);
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(animator.fade_in, animator.fade_out)
+                    .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+        }
+    };
 
-	private View.OnClickListener otherdayAbsentees = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Bundle b = new Bundle();
-			b.putInt("today", 0);
-			b.putInt("yesterday", 0);
-			b.putInt("otherday", 1);
-			Fragment fragment = new AbsentList();
-			fragment.setArguments(b);
-			getFragmentManager()
-					.beginTransaction()
-					.setCustomAnimations(animator.fade_in,animator.fade_out)
-					.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-		}
-	};
+    private View.OnClickListener otherdayAbsentees = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Bundle b = new Bundle();
+            b.putInt("today", 0);
+            b.putInt("yesterday", 0);
+            b.putInt("otherday", 1);
+            Fragment fragment = new AbsentList();
+            fragment.setArguments(b);
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(animator.fade_in, animator.fade_out)
+                    .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+        }
+    };
 
-	private String getToday() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		Date today = new Date();
-		return dateFormat.format(today);
-	}
+    private String getToday() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date today = new Date();
+        return dateFormat.format(today);
+    }
 
-	private void populateGridArray() {
-		if(classId!=0){
-			String clasName = ClasDao.getClassName(classId, sqliteDatabase);
-			String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			ptTV.setText(clasName+" - "+secName+"  "+getResources().getString(R.string.pt));
-		}
-		studentsArray = StudentsDao.selectStudents(""+sectionId, sqliteDatabase);
-		for(int idx=0; idx<studentsArray.size(); idx++){
-			studentAttend.add(false);
-		}
+    private void populateGridArray() {
+        if (classId != 0) {
+            String clasName = ClasDao.getClassName(classId, sqliteDatabase);
+            String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
+            ptTV.setText(clasName + " - " + secName + "  " + getResources().getString(R.string.pt));
+        }
+        studentsArray = StudentsDao.selectStudents("" + sectionId, sqliteDatabase);
+        for (int idx = 0; idx < studentsArray.size(); idx++) {
+            studentAttend.add(false);
+        }
 
-		Bitmap attendYes = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
-		Bitmap attendNo = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
-		studentsArrayGrid.clear();
-		int pos=0;
-		for(Students s: studentsArray){
-			if(studentAttend.get(pos)){
-				studentsArrayGrid.add(new Students(s.getRollNoInClass(),Capitalize.capitalThis(s.getName()),attendNo));
-			}else{
-				studentsArrayGrid.add(new Students(s.getRollNoInClass(),Capitalize.capitalThis(s.getName()),attendYes));
-			}
-			pos++;
-		}
-		attendanceAdapter.notifyDataSetChanged();
-	}
+        Bitmap attendYes = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
+        Bitmap attendNo = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
+        studentsArrayGrid.clear();
+        int pos = 0;
+        for (Students s : studentsArray) {
+            if (studentAttend.get(pos)) {
+                studentsArrayGrid.add(new Students(s.getRollNoInClass(), Capitalize.capitalThis(s.getName()), attendNo));
+            } else {
+                studentsArrayGrid.add(new Students(s.getRollNoInClass(), Capitalize.capitalThis(s.getName()), attendYes));
+            }
+            pos++;
+        }
+        attendanceAdapter.notifyDataSetChanged();
+    }
 
-	private void repopulateGridArray(){
-		Bitmap attendYes = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
-		Bitmap attendNo = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
-		studentsArrayGrid.clear();
-		int pos=0;
-		for(Students s: studentsArray){
-			if(studentAttend.get(pos)){
-				studentsArrayGrid.add(new Students(s.getRollNoInClass(),Capitalize.capitalThis(s.getName()),attendNo));
-			}else{
-				studentsArrayGrid.add(new Students(s.getRollNoInClass(),Capitalize.capitalThis(s.getName()),attendYes));
-			}
-			pos++;
-		}
-		attendanceAdapter.notifyDataSetChanged();
-		gridView.setSelection(index);
-	}
+    private void repopulateGridArray() {
+        Bitmap attendYes = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
+        Bitmap attendNo = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
+        studentsArrayGrid.clear();
+        int pos = 0;
+        for (Students s : studentsArray) {
+            if (studentAttend.get(pos)) {
+                studentsArrayGrid.add(new Students(s.getRollNoInClass(), Capitalize.capitalThis(s.getName()), attendNo));
+            } else {
+                studentsArrayGrid.add(new Students(s.getRollNoInClass(), Capitalize.capitalThis(s.getName()), attendYes));
+            }
+            pos++;
+        }
+        attendanceAdapter.notifyDataSetChanged();
+        gridView.setSelection(index);
+    }
 
 }
