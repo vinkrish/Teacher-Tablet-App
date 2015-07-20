@@ -25,7 +25,6 @@ public class SyncServiceReceiver extends BroadcastReceiver {
 		int is_first_sync = sharedPref.getInt("first_sync", 0);
 		int tabletLock = sharedPref.getInt("tablet_lock", 0);
 		int bootSync = sharedPref.getInt("boot_sync", 0);
-        boolean isNetworkConnected = NetworkUtils.isNetworkConnected(context);
 
         new Thread(new Runnable() {
             @Override
@@ -47,7 +46,7 @@ public class SyncServiceReceiver extends BroadcastReceiver {
             }
         }).start();
 		
-		if (isNetworkConnected && is_first_sync==0 && tabletLock==0 && bootSync==0){
+		if (NetworkUtils.isNetworkConnected(context) && is_first_sync==0 && tabletLock==0 && bootSync==0){
 			if(AppGlobal.isActive()){
 				new CallFTP().syncFTP();
 			}else{
@@ -75,6 +74,6 @@ public class SyncServiceReceiver extends BroadcastReceiver {
 		AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 		Intent i = new Intent(context, SyncServiceReceiver.class);
 		PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 2, pi);
+		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 7, pi);
 	}
 }
