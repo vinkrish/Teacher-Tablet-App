@@ -18,7 +18,6 @@ import java.util.zip.ZipInputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.amazonaws.AmazonClientException;
 import com.amazonaws.mobileconnectors.s3.transfermanager.Download;
 import com.amazonaws.mobileconnectors.s3.transfermanager.Transfer;
 import com.amazonaws.mobileconnectors.s3.transfermanager.TransferManager;

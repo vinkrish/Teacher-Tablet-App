@@ -46,6 +46,7 @@ public class CallFTP implements StringConstant {
     private TransferManager mTransferManager;
     private boolean uploadComplete;
     private boolean exception;
+    private SharedPreferences sharedPref;
 
     public CallFTP() {
         appContext = AppGlobal.getContext();
@@ -58,6 +59,8 @@ public class CallFTP implements StringConstant {
 
         @Override
         protected String doInBackground(String... arg0) {
+
+            sharedPref = appContext.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 
             ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             batteryStatus = appContext.getApplicationContext().registerReceiver(null, ifilter);
@@ -82,6 +85,15 @@ public class CallFTP implements StringConstant {
                 Log.d("block", block + "");
                 zipFile = jsonReceived.getString("folder_name");
                 String s = jsonReceived.getString("files");
+                String apkName = sharedPref.getString("apk_name", "teacher");
+                String updatedApkname = jsonReceived.getString("apk_name");
+                if(!apkName.equals(updatedApkname)){
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("apk_update", 1);
+                    editor.putString("apk_name", updatedApkname);
+                    editor.apply();
+                }
+
                 String[] sArray = s.split(",");
                 for (String split : sArray) {
                     TempDao.updateSyncTimer(sqliteDatabase);
@@ -150,7 +162,6 @@ public class CallFTP implements StringConstant {
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            SharedPreferences sharedPref = appContext.getSharedPreferences("db_access", Context.MODE_PRIVATE);
             manualSync = sharedPref.getInt("manual_sync", 0);
             int apkUpdate = sharedPref.getInt("apk_update", 0);
             SharedPreferences.Editor editor = sharedPref.edit();
