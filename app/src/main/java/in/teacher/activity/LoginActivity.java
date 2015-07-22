@@ -101,6 +101,12 @@ public class LoginActivity extends BaseActivity {
             startActivity(i);
         }
 
+        int apkUpdate = sharedPref.getInt("apk_update",0);
+        if(apkUpdate != 0){
+            Intent i = new Intent(this, in.teacher.activity.UpdateApk.class);
+            startActivity(i);
+        }
+
         alertSync();
 
     }

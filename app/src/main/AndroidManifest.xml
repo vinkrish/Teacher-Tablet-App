@@ -103,6 +103,12 @@
             android:name=".InternetBlock"
             android:label="@string/title_activity_internet_block"
             android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".UpdateApk"
+            android:label="@string/title_activity_update_apk"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar">
         </activity>
     </application>

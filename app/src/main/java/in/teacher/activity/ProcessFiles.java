@@ -1,5 +1,6 @@
 package in.teacher.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,6 +60,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 	private int schoolId, manualSync;
 	private String deviceId;
 	private boolean isException = false, isFirstTimeSync = false;
+    private ProgressDialog pDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
         SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
         manualSync = pref.getInt("manual_sync", 0);
 
+        pDialog = new ProgressDialog(this);
+
 		txtPercentage = (TextView) findViewById(R.id.txtPercentage);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		txtSync = (TextView) findViewById(R.id.syncing);
@@ -90,6 +94,16 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
 	class ProcessedFiles extends AsyncTask<String, String, String>{
 		private JSONObject jsonReceived;
+
+        protected void onPreExecute(){
+            super.onPreExecute();
+            if(manualSync == 1){
+                pDialog.setMessage("Syncing data...");
+                pDialog.setIndeterminate(false);
+                pDialog.setCancelable(false);
+                pDialog.show();
+            }
+        }
 
 		@Override
 		protected void onProgressUpdate(String... progress) {
@@ -377,6 +391,10 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
 			//	wakeLock.release();
+
+            if(manualSync == 1){
+                pDialog.dismiss();
+            }
 
 			SharedPreferences sharedPref = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sharedPref.edit();

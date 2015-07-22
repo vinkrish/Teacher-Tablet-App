@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,212 +35,224 @@ import android.os.BatteryManager;
 import android.util.Log;
 
 @SuppressWarnings("deprecation")
-public class CallFTP implements StringConstant{
-	private SqlDbHelper sqlHandler;
-	private SQLiteDatabase sqliteDatabase;
-	private Context appContext;
-	private int schoolId, block, batteryLevel, manualSync;
-	private String deviceId, zipFile;
-	private IntentFilter ifilter;
-	private Intent batteryStatus;
-	private TransferManager mTransferManager;
-	private boolean uploadComplete;
-	private boolean exception;
+public class CallFTP implements StringConstant {
+    private SqlDbHelper sqlHandler;
+    private SQLiteDatabase sqliteDatabase;
+    private Context appContext;
+    private int schoolId, block, batteryLevel, manualSync;
+    private String deviceId, zipFile;
+    private IntentFilter ifilter;
+    private Intent batteryStatus;
+    private TransferManager mTransferManager;
+    private boolean uploadComplete;
+    private boolean exception;
 
-	public CallFTP(){
-		appContext = AppGlobal.getContext();
-		sqlHandler = AppGlobal.getSqlDbHelper();
-		sqliteDatabase = AppGlobal.getSqliteDatabase();
-	}
+    public CallFTP() {
+        appContext = AppGlobal.getContext();
+        sqlHandler = AppGlobal.getSqlDbHelper();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+    }
 
-	class CalledFTPSync extends AsyncTask<String, String, String>{
-		private JSONObject jsonReceived;
-		@Override
-		protected String doInBackground(String... arg0){
+    class CalledFTPSync extends AsyncTask<String, String, String> {
+        private JSONObject jsonReceived;
 
-			ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-			batteryStatus = appContext.getApplicationContext().registerReceiver(null, ifilter);
-			batteryLevel = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        @Override
+        protected String doInBackground(String... arg0) {
 
-			mTransferManager = new TransferManager(Util.getCredProvider(appContext));
-			uploadComplete = false;
-			exception = false;
+            ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            batteryStatus = appContext.getApplicationContext().registerReceiver(null, ifilter);
+            batteryLevel = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 
-			JSONObject ack_json = new JSONObject();
-			Temp t = TempDao.selectTemp(sqliteDatabase);
-			schoolId = t.getSchoolId();
-			deviceId = t.getDeviceId();
-			try{
-				ack_json.put("school", schoolId);
-				ack_json.put("tab_id", deviceId);
-				ack_json.put("battery_status", batteryLevel);
-				Log.d("get_file_req", "1");
-				jsonReceived = UploadSyncParser.makePostRequest(ask_for_download_file, ack_json);
-				Log.d("get_file_res", "1");
-				block = jsonReceived.getInt(TAG_SUCCESS);
-				Log.d("block", block+"");
-				zipFile = jsonReceived.getString("folder_name");
-				String s = jsonReceived .getString("files");
-				String[] sArray = s.split(",");
-				for(String split: sArray){
-					TempDao.updateSyncTimer(sqliteDatabase);
-					sqlHandler.insertDownloadedFile(split, sqliteDatabase);
-				}
-			} catch (JSONException e){
-				zipFile = "";
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+            mTransferManager = new TransferManager(Util.getCredProvider(appContext));
+            uploadComplete = false;
+            exception = false;
 
-			ArrayList<String> upFileList = new ArrayList<>();
-			Cursor c1 = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
-			c1.moveToFirst();
-			while(!c1.isAfterLast()){
-				upFileList.add(c1.getString(c1.getColumnIndex("filename")));
-				c1.moveToNext();
-			}
-			c1.close();
+            JSONObject ack_json = new JSONObject();
+            Temp t = TempDao.selectTemp(sqliteDatabase);
+            schoolId = t.getSchoolId();
+            deviceId = t.getDeviceId();
+            try {
+                ack_json.put("school", schoolId);
+                ack_json.put("tab_id", deviceId);
+                ack_json.put("battery_status", batteryLevel);
+                Log.d("get_file_req", "1");
+                jsonReceived = UploadSyncParser.makePostRequest(ask_for_download_file, ack_json);
+                Log.d("get_file_res", "1");
+                block = jsonReceived.getInt(TAG_SUCCESS);
+                Log.d("block", block + "");
+                zipFile = jsonReceived.getString("folder_name");
+                String s = jsonReceived.getString("files");
+                String[] sArray = s.split(",");
+                for (String split : sArray) {
+                    TempDao.updateSyncTimer(sqliteDatabase);
+                    sqlHandler.insertDownloadedFile(split, sqliteDatabase);
+                }
+            } catch (JSONException e) {
+                zipFile = "";
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-			if(block!=2){
+            ArrayList<String> upFileList = new ArrayList<>();
+            Cursor c1 = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
+            c1.moveToFirst();
+            while (!c1.isAfterLast()) {
+                upFileList.add(c1.getString(c1.getColumnIndex("filename")));
+                c1.moveToNext();
+            }
+            c1.close();
 
-				Log.d("Upload_file_req", "2");
+            if (block != 2) {
 
-				File root = android.os.Environment.getExternalStorageDirectory();
-				File dir = new File (root.getAbsolutePath() + "/Upload");
+                Log.d("Upload_file_req", "2");
 
-				for(String f: upFileList){
-					TempDao.updateSyncTimer(sqliteDatabase);
-					File file = new File(dir, f);
-					UploadModel model = new UploadModel(appContext, f, mTransferManager);
-					model.upload();
+                File root = android.os.Environment.getExternalStorageDirectory();
+                File dir = new File(root.getAbsolutePath() + "/Upload");
 
-					while(!uploadComplete){
-						Log.d("upload", "...");
-					}
-					
-					if(exception){
-						uploadComplete = false;
-						exception = false;
-						break;
-					}
+                for (String f : upFileList) {
+                    TempDao.updateSyncTimer(sqliteDatabase);
+                    File file = new File(dir, f);
+                    UploadModel model = new UploadModel(appContext, f, mTransferManager);
+                    model.upload();
 
-					try{
-						JSONObject jsonObject = new JSONObject();
-						jsonObject.put("school", schoolId);
-						jsonObject.put("tab_id", deviceId);
-						jsonObject.put("file_name", f.substring(0, f.length()-3)+"sql");
-						jsonReceived = UploadSyncParser.makePostRequest(acknowledge_uploaded_file, jsonObject);
-						if(jsonReceived.getInt(TAG_SUCCESS)==1){
-							TempDao.updateSyncTimer(sqliteDatabase);
-							file.delete();
-							sqliteDatabase.execSQL("update uploadedfile set processed=1 where filename='"+f+"'");
-						}
-					}catch (JSONException e) {
-						e.printStackTrace();
-					}catch (IOException e) {
-						e.printStackTrace();
-					}
-					uploadComplete = false;
-				}
-			}
-			return null;
-		}
+                    while (!uploadComplete) {
+                        Log.d("upload", "...");
+                    }
 
-		protected void onPostExecute(String s){
-			super.onPostExecute(s);
-			SharedPreferences sharedPref = appContext.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+                    if (exception) {
+                        uploadComplete = false;
+                        exception = false;
+                        break;
+                    }
+
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("school", schoolId);
+                        jsonObject.put("tab_id", deviceId);
+                        jsonObject.put("file_name", f.substring(0, f.length() - 3) + "sql");
+                        jsonReceived = UploadSyncParser.makePostRequest(acknowledge_uploaded_file, jsonObject);
+                        if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
+                            TempDao.updateSyncTimer(sqliteDatabase);
+                            file.delete();
+                            sqliteDatabase.execSQL("update uploadedfile set processed=1 where filename='" + f + "'");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    uploadComplete = false;
+                }
+            }
+            return null;
+        }
+
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            SharedPreferences sharedPref = appContext.getSharedPreferences("db_access", Context.MODE_PRIVATE);
             manualSync = sharedPref.getInt("manual_sync", 0);
-			SharedPreferences.Editor editor = sharedPref.edit();
-			KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-			boolean screenLocked = km.inKeyguardRestrictedInputMode();
-			if(block!=2 && zipFile!=""){
-				new IntermediateDownloadTask(appContext, zipFile).execute();
-			}else if(block==2){
+            int apkUpdate = sharedPref.getInt("apk_update", 0);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+            boolean screenLocked = km.inKeyguardRestrictedInputMode();
+            if (block != 2 && zipFile != "") {
+                new IntermediateDownloadTask(appContext, zipFile).execute();
+            } else if (block == 2) {
                 editor.putInt("manual_sync", 0);
-				editor.putInt("tablet_lock", 2);
-				editor.apply();
-			}else if(manualSync == 1){
+                editor.putInt("tablet_lock", 2);
+                editor.apply();
+            } else if (manualSync == 1 && apkUpdate == 1) {
+                editor.putInt("manual_sync", 0);
+                editor.putInt("apk_update", 2);
+                editor.apply();
+                Intent intent = new Intent(appContext, in.teacher.activity.UpdateApk.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                appContext.startActivity(intent);
+            } else if (manualSync == 1) {
                 editor.putInt("manual_sync", 0);
                 editor.apply();
-				Intent intent = new Intent(appContext, in.teacher.activity.LoginActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				appContext.startActivity(intent);
-			} else if(screenLocked){
-				Intent i = new Intent(appContext, in.teacher.activity.ProcessFiles.class);
-				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				appContext.startActivity(i);
-			}else{
-				editor.putInt("sleep_sync", 1);
-				editor.apply();
-			}
-		}
-	}
+                Intent intent = new Intent(appContext, in.teacher.activity.LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                appContext.startActivity(intent);
+            } else if (screenLocked) {
+                Intent i = new Intent(appContext, in.teacher.activity.ProcessFiles.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                appContext.startActivity(i);
+            } else {
+                editor.putInt("sleep_sync", 1);
+                editor.apply();
+            }
+        }
+    }
 
-	public void syncFTP(){
-		new CalledFTPSync().execute();
-	}
+    public void syncFTP() {
+        new CalledFTPSync().execute();
+    }
 
-	public class UploadModel extends TransferModel {
-		private String fileNam;
-		private Upload mUpload;
-		private ProgressListener mListener;
-		private Status mStatus;
+    public class UploadModel extends TransferModel {
+        private String fileNam;
+        private Upload mUpload;
+        private ProgressListener mListener;
+        private Status mStatus;
 
-		public UploadModel(Context context, String key, TransferManager manager) {
-			super(context, Uri.parse(key), manager);
-			fileNam = key;
-			mStatus = Status.IN_PROGRESS;
-			mListener = new ProgressListener() {
-				@Override
-				public void progressChanged(ProgressEvent event) {
-					if (event.getEventCode() == ProgressEvent.COMPLETED_EVENT_CODE) {
-						mStatus = Status.COMPLETED;
-						Log.d("upload", "complete");
-						uploadComplete = true;
-					}else if(event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE){
-						exception = true;
-						uploadComplete = true;
-					}else if(event.getEventCode() == ProgressEvent.CANCELED_EVENT_CODE){
-						exception = true;
-						uploadComplete = true;
-					}
-				}
-			};
-		}
+        public UploadModel(Context context, String key, TransferManager manager) {
+            super(context, Uri.parse(key), manager);
+            fileNam = key;
+            mStatus = Status.IN_PROGRESS;
+            mListener = new ProgressListener() {
+                @Override
+                public void progressChanged(ProgressEvent event) {
+                    if (event.getEventCode() == ProgressEvent.COMPLETED_EVENT_CODE) {
+                        mStatus = Status.COMPLETED;
+                        Log.d("upload", "complete");
+                        uploadComplete = true;
+                    } else if (event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE) {
+                        exception = true;
+                        uploadComplete = true;
+                    } else if (event.getEventCode() == ProgressEvent.CANCELED_EVENT_CODE) {
+                        exception = true;
+                        uploadComplete = true;
+                    }
+                }
+            };
+        }
 
-		@Override
-		public Status getStatus() {
-			return mStatus;
-		}
+        @Override
+        public Status getStatus() {
+            return mStatus;
+        }
 
-		@Override
-		public Transfer getTransfer() {
-			return mUpload;
-		}
+        @Override
+        public Transfer getTransfer() {
+            return mUpload;
+        }
 
-		public void upload() {
-			try {
-				File root = android.os.Environment.getExternalStorageDirectory();
-				File dir = new File (root.getAbsolutePath() + "/Upload");
-				File file = new File(dir, fileNam);
-				mUpload = getTransferManager().upload(
-						Constants.BUCKET_NAME.toLowerCase(Locale.US),"upload/zipped_folder/"+fileNam,
-						file);
-				mUpload.addProgressListener(mListener);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+        public void upload() {
+            try {
+                File root = android.os.Environment.getExternalStorageDirectory();
+                File dir = new File(root.getAbsolutePath() + "/Upload");
+                File file = new File(dir, fileNam);
+                mUpload = getTransferManager().upload(
+                        Constants.BUCKET_NAME.toLowerCase(Locale.US), "upload/zipped_folder/" + fileNam,
+                        file);
+                mUpload.addProgressListener(mListener);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-		@Override
-		public void abort() {}
+        @Override
+        public void abort() {
+        }
 
-		@Override
-		public void pause() {}
+        @Override
+        public void pause() {
+        }
 
-		@Override
-		public void resume() {}
-	}
+        @Override
+        public void resume() {
+        }
+    }
 
 }
