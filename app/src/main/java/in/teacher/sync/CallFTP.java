@@ -83,16 +83,13 @@ public class CallFTP implements StringConstant {
                 Log.d("get_file_res", "1");
                 block = jsonReceived.getInt(TAG_SUCCESS);
                 Log.d("block", block + "");
-                zipFile = jsonReceived.getString("folder_name");
-                String s = jsonReceived.getString("files");
-                String apkName = sharedPref.getString("apk_name", "teacher");
-                String updatedApkname = jsonReceived.getString("apk_name");
-                if(!apkName.equals(updatedApkname)){
+                if(jsonReceived.getInt("update") == 1){
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putInt("apk_update", 1);
-                    editor.putString("apk_name", updatedApkname);
                     editor.apply();
                 }
+                zipFile = jsonReceived.getString("folder_name");
+                String s = jsonReceived.getString("files");
 
                 String[] sArray = s.split(",");
                 for (String split : sArray) {
@@ -163,7 +160,7 @@ public class CallFTP implements StringConstant {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             manualSync = sharedPref.getInt("manual_sync", 0);
-            int apkUpdate = sharedPref.getInt("apk_update", 0);
+            int updateApk = sharedPref.getInt("update_apk", 0);
             SharedPreferences.Editor editor = sharedPref.edit();
             KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
             boolean screenLocked = km.inKeyguardRestrictedInputMode();
@@ -173,9 +170,9 @@ public class CallFTP implements StringConstant {
                 editor.putInt("manual_sync", 0);
                 editor.putInt("tablet_lock", 2);
                 editor.apply();
-            } else if (manualSync == 1 && apkUpdate == 1) {
+            } else if (manualSync == 1 && updateApk == 1) {
                 editor.putInt("manual_sync", 0);
-                editor.putInt("apk_update", 2);
+                editor.putInt("update_apk", 2);
                 editor.apply();
                 Intent intent = new Intent(appContext, in.teacher.activity.UpdateApk.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings.Secure;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +61,8 @@ public class LoginActivity extends BaseActivity {
 
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
+        Log.d("testing", "log");
+
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
@@ -81,6 +84,7 @@ public class LoginActivity extends BaseActivity {
         sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("boot_sync", 0);
+        editor.putString("saved_version", "v1.4");
         editor.apply();
 
         internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
@@ -101,8 +105,9 @@ public class LoginActivity extends BaseActivity {
             startActivity(i);
         }
 
-        int apkUpdate = sharedPref.getInt("apk_update",0);
-        if(apkUpdate != 0){
+        int apkUpdate = sharedPref.getInt("apk_update", 0);
+        Log.d("apk_update", apkUpdate+"");
+        if(apkUpdate == 1){
             Intent i = new Intent(this, in.teacher.activity.UpdateApk.class);
             startActivity(i);
         }

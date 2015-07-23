@@ -217,3 +217,13 @@ ADDED from AndroidManifest.xml:102:9
 		ADDED from AndroidManifest.xml:106:13
 	android:name
 		ADDED from AndroidManifest.xml:103:13
+activity#in.teacher.activity.UpdateApk
+ADDED from AndroidManifest.xml:108:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:111:13
+	android:label
+		ADDED from AndroidManifest.xml:110:13
+	android:theme
+		ADDED from AndroidManifest.xml:112:13
+	android:name
+		ADDED from AndroidManifest.xml:109:13

@@ -58,9 +58,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 	private TextView txtPercentage, txtSync;
 	private SQLiteDatabase sqliteDatabase;
 	private int schoolId, manualSync;
-	private String deviceId;
+	private String deviceId, savedVersion;
 	private boolean isException = false, isFirstTimeSync = false;
-    private ProgressDialog pDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +77,9 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
         context = AppGlobal.getContext();
 
-        SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("db_access", Context.MODE_PRIVATE);
         manualSync = pref.getInt("manual_sync", 0);
-
-        pDialog = new ProgressDialog(this);
+        savedVersion = pref.getString("saved_version", "0");
 
 		txtPercentage = (TextView) findViewById(R.id.txtPercentage);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -94,16 +92,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
 	class ProcessedFiles extends AsyncTask<String, String, String>{
 		private JSONObject jsonReceived;
-
-        protected void onPreExecute(){
-            super.onPreExecute();
-            if(manualSync == 1){
-                pDialog.setMessage("Syncing data...");
-                pDialog.setIndeterminate(false);
-                pDialog.setCancelable(false);
-                pDialog.show();
-            }
-        }
 
 		@Override
 		protected void onProgressUpdate(String... progress) {
@@ -205,6 +193,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 						jsonObject.put("school", schoolId);
 						jsonObject.put("tab_id", deviceId);
 						jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
+                        jsonObject.put("version", savedVersion);
 						jsonReceived = UploadSyncParser.makePostRequest(update_processed_file, jsonObject);
 						if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
 							sqliteDatabase.execSQL("update downloadedfile set isack=1 where processed=1 and filename in ('" + sb.substring(0, sb.length() - 3) + "')");
@@ -391,11 +380,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
 			//	wakeLock.release();
-
-            if(manualSync == 1){
-                pDialog.dismiss();
-            }
-
 			SharedPreferences sharedPref = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putInt("is_sync", 0);

@@ -21,7 +21,12 @@ import com.amazonaws.services.s3.model.ProgressListener;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import in.teacher.dao.TempDao;
 import in.teacher.model.TransferModel;
@@ -34,7 +39,6 @@ import in.teacher.util.Util;
 public class UpdateApk extends BaseActivity {
     private SharedPreferences sharedPref;
     private ProgressDialog pDialog;
-    private String apkName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +46,18 @@ public class UpdateApk extends BaseActivity {
         setContentView(R.layout.activity_update_apk);
         pDialog = new ProgressDialog(this);
 
-        sharedPref = this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        int apkUpdate = sharedPref.getInt("apk_update", 0);
-        apkName = sharedPref.getString("apk_name", "teacher");
+        sharedPref = getSharedPreferences("db_access", Context.MODE_PRIVATE);
+        int updateApk = sharedPref.getInt("update_apk", 0);
 
-        if (apkUpdate == 2) {
-            new ApkDownloadTask(this.getApplicationContext(), apkName).execute();
+        if (updateApk == 2) {
+            new ApkDownloadTask(this.getApplicationContext(), "teacher.zip").execute();
         }
 
     }
 
     public void updateClicked(View v) {
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("apk_update", 1);
+        editor.putInt("update_apk", 1);
         editor.putInt("manual_sync", 1);
         editor.putInt("is_sync", 1);
         editor.apply();
@@ -68,12 +71,10 @@ public class UpdateApk extends BaseActivity {
         private String fileName;
         private Context context;
         private boolean downloadCompleted, exception;
-        private SQLiteDatabase sqliteDatabase;
 
-        public ApkDownloadTask(Context context, String fileName) {
+        public ApkDownloadTask(Context context, String fName) {
             this.context = context;
-            sqliteDatabase = AppGlobal.getSqliteDatabase();
-            this.fileName = "download/" + fileName;
+            this.fileName = "download/" + fName;
         }
 
         protected void onPreExecute() {
@@ -97,6 +98,10 @@ public class UpdateApk extends BaseActivity {
                 Log.d("download", "...");
             }
 
+            if(!exception){
+                unZipIt("teacher.zip");
+            }
+
             return null;
         }
 
@@ -104,15 +109,17 @@ public class UpdateApk extends BaseActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             pDialog.dismiss();
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("apk_update", 0);
-            editor.apply();
 
             if(!exception){
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), apkName+".apk")), "application/vnd.android.package-archive");
-                startActivity(intent);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("apk_update", 0);
+                editor.putInt("update_apk", 0);
+                editor.apply();
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "teacher.apk")), "application/vnd.android.package-archive");
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
             }
         }
 
@@ -184,5 +191,42 @@ public class UpdateApk extends BaseActivity {
 
     }
 
+    public void unZipIt(String zipFile) {
+        byte[] buffer = new byte[1024];
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        try {
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            ZipInputStream zis = new ZipInputStream(new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), zipFile)));
+            ZipEntry ze = zis.getNextEntry();
+
+            while (ze != null) {
+                String fileName = ze.getName();
+                File newFile = new File(dir + File.separator + fileName);
+                new File(newFile.getParent()).mkdirs();
+                FileOutputStream fos = new FileOutputStream(newFile);
+                int len;
+                while ((len = zis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, len);
+                }
+                fos.close();
+                ze = zis.getNextEntry();
+            }
+            zis.closeEntry();
+            zis.close();
+
+            File zip = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), zipFile);
+            zip.delete();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+
+    }
 
 }
