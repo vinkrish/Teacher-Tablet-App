@@ -72,7 +72,7 @@ public class InsertCCEStudentProfile extends Fragment {
 		}
 
 		ListView lv = (ListView) view.findViewById(R.id.list);
-		studentsArray = StudentsDao.selectStudents(""+sectionId, sqliteDatabase);
+		studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
 		for(Students stud: studentsArray){
 			profileList.add(new Profile(stud.getStudentId(), stud.getRollNoInClass()+"", stud.getName(), "", "", ""));
 		}

@@ -151,7 +151,7 @@ public class UpdateCCSGrade extends Fragment {
 		}
 		c.close();
 
-		studentsArray = StudentsDao.selectStudents(""+sectionId, sqliteDatabase);
+		studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
 
 		Cursor c1 = sqliteDatabase.rawQuery("select Grade,Description from ccecoscholasticgrade where AspectId="+AspectId+" and Term="+Term+" and StudentId in " +
 				"(select StudentId from students where SectionId="+sectionId+" order by RollNoInClass)", null);

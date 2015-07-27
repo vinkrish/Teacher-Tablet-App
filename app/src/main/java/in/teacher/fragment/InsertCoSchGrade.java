@@ -96,7 +96,7 @@ public class InsertCoSchGrade extends Fragment {
 		c.close();
 
 		ListView lv = (ListView) view.findViewById(R.id.list);
-		studentsArray = StudentsDao.selectStudents(""+sectionId, sqliteDatabase);
+		studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
 
 		for(Students stud: studentsArray){
 			coSchList.add(new CoSch(stud.getRollNoInClass()+"", stud.getName(), "", gradList));

@@ -14,6 +14,8 @@
     <color name="universal">#3E97D6</color>
     <color name="green">#41AB15</color>
     <color name="red">#AD200A</color>
+    <color name="border">#DCDCE3</color>
+    <color name="list_selec">#EDEFF2</color>
     <color name="list_highlighted">#A1C8F0</color>
     <color name="grade_pressed">#5FB01C</color>
     <color name="grade_normal">#EAF0E9</color>

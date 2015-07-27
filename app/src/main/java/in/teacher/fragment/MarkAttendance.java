@@ -229,7 +229,7 @@ public class MarkAttendance extends Fragment {
             String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
             ptTV.setText(clasName + " - " + secName + "  " + getResources().getString(R.string.pt));
         }
-        studentsArray = StudentsDao.selectStudents("" + sectionId, sqliteDatabase);
+        studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
         for (int idx = 0; idx < studentsArray.size(); idx++) {
             studentAttend.add(false);
         }

@@ -22,6 +22,7 @@ import in.teacher.fragment.SearchStudST;
 import in.teacher.fragment.SelectCCEStudentProfile;
 import in.teacher.fragment.SlipTest;
 import in.teacher.fragment.StructuredExam;
+import in.teacher.fragment.StudentClassSec;
 import in.teacher.fragment.ViewQueue;
 import in.teacher.fragment.ViewScore;
 import in.teacher.model.NavDrawerItem;
@@ -360,6 +361,10 @@ public class Dashboard extends BaseActivity {
 		}else{
 			ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
 		}
+	}
+
+	public void callViewStudents(View view){
+		ReplaceFragment.replace(new StudentClassSec(), getFragmentManager());
 	}
 
 	public void toDashbord(View v){

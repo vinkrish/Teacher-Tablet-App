@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF" >
@@ -169,13 +168,13 @@
             <FrameLayout
                 android:id="@+id/fl2"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="190dp"
                 android:background="#515450"
                 android:visibility="invisible" >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" >
+                    android:layout_height="190dp" >
 
                     <TextView
                         android:id="@+id/fltv"
@@ -248,6 +247,23 @@
                             android:onClick="callStructuredExam"
                             android:textColor="#000000" />
                     </LinearLayout>
+                    <Button
+                        android:id="@+id/view_students"
+                        android:layout_below="@id/flll2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_selector_fl"
+                        android:drawableLeft="@drawable/enterscore"
+                        android:drawablePadding="10dp"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="@string/view_students"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:onClick="callViewStudents"
+                        android:textColor="#000000" />
                 </RelativeLayout>
             </FrameLayout>
 
@@ -305,13 +321,13 @@
             <FrameLayout
                 android:id="@+id/fl22"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="190dp"
                 android:background="#515450"
                 android:visibility="invisible" >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" >
+                    android:layout_height="190dp" >
 
                     <TextView
                         android:id="@+id/fltv2"
@@ -384,6 +400,23 @@
                             android:onClick="callStructuredExam"
                             android:textColor="#000000" />
                     </LinearLayout>
+                    <Button
+                        android:id="@+id/view_students2"
+                        android:layout_below="@id/flll22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_selector_fl"
+                        android:drawableLeft="@drawable/enterscore"
+                        android:drawablePadding="10dp"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="@string/view_students"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:onClick="callViewStudents"
+                        android:textColor="#000000" />
                 </RelativeLayout>
             </FrameLayout>
 
@@ -442,13 +475,13 @@
             <FrameLayout
                 android:id="@+id/fl222"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="190dp"
                 android:background="#515450"
                 android:visibility="invisible" >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" >
+                    android:layout_height="190dp" >
 
                     <TextView
                         android:id="@+id/fltv22"
@@ -521,6 +554,23 @@
                             android:onClick="callStructuredExam"
                             android:textColor="#000000" />
                     </LinearLayout>
+                    <Button
+                        android:id="@+id/view_students3"
+                        android:layout_below="@id/flll222"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_selector_fl"
+                        android:drawableLeft="@drawable/enterscore"
+                        android:drawablePadding="10dp"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="@string/view_students"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:onClick="callViewStudents"
+                        android:textColor="#000000" />
                 </RelativeLayout>
             </FrameLayout>
 
@@ -579,13 +629,13 @@
             <FrameLayout
                 android:id="@+id/fl2222"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="190dp"
                 android:background="#515450"
                 android:visibility="invisible" >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" >
+                    android:layout_height="190dp" >
 
                     <TextView
                         android:id="@+id/fltv222"
@@ -658,6 +708,23 @@
                             android:onClick="callStructuredExam"
                             android:textColor="#000000" />
                     </LinearLayout>
+                    <Button
+                        android:id="@+id/view_students4"
+                        android:layout_below="@id/flll2222"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_selector_fl"
+                        android:drawableLeft="@drawable/enterscore"
+                        android:drawablePadding="10dp"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="5dp"
+                        android:text="@string/view_students"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:onClick="callViewStudents"
+                        android:textColor="#000000" />
                 </RelativeLayout>
             </FrameLayout>
         </LinearLayout>

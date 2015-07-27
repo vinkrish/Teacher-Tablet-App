@@ -44,9 +44,9 @@ public class StudentsDao {
 		return sList;
 	}
 	
-	public static List<Students> selectStudents(String sectionid, SQLiteDatabase sqliteDatabase){
-		Cursor c = sqliteDatabase.rawQuery("select * from students where SectionId="+sectionid+" order by RollNoInClass", null);
-		List<Students> sList = new ArrayList<Students>();
+	public static List<Students> selectStudents(int sectionId, SQLiteDatabase sqliteDatabase){
+		Cursor c = sqliteDatabase.rawQuery("select * from students where SectionId="+sectionId+" order by RollNoInClass", null);
+		List<Students> sList = new ArrayList<>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			Students stud = new Students();

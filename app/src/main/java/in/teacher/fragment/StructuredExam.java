@@ -228,7 +228,7 @@ public class StructuredExam extends Fragment {
 		protected String doInBackground(String... params) {
 			String className = ClasDao.getClassName(classId, sqliteDatabase);
 			String sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));	
+			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 			exmName.append(className).append("-").append(sectionName).append("    ").append(subjectName);
 			List<Exams> examList = ExamsDao.selectExams(classId, subjectId, sqliteDatabase);
 			for(Exams exam: examList){

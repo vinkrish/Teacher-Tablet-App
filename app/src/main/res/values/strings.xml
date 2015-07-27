@@ -60,6 +60,7 @@
     <string name="fltv">Select  the  below  options</string>
     <string name="es">Enter Score</string>
     <string name="vs">View Score</string>
+    <string name="view_students">View Students</string>
     <string name="se">Exam</string>
     <string name="setag">Tap  on  the  exam  to  view  detailed  info</string>
     <string name="maxmark">Maximum mark</string>
@@ -138,6 +139,7 @@
     <string name="buffer_full">Please do the sync.</string>
 
     <string name="search">Search</string>
+    <string name="students">Students</string>
     <string name="studentname">Student Name</string>
     <string name="attendinfo">Attendance information</string>
     <string name="month">Month</string>

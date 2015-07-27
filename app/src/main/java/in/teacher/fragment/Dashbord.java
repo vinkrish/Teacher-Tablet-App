@@ -176,7 +176,7 @@ public class Dashbord extends Fragment implements AnimationListener{
 	public class CircleAdapter extends ArrayAdapter<CircleObject>{
 		private Context context2;
 		private int layoutResourceId;
-		private ArrayList<CircleObject>	data = new ArrayList<CircleObject>();
+		private ArrayList<CircleObject>	data = new ArrayList<>();
 		private LayoutInflater inflater;
 
 		public CircleAdapter(Context context, int layoutResourceId, ArrayList<CircleObject> gridArray) {

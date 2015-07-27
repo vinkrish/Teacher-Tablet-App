@@ -19,6 +19,7 @@
     <!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="black">#000000</color>
+    <color name="border">#DCDCE3</color>
     <color name="class_avg">#1E96D6</color>
     <color name="clear_normal">#90998D</color>
     <color name="clear_pressed">#E03326</color>
@@ -37,6 +38,7 @@
     <color name="light_black">#4D4F4F</color>
     <color name="list_background_pressed">#3E97D6</color>
     <color name="list_highlighted">#A1C8F0</color>
+    <color name="list_selec">#EDEFF2</color>
     <color name="login_button">#383A3B</color>
     <color name="orange">#FA7000</color>
     <color name="red">#AD200A</color>
@@ -188,6 +190,7 @@
     <string name="stoan">Select the options as need</string>
     <string name="stud_avg">Student avg / Class avg</string>
     <string name="studentname">Student Name</string>
+    <string name="students">Students</string>
     <string name="sub_teacher">Subject Teacher</string>
     <string name="subact">Sub Activity</string>
     <string name="subject">Subject</string>
@@ -224,6 +227,7 @@
     <string name="username">Username</string>
     <string name="verify">Verify</string>
     <string name="version">Version - 1.2</string>
+    <string name="view_students">View Students</string>
     <string name="viewscoreTop">Tap on the sliptest to view detailed info</string>
     <string name="vs">View Score</string>
     <string name="weight">Weight (kg)</string>
