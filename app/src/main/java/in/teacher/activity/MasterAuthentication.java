@@ -6,6 +6,7 @@ import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
+import in.teacher.util.SharedPreferenceUtil;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -197,10 +198,7 @@ public class MasterAuthentication extends BaseActivity {
 	@Override
 	protected void onDestroy(){
 		super.onDestroy();
-		SharedPreferences sp = this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sp.edit();
-		editor.putInt("first_sync", 0);
-		editor.apply();
+		SharedPreferenceUtil.updateFirstSync(this, 0);
 	}
 	
 	@Override

@@ -111,6 +111,13 @@ public class SharedPreferenceUtil {
         editor.apply();
     }
 
+    public static void updateBootSync(Context context, int i){
+        SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("boot_sync", i);
+        editor.apply();
+    }
+
     public static String getSavedVersion(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
         return sharedPref.getString("saved_version", "v1.2");

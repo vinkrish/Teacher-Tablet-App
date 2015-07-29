@@ -181,7 +181,7 @@ public class DownloadModelTask extends AsyncTask<String, String, String> impleme
 
 			publishProgress("100",100+"","acknowledge processes file");
 
-			ArrayList<String> isAckList = new ArrayList<String>();
+			ArrayList<String> isAckList = new ArrayList<>();
 			Cursor c4 = sqliteDatabase.rawQuery("select filename from downloadedfile where processed=1 and isack=0", null);
 			c4.moveToFirst();
 			while(!c4.isAfterLast()){

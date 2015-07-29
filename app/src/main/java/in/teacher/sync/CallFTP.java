@@ -112,7 +112,6 @@ public class CallFTP implements StringConstant {
             c1.close();
 
             if (block != 2) {
-
                 Log.d("Upload_file_req", "2");
 
                 File root = android.os.Environment.getExternalStorageDirectory();

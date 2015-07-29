@@ -111,8 +111,10 @@ public class UpdateApk extends BaseActivity {
             pDialog.dismiss();
 
             if(!exception){
-                SharedPreferenceUtil.updateApkUpdate(UpdateApk.this, 0);
-                SharedPreferenceUtil.updateApk(UpdateApk.this, 0);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("apk_update", 0);
+                editor.putInt("update_apk", 0);
+                editor.apply();
 
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "teacher.apk")), "application/vnd.android.package-archive");

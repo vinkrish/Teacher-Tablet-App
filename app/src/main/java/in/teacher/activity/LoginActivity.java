@@ -76,10 +76,6 @@ public class LoginActivity extends BaseActivity {
         if (intent.getIntExtra("create", 0) == 1) {
             new CallFTP().syncFTP();
         }
-        if (intent.getIntExtra("start_sync", 0) == 1) {
-            Intent service = new Intent(this, in.teacher.adapter.SyncService.class);
-            startService(service);
-        }
 
         SharedPreferenceUtil.updateSavedVersion(this);
         sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
@@ -105,6 +101,13 @@ public class LoginActivity extends BaseActivity {
         if(apkUpdate == 1){
             Intent i = new Intent(this, in.teacher.activity.UpdateApk.class);
             startActivity(i);
+        }
+
+        int bootSync = sharedPref.getInt("boot_sync", 0);
+        if(bootSync == 1){
+            Intent service = new Intent(this, in.teacher.adapter.SyncService.class);
+            startService(service);
+            SharedPreferenceUtil.updateBootSync(this, 0);
         }
 
         alertSync();
