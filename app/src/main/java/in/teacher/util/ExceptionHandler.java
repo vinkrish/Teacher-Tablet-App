@@ -33,7 +33,6 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 		
 		Log.d("error", errorReport+"");
 
-		//	new UploadError(myContext, errorReport.toString()).upError();
 		SharedPreferences sharedPref = myContext.getApplicationContext().getSharedPreferences("db_access", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putInt("is_sync", 0);
@@ -46,33 +45,9 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 		Intent intent = new Intent(myContext, Restart.class);
 		intent.putExtra("error", errorReport.toString());
 		myContext.startActivity(intent);
-		
-//		Intent i = new Intent(myContext, TrackWifi.class);
-//	    PendingIntent pendingInt = PendingIntent.getBroadcast(myContext, 1, i, PendingIntent.FLAG_UPDATE_CURRENT);
-//	    AlarmManager alarmMgr = (AlarmManager) myContext.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-//	    alarmMgr.cancel(pendingInt);
-
-//		Intent intent = new Intent(myContext, in.schoolcom.MainActivity.class);
-//		myContext.startActivity(intent);
 
 		android.os.Process.killProcess(android.os.Process.myPid());
 		System.exit(10);
 
-		/*Intent intent = new Intent();
-		intent.setClassName("in.schoolcom", "in.schoolcom.Restart");
-		myContext.startActivity(intent);*/
-
-		/*long endTime = System.currentTimeMillis() + 5*1000;
-	      while (System.currentTimeMillis() < endTime) {
-	          synchronized (this) {
-	              try {
-	                  wait(endTime - System.currentTimeMillis());
-	              } catch (Exception e) {
-	              }
-	              android.os.Process.killProcess(android.os.Process.myPid());
-	      		System.exit(10);
-	          }
-	      }*/
 	}
-
 }

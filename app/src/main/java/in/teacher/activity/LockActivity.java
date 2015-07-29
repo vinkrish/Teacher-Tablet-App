@@ -16,6 +16,8 @@ import in.teacher.sync.FirstTimeSyncParser;
 import in.teacher.sync.StringConstant;
 import in.teacher.sync.UploadSyncParser;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.SharedPreferenceUtil;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -36,7 +38,6 @@ public class LockActivity extends BaseActivity implements StringConstant{
 	private String deviceId, fileName, stackTrace;
 	private JSONObject jsonReceived;
 	private int lineNumber, syncSent, isSent, schoolId;
-	private SharedPreferences sharedPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,6 @@ public class LockActivity extends BaseActivity implements StringConstant{
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		sharedPref = this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 
 		butSend = (Button)findViewById(R.id.sendLocked);
 		butRefresh = (Button)findViewById(R.id.refreshLocked);
@@ -75,9 +74,7 @@ public class LockActivity extends BaseActivity implements StringConstant{
 		}else{
 			butSend.setVisibility(View.GONE);
 			butRefresh.setVisibility(View.VISIBLE);
-			SharedPreferences.Editor editor = sharedPref.edit();
-			editor.putInt("first_sync", 1);
-			editor.apply();
+			SharedPreferenceUtil.updateFirstSync(this, 1);
 			new FirstTimeSync().callFirstTimeSync();
 		}
 	}
@@ -87,9 +84,7 @@ public class LockActivity extends BaseActivity implements StringConstant{
 	}
 
 	public void refreshClicked(View view){
-		SharedPreferences.Editor editor = sharedPref.edit();
-		editor.putInt("first_sync", 1);
-		editor.apply();
+		SharedPreferenceUtil.updateFirstSync(this, 1);
 		new FirstTimeSync().callFirstTimeSync();
 	}
 
@@ -168,9 +163,6 @@ public class LockActivity extends BaseActivity implements StringConstant{
 	@Override
 	protected void onDestroy(){
 		super.onDestroy();
-		SharedPreferences sp = this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sp.edit();
-		editor.putInt("first_sync", 0);
-		editor.apply();
+        SharedPreferenceUtil.updateFirstSync(this, 0);
 	}
 }

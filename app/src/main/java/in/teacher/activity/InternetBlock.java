@@ -15,9 +15,11 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
+import in.teacher.util.AppGlobal;
+import in.teacher.util.SharedPreferenceUtil;
+
 
 public class InternetBlock extends BaseActivity {
-    private SharedPreferences sharedPref;
     private int ignoreCount;
     private LinearLayout ignoreText;
 
@@ -25,13 +27,13 @@ public class InternetBlock extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internet_block);
+
         ignoreText = (LinearLayout) findViewById(R.id.ignore_text);
-        sharedPref = this.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
 
         Calendar calendar1 = Calendar.getInstance();
         int hour1 = calendar1.get(Calendar.HOUR_OF_DAY);
         if (hour1 >= 9 && hour1 <= 18) {
-            ignoreCount = sharedPref.getInt("ignore_count", 0);
+            ignoreCount = SharedPreferenceUtil.getIgnoreCount(this);
             if (ignoreCount >= 2) {
                 findViewById(R.id.ignore).setVisibility(View.INVISIBLE);
                 findViewById(R.id.steps_but).setVisibility(View.GONE);
@@ -45,12 +47,8 @@ public class InternetBlock extends BaseActivity {
     }
 
     public void ignoreClicked(View view) {
-        SharedPreferences.Editor editor = sharedPref.edit();
         ignoreCount++;
-        editor.putInt("ignore_count", ignoreCount);
-        editor.putInt("i_failed_status", 0);
-        editor.putInt("i_failed_count", 0);
-        editor.apply();
+        SharedPreferenceUtil.updateStatusCountIgnore(this, 0, 0, ignoreCount);
         Intent intent = new Intent(this, in.teacher.activity.LoginActivity.class);
         startActivity(intent);
     }

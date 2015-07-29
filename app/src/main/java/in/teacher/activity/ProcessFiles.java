@@ -79,7 +79,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
         SharedPreferences pref = getSharedPreferences("db_access", Context.MODE_PRIVATE);
         manualSync = pref.getInt("manual_sync", 0);
-        savedVersion = pref.getString("saved_version", "0");
+        savedVersion = pref.getString("saved_version", "v1.2");
 
 		txtPercentage = (TextView) findViewById(R.id.txtPercentage);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -195,6 +195,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 						jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
                         jsonObject.put("version", savedVersion);
 						jsonReceived = UploadSyncParser.makePostRequest(update_processed_file, jsonObject);
+						Log.d("request_update", jsonObject+"");
 						if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
 							sqliteDatabase.execSQL("update downloadedfile set isack=1 where processed=1 and filename in ('" + sb.substring(0, sb.length() - 3) + "')");
 						}

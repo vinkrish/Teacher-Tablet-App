@@ -255,7 +255,7 @@ public class EditSlipTest extends Fragment {
 
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState){
-			AlertDialog.Builder builder = new AlertDialog.Builder(newContext)
+			AlertDialog.Builder builder = new AlertDialog.Builder(act)
 			.setTitle("Select portions")
 			.setMultiChoiceItems(portionNameList, checked_state, new DialogInterface.OnMultiChoiceClickListener() {
 

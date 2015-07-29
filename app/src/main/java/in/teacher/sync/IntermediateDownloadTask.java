@@ -5,6 +5,7 @@ import in.teacher.model.TransferModel;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.Constants;
+import in.teacher.util.SharedPreferenceUtil;
 import in.teacher.util.Util;
 
 import java.io.File;
@@ -105,15 +106,12 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        manualSync = sharedPref.getInt("manual_sync", 0);
-        SharedPreferences.Editor editor = sharedPref.edit();
+        manualSync = SharedPreferenceUtil.getManualSync(context);
         KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         boolean screenLocked = km.inKeyguardRestrictedInputMode();
 
         if (manualSync == 1) {
-            editor.putInt("manual_sync", 0);
-            editor.apply();
+            SharedPreferenceUtil.updateManualSync(context, 0);
             Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
@@ -125,15 +123,13 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
 			}catch (SecurityException e){
 			    e.printStackTrace();
 			}*/
-            editor.putInt("is_sync", 1);
-            editor.apply();
+            SharedPreferenceUtil.updateIsSync(context, 1);
 
             Intent i = new Intent(context, in.teacher.activity.ProcessFiles.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(i);
         } else {
-            editor.putInt("sleep_sync", 1);
-            editor.apply();
+            SharedPreferenceUtil.updateSleepSync(context, 1);
         }
     }
 

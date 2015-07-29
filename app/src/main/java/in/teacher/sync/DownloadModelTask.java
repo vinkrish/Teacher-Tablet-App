@@ -5,6 +5,7 @@ import in.teacher.model.TransferModel;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.Constants;
+import in.teacher.util.SharedPreferenceUtil;
 import in.teacher.util.Util;
 
 import java.io.BufferedInputStream;
@@ -52,7 +53,6 @@ public class DownloadModelTask extends AsyncTask<String, String, String> impleme
 	private JSONObject jsonReceived;
 	private String deviceId, zipFile, savedVersion;
 	private int schoolId, block;
-    private SharedPreferences sp;
 
 	public DownloadModelTask(Context context, String fileName){
 		zipFile = fileName;
@@ -83,8 +83,7 @@ public class DownloadModelTask extends AsyncTask<String, String, String> impleme
 		mTransferManager = new TransferManager(Util.getCredProvider(context));
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
 
-        sp = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        savedVersion = sp.getString("saved_version", "0");
+        savedVersion = SharedPreferenceUtil.getSavedVersion(context);
 
 		publishProgress("75");
 		Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -201,6 +200,7 @@ public class DownloadModelTask extends AsyncTask<String, String, String> impleme
 						jsonObject.put("file_name", "'"+s+"'");
 						jsonObject.put("version", savedVersion);
 						jsonReceived = FirstTimeSyncParser.makePostRequest(update_processed_file, jsonObject);
+						Log.d("request_update", jsonObject+"");
 						if(jsonReceived.getInt(TAG_SUCCESS)==1){
 							sqliteDatabase.execSQL("update downloadedfile set isack=1 where processed=1 and filename='"+s+"'");
 						}
@@ -218,11 +218,9 @@ public class DownloadModelTask extends AsyncTask<String, String, String> impleme
 	protected void onPostExecute(String s){
 		super.onPostExecute(s);			
 		pDialog.dismiss();
-		int tabletLock = sp.getInt("tablet_lock", 0);
+		int tabletLock = SharedPreferenceUtil.getTabletLock(context);
 		if(tabletLock==1 || block==2){
-			SharedPreferences.Editor editr = sp.edit();
-			editr.putInt("first_sync", 0);
-			editr.apply();
+			SharedPreferenceUtil.updateFirstSync(context, 0);
 		}else{
 			new SubActivityProgress(context).findSubActProgress();
 		}

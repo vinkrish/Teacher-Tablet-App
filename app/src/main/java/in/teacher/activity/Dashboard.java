@@ -33,6 +33,8 @@ import in.teacher.util.AppGlobal;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
 import in.teacher.util.ReplaceFragment;
+import in.teacher.util.SharedPreferenceUtil;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -76,7 +78,6 @@ public class Dashboard extends BaseActivity {
 	private List<String> studNameList = new ArrayList<>();
 	private List<Integer> studIdList = new ArrayList<>();
 	private int teacherId;
-	private SharedPreferences sharedPref, internetPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +89,6 @@ public class Dashboard extends BaseActivity {
 
 		context = AppGlobal.getContext();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
-
-		sharedPref = context.getSharedPreferences("has_partition", Context.MODE_PRIVATE);
-		internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
 
 		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		getActionBar().setCustomView(R.layout.action_bar);
@@ -355,7 +353,7 @@ public class Dashboard extends BaseActivity {
 	}
 
 	public void callStructuredExam(View view){
-		int partition = sharedPref.getInt("partition",0);
+		int partition = SharedPreferenceUtil.getPartition(this);
 		if(partition==1){
 			ReplaceFragment.replace(new HasPartition(), getFragmentManager());
 		}else{

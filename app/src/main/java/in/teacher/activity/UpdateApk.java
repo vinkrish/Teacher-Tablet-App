@@ -34,6 +34,7 @@ import in.teacher.sqlite.Temp;
 import in.teacher.sync.StringConstant;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.Constants;
+import in.teacher.util.SharedPreferenceUtil;
 import in.teacher.util.Util;
 
 public class UpdateApk extends BaseActivity {
@@ -48,7 +49,6 @@ public class UpdateApk extends BaseActivity {
 
         sharedPref = getSharedPreferences("db_access", Context.MODE_PRIVATE);
         int updateApk = sharedPref.getInt("update_apk", 0);
-
         if (updateApk == 2) {
             new ApkDownloadTask(this.getApplicationContext(), "teacher.zip").execute();
         }
@@ -111,10 +111,8 @@ public class UpdateApk extends BaseActivity {
             pDialog.dismiss();
 
             if(!exception){
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("apk_update", 0);
-                editor.putInt("update_apk", 0);
-                editor.apply();
+                SharedPreferenceUtil.updateApkUpdate(UpdateApk.this, 0);
+                SharedPreferenceUtil.updateApk(UpdateApk.this, 0);
 
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "teacher.apk")), "application/vnd.android.package-archive");

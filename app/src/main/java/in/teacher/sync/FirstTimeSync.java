@@ -5,6 +5,7 @@ import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.SqlDbHelper;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.SharedPreferenceUtil;
 
 import java.io.IOException;
 import org.json.JSONException;
@@ -84,10 +85,7 @@ public class FirstTimeSync implements StringConstant{
 			}
 
 			if(block==1){
-				SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-				SharedPreferences.Editor editor = sharedPref.edit();
-				editor.putInt("tablet_lock", 0);
-				editor.apply();
+				SharedPreferenceUtil.updateTabletLock(context, 0);
 				UploadSqlDao.deleteTable("locked", sqliteDatabase);
 			}
 

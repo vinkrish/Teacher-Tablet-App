@@ -20,6 +20,7 @@ import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
+import in.teacher.util.SharedPreferenceUtil;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -52,7 +53,6 @@ public class LoginActivity extends BaseActivity {
     private SharedPreferences sharedPref;
     private SQLiteDatabase sqliteDatabase;
     private TextView noWifi;
-    private SharedPreferences internetPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +81,10 @@ public class LoginActivity extends BaseActivity {
             startService(service);
         }
 
+        SharedPreferenceUtil.updateSavedVersion(this);
         sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("boot_sync", 0);
-        editor.putString("saved_version", "v1.4");
-        editor.apply();
 
-        internetPref = context.getSharedPreferences("internet_access", Context.MODE_PRIVATE);
-        int internetBlock = internetPref.getInt("i_failed_status", 0);
+        int internetBlock = SharedPreferenceUtil.getFailedStatus(this);
         if (internetBlock == 1) {
             Intent i = new Intent(this, in.teacher.activity.InternetBlock.class);
             startActivity(i);
@@ -106,7 +102,6 @@ public class LoginActivity extends BaseActivity {
         }
 
         int apkUpdate = sharedPref.getInt("apk_update", 0);
-        Log.d("apk_update", apkUpdate+"");
         if(apkUpdate == 1){
             Intent i = new Intent(this, in.teacher.activity.UpdateApk.class);
             startActivity(i);
@@ -118,7 +113,7 @@ public class LoginActivity extends BaseActivity {
 
     private void alertSync(){
         boolean isFile = false;
-        internetStatus = internetPref.getInt("i_failed_count", 0);
+        internetStatus = SharedPreferenceUtil.getFailedCount(this);
         Cursor c = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
         if(c.getCount()>0){
             isFile = true;

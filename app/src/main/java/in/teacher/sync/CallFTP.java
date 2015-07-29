@@ -6,6 +6,7 @@ import in.teacher.sqlite.SqlDbHelper;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.Constants;
+import in.teacher.util.SharedPreferenceUtil;
 import in.teacher.util.Util;
 
 import java.io.File;
@@ -84,9 +85,7 @@ public class CallFTP implements StringConstant {
                 block = jsonReceived.getInt(TAG_SUCCESS);
                 Log.d("block", block + "");
                 if(jsonReceived.getInt("update") == 1){
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt("apk_update", 1);
-                    editor.apply();
+                    SharedPreferenceUtil.updateApkUpdate(appContext, 1);
                 }
                 zipFile = jsonReceived.getString("folder_name");
                 String s = jsonReceived.getString("files");
@@ -178,8 +177,7 @@ public class CallFTP implements StringConstant {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 appContext.startActivity(intent);
             } else if (manualSync == 1) {
-                editor.putInt("manual_sync", 0);
-                editor.apply();
+                SharedPreferenceUtil.updateManualSync(appContext, 0);
                 Intent intent = new Intent(appContext, in.teacher.activity.LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 appContext.startActivity(intent);
@@ -188,8 +186,7 @@ public class CallFTP implements StringConstant {
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 appContext.startActivity(i);
             } else {
-                editor.putInt("sleep_sync", 1);
-                editor.apply();
+                SharedPreferenceUtil.updateSleepSync(appContext, 1);
             }
         }
     }

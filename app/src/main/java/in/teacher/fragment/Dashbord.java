@@ -11,6 +11,7 @@ import in.teacher.sqlite.CircleObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
+import in.teacher.util.SharedPreferenceUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,7 +64,6 @@ public class Dashbord extends Fragment implements AnimationListener{
 	private View fl2,fl22,fl222,fl2222;
 	private GridView gridView;
 	private Button name;
-	private SharedPreferences sharedPref;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,7 +76,6 @@ public class Dashbord extends Fragment implements AnimationListener{
 		initializeList();
 
 		gridView = (GridView) view.findViewById(R.id.gridView);
-		sharedPref = context.getSharedPreferences("has_partition", Context.MODE_PRIVATE);
 
 		animFadeIn = AnimationUtils.loadAnimation(context.getApplicationContext(),R.anim.fade_in);
 		animFadeIn.setAnimationListener(this);
@@ -145,13 +144,10 @@ public class Dashbord extends Fragment implements AnimationListener{
 		t.setCurrentClass(classIdList.get(pos));
 		t.setSubjectId(subjectIdList.get(pos));
 		TempDao.updateSecSubClas(t, sqliteDatabase);
-		SharedPreferences.Editor editor = sharedPref.edit();
 		if(hasPartitionList.get(pos)==1){
-			editor.putInt("partition", 1);
-			editor.apply();
+			SharedPreferenceUtil.updatePartition(context, 1);
 		}else{
-			editor.putInt("partition", 0);
-			editor.apply();
+			SharedPreferenceUtil.updatePartition(context, 0);
 		}
 	}
 

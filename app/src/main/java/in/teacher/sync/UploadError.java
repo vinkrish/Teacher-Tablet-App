@@ -65,12 +65,6 @@ public class UploadError implements StringConstant{
 		}
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
-			/*if(uploadSuccess == 1){
-				Intent i = new Intent();
-				i.setClassName("in.schoolcom", "in.schoolcom.MainActivity");
-				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				appContext.startActivity(i);
-			}*/
 		}
 	}
 
