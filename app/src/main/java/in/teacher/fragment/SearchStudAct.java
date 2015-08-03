@@ -4,7 +4,9 @@ import in.teacher.activity.R;
 import in.teacher.adapter.StudActAdapter;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityMarkDao;
+import in.teacher.dao.ExamsDao;
 import in.teacher.dao.SubActivityDao;
+import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.Amr;
@@ -25,13 +27,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class SearchStudAct extends Fragment {
 	private Context context;
 	private int studentId, sectionId, examId, subjectId;
-	private String studentName, className, secName;
+	private String studentName, className, secName, examName, subjectName;
 	private SQLiteDatabase sqliteDatabase;
 	private List<Integer> actIdList = new ArrayList<>();
 	private List<String> actNameList = new ArrayList<>();
@@ -43,6 +46,7 @@ public class SearchStudAct extends Fragment {
 	private ListView lv;
 	private ProgressDialog pDialog;
 	private TextView studTV, clasSecTV;
+	private Button examBut, subBut;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +59,8 @@ public class SearchStudAct extends Fragment {
 
 		clearList();
 
+        examBut = (Button)view.findViewById(R.id.examSubButton);
+        subBut = (Button)view.findViewById(R.id.examSubActButton);
 		studTV = (TextView)view.findViewById(R.id.studName);
 		clasSecTV = (TextView)view.findViewById(R.id.studClasSec);
 		lv = (ListView)view.findViewById(R.id.list);
@@ -63,6 +69,8 @@ public class SearchStudAct extends Fragment {
 
 		view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
 		view.findViewById(R.id.seSearch).setOnClickListener(searchExam);
+        view.findViewById(R.id.examButton).setOnClickListener(searchExam);
+        view.findViewById(R.id.examSubButton).setOnClickListener(searchExamSub);
 		view.findViewById(R.id.attSearch).setOnClickListener(searchAttendance);
 
 		Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -92,11 +100,18 @@ public class SearchStudAct extends Fragment {
 	};
 
 	private View.OnClickListener searchExam = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
-		}
-	};
+        @Override
+        public void onClick(View v) {
+            ReplaceFragment.replace(new SearchStudExam(), getFragmentManager());
+        }
+    };
+
+    private View.OnClickListener searchExamSub = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ReplaceFragment.replace(new SearchStudExamSub(), getFragmentManager());
+        }
+    };
 
 	private View.OnClickListener searchAttendance = new View.OnClickListener() {
 		@Override
@@ -115,6 +130,9 @@ public class SearchStudAct extends Fragment {
 		}
 		@Override
 		protected String doInBackground(String... params) {
+            examName = ExamsDao.selectExamName(examId, sqliteDatabase);
+            subjectName = SubjectsDao.getSubjectName(subjectId, sqliteDatabase);
+
 			Cursor c = sqliteDatabase.rawQuery("select A.Name, A.ClassId, A.SectionId, B.ClassName, C.SectionName from students A, class B, section C where"+
 					" A.StudentId="+studentId+" and A.ClassId=B.ClassId and A.SectionId=C.SectionId group by A.StudentId", null);
 			c.moveToFirst();
@@ -155,6 +173,8 @@ public class SearchStudAct extends Fragment {
 		
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
+            examBut.setText(examName);
+            subBut.setText(subjectName);
 			studTV.setText(studentName);
 			clasSecTV.setText(className+" - "+secName);
 			adapter.notifyDataSetChanged();

@@ -63,10 +63,8 @@ public class FirstTimeSync implements StringConstant{
 			JSONObject ack_json = new JSONObject();
 			try{
 				ack_json.put("tab_id", deviceId);
-				Log.d("get_first_files_req", "1");
 				JSONObject jsonReceived = FirstTimeSyncParser.makePostRequest(request_first_time_sync, ack_json);
 				block = jsonReceived.getInt(TAG_SUCCESS);
-				Log.d("get_first_files_res", "1");
 
 				publishProgress("25");
 

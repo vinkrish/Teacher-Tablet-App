@@ -15,7 +15,7 @@ public class ExamsDao {
 				"select * from exams where ClassId="+classId+" and SubjectIDs LIKE '%,"+subjectId+",%' UNION " +
 				"select * from exams where ClassId="+classId+" and SubjectIDs LIKE '%,"+subjectId+"' UNION " +
 				"select * from exams where ClassId="+classId+" and SubjectIDs="+subjectId, null);
-		List<Exams> eList = new ArrayList<Exams>();
+		List<Exams> eList = new ArrayList<>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			Exams e = new Exams();
