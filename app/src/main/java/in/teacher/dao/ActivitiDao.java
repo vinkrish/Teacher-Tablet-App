@@ -37,7 +37,7 @@ import android.database.sqlite.SQLiteStatement;
 	
 	public static List<Activiti> selectActiviti(int examId, int subjectId, int sectionId, SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery("select * from activity where ExamId="+examId+" and SubjectId="+subjectId+" and SectionId="+sectionId, null);
-		List<Activiti> aList = new ArrayList<Activiti>();
+		List<Activiti> aList = new ArrayList<>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			Activiti a = new Activiti();

@@ -149,7 +149,8 @@ public class SearchStudAct extends Fragment {
 			for(Activiti act: activitiList){
 				int cache = SubActivityDao.isThereSubAct(act.getActivityId(), sqliteDatabase);
 				if(cache==1){
-					avgList1.add(0);
+				//	avgList1.add(0);
+
 				}else{
 					avgList1.add(ActivityMarkDao.getStudActAvg(studentId, act.getActivityId(), sqliteDatabase));
 				}

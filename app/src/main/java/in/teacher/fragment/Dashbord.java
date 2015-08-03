@@ -10,6 +10,7 @@ import in.teacher.dao.TempDao;
 import in.teacher.sqlite.CircleObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 import in.teacher.util.SharedPreferenceUtil;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -45,6 +47,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Dashbord extends Fragment implements AnimationListener{
+    private Activity activity;
 	private Context context;
 	private int teacherId,sectionId;
 	private ArrayList<Integer> sectionIdList = new ArrayList<>();
@@ -55,13 +58,10 @@ public class Dashbord extends Fragment implements AnimationListener{
 	private ArrayList<Integer> subjectIdList = new ArrayList<>();
 	private ArrayList<String> subjectNameList = new ArrayList<>();
 	private ArrayList<Integer> hasPartitionList = new ArrayList<>();
-	private boolean[] frameFlag;
 	private Animation animFadeIn,animFadeOut;
-	private ImageView[] ivList;
 	private SQLiteDatabase sqliteDatabase;
 	private ArrayList<CircleObject> circleArrayGrid = new ArrayList<>();
 	private CircleAdapter cA;
-	private View fl2,fl22,fl222,fl2222;
 	private GridView gridView;
 	private Button name;
 
@@ -70,6 +70,7 @@ public class Dashbord extends Fragment implements AnimationListener{
 			Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.dashbord, container, false);
 
+        activity = AppGlobal.getActivity();
 		context = AppGlobal.getContext();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
 
@@ -86,26 +87,12 @@ public class Dashbord extends Fragment implements AnimationListener{
 		teacherId = t.getTeacherId();
 		sectionId = t.getSectionId();
 
-		for(int i=0; i<20; i++){
-			frameFlag[i] = false;
-		}
-
 		view.findViewById(R.id.attendanceButton).setOnClickListener(enterAttendance);
 
 		cA = new CircleAdapter(context, R.layout.circle_grid, circleArrayGrid);
 		gridView.setAdapter(cA);
 
-		fl2 = view.findViewById(R.id.fl2);
-		fl22 = view.findViewById(R.id.fl22);	
-		fl222 = view.findViewById(R.id.fl222);
-		fl2222 = view.findViewById(R.id.fl2222);
 		name = (Button)view.findViewById(R.id.classSection);
-
-		final Integer[] ivIntList = {R.id.fl3iv1,R.id.fl3iv2,R.id.fl3iv3,R.id.fl3iv4,R.id.fl3iv5,R.id.fl3iv6,R.id.fl3iv7,R.id.fl3iv8,R.id.fl3iv9,
-				R.id.fl3iv10,R.id.fl3iv11,R.id.fl3iv12,R.id.fl3iv13,R.id.fl3iv14,R.id.fl3iv15,R.id.fl3iv16,R.id.fl3iv17,R.id.fl3iv18,R.id.fl3iv19,R.id.fl3iv20};
-		for(int i=0; i<ivIntList.length; i++){
-			ivList[i] = (ImageView) view.findViewById(ivIntList[i]);
-		}
 
 		new CalledBackLoad().execute();
 
@@ -155,18 +142,6 @@ public class Dashbord extends Fragment implements AnimationListener{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 		Date date = new Date();
 		return dateFormat.format(date);
-	}
-
-	public void clearFrameFlag(){
-		for(int i=0; i<20; i++){
-			frameFlag[i] = false;
-		}
-	}
-
-	public void setFrameFlag(){
-		for(int i=0; i<20; i++){
-			frameFlag[i] = true;
-		}
 	}
 
 	public class CircleAdapter extends ArrayAdapter<CircleObject>{
@@ -263,427 +238,11 @@ public class Dashbord extends Fragment implements AnimationListener{
 	}
 
 	public void viewClickListener(int position){
-		if(position == 0){				
-			if(frameFlag[0]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2.setVisibility(View.VISIBLE);
-				fl2.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[0].setVisibility(View.VISIBLE);
-				ivList[0].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(0);
-		}
-		if(position == 1){				
-			if(frameFlag[1]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2.setVisibility(View.VISIBLE);
-				fl2.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[1].setVisibility(View.VISIBLE);
-				ivList[1].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(1);
-		}
-		if(position == 2){
-			if(frameFlag[2]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2.setVisibility(View.VISIBLE);
-				fl2.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[2].setVisibility(View.VISIBLE);
-				ivList[2].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(2);
-		}
-		if(position == 3){
-			if(frameFlag[3]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2.setVisibility(View.VISIBLE);
-				fl2.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[3].setVisibility(View.VISIBLE);
-				ivList[3].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(3);
-		}
-		if(position == 4){						
-			if(frameFlag[4]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2.setVisibility(View.VISIBLE);
-				fl2.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[4].setVisibility(View.VISIBLE);
-				ivList[4].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(4);
-		}
-		if(position == 5){						
-			if(frameFlag[5]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl22.setVisibility(View.VISIBLE);
-				fl22.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[5].setVisibility(View.VISIBLE);
-				ivList[5].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(5);
-		}
-		if(position == 6){						
-			if(frameFlag[6]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl22.setVisibility(View.VISIBLE);
-				fl22.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[6].setVisibility(View.VISIBLE);
-				ivList[6].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(6);
-		}
-		if(position == 7){						
-			if(frameFlag[7]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl22.setVisibility(View.VISIBLE);
-				fl22.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[7].setVisibility(View.VISIBLE);
-				ivList[7].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(7);
-		}
-		if(position == 8){						
-			if(frameFlag[8]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl22.setVisibility(View.VISIBLE);
-				fl22.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[8].setVisibility(View.VISIBLE);
-				ivList[8].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(8);
-		}
-		if(position == 9){						
-			if(frameFlag[9]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl22.setVisibility(View.VISIBLE);
-				fl22.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[9].setVisibility(View.VISIBLE);
-				ivList[9].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(9);
-		}
-		if(position == 10){						
-			if(frameFlag[10]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl222.setVisibility(View.VISIBLE);
-				fl222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[10].setVisibility(View.VISIBLE);
-				ivList[10].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(10);
-		}
-		if(position == 11){						
-			if(frameFlag[11]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl222.setVisibility(View.VISIBLE);
-				fl222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[11].setVisibility(View.VISIBLE);
-				ivList[11].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(11);
-		}
-		if(position == 12){						
-			if(frameFlag[12]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl222.setVisibility(View.VISIBLE);
-				fl222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[12].setVisibility(View.VISIBLE);
-				ivList[12].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(12);
-		}
-		if(position == 13){						
-			if(frameFlag[13]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl222.setVisibility(View.VISIBLE);
-				fl222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[13].setVisibility(View.VISIBLE);
-				ivList[13].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(13);
-		}
-		if(position == 14){
-			if(frameFlag[14]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl222.setVisibility(View.VISIBLE);
-				fl222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[14].setVisibility(View.VISIBLE);
-				ivList[14].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(14);
-		}
-		if(position == 15){
-			if(frameFlag[15]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2222.setVisibility(View.VISIBLE);
-				fl2222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[15].setVisibility(View.VISIBLE);
-				ivList[15].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(15);
-		}
-		if(position == 16){
-			if(frameFlag[16]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2222.setVisibility(View.VISIBLE);
-				fl2222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[16].setVisibility(View.VISIBLE);
-				ivList[16].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(16);
-		}
-		if(position == 17){
-			if(frameFlag[17]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2222.setVisibility(View.VISIBLE);
-				fl2222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[17].setVisibility(View.VISIBLE);
-				ivList[17].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(17);
-		}
-		if(position == 18){
-			if(frameFlag[18]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2222.setVisibility(View.VISIBLE);
-				fl2222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[18].setVisibility(View.VISIBLE);
-				ivList[18].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(18);
-		}
-		if(position == 19){
-			if(frameFlag[19]){
-				clearAnim();
-				fl2.setVisibility(View.INVISIBLE);
-				fl22.setVisibility(View.INVISIBLE);
-				fl222.setVisibility(View.INVISIBLE);
-				fl2222.setVisibility(View.INVISIBLE);
-				clearFrameFlag();
-				clearImageView();
-			}else{
-				clearAnim();
-				fl2222.setVisibility(View.VISIBLE);
-				fl2222.startAnimation(animFadeIn);
-				setFrameFlag();
-				clearImageView();
-				ivList[19].setVisibility(View.VISIBLE);
-				ivList[19].startAnimation(animFadeIn);
-			}
-			callUpdateTemp(19);
-		}
-	}
-
-	private void clearImageView() {
-		for(int i=0; i<ivList.length; i++){
-			ivList[i].setVisibility(View.INVISIBLE);
-		}
-	}
-
-	private void clearAnim(){
-		fl2.setAnimation(null);
-		fl22.setAnimation(null);
-		fl222.setAnimation(null);
-		fl2222.setAnimation(null);
-		for(int i=0; i<ivList.length; i++){
-			ivList[i].setAnimation(null);
-		}
+        callUpdateTemp(position);
+        CommonDialogUtils.displayDashbordSelector(activity, sqliteDatabase);
 	}
 
 	private void initializeList(){
-		frameFlag = new boolean[20];
-		ivList = new ImageView[20];
 		circleArrayGrid.clear();
 		sectionIdList.clear();
 		classIdList.clear();

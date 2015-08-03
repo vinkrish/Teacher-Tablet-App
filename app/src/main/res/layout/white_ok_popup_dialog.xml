@@ -13,12 +13,6 @@
         android:background="@drawable/rectangle_gray_pop_up_bottom"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="#848484"
-            android:visibility="gone" />
-
         <LinearLayout
             android:id="@+id/alertMessageLayout"
             android:layout_width="match_parent"
