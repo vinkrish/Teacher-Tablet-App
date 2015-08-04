@@ -26,6 +26,7 @@ import in.teacher.fragment.SlipTest;
 import in.teacher.fragment.StructuredExam;
 import in.teacher.fragment.StudentClassSec;
 import in.teacher.fragment.ViewScore;
+import in.teacher.sqlite.Clas;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 
@@ -62,17 +63,16 @@ public class CommonDialogUtils {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dashbord_selector);
         Temp temp = TempDao.selectTemp(sqliteDatabase);
-        String s = ClasDao.getClassName(temp.getClassId(), sqliteDatabase)+" - "+ SectionDao.getSectionName(temp.getSectionId(),sqliteDatabase)
-                +"  "+ SubjectsDao.getSubjectName(temp.getSubjectId(), sqliteDatabase);
-        ((TextView)dialog.findViewById(R.id.classSectionSubject)).setText(s);
+        String className = ClasDao.getClassName(temp.getCurrentClass(), sqliteDatabase);
+        String sectionName = SectionDao.getSectionName(temp.getCurrentSection(), sqliteDatabase);
+        String subjectName = SubjectsDao.getSubjectName(temp.getSubjectId(), sqliteDatabase);
+        ((TextView)dialog.findViewById(R.id.classSectionSubject)).setText(className + " - " + sectionName + "  " + subjectName);
         dialog.findViewById(R.id.es).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 Temp temp = TempDao.selectTemp(sqliteDatabase);
-                int sectId = temp.getCurrentSection();
-                int subjId = temp.getCurrentSubject();
-                List<Students> studentsArray = StudentsDao.selectStudents2("" + sectId, subjId, sqliteDatabase);
+                List<Students> studentsArray = StudentsDao.selectStudents2("" + temp.getCurrentSection(), temp.getCurrentSubject(), sqliteDatabase);
                 if(studentsArray.size()>0){
                     SlipTesttDao.deleteSlipTest(sqliteDatabase);
                     ReplaceFragment.replace(new SlipTest(), activity.getFragmentManager());
