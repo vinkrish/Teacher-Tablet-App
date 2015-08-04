@@ -49,7 +49,7 @@ import android.widget.TextView;
 public class Dashbord extends Fragment implements AnimationListener{
     private Activity activity;
 	private Context context;
-	private int teacherId,sectionId;
+	private int teacherId;
 	private ArrayList<Integer> sectionIdList = new ArrayList<>();
 	private ArrayList<Integer> classIdList = new ArrayList<>();
 	private ArrayList<String> classNameList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class Dashbord extends Fragment implements AnimationListener{
 	private ArrayList<CircleObject> circleArrayGrid = new ArrayList<>();
 	private CircleAdapter cA;
 	private GridView gridView;
-	private Button name;
+	private TextView name;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,44 +85,16 @@ public class Dashbord extends Fragment implements AnimationListener{
 
 		Temp t = TempDao.selectTemp(sqliteDatabase);
 		teacherId = t.getTeacherId();
-		sectionId = t.getSectionId();
-
-		view.findViewById(R.id.attendanceButton).setOnClickListener(enterAttendance);
 
 		cA = new CircleAdapter(context, R.layout.circle_grid, circleArrayGrid);
 		gridView.setAdapter(cA);
 
-		name = (Button)view.findViewById(R.id.classSection);
+		name = (TextView)view.findViewById(R.id.teacherName);
 
 		new CalledBackLoad().execute();
 
 		return view;
 	}
-
-	private OnClickListener enterAttendance = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            boolean flag = false;
-            int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
-            if(marked==1){
-                flag = true;
-            }
-            Bundle b = new Bundle();
-            b.putInt("today", 1);
-            b.putInt("yesterday", 0);
-            b.putInt("otherday", 0);
-            if(flag){
-                Fragment fragment = new AbsentList();
-                fragment.setArguments(b);
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(animator.fade_in,animator.fade_out)
-                        .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-            }else{
-                ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
-            }
-        }
-    };
 
 	public void callUpdateTemp(int pos){
 		Temp t = new Temp();
@@ -136,12 +108,6 @@ public class Dashbord extends Fragment implements AnimationListener{
 		}else{
 			SharedPreferenceUtil.updatePartition(context, 0);
 		}
-	}
-
-	private String getDate() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		Date date = new Date();
-		return dateFormat.format(date);
 	}
 
 	public class CircleAdapter extends ArrayAdapter<CircleObject>{
@@ -259,7 +225,7 @@ public class Dashbord extends Fragment implements AnimationListener{
 		}
 
 		@Override
-		protected String doInBackground(String... params) {			
+		protected String doInBackground(String... params) {
 			Cursor c = sqliteDatabase.rawQuery("select A.ClassId, A.SectionId, A.SubjectId, B.ClassName, C.SectionName, D.SubjectName, D.has_partition " +
 					"from subjectteacher A, class B, section C, subjects D "+
 					"where A.TeacherId="+teacherId+" and A.ClassId=B.ClassId and A.SectionId=C.SectionId and A.SubjectId=D.SubjectId", null);
@@ -297,12 +263,7 @@ public class Dashbord extends Fragment implements AnimationListener{
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
 			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-			if(teacherName.length()>11){
-				StringBuilder sb2 = new StringBuilder(teacherName.substring(0, 9)).append("...");
-				name.setText(sb2.toString());
-			}else{
-				name.setText(teacherName);
-			}
+			name.setText(teacherName);
 			cA.notifyDataSetChanged();
 		}
 	}

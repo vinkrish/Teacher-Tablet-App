@@ -37,12 +37,13 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/universal"
+            android:onClick="callAttendance"
+            android:background="@color/layout_black"
             android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
-            android:text="@string/homework"
+            android:text="@string/attendance"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -52,13 +53,14 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/classSection"
+            android:id="@+id/homeworkButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
+            android:background="@color/universal"
+            android:drawableLeft="@drawable/homework"
             android:drawablePadding="10dp"
+            android:text="@string/homework"
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
             android:textColor="#FFFFFF"

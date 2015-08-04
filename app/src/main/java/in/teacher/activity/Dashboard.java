@@ -183,8 +183,6 @@ public class Dashboard extends BaseActivity {
 
 	@Override
 	public void onBackPressed() {
-		if (getFragmentManager().getBackStackEntryCount() != 1)
-			getFragmentManager().popBackStack();
 	}
 
 	@Override
@@ -266,32 +264,7 @@ public class Dashboard extends BaseActivity {
 		if(position == 0){
 			ReplaceFragment.replace(new Dashbord(), getFragmentManager());
 		}else if(position == 1){
-			boolean flag = false;
-			Temp t = TempDao.selectTemp(sqliteDatabase);
-			sectionId = t.getSectionId();
-			int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
-			if(marked==1){
-				flag = true;
-			}
-			Bundle b = new Bundle();
-			b.putInt("today", 1);
-			b.putInt("yesterday", 0);
-			b.putInt("otherday", 0);
-			if(flag){
-				Fragment fragment = new AbsentList();
-				fragment.setArguments(b);
-				getFragmentManager()
-				.beginTransaction()
-				.setCustomAnimations(animator.fade_in,animator.fade_out)
-				.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-			}else{
-				Fragment fragment = new MarkAttendance();
-				fragment.setArguments(b);
-				getFragmentManager()
-				.beginTransaction()
-				.setCustomAnimations(animator.fade_in,animator.fade_out)
-				.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-			}
+			checkAttendance();
 		}else if(position == 2){
 			ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
 		}else if(position == 3){
@@ -302,6 +275,30 @@ public class Dashboard extends BaseActivity {
 		mDrawerList.setItemChecked(position, true);
 		setTitle(navMenuTitles[position]);
 		mDrawerLayout.closeDrawer(mDrawerList);
+	}
+
+	private void checkAttendance(){
+		boolean flag = false;
+		Temp t = TempDao.selectTemp(sqliteDatabase);
+		sectionId = t.getSectionId();
+		int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
+		if(marked==1){
+			flag = true;
+		}
+		Bundle b = new Bundle();
+		b.putInt("today", 1);
+		b.putInt("yesterday", 0);
+		b.putInt("otherday", 0);
+		if(flag){
+			Fragment fragment = new AbsentList();
+			fragment.setArguments(b);
+			getFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(animator.fade_in,animator.fade_out)
+					.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+		}else{
+            ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
+		}
 	}
 
 	private String getDate() {
@@ -330,9 +327,16 @@ public class Dashboard extends BaseActivity {
 		}else{
 			menu.getItem(0).setVisible(true);
 		}
-
 		return true;
 	}
+
+    public void callAttendance(View view){
+        checkAttendance();
+    }
+
+    public void callHomework(View view){
+        ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+    }
 
 	public void callSlipTest(View view){
 		Temp temp = TempDao.selectTemp(sqliteDatabase);

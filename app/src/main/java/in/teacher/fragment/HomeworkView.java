@@ -47,8 +47,8 @@ public class HomeworkView extends Fragment {
     private Activity act;
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, teacherId, classId;
-    private String teacherName, className, sectionName;
+    private int sectionId, classId;
+    private String className, sectionName;
     private String otherdate, hwDate;
     private boolean otherdayFlag;
     private ArrayList<Integer> subjectIdList = new ArrayList<>();
@@ -80,15 +80,6 @@ public class HomeworkView extends Fragment {
         Temp t = TempDao.selectTemp(sqliteDatabase);
         classId = t.getClassId();
         sectionId = t.getSectionId();
-        teacherId = t.getTeacherId();
-
-        teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-        Button name = (Button) view.findViewById(R.id.classSection);
-        if (teacherName.length() > 11) {
-            name.setText(teacherName.substring(0, 9) + "...");
-        } else {
-            name.setText(teacherName);
-        }
 
         className = ClasDao.getClassName(classId, sqliteDatabase);
         sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
@@ -276,7 +267,6 @@ public class HomeworkView extends Fragment {
                 cal.set(year, month, day);
                 Date d = cal.getTime();
                 if (GregorianCalendar.getInstance().get(Calendar.YEAR) < cal.get(Calendar.YEAR)) {
-                    //    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected Future Date!");
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
                 } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");

@@ -75,19 +75,10 @@ public class AbsentList extends Fragment {
 		Temp t = TempDao.selectTemp(sqliteDatabase);
 		classId = t.getClassId();
 		sectionId = t.getSectionId();
-		int teacherId = t.getTeacherId();
 
         todayButton.setOnClickListener(todayAbsentees);
         yesterdayButton.setOnClickListener(yesterdayAbsentees);
         otherdayButton.setOnClickListener(otherdayAbsentees);
-
-		String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-		Button name = (Button)view.findViewById(R.id.classSection);
-		if(teacherName.length()>11){
-			name.setText(teacherName.substring(0,9)+"...");
-		}else{
-			name.setText(teacherName);
-		}
 
 		ptTV = (TextView) view.findViewById(R.id.absentList);
 		if(classId==0){

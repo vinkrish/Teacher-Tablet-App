@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/homework_background" >
+    android:background="@color/homework_background">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/layout_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dashboardButton"
@@ -37,12 +37,13 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/universal"
+            android:background="@color/layout_black"
             android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
+            android:onClick="callAttendance"
             android:paddingLeft="10dp"
-            android:text="@string/homework"
+            android:text="@string/attendance"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -52,15 +53,16 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/classSection"
+            android:id="@+id/homeworkButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
+            android:background="@color/universal"
+            android:drawableLeft="@drawable/homework"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
+            android:text="@string/homework"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
@@ -79,7 +81,7 @@
         android:layout_below="@id/dividerup"
         android:background="@color/white"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/today"
@@ -153,7 +155,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/hwPleaseTap"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:dividerHeight="5dp" >
-    </ListView>
+        android:dividerHeight="5dp"></ListView>
 
 </RelativeLayout>

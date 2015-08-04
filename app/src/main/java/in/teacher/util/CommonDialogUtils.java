@@ -15,8 +15,11 @@ import android.widget.Toast;
 import java.util.List;
 
 import in.teacher.activity.R;
+import in.teacher.dao.ClasDao;
+import in.teacher.dao.SectionDao;
 import in.teacher.dao.SlipTesttDao;
 import in.teacher.dao.StudentsDao;
+import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.fragment.HasPartition;
 import in.teacher.fragment.SlipTest;
@@ -58,6 +61,10 @@ public class CommonDialogUtils {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dashbord_selector);
+        Temp temp = TempDao.selectTemp(sqliteDatabase);
+        String s = ClasDao.getClassName(temp.getClassId(), sqliteDatabase)+" - "+ SectionDao.getSectionName(temp.getSectionId(),sqliteDatabase)
+                +"  "+ SubjectsDao.getSubjectName(temp.getSubjectId(), sqliteDatabase);
+        ((TextView)dialog.findViewById(R.id.classSectionSubject)).setText(s);
         dialog.findViewById(R.id.es).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

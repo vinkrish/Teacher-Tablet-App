@@ -56,8 +56,7 @@ public class MarkAttendance extends Fragment {
     private Activity act;
     private SqlDbHelper sqlHandler;
     private SQLiteDatabase sqliteDatabase;
-    private int schoolId, classId, sectionId, teacherId;
-    private String teacherName;
+    private int schoolId, classId, sectionId;
     private int index, absentCount;
     private TextView ptTV;
 
@@ -82,16 +81,6 @@ public class MarkAttendance extends Fragment {
         schoolId = t.getSchoolId();
         classId = t.getClassId();
         sectionId = t.getSectionId();
-        teacherId = t.getTeacherId();
-
-        teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-        Button name = (Button) view.findViewById(R.id.classSection);
-        if (teacherName.length() > 11) {
-            StringBuilder sb2 = new StringBuilder(teacherName.substring(0, 9)).append("...");
-            name.setText(sb2.toString());
-        } else {
-            name.setText(teacherName);
-        }
 
         if (classId == 0) {
             ptTV.setText("Not a class teacher.");

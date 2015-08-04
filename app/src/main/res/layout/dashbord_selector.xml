@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="195dp"
-    android:layout_gravity="bottom"
+    android:layout_gravity="center"
     android:background="#515450">
 
     <TextView
@@ -12,8 +12,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
         android:text="@string/fltv"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF" />
 
     <LinearLayout
         android:id="@+id/ll"
@@ -25,7 +25,7 @@
         <Button
             android:id="@+id/es"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
@@ -43,7 +43,7 @@
         <Button
             android:id="@+id/vs"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
@@ -61,7 +61,7 @@
         <Button
             android:id="@+id/se"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
@@ -80,7 +80,7 @@
     <Button
         android:id="@+id/view_students"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@id/ll"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"

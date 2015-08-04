@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/layout_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dashboardButton"
@@ -52,15 +52,17 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/classSection"
+            android:id="@+id/homeworkButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
+            android:drawableLeft="@drawable/homework"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
+            android:onClick="callHomework"
             android:paddingLeft="10dp"
+            android:text="@string/homework"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
@@ -106,8 +108,7 @@
         android:gravity="center"
         android:numColumns="auto_fit"
         android:paddingBottom="50dp"
-        android:verticalSpacing="0dp" >
-    </GridView>
+        android:verticalSpacing="0dp"></GridView>
 
     <LinearLayout
         android:id="@+id/linearlayout2"
@@ -115,7 +116,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/submit"

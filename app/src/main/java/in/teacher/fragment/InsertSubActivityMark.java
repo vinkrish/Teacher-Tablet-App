@@ -59,7 +59,7 @@ public class InsertSubActivityMark extends Fragment {
 	private Context context;
 	private SQLiteDatabase sqliteDatabase;
 	private int sectionId, teacherId;
-	private String teacherName, subActivityName;
+	private String teacherName, activityName, subActivityName;
 	private List<Students> studentsArray = new ArrayList<>();
 	private List<Boolean> studentIndicate = new ArrayList<>();
 	private ArrayList<Students> studentsArrayList =  new ArrayList<>();
@@ -109,6 +109,8 @@ public class InsertSubActivityMark extends Fragment {
 		examId = t.getExamId();
 		activityId = t.getActivityId();
 		subActivityId = t.getSubActivityId();
+
+		activityName = ActivitiDao.selectActivityName(activityId, sqliteDatabase);
 
 		SubActivity tempSubAct = SubActivityDao.getSubActivity(subActivityId, sqliteDatabase);
 		calculation = tempSubAct.getCalculation();
@@ -539,7 +541,8 @@ public class InsertSubActivityMark extends Fragment {
 
             String examName = ExamsDao.selectExamName(examId, sqliteDatabase);
 
-			sf.append(className).append("-").append(sectionName).append(" "+subjectName).append("    "+examName).append("    "+subActivityName);
+			sf.append(className).append("-").append(sectionName).append("   "+subjectName).append("   "+examName)
+                    .append("   "+activityName).append("   "+subActivityName);
 
 			int partition = sharedPref.getInt("partition",0);
 			if(partition==1){

@@ -415,7 +415,7 @@ public class InsertExamMark extends Fragment{
 			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 
 			String examName = ExamsDao.selectExamName(examId, sqliteDatabase);
-			sf.append(className).append("-").append(sectionName).append(" "+subjectName).append("    "+examName);	
+			sf.append(className).append("-").append(sectionName).append("   "+subjectName).append("   "+examName);
 
 			partition = sharedPref.getInt("partition",0);
 			if(partition==1){

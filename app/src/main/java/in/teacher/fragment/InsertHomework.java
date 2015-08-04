@@ -104,14 +104,6 @@ public class InsertHomework extends Fragment {
 
         hwDate = getToday();
 
-        String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-        Button name = (Button) view.findViewById(R.id.classSection);
-        if (teacherName.length() > 11) {
-            name.setText(teacherName.substring(0, 9) + "...");
-        } else {
-            name.setText(teacherName);
-        }
-
         block = HomeworkDao.isHwPresent(sectionId, getToday(), sqliteDatabase);
         String className = ClasDao.getClassName(classId, sqliteDatabase);
         String sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
