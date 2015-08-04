@@ -54,9 +54,8 @@ public class EnterSlipTestMark extends Fragment {
 	private Activity activity;
 	private Context context;
 	private SQLiteDatabase sqliteDatabase;
-	private int teacherId,classId,sectionId,subjectId,schoolId;
+	private int classId,sectionId,subjectId,schoolId;
 	private float maxMark;
-	private String teacherName;
 	private Long slipTestId;
 	private List<Students> studentsArray;
 	private List<Boolean> studentIndicate = new ArrayList<>();
@@ -99,7 +98,6 @@ public class EnterSlipTestMark extends Fragment {
 		classId = t.getCurrentClass();
 		sectionId = t.getCurrentSection();
 		subjectId = t.getCurrentSubject();
-		teacherId = t.getTeacherId();
 
 		slipTestId = PKGenerator.returnPrimaryKey(schoolId);
 		maxMark = SlipTesttDao.selectSlipTestMaxMark(-1, sqliteDatabase);
@@ -381,14 +379,12 @@ public class EnterSlipTestMark extends Fragment {
 		}
 		@Override
 		protected String doInBackground(String... params) {
-
 			String subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
 			String className = ClasDao.getClassName(classId, sqliteDatabase);
 			String sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 
 			String portionName = SlipTesttDao.selectSlipTestName(-1, sqliteDatabase);
-			sf.append(className).append("-").append(sectionName).append(" "+subjectName).append("    "+portionName);
+			sf.append(className).append("-").append(sectionName).append("   "+subjectName).append("   "+portionName);
 
 			st = SlipTesttDao.selectSlipTest(sqliteDatabase);
 
@@ -402,12 +398,6 @@ public class EnterSlipTestMark extends Fragment {
 
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
-			if(teacherName.length()>11){
-				name.setText(teacherName.substring(0, 9)+"...");
-			}else{
-				name.setText(teacherName);
-			}
-			
 			if(sf.length()>55){
 				clasSecSub.setText(sf.substring(0,53)+"...");
 			}else{

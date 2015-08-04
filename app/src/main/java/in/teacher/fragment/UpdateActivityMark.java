@@ -52,9 +52,9 @@ public class UpdateActivityMark extends Fragment {
 	private Context context;
 	private SQLiteDatabase sqliteDatabase;
 	private Activity act;
-	private int sectionId,teacherId;
+	private int sectionId;
 	private float maxMark;
-	private String teacherName, activityName;
+	private String activityName;
 	private List<Students> studentsArray = new ArrayList<>();
 	private List<Boolean> studentIndicate = new ArrayList<>();
 	private ArrayList<Students> studentsArrayList =  new ArrayList<>();
@@ -65,7 +65,6 @@ public class UpdateActivityMark extends Fragment {
 	private int index=0,indexBound,top,firstVisible,lastVisible,totalVisible,marksCount;
 	private int schoolId,examId,subjectId,subId,classId,activityId,calculation;
 	private Bitmap empty, entered;
-	private Button name;
 	private TextView clasSecSub;
 	private StringBuffer sf = new StringBuffer();
 	private SharedPreferences sharedPref;
@@ -84,7 +83,6 @@ public class UpdateActivityMark extends Fragment {
 		marksAdapter = new MarksAdapter(context, studentsArrayList);
 		lv.setAdapter(marksAdapter);
 
-		name = (Button)view.findViewById(R.id.classSection);
 		clasSecSub = (TextView)view.findViewById(R.id.clasSecSub);
 		empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
 		entered = BitmapFactory.decodeResource(this.getResources(), R.drawable.indicator);
@@ -100,7 +98,6 @@ public class UpdateActivityMark extends Fragment {
 		sectionId = t.getCurrentSection();
 		subjectId = t.getCurrentSubject();
 		subId = t.getSubjectId();
-		teacherId = t.getTeacherId();
 		examId = t.getExamId();
 		activityId = t.getActivityId();
 		schoolId = t.getSchoolId();
@@ -469,14 +466,12 @@ public class UpdateActivityMark extends Fragment {
 		}
 		@Override
 		protected String doInBackground(String... params) {
-
 			String subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
 			String className = ClasDao.getClassName(classId, sqliteDatabase);
 			String sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 
 			String examName = ExamsDao.selectExamName(examId, sqliteDatabase);
-			sf.append(className).append("-").append(sectionName).append(" "+subjectName).append("    "+examName).append("    "+activityName);		
+			sf.append(className).append("-").append(sectionName).append("   "+subjectName).append("   "+examName).append("   "+activityName);
 
 			int partition = sharedPref.getInt("partition",0);
 			if(partition==1){
@@ -505,11 +500,6 @@ public class UpdateActivityMark extends Fragment {
 		}
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
-			if(teacherName.length()>11){
-				name.setText(teacherName.substring(0, 9)+"...");
-			}else{
-				name.setText(teacherName);
-			}
 			if(sf.length()>55){
 				clasSecSub.setText(sf.substring(0,53)+"...");
 			}else{

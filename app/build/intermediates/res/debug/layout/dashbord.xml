@@ -115,6 +115,7 @@
                     android:gravity="right|center"
                     android:paddingRight="10dp"
                     android:text="asdf"
+                    android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#79787D" />
 

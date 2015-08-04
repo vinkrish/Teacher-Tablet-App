@@ -55,8 +55,8 @@ public class InsertActivityMark extends Fragment {
 	private Activity activity;
 	private Context context;
 	private SQLiteDatabase sqliteDatabase;
-	private int sectionId,teacherId;
-	private String teacherName, activityName;
+	private int sectionId;
+	private String activityName;
 	private List<Students> studentsArray = new ArrayList<>();
 	private List<Boolean> studentIndicate = new ArrayList<>();
 	private ArrayList<Students> studentsArrayList = new ArrayList<>();
@@ -67,7 +67,6 @@ public class InsertActivityMark extends Fragment {
 	private int schoolId,examId,subjectId,subId,classId,activityId,calculation;
 	private float maxMark;
 	private StringBuffer sf = new StringBuffer();
-	private Button name;
 	private TextView clasSecSub;
 	private Bitmap empty, entered;
 	private SharedPreferences sharedPref;
@@ -86,7 +85,6 @@ public class InsertActivityMark extends Fragment {
 		marksAdapter = new MarksAdapter(context, studentsArrayList);
 		lv.setAdapter(marksAdapter);
 
-		name = (Button)view.findViewById(R.id.classSection);
 		clasSecSub = (TextView)view.findViewById(R.id.clasSecSub);
 		empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
 		entered = BitmapFactory.decodeResource(this.getResources(), R.drawable.indicator);
@@ -105,7 +103,6 @@ public class InsertActivityMark extends Fragment {
 		examId = t.getExamId();
 		activityId = t.getActivityId();
 		schoolId = t.getSchoolId();
-		teacherId = t.getTeacherId();
 
 		Activiti a = ActivitiDao.getActiviti(activityId, sqliteDatabase);
 		maxMark = a.getMaximumMark();
@@ -463,7 +460,6 @@ public class InsertActivityMark extends Fragment {
 			String subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
 			String className = ClasDao.getClassName(classId, sqliteDatabase);
 			String sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 			String examName = ExamsDao.selectExamName(examId, sqliteDatabase);
 
 			sf.append(className).append("-").append(sectionName).append("   "+subjectName).append("   "+examName).append("   "+activityName);
@@ -482,12 +478,6 @@ public class InsertActivityMark extends Fragment {
 		}
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
-			if(teacherName.length()>11){
-				name.setText(teacherName.substring(0, 9)+"...");
-			}else{
-				name.setText(teacherName);
-			}
-
 			clasSecSub.setText(PKGenerator.trim(0, 52, sf.toString()));
 			populateListArray();
 			

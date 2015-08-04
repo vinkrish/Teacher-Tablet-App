@@ -48,22 +48,21 @@ public class UpdateSlipTestMark extends Fragment {
     private Context context;
     private Activity act;
     private SQLiteDatabase sqliteDatabase;
-    private int teacherId, classId, sectionId, subjectId, schoolId, marksCount;
+    private int classId, sectionId, subjectId, schoolId, marksCount;
     private float maxMark;
-    private String className, sectionName, subjectName, teacherName, portionName;
+    private String className, sectionName, subjectName, portionName;
     private Long slipTestId;
-    private List<Students> studentsArray = new ArrayList<Students>();
-    private List<Integer> studentsArrayId = new ArrayList<Integer>();
-    private List<Boolean> studentIndicate = new ArrayList<Boolean>();
-    private ArrayList<Students> studentsArrayList = new ArrayList<Students>();
-    private List<String> studentScore = new ArrayList<String>();
+    private List<Students> studentsArray = new ArrayList<>();
+    private List<Integer> studentsArrayId = new ArrayList<>();
+    private List<Boolean> studentIndicate = new ArrayList<>();
+    private ArrayList<Students> studentsArrayList = new ArrayList<>();
+    private List<String> studentScore = new ArrayList<>();
     private ListView lv;
     private MarksAdapter marksAdapter;
     private int index = 0, indexBound, top, lastVisible, firstVisible, totalVisible;
     private String breadcrumTitle;
     private StringBuffer sf = new StringBuffer();
     private Bitmap empty, entered;
-    private Button name;
     private TextView clasSecSub;
 
     @Override
@@ -79,7 +78,6 @@ public class UpdateSlipTestMark extends Fragment {
         marksAdapter = new MarksAdapter(context, studentsArrayList);
         lv.setAdapter(marksAdapter);
 
-        name = (Button) view.findViewById(R.id.classSection);
         clasSecSub = (TextView) view.findViewById(R.id.clasSecSub);
         empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
         entered = BitmapFactory.decodeResource(this.getResources(), R.drawable.indicator);
@@ -94,7 +92,6 @@ public class UpdateSlipTestMark extends Fragment {
         classId = t.getCurrentClass();
         sectionId = t.getCurrentSection();
         subjectId = t.getCurrentSubject();
-        teacherId = t.getTeacherId();
         slipTestId = t.getSlipTestId();
 
         marksCount = SlipTestMarkDao.getSlipTestMarksCount(slipTestId, schoolId, sqliteDatabase);
@@ -382,9 +379,8 @@ public class UpdateSlipTestMark extends Fragment {
             subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
             className = ClasDao.getClassName(classId, sqliteDatabase);
             sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-            teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
             portionName = SlipTesttDao.selectSlipTestName(slipTestId, sqliteDatabase);
-            sf.append(className).append("-").append(sectionName).append(" " + subjectName).append("    " + portionName);
+            sf.append(className).append("-").append(sectionName).append("   " + subjectName).append("   " + portionName);
             studentsArray = StudentsDao.selectStudents2("" + sectionId, subjectId, sqliteDatabase);
             //	Collections.sort(studentsArray, new StudentsSort());
             for (int idx = 0; idx < studentsArray.size(); idx++) {
@@ -408,12 +404,6 @@ public class UpdateSlipTestMark extends Fragment {
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if (teacherName.length() > 11) {
-                StringBuilder sb2 = new StringBuilder(teacherName.substring(0, 9)).append("...");
-                name.setText(sb2.toString());
-            } else {
-                name.setText(teacherName);
-            }
             if (sf.length() > 55) {
                 breadcrumTitle = sf.substring(0, 53);
                 StringBuilder sb = new StringBuilder(breadcrumTitle).append("...");
