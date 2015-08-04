@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/layout_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dashboardButton"
@@ -33,16 +33,14 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/attendanceButton"
-            android:layout_width="0dp"
+            android:id="@+id/examButton"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_weight="0.1"
-            android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
-            android:drawablePadding="10dp"
+            android:background="@color/layout_black"
             android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:text="@string/subact"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/se"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -52,15 +50,33 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/classSection"
-            android:layout_width="0dp"
+            android:id="@+id/activityButton"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/activity"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#333333" />
+
+        <Button
+            android:id="@+id/subActivityButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@color/universal"
+            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:text="@string/subact"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
@@ -100,7 +116,6 @@
         android:horizontalSpacing="20dp"
         android:numColumns="3"
         android:paddingBottom="30dp"
-        android:verticalSpacing="40dp" >
-    </GridView>
+        android:verticalSpacing="40dp"></GridView>
 
 </RelativeLayout><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/layout/subactivity_exam.xml -->

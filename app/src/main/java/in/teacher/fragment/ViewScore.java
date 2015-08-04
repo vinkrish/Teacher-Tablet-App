@@ -74,7 +74,6 @@ public class ViewScore extends Fragment {
         schoolId = t.getSchoolId();
         sectionId = t.getCurrentSection();
         subjectId = t.getCurrentSubject();
-        int teacherId = t.getTeacherId();
         slipTestId = t.getSlipTestId();
 
         for (Clas c : cList) {
@@ -89,14 +88,6 @@ public class ViewScore extends Fragment {
                 sectionName = s.getSectionName();
                 break;
             }
-        }
-
-        String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-        Button name = (Button) view.findViewById(R.id.classSection);
-        if (teacherName.length() > 11) {
-            name.setText(teacherName.substring(0, 9) + "...");
-        } else {
-            name.setText(teacherName);
         }
 
         TextView viewTop = (TextView) view.findViewById(R.id.viewTop);

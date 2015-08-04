@@ -51,14 +51,13 @@ import android.widget.TextView;
 public class SubActivityExam extends Fragment {
 	private Context context;
 	private SQLiteDatabase sqliteDatabase;
-	private int sectionId,classId,subjectId,activityId,teacherId,examId;
-	private String className, sectionName, subjectName, teacherName;
+	private int sectionId,classId,subjectId,activityId,examId;
+	private String className, sectionName, subjectName;
 	private List<Integer> subActIdList = new ArrayList<>();
 	private ArrayList<SeObject> circleArrayGrid = new ArrayList<>();
 	private CircleAdapter cA;
 	final Map<Object,Object> m = new HashMap<>();
 	private GridView gridView;
-	private Button name;
 	private TextView clasSecSubTv;
 	private Bitmap inserted, notinserted;
 
@@ -71,7 +70,6 @@ public class SubActivityExam extends Fragment {
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
 		
 		gridView = (GridView) view.findViewById(R.id.gridView);
-		name = (Button)view.findViewById(R.id.classSection);
 		cA = new CircleAdapter(context, R.layout.act_grid, circleArrayGrid);
 		clasSecSubTv = (TextView)view.findViewById(R.id.headerClasSecSub);
 		inserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
@@ -85,10 +83,23 @@ public class SubActivityExam extends Fragment {
 		sectionId = t.getCurrentSection();
 		subjectId = t.getCurrentSubject();
 		activityId = t.getActivityId();
-		teacherId = t.getTeacherId();
 		subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
 
 		new CalledBackLoad().execute();
+
+		view.findViewById(R.id.examButton).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+                ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
+			}
+		});
+
+		view.findViewById(R.id.activityButton).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+                ReplaceFragment.replace(new ActivityExam(), getFragmentManager());
+			}
+		});
 
 		return view;
 	}
@@ -218,7 +229,6 @@ public class SubActivityExam extends Fragment {
 		protected String doInBackground(String... params) {
 			className = ClasDao.getClassName(classId, sqliteDatabase);
 			sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 
 			List<SubActivity> subActivityList = SubActivityDao.selectSubActivity(activityId, sqliteDatabase);
 
@@ -247,11 +257,6 @@ public class SubActivityExam extends Fragment {
 		}
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
-			if(teacherName.length()>11){
-				name.setText(teacherName.substring(0, 9)+"...");
-			}else{
-				name.setText(teacherName);
-			}
 			clasSecSubTv.setText(sf);
 			gridView.setAdapter(cA);
 		}

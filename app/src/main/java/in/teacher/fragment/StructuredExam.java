@@ -53,15 +53,14 @@ public class StructuredExam extends Fragment {
 	private Context context;
 	private Activity act;
 	private SQLiteDatabase sqliteDatabase;
-	private String subjectName, teacherName;
-	private int classId, sectionId, subjectId, teacherId;
+	private String subjectName;
+	private int classId, sectionId, subjectId;
 	private List<Activiti> activitiList = new ArrayList<>();;
 	private final Map<Object,Object> m = new HashMap<>();
 	private List<Integer> examIdList = new ArrayList<>();
 	private ArrayList<SeObject> circleArrayGrid = new ArrayList<>();
 	private CircleAdapter cA;
 	private GridView gridView;
-	private Button name;
 	private TextView clasSecSubTv;
 	private Bitmap inserted, notinserted;
 
@@ -76,7 +75,6 @@ public class StructuredExam extends Fragment {
 		initializeList();
 		
 		gridView = (GridView) view.findViewById(R.id.gridView);
-		name = (Button)view.findViewById(R.id.teacherName);
 		clasSecSubTv = (TextView)view.findViewById(R.id.headerClasSecSub);
 		inserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
 		notinserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
@@ -87,7 +85,6 @@ public class StructuredExam extends Fragment {
 		classId = t.getCurrentClass();
 		sectionId = t.getCurrentSection();
 		subjectId = t.getCurrentSubject();
-		teacherId = t.getTeacherId();
 		subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
 
 		new CalledBackLoad().execute();
@@ -228,7 +225,6 @@ public class StructuredExam extends Fragment {
 		protected String doInBackground(String... params) {
 			String className = ClasDao.getClassName(classId, sqliteDatabase);
 			String sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
 			exmName.append(className).append("-").append(sectionName).append("    ").append(subjectName);
 			List<Exams> examList = ExamsDao.selectExams(classId, subjectId, sqliteDatabase);
 			for(Exams exam: examList){
@@ -254,11 +250,6 @@ public class StructuredExam extends Fragment {
 		}
 		protected void onPostExecute(String s){
 			super.onPostExecute(s);
-			if(teacherName.length()>11){
-				name.setText(teacherName.substring(0, 9)+"...");
-			}else{
-				name.setText(teacherName);
-			}
 			clasSecSubTv.setText(exmName);
 			cA.notifyDataSetChanged();
 		}
