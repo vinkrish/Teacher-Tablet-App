@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class StudActAdapter extends BaseAdapter {
 	private Context context;
-	private List<Amr> data = new ArrayList<Amr>();
+	private List<Amr> data = new ArrayList<>();
 	private LayoutInflater inflater = null;
 
 	public StudActAdapter(Context context, List<Amr> listArray) {
@@ -29,7 +29,7 @@ public class StudActAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
-		RecordHolder holder = null;
+		RecordHolder holder;
 
 		if (row == null) {
 			row = inflater.inflate( R.layout.search_act_list, parent, false);
@@ -45,9 +45,9 @@ public class StudActAdapter extends BaseAdapter {
 		}
 
 		if(position % 2 == 0)
-			row.setBackgroundColor(Color.rgb(255, 255, 255));	
+			row.setBackgroundResource(R.drawable.list_selector1);
 		else
-			row.setBackgroundColor(Color.rgb(237, 239, 242));
+			row.setBackgroundResource(R.drawable.list_selector2);
 
 		Amr listItem = data.get(position);
 		holder.txt1.setText(listItem.getText1());

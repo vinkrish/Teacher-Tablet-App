@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class StudExamAdapter extends BaseAdapter{
 	private Context context;
-	private List<Amr> data = new ArrayList<Amr>();
+	private List<Amr> data = new ArrayList<>();
 	private LayoutInflater inflater = null;
 	
 	public StudExamAdapter(Context context, List<Amr> listArray) {
@@ -44,10 +44,10 @@ public class StudExamAdapter extends BaseAdapter{
 			holder = (RecordHolder) row.getTag();
 		}
 
-		if(position % 2 == 0) 
-			row.setBackgroundColor(Color.rgb(255, 255, 255));
+		if(position % 2 == 0)
+			row.setBackgroundResource(R.drawable.list_selector1);
 		else
-			row.setBackgroundColor(Color.rgb(237, 239, 242));
+			row.setBackgroundResource(R.drawable.list_selector2);
 
 		Amr listItem = data.get(position);
 		holder.txt1.setText(listItem.getText1());
