@@ -61,8 +61,6 @@ public class LoginActivity extends BaseActivity {
 
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
-        Log.d("testing", "log");
-
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 

@@ -71,7 +71,7 @@
             android:background="@color/dark_black"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="@string/se"
+            android:text="@string/activity"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
 

@@ -79,6 +79,22 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/dash_seperator" />
+
+        <Button
+            android:id="@+id/examSubActiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/dark_black"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/subact"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/dash_seperator" />
     </LinearLayout>
 
     <LinearLayout
@@ -186,7 +202,7 @@
             android:layout_weight="0.75"
             android:gravity="left"
             android:paddingLeft="10dp"
-            android:text="@string/activity"
+            android:text="@string/subact"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black"
             android:textStyle="bold" />
@@ -219,4 +235,4 @@
         android:divider="@null"
         android:dividerHeight="0dp"></ListView>
 
-</RelativeLayout><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/layout/search_se_act.xml -->
+</RelativeLayout>

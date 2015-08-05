@@ -26,59 +26,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68048eb-9806-460d-bd90-f4e1b459db9c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter$RecordHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter$RecordHolder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter$SampleView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter$SampleView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam$CircleAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ActivityExam.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/AttGraph.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/AttGraph.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/AttendanceAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/AttendanceAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/CoScholastic$ExpandListAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/CoScholastic$ExpandListAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/CoScholastic.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/CoScholastic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$DrawerItemClickListener.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard$DrawerItemClickListener.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSubAct.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/search_se_subact.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/Dashboard.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord$CircleAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/Dashbord.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EditSlipTest$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EditSlipTest$7.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EditSlipTest.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EditSlipTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EnterSlipTestMark$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EnterSlipTestMark$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EnterSlipTestMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/EnterSlipTestMark.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/HasPartition$CircleAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/HasPartition$CircleAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/HasPartition.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/HasPartition.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/HomeworkView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/HomeworkView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/HomeworkViewAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/HomeworkViewAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/HwAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/HwAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertActivityMark$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertActivityMark$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertActivityMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertActivityMark.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$ProfileAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile$ProfileAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCCEStudentProfile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade$CoSchAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade$CoSchAdapter$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade$CoSchAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade$CoSchAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertCoSchGrade.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertExamMark$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertExamMark$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertExamMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertExamMark.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertHomework$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertHomework$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertHomework.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertHomework.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertSubActivityMark$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertSubActivityMark$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertSubActivityMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/InsertSubActivityMark.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/InternetBlock.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/InternetBlock.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LockActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LockActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity$5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/LoginActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/MarkAttendance.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/MarksAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/MarksAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/MasterAuthentication$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/MasterAuthentication$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/MasterAuthentication.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/MasterAuthentication.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/NavDrawerListAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/NavDrawerListAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/ProcessFiles.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/ProcessFiles.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/QueueAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/QueueAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$id.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$layout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$menu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$menu.class" />
@@ -86,95 +47,43 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R$style.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/SearchStAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/SearchStAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct$CalledBackLoad.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAct.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudAtt.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExam.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub$CalledBackLoad.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudExamSub.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudST.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SearchStudSTSub.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SelectCCEStudentProfile.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SelectCCEStudentProfile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/ServerBlock.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/activity/ServerBlock.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$6.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$DatePickerFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$DatePickerFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$MyDialogFragment$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$MyDialogFragment$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$MyDialogFragment$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$MyDialogFragment$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$MyDialogFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest$MyDialogFragment.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SlipTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/SlipTestAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/SlipTestAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StSearchAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StSearchAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter$RecordHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter$RecordHolder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter$SampleView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter$SampleView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam$CircleAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/StructuredExam.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StudActAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StudActAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StudExamAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StudExamAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StudExamSubAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/adapter/StudExamSubAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CalledBackLoad.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CalledBackLoad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter$RecordHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter$RecordHolder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter$SampleView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter$SampleView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam$CircleAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/SubActivityExam.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateActivityMark$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateActivityMark$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateActivityMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateActivityMark.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$ProfileAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile$ProfileAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCEStudentProfile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade$CoSchAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade$CoSchAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/dao/SubActivityMarkDao.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/dao/SubActivityMarkDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade$CoSchAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade$CoSchAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateCCSGrade.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateExamMark$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateExamMark$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateExamMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateExamMark.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSlipTestMark$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSlipTestMark$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSlipTestMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSlipTestMark.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSubActivityMark$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSubActivityMark$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSubActivityMark.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/UpdateSubActivityMark.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/VerifyAttendance.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/VerifyAttendance.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/VerifyHomework.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/VerifyHomework.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewQueue.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewQueue.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore$4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/in/teacher/fragment/ViewScore.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/in/teacher/activity/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/in/teacher/activity/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StructuredExam.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StructuredExam.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SubActivityExam.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SubActivityExam.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_exam.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_exam.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_exam.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_exam.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/se.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/se.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/se.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/se.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/slip_test.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/slip_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/slip_test.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/slip_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/subactivity_exam.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/subactivity_exam.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/subactivity_exam.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/subactivity_exam.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/view_score.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/view_score.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/view_score.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_score.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityDao.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityMarkDao.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityMarkDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_act.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/search_se_act.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/search_se_act.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/search_se_act.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Teacher.iws" />
@@ -195,15 +104,39 @@
     <favorites_list name="Teacher" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="SearchStudExamSub.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7921811">
+              <caret line="208" column="43" selection-start-line="208" selection-start-column="43" selection-end-line="208" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchStudAct.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="131" column="12" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="94" />
+              <folding>
+                <element signature="e#4478#4946#0" expanded="true" />
+                <element signature="e#4945#4946#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile_vertical" />
+        <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -1534,17 +1467,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SharedPreferenceUtil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/BootSync.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/UpdateApk.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/MasterAuthentication.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/FirstTimeSync.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/ExamsDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/search_se_exam_sub.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/search_se_act.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/white_ok_popup_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/mark_attendance.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/verify_attendance.xml" />
@@ -1585,6 +1510,14 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/slip_test.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/search_se_act.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/search_se_subact.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityMarkDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSubAct.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" />
       </list>
     </option>
   </component>
@@ -1627,16 +1560,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1665,8 +1588,12 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1685,6 +1612,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="teacher" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2185,18 +2126,23 @@
       <option name="project" value="LOCAL" />
       <updated>1438680038233</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="restructured exam for easy back navigation">
+      <created>1438691143019</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1438691143019</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32856122" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32189974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32189974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39973614" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42216358" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
@@ -2205,17 +2151,18 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34564644" sideWeight="0.49713877" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34564644" sideWeight="0.49713877" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24982105" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22603719" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22603719" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32856122" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2233,7 +2180,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="manual sync button added to login screen" />
     <MESSAGE value="red background for sync button is added which indicates there is data either in queue or file to be uploaded" />
     <MESSAGE value="checking network condition before manual sync is added" />
     <MESSAGE value="manual sync is red only when internet is down and there is data to be uploaded" />
@@ -2258,7 +2204,8 @@
     <MESSAGE value="removed static positioning of dashbord selector, replacing it with dialog" />
     <MESSAGE value="fixed navigation for new breadcrum" />
     <MESSAGE value="logo opens navigation drawer, initial change for exam_mark" />
-    <option name="LAST_COMMIT_MESSAGE" value="logo opens navigation drawer, initial change for exam_mark" />
+    <MESSAGE value="restructured exam for easy back navigation" />
+    <option name="LAST_COMMIT_MESSAGE" value="restructured exam for easy back navigation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2267,109 +2214,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="35" selection-start-line="44" selection-start-column="35" selection-end-line="44" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/ActivityMarkDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39506173">
-          <caret line="116" column="22" selection-start-line="116" selection-start-column="22" selection-end-line="116" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="327" column="29" selection-start-line="327" selection-start-column="12" selection-end-line="327" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2866242">
-          <caret line="197" column="21" selection-start-line="197" selection-start-column="21" selection-end-line="197" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/white_ok_popup_dialog.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44117647">
-          <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/ClasDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubjectsDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12345679">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SectionDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12345679">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/verify_attendance.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4595186">
-          <caret line="35" column="46" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/homework_view.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10284464">
-          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
-          <folding>
-            <element signature="e#1034#1053#0" expanded="true" />
-            <element signature="e#1768#1788#0" expanded="true" />
-            <element signature="e#2220#2238#0" expanded="true" />
-            <element signature="e#3456#3471#0" expanded="true" />
-            <element signature="e#4130#4149#0" expanded="true" />
-            <element signature="e#4806#4824#0" expanded="true" />
-            <element signature="e#5870#5905#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/mark_attendance.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="42" selection-start-line="60" selection-start-column="42" selection-end-line="60" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/verify_homework.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
@@ -2487,7 +2331,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39490446">
           <caret line="428" column="102" selection-start-line="428" selection-start-column="102" selection-end-line="428" selection-end-column="102" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2503,7 +2346,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3312102">
           <caret line="382" column="101" selection-start-line="382" selection-start-column="101" selection-end-line="382" selection-end-column="101" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2511,7 +2353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.29936305">
           <caret line="561" column="29" selection-start-line="561" selection-start-column="29" selection-end-line="561" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2541,7 +2382,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1464968">
           <caret line="67" column="75" selection-start-line="67" selection-start-column="75" selection-end-line="67" selection-end-column="75" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2549,7 +2389,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.7197453">
           <caret line="98" column="16" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2564,7 +2403,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2260274">
           <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2572,7 +2410,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06369427">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2587,31 +2424,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0064102565">
-          <caret line="539" column="47" selection-start-line="539" selection-start-column="20" selection-end-line="539" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="104" column="35" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#15614#15615#0" expanded="false" />
-            <element signature="e#15643#15644#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.275641">
           <caret line="120" column="51" selection-start-line="120" selection-start-column="51" selection-end-line="120" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2619,7 +2435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="4.9038463">
           <caret line="226" column="86" selection-start-line="226" selection-start-column="86" selection-end-line="226" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2631,17 +2446,6 @@
         <state vertical-scroll-proportion="0.6400911">
           <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44871795">
-          <caret line="89" column="16" selection-start-line="89" selection-start-column="16" selection-end-line="89" selection-end-column="84" />
-          <folding>
-            <element signature="e#3011#3207#0" expanded="true" />
-            <element signature="e#3206#3207#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2664,12 +2468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6730769">
           <caret line="99" column="58" selection-start-line="99" selection-start-column="58" selection-end-line="99" selection-end-column="58" />
-          <folding>
-            <element signature="e#3115#3278#0" expanded="true" />
-            <element signature="e#3277#3278#0" expanded="true" />
-            <element signature="e#3342#3503#0" expanded="true" />
-            <element signature="e#3502#3503#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2693,7 +2491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36324787">
           <caret line="386" column="102" selection-start-line="386" selection-start-column="102" selection-end-line="386" selection-end-column="102" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2701,7 +2498,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2731,7 +2527,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.5064102">
           <caret line="89" column="42" selection-start-line="89" selection-start-column="42" selection-end-line="89" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2739,6 +2534,142 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1858975">
           <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60897434">
+          <caret line="61" column="78" selection-start-line="61" selection-start-column="78" selection-end-line="61" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="300" column="19" selection-start-line="300" selection-start-column="19" selection-end-line="300" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="26" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5">
+          <caret line="329" column="22" selection-start-line="329" selection-start-column="22" selection-end-line="329" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16438356">
+          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/TempDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.760274">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/search_se_act.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32097003">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+          <folding>
+            <element signature="e#2775#2793#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/search_se_subact.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38516405">
+          <caret line="89" column="41" selection-start-line="89" selection-start-column="41" selection-end-line="89" selection-end-column="41" />
+          <folding>
+            <element signature="e#832#844#0" expanded="true" />
+            <element signature="e#1568#1580#0" expanded="true" />
+            <element signature="e#2170#2182#0" expanded="true" />
+            <element signature="e#2775#2793#0" expanded="true" />
+            <element signature="e#3387#3403#0" expanded="true" />
+            <element signature="e#4502#4523#0" expanded="true" />
+            <element signature="e#4888#4908#0" expanded="true" />
+            <element signature="e#5722#5740#0" expanded="true" />
+            <element signature="e#6262#6274#0" expanded="true" />
+            <element signature="e#6823#6843#0" expanded="true" />
+            <element signature="e#7605#7621#0" expanded="true" />
+            <element signature="e#8276#8294#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSubAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26712328">
+          <caret line="43" column="35" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
+          <folding>
+            <element signature="e#3684#3863#0" expanded="false" />
+            <element signature="e#3862#3863#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SubActivityMarkDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.0384617">
+          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="131" column="12" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="94" />
+          <folding>
+            <element signature="e#4478#4946#0" expanded="true" />
+            <element signature="e#4945#4946#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16666667">
+          <caret line="376" column="38" selection-start-line="376" selection-start-column="38" selection-end-line="376" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/ActivityMarkDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42592594">
+          <caret line="118" column="44" selection-start-line="118" selection-start-column="44" selection-end-line="119" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7921811">
+          <caret line="208" column="43" selection-start-line="208" selection-start-column="43" selection-end-line="208" selection-end-column="43" />
           <folding />
         </state>
       </provider>

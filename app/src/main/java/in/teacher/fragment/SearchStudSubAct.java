@@ -1,23 +1,5 @@
 package in.teacher.fragment;
 
-import in.teacher.activity.R;
-import in.teacher.adapter.StudActAdapter;
-import in.teacher.dao.ActivitiDao;
-import in.teacher.dao.ActivityMarkDao;
-import in.teacher.dao.ExamsDao;
-import in.teacher.dao.SubActivityDao;
-import in.teacher.dao.SubActivityMarkDao;
-import in.teacher.dao.SubjectsDao;
-import in.teacher.dao.TempDao;
-import in.teacher.sqlite.Activiti;
-import in.teacher.sqlite.Amr;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.ReplaceFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,32 +10,49 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SearchStudAct extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+import in.teacher.activity.R;
+import in.teacher.adapter.StudActAdapter;
+import in.teacher.dao.ActivitiDao;
+import in.teacher.dao.ActivityMarkDao;
+import in.teacher.dao.ExamsDao;
+import in.teacher.dao.SubActivityDao;
+import in.teacher.dao.SubActivityMarkDao;
+import in.teacher.dao.SubjectsDao;
+import in.teacher.dao.TempDao;
+import in.teacher.sqlite.SubActivity;
+import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.ReplaceFragment;
+
+public class SearchStudSubAct extends Fragment {
     private Context context;
-    private int studentId, sectionId, examId, subjectId;
-    private String studentName, className, secName, examName, subjectName;
+    private int studentId, examId, subjectId, activityId;
+    private String studentName, className, secName, examName, subjectName, activityName;
     private SQLiteDatabase sqliteDatabase;
-    private List<Integer> actIdList = new ArrayList<>();
-    private List<String> actNameList = new ArrayList<>();
+    private List<Integer> subActIdList = new ArrayList<>();
+    private List<String> subActNameList = new ArrayList<>();
     private List<Integer> avgList1 = new ArrayList<>();
     private List<Integer> avgList2 = new ArrayList<>();
-    private List<Activiti> activitiList = new ArrayList<>();
+    private List<SubActivity> subActList = new ArrayList<>();
     private ArrayList<Amr> amrList = new ArrayList<>();
     private StudActAdapter adapter;
     private ListView lv;
     private ProgressDialog pDialog;
     private TextView studTV, clasSecTV;
-    private Button examBut, subBut;
+    private Button examBut, subBut, actBut;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.search_se_act, container, false);
+        View view = inflater.inflate(R.layout.search_se_subact, container, false);
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
@@ -63,6 +62,7 @@ public class SearchStudAct extends Fragment {
 
         examBut = (Button) view.findViewById(R.id.examSubButton);
         subBut = (Button) view.findViewById(R.id.examSubActButton);
+        actBut = (Button)view.findViewById(R.id.examSubActiButton);
         studTV = (TextView) view.findViewById(R.id.studName);
         clasSecTV = (TextView) view.findViewById(R.id.studClasSec);
 
@@ -75,25 +75,25 @@ public class SearchStudAct extends Fragment {
         view.findViewById(R.id.examButton).setOnClickListener(searchExam);
         view.findViewById(R.id.examSubButton).setOnClickListener(searchExamSub);
         view.findViewById(R.id.attSearch).setOnClickListener(searchAttendance);
+        view.findViewById(R.id.examSubActButton).setOnClickListener(searchStudAct);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         studentId = t.getStudentId();
         examId = t.getExamId();
         subjectId = t.getSubjectId();
+        activityId = t.getActivityId();
 
         new CalledBackLoad().execute();
-
-        lv.setOnItemClickListener(clickListItem);
 
         return view;
     }
 
     private void clearList() {
-        actIdList.clear();
-        activitiList.clear();
+        subActIdList.clear();
+        subActList.clear();
         avgList1.clear();
         avgList2.clear();
-        actNameList.clear();
+        subActNameList.clear();
         amrList.clear();
     }
 
@@ -118,21 +118,17 @@ public class SearchStudAct extends Fragment {
         }
     };
 
+    private View.OnClickListener searchStudAct = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ReplaceFragment.replace(new SearchStudAct(), getFragmentManager());
+        }
+    };
+
     private View.OnClickListener searchAttendance = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             ReplaceFragment.replace(new SearchStudAtt(), getFragmentManager());
-        }
-    };
-
-    private AdapterView.OnItemClickListener clickListItem = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            TempDao.updateActivityId(actIdList.get(position), sqliteDatabase);
-            int cache = SubActivityDao.isThereSubAct(actIdList.get(position), sqliteDatabase);
-            if(cache == 1) {
-                ReplaceFragment.replace(new SearchStudSubAct(), getFragmentManager());
-            }
         }
     };
 
@@ -149,57 +145,35 @@ public class SearchStudAct extends Fragment {
         protected String doInBackground(String... params) {
             examName = ExamsDao.selectExamName(examId, sqliteDatabase);
             subjectName = SubjectsDao.getSubjectName(subjectId, sqliteDatabase);
+            activityName = ActivitiDao.selectActivityName(activityId, sqliteDatabase);
 
             Cursor c = sqliteDatabase.rawQuery("select A.Name, A.ClassId, A.SectionId, B.ClassName, C.SectionName from students A, class B, section C where" +
                     " A.StudentId=" + studentId + " and A.ClassId=B.ClassId and A.SectionId=C.SectionId group by A.StudentId", null);
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 studentName = c.getString(c.getColumnIndex("Name"));
-                sectionId = c.getInt(c.getColumnIndex("SectionId"));
                 className = c.getString(c.getColumnIndex("ClassName"));
                 secName = c.getString(c.getColumnIndex("SectionName"));
                 c.moveToNext();
             }
             c.close();
 
-            activitiList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
-            List<Integer> subActList = new ArrayList<>();
-            int subActAvg = 0;
-            int overallSubActAvg = 0;
-            for (Activiti act : activitiList) {
-                int cache = SubActivityDao.isThereSubAct(act.getActivityId(), sqliteDatabase);
-                if (cache == 1) {
-                    subActList.clear();
-                    subActAvg = 0;
-                    Cursor c3 = sqliteDatabase.rawQuery("select SubActivityId from subactivity where ActivityId=" + act.getActivityId(), null);
-                    c3.moveToFirst();
-                    while (!c3.isAfterLast()) {
-                        subActList.add(c3.getInt(c3.getColumnIndex("SubActivityId")));
-                        c3.moveToNext();
-                    }
-                    c3.close();
-
-                    for (Integer actId : subActList) {
-                        subActAvg += SubActivityMarkDao.getStudSubActAvg(studentId, actId, sqliteDatabase);
-                    }
-                    overallSubActAvg = subActAvg / subActList.size();
-                    avgList1.add(overallSubActAvg);
-                } else {
-                    avgList1.add(ActivityMarkDao.getStudActAvg(studentId, act.getActivityId(), sqliteDatabase));
-                }
+            subActList = SubActivityDao.selectSubActivity(activityId, sqliteDatabase);
+            for (SubActivity subact : subActList) {
+                avgList1.add(SubActivityMarkDao.getStudSubActAvg(studentId, subact.getSubActivityId(), sqliteDatabase));
             }
-            for (Activiti at : activitiList) {
-                actNameList.add(at.getActivityName());
-                actIdList.add(at.getActivityId());
-                int i = (int) (((double) at.getActivityAvg() / (double) 360) * 100);
+            for (SubActivity at : subActList) {
+                subActNameList.add(at.getSubActivityName());
+                subActIdList.add(at.getSubActivityId());
+                int i = (int) (((double) at.getSubActivityAvg() / (double) 360) * 100);
                 avgList2.add(i);
             }
 
-            for (int i = 0; i < actIdList.size(); i++) {
+            for (int i = 0; i < subActIdList.size(); i++) {
                 try {
-                    amrList.add(new Amr(actNameList.get(i), avgList1.get(i), avgList2.get(i)));
+                    amrList.add(new Amr(subActNameList.get(i), avgList1.get(i), avgList2.get(i)));
                 } catch (IndexOutOfBoundsException e) {
-                    amrList.add(new Amr(actNameList.get(i), 0, 0));
+                    amrList.add(new Amr(subActNameList.get(i), 0, 0));
                 }
             }
             return null;
@@ -209,6 +183,7 @@ public class SearchStudAct extends Fragment {
             super.onPostExecute(s);
             examBut.setText(examName);
             subBut.setText(subjectName);
+            actBut.setText(activityName);
             studTV.setText(studentName);
             clasSecTV.setText(className + " - " + secName);
             adapter.notifyDataSetChanged();
