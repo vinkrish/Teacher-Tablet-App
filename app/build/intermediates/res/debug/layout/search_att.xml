@@ -200,7 +200,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="45dp"
-            android:background="#FFFFFF" />
+            android:background="@color/divider" />
 
         <TextView
             android:layout_width="0dp"
@@ -216,7 +216,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="45dp"
-            android:background="#FFFFFF" />
+            android:background="@color/divider" />
 
         <TextView
             android:layout_width="0dp"

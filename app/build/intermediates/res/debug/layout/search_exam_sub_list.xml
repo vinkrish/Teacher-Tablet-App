@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="0.4"
+        android:layout_weight="0.38"
         android:paddingLeft="10dp"
         android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="0.3"
+        android:layout_weight="0.32"
         android:paddingLeft="10dp"
         android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium" />

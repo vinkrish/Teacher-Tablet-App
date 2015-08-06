@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:id="@+id/breadcrum"
@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@color/dark_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/dash"
@@ -40,8 +40,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/se"
-            android:textColor="#FFFFFF"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -57,7 +57,7 @@
         android:background="@color/layoutbelowBC"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingLeft="10dp" >
+        android:paddingLeft="10dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/studName"
@@ -95,7 +95,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/dash2ndnav"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/slipSearch"
@@ -103,8 +103,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/sliptest" />
+            android:text="@string/sliptest"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <View
             android:layout_width="1dp"
@@ -117,9 +117,9 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:background="@color/dark_black"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center"
             android:text="@string/se"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
@@ -132,22 +132,29 @@
             android:id="@+id/attSearch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="0.6"
             android:gravity="center"
-            android:text="@string/attendance" />
+            android:text="@string/attendance"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/linearLayout1"
+        android:layout_marginTop="30dp"
+        android:background="@color/divider" />
 
     <LinearLayout
         android:id="@+id/lisview"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@id/linearLayout1"
+        android:layout_below="@id/top"
         android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
         android:background="@color/layoutbelowBC"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -157,14 +164,14 @@
             android:gravity="left"
             android:paddingLeft="10dp"
             android:text="@string/exam"
-            android:textColor="@color/light_black"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/light_black"
             android:textStyle="bold" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#FFFFFF" />
+            android:background="@color/divider" />
 
         <TextView
             android:layout_width="0dp"
@@ -175,16 +182,22 @@
             android:gravity="left"
             android:paddingLeft="10dp"
             android:text="@string/stud_avg"
-            android:textColor="@color/light_black"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/light_black"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/lisview"
+        android:background="@color/divider" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lisview" >
-    </ListView>
+        android:layout_below="@id/bottom"></ListView>
 
 </RelativeLayout><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/layout/search_se_exam.xml -->
