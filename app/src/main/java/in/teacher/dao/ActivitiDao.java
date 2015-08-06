@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteStatement;
  public class ActivitiDao {
 	 
 	 public static float getActivityMaxMark(int activityId, SQLiteDatabase sqliteDatabase){
-		 float maxMark = 100;
+		 float maxMark = 0;
 		 Cursor c = sqliteDatabase.rawQuery("select MaximumMark from activity where ActivityId="+activityId, null);
 		 c.moveToFirst();
 		 while(!c.isAfterLast()){

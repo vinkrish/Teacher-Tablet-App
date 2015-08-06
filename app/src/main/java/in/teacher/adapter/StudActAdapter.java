@@ -35,6 +35,7 @@ public class StudActAdapter extends BaseAdapter {
 			row = inflater.inflate( R.layout.search_act_list, parent, false);
 			holder = new RecordHolder();
 			holder.txt1 = (TextView) row.findViewById(R.id.txt1);
+            holder.txt2 = (TextView) row.findViewById(R.id.txt2);
 			holder.pb1 = (ProgressBar) row.findViewById(R.id.avgProgress1);
 			holder.percentage1 = (TextView) row.findViewById(R.id.percent1);
 			holder.pb2 = (ProgressBar) row.findViewById(R.id.avgProgress2);
@@ -51,6 +52,7 @@ public class StudActAdapter extends BaseAdapter {
 
 		Amr listItem = data.get(position);
 		holder.txt1.setText(listItem.getText1());
+        holder.txt2.setText(listItem.getText2());
 
 		if(listItem.getInt1()>=75){
 			holder.pb1.setProgressDrawable(context.getResources().getDrawable(R.drawable.progress_green));
@@ -77,6 +79,7 @@ public class StudActAdapter extends BaseAdapter {
 
 	public static class RecordHolder{
 		public TextView txt1;
+		public TextView txt2;
 		public ProgressBar pb1;
 		public TextView percentage1;
 		public ProgressBar pb2;

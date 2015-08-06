@@ -85,11 +85,18 @@
         android:textColor="@color/light_black"
         android:textStyle="bold" />
 
+    <View
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/headerClasSecSub"
+        android:background="@color/divider" />
+
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerClasSecSub"
+        android:layout_below="@id/bottom"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"

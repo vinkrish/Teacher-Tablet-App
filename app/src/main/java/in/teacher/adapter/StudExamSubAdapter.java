@@ -35,6 +35,7 @@ public class StudExamSubAdapter extends BaseAdapter {
             holder = new RecordHolder();
             holder.txt1 = (TextView) row.findViewById(R.id.idx);
             holder.txt2 = (TextView) row.findViewById(R.id.txt);
+            holder.txt3 = (TextView) row.findViewById(R.id.score);
             holder.pb1 = (ProgressBar) row.findViewById(R.id.avgProgress1);
             holder.percentage1 = (TextView) row.findViewById(R.id.percent1);
             holder.pb2 = (ProgressBar) row.findViewById(R.id.avgProgress2);
@@ -52,6 +53,12 @@ public class StudExamSubAdapter extends BaseAdapter {
         Amr listItem = data.get(position);
         holder.txt1.setText(listItem.getText1());
         holder.txt2.setText(listItem.getText2());
+        holder.txt3.setText(listItem.getText3());
+
+        /*if(!listItem.getText3().equals("-")){
+            holder.score.setText(listItem.getText3());
+            holder.score.setBackground(context.getResources().getDrawable(R.drawable.blue_circle));
+        }*/
 
         if (listItem.getInt1() >= 75) {
             holder.pb1.setProgressDrawable(context.getResources().getDrawable(R.drawable.progress_green));
@@ -79,6 +86,7 @@ public class StudExamSubAdapter extends BaseAdapter {
     public static class RecordHolder {
         public TextView txt1;
         public TextView txt2;
+        public TextView txt3;
         public ProgressBar pb1;
         public TextView percentage1;
         public ProgressBar pb2;

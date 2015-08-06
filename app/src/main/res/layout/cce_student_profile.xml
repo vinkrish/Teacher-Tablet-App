@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="@color/layout_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dashboardButton"
@@ -84,14 +84,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#333333" />
-    
+        android:background="@color/divider" />
+
     <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:gravity="center" />
+        android:id="@+id/spinner"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:gravity="center" />
 
 </LinearLayout>

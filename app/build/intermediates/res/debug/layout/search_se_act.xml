@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp"
-            android:layout_weight="0.4"
+            android:layout_weight="0.55"
             android:gravity="left"
             android:paddingLeft="10dp"
             android:text="@string/stud_avg"

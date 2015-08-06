@@ -16,12 +16,12 @@ public class Amr {
 		this.int3 = int3;
 	}
 	
-	public Amr(int int1, String text1, String text2, int int2, int int3){
-		this.int1 = int1;
-		this.int2 = int2;
-		this.int3 = int3;
+	public Amr(String text1, String text2, String text3, int int1, int int2){
 		this.text1 = text1;
 		this.text2 = text2;
+		this.text3 = text3;
+		this.int1 = int1;
+		this.int2 = int2;
 	}
 	
 	public Amr(String txt1, String txt2, String txt3){

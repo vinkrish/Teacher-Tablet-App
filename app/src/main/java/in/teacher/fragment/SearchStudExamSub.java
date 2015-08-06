@@ -47,6 +47,7 @@ public class SearchStudExamSub extends Fragment {
     private ProgressDialog pDialog;
     private TextView studTV, clasSecTV, percentTV;
     private List<Integer> subIdList = new ArrayList<>();
+    private List<String> scoreList = new ArrayList<>();
     private ProgressBar pb;
     private Button examBut;
 
@@ -90,6 +91,7 @@ public class SearchStudExamSub extends Fragment {
         amrList.clear();
         activitiList.clear();
         subIdList.clear();
+        scoreList.clear();
     }
 
     private View.OnClickListener searchSlipTest = new View.OnClickListener() {
@@ -201,10 +203,16 @@ public class SearchStudExamSub extends Fragment {
                         len++;
                     }
                     progressList1.add(overallActAvg);
+                    scoreList.add(" ");
                 } else {
                     avg = MarksDao.getStudExamAvg(studentId, sub, examId, sqliteDatabase);
                     if (avg != 0) {
                         len++;
+                        int score = MarksDao.getStudExamMark(studentId, sub, examId, sqliteDatabase);
+                        int maxScore = MarksDao.getExamMaxMark(sub, examId, sqliteDatabase);
+                        scoreList.add(score+"/"+maxScore);
+                    }else{
+                        scoreList.add("-");
                     }
                     progressList1.add(avg);
                 }
@@ -223,7 +231,7 @@ public class SearchStudExamSub extends Fragment {
             }
 
             for (int i = 0; i < subIdList.size(); i++) {
-                amrList.add(new Amr(subNameList.get(i), teacherNameList.get(i), progressList1.get(i), progressList2.get(i)));
+                amrList.add(new Amr(subNameList.get(i), teacherNameList.get(i), scoreList.get(i), progressList1.get(i), progressList2.get(i)));
             }
             return null;
         }

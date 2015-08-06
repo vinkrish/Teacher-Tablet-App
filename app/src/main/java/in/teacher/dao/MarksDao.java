@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class MarksDao {
 	
 	public static List<String> selectMarks(int examId, int subjectId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
-		List<String> mList = new ArrayList<String>();
+		List<String> mList = new ArrayList<>();
 		for(Integer i: studentId){
 			Cursor c = sqliteDatabase.rawQuery("select * from marks where ExamId="+examId+" AND SubjectId="+subjectId+" AND StudentId="+i, null);
 			if(c.getCount()>0){
@@ -127,6 +127,30 @@ public class MarksDao {
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			i = c.getInt(c.getColumnIndex("avg"));
+			c.moveToNext();
+		}
+		c.close();
+		return i;
+	}
+
+	public static int getStudExamMark(int studentId, int subjectId, int examId, SQLiteDatabase sqliteDatabase){
+		int i = 0;
+		Cursor c = sqliteDatabase.rawQuery("select Mark from Marks where ExamId="+examId+" and SubjectId="+subjectId+" and StudentId="+studentId, null);
+		c.moveToFirst();
+		while(!c.isAfterLast()){
+			i = c.getInt(c.getColumnIndex("Mark"));
+			c.moveToNext();
+		}
+		c.close();
+		return i;
+	}
+
+	public static int getExamMaxMark(int subjectId, int examId, SQLiteDatabase sqliteDatabase){
+		int i = 0;
+		Cursor c = sqliteDatabase.rawQuery("select MaximumMark from subjectexams where ExamId="+examId+" and SubjectId="+subjectId, null);
+		c.moveToFirst();
+		while(!c.isAfterLast()){
+			i = c.getInt(c.getColumnIndex("MaximumMark"));
 			c.moveToNext();
 		}
 		c.close();

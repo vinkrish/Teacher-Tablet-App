@@ -66,11 +66,18 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_black" />
 
+    <View
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/viewTop"
+        android:background="@color/divider" />
+
     <LinearLayout
         android:id="@+id/linearlayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/viewTop"
+        android:layout_below="@id/bottom"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
         android:orientation="vertical" >

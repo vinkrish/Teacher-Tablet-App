@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/layout_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dashboardButton"
@@ -70,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/linearLayout1"
-        android:background="#333333" />
+        android:background="@color/divider" />
 
     <TextView
         android:id="@+id/headerClasSecSub"
@@ -79,22 +79,28 @@
         android:layout_below="@id/dividerup"
         android:layout_gravity="left|center_vertical"
         android:background="@color/layoutbelowBC"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
         android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_black"
         android:textStyle="bold" />
+
+    <View
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/headerClasSecSub"
+        android:background="@color/divider" />
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerClasSecSub"
+        android:layout_below="@id/bottom"
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
         android:gravity="center"
-        android:numColumns="2" >
-    </GridView>
+        android:numColumns="2"></GridView>
 
 </RelativeLayout>
