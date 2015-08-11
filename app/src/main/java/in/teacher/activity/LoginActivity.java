@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.Calendar;
 import java.util.List;
 
 import in.teacher.dao.SectionDao;
@@ -15,6 +16,7 @@ import in.teacher.sqlite.Section;
 import in.teacher.sqlite.Teacher;
 import in.teacher.sqlite.Temp;
 import in.teacher.sync.CallFTP;
+import in.teacher.sync.FirstTimeSync;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -96,35 +98,43 @@ public class LoginActivity extends BaseActivity {
         }
 
         int apkUpdate = sharedPref.getInt("apk_update", 0);
-        if(apkUpdate == 1){
+        int newlyUpdated = sharedPref.getInt("newly_updated", 0);
+        if (apkUpdate == 1) {
             Intent i = new Intent(this, in.teacher.activity.UpdateApk.class);
+            startActivity(i);
+            AnimationUtils.activityEnter(this);
+        }else if(newlyUpdated == 1){
+            Intent i = new Intent(this, in.teacher.activity.MasterAuthentication.class);
             startActivity(i);
         }
 
         int bootSync = sharedPref.getInt("boot_sync", 0);
-        if(bootSync == 1){
+        if (bootSync == 1) {
             Intent service = new Intent(this, in.teacher.adapter.SyncService.class);
             startService(service);
             SharedPreferenceUtil.updateBootSync(this, 0);
         }
 
         alertSync();
-
     }
 
-    private void alertSync(){
+    private void alertSync() {
         boolean isFile = false;
         internetStatus = SharedPreferenceUtil.getFailedCount(this);
         Cursor c = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
-        if(c.getCount()>0){
+        if (c.getCount() > 0) {
             isFile = true;
         }
         c.close();
-        if((UploadSqlDao.isUploadSql(sqliteDatabase) || isFile) && internetStatus!=0){
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if ((UploadSqlDao.isUploadSql(sqliteDatabase) || isFile) && hour >= 15) {
             findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.red));
-        }else{
+        } else if ((UploadSqlDao.isUploadSql(sqliteDatabase) || isFile) && internetStatus != 0) {
+            findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.red));
+        } else {
             findViewById(R.id.sync_me).setBackgroundResource(android.R.drawable.btn_default);
-           // findViewById(R.id.sync_me).setBackgroundColor(Color.TRANSPARENT);
+            // findViewById(R.id.sync_me).setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
@@ -226,16 +236,15 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    public void syncClicked(View v){
-        if(NetworkUtils.isNetworkConnected(context)){
-            SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
+    public void syncClicked(View v) {
+        if (NetworkUtils.isNetworkConnected(context)) {
+            SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("manual_sync", 1);
             editor.putInt("is_sync", 1);
             editor.apply();
             Intent intent = new Intent(this, ProcessFiles.class);
             startActivity(intent);
-        }else{
+        } else {
             CommonDialogUtils.displayAlertWhiteDialog(this, "Please be in WiFi zone or check the status of WiFi");
         }
     }
@@ -417,7 +426,7 @@ public class LoginActivity extends BaseActivity {
             editor.putInt("is_sync", 1);
             editor.apply();
             Intent intent = new Intent(this, in.teacher.activity.ProcessFiles.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }

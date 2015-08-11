@@ -1,6 +1,7 @@
 package in.teacher.activity;
 
 import in.teacher.sync.FirstTimeSync;
+import in.teacher.util.NetworkUtils;
 import in.teacher.util.SharedPreferenceUtil;
 
 import android.content.Context;
@@ -29,8 +30,9 @@ public class ServerBlock extends BaseActivity {
 	
 	public void resolveClicked(View view){
 		SharedPreferenceUtil.updateFirstSync(this, 1);
-		
-		new FirstTimeSync().callFirstTimeSync();
+		if(NetworkUtils.isNetworkConnected(ServerBlock.this)){
+			new FirstTimeSync().callFirstTimeSync();
+		}
 	}
 
 	@Override

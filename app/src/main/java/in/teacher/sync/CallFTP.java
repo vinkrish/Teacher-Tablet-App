@@ -168,7 +168,7 @@ public class CallFTP implements StringConstant {
                 editor.putInt("manual_sync", 0);
                 editor.putInt("tablet_lock", 2);
                 editor.apply();
-            } else if (manualSync == 1 && updateApk == 1) {
+            } else if (updateApk == 1) {
                 editor.putInt("manual_sync", 0);
                 editor.putInt("update_apk", 2);
                 editor.apply();
@@ -176,9 +176,11 @@ public class CallFTP implements StringConstant {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 appContext.startActivity(intent);
             } else if (manualSync == 1) {
-                SharedPreferenceUtil.updateManualSync(appContext, 0);
+                editor.putInt("manual_sync", 0);
+                editor.apply();
+               // SharedPreferenceUtil.updateManualSync(appContext, 0);
                 Intent intent = new Intent(appContext, in.teacher.activity.LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 appContext.startActivity(intent);
             } else if (screenLocked) {
                 Intent i = new Intent(appContext, in.teacher.activity.ProcessFiles.class);
