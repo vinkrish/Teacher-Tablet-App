@@ -10,6 +10,7 @@ import in.teacher.model.Profile;
 import in.teacher.sqlite.CCEStudentProfile;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class UpdateCCEStudentProfile extends Fragment {
     private Activity act;
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, classId, schoolId, term;
+    private int sectionId, classId, schoolId, term, totalDay;
     private ProfileAdapter profileAdapter;
     private List<Integer> studentsRoll;
     private ArrayList<Profile> profileList = new ArrayList<>();
@@ -60,6 +61,7 @@ public class UpdateCCEStudentProfile extends Fragment {
         Button insert = (Button)view.findViewById(R.id.insertUpdate);
         insert.setText("Update");
 
+        final EditText totalDays = (EditText)view.findViewById(R.id.today_days);
         Button submit = (Button) view.findViewById(R.id.submit);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -70,11 +72,12 @@ public class UpdateCCEStudentProfile extends Fragment {
         lv = (ListView) view.findViewById(R.id.list);
         studentsRoll = StudentsDao.selectStudentIds("" + sectionId, sqliteDatabase);
 
-        Cursor c = sqliteDatabase.rawQuery("select Height, Weight, DaysAttended1, StudentId, StudentName from ccestudentprofile where Term=" + term + " and StudentId in " +
+        Cursor c = sqliteDatabase.rawQuery("select TotalDays1, Height, Weight, DaysAttended1, StudentId, StudentName from ccestudentprofile where Term=" + term + " and StudentId in " +
                 "(select StudentId from students where SectionId=" + sectionId + " order by RollNoInClass)", null);
         c.moveToFirst();
         int loop = 0;
         while (!c.isAfterLast()) {
+            totalDay = c.getInt(c.getColumnIndex("TotalDays1"));
             int cid = c.getInt(c.getColumnIndex("StudentId"));
             String cname = c.getString(c.getColumnIndex("StudentName"));
             String cheight = c.getString(c.getColumnIndex("Height"));
@@ -86,32 +89,39 @@ public class UpdateCCEStudentProfile extends Fragment {
         }
         c.close();
 
+        totalDays.setText(totalDay+"");
+
         profileAdapter = new ProfileAdapter(context, R.layout.profile_adapter, profileList);
         lv.setAdapter(profileAdapter);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<CCEStudentProfile> cspList = new ArrayList<CCEStudentProfile>();
-                for (Profile p : profileList) {
-                    CCEStudentProfile csp = new CCEStudentProfile();
-                    csp.setSchoolId(schoolId + "");
-                    csp.setClassId(classId + "");
-                    csp.setSectionId(sectionId + "");
-                    csp.setStudentId(p.getStudentId() + "");
-                    csp.setStudentName(p.getName());
-                    csp.setHeight(p.getHeight());
-                    csp.setWeight(p.getWeight());
-                    try {
-                        csp.setDaysAttended1(Double.parseDouble(p.getDaysAttended()));
-                    } catch (NumberFormatException e) {
-                        csp.setDaysAttended1(0);
+                if(!totalDays.getText().toString().equals("")) {
+                    List<CCEStudentProfile> cspList = new ArrayList<CCEStudentProfile>();
+                    for (Profile p : profileList) {
+                        CCEStudentProfile csp = new CCEStudentProfile();
+                        csp.setSchoolId(schoolId + "");
+                        csp.setClassId(classId + "");
+                        csp.setSectionId(sectionId + "");
+                        csp.setStudentId(p.getStudentId() + "");
+                        csp.setStudentName(p.getName());
+                        csp.setHeight(p.getHeight());
+                        csp.setWeight(p.getWeight());
+                        try {
+                            csp.setDaysAttended1(Double.parseDouble(p.getDaysAttended()));
+                        } catch (NumberFormatException e) {
+                            csp.setDaysAttended1(0);
+                        }
+                        csp.setTotalDays1(Double.parseDouble(totalDays.getText().toString()));
+                        csp.setTerm(term);
+                        cspList.add(csp);
                     }
-                    csp.setTerm(term);
-                    cspList.add(csp);
+                    CCEStudentProfileDao.updateCCEStudentProfile(cspList, sqliteDatabase);
+                    ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
+                }else{
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter total number of days");
                 }
-                CCEStudentProfileDao.updateCCEStudentProfile(cspList, sqliteDatabase);
-                ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
             }
         });
 

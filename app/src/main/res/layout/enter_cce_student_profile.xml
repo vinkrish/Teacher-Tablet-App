@@ -89,12 +89,28 @@
             android:textColor="@color/dark_black"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="@string/total_days"
+            android:textColor="@color/dark_black"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/today_days"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:numeric="integer"
+            android:gravity="center" />
+
         <Button
             android:id="@+id/submit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_weight="0.2"
+            android:layout_weight="0.3"
             android:background="@color/universal"
             android:gravity="center"
             android:text="@string/submit"

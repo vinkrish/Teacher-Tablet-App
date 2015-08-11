@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity {
             Intent i = new Intent(this, in.teacher.activity.UpdateApk.class);
             startActivity(i);
             AnimationUtils.activityEnter(this);
-        }else if(newlyUpdated == 1){
+        } else if (newlyUpdated == 1) {
             Intent i = new Intent(this, in.teacher.activity.MasterAuthentication.class);
             startActivity(i);
         }
@@ -283,9 +283,7 @@ public class LoginActivity extends BaseActivity {
     };
 
     private void updateWifiStatus() {
-        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (mWifi != null && mWifi.isConnected()) {
+        if (NetworkUtils.isNetworkConnected(this)) {
             noWifi.setVisibility(View.GONE);
         } else {
             noWifi.setVisibility(View.VISIBLE);

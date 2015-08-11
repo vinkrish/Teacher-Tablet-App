@@ -63,9 +63,6 @@
     <dimen name="text_xsmall">16sp</dimen>
     <!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="a">A</string>
-    <string name="a1">A1</string>
-    <string name="a2">A2</string>
     <string name="absent">Absent</string>
     <string name="action">Action</string>
     <string name="action_logout">Logout</string>
@@ -78,20 +75,13 @@
     <string name="adminLogin">Admin Login</string>
     <string name="adminusername">Admin Username</string>
     <string name="al">Absentees List</string>
-    <string name="aplus">A+</string>
     <string name="app_name">Teacher</string>
     <string name="attendance">Attendance</string>
     <string name="attendinfo">Attendance information</string>
     <string name="average">Average (%)</string>
-    <string name="b">B</string>
-    <string name="b1">B1</string>
-    <string name="b2">B2</string>
     <string name="back">Back</string>
     <string name="buffer_full">Please do the sync.</string>
     <string name="bugs">Touch here to resolve the issue</string>
-    <string name="c">C</string>
-    <string name="c1">C1</string>
-    <string name="c2">C2</string>
     <string name="cc">content description</string>
     <string name="cce_student_profile">CCE Student Profile</string>
     <string name="clear">Clear</string>
@@ -99,7 +89,6 @@
     <string name="coscholastic2">Co-scholastic area</string>
     <string name="crash">Something went wrong, will be rectified soon.</string>
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
-    <string name="d">D</string>
     <string name="dashboard">Dashboard</string>
     <string name="date">Enter Date :</string>
     <string name="date2">Date</string>
@@ -109,8 +98,6 @@
     <string name="decimal">.</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
-    <string name="e1">E1</string>
-    <string name="e2">E2</string>
     <string name="eight">8</string>
     <string name="enter">Enter marks for created sliptest</string>
     <string name="entersliptest">Enter Sliptest Name</string>
@@ -219,6 +206,7 @@
     <string name="today">Today</string>
     <string name="toggleGradeMark">Toggle Grade/Mark</string>
     <string name="total">No of Evaluations</string>
+    <string name="total_days">Total Days :</string>
     <string name="two">2</string>
     <string name="update">Update</string>
     <string name="update_apk">A new version of application is available, please click the update button to confirm and continue.</string>

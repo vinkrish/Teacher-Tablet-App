@@ -11,6 +11,7 @@ import in.teacher.sqlite.CCEStudentProfile;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class InsertCCEStudentProfile extends Fragment {
         Button insert = (Button)view.findViewById(R.id.insertUpdate);
         insert.setText("Insert");
 
+        final EditText totalDays = (EditText)view.findViewById(R.id.today_days);
         Button submit = (Button) view.findViewById(R.id.submit);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -77,26 +79,31 @@ public class InsertCCEStudentProfile extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<CCEStudentProfile> cspList = new ArrayList<>();
-                for (Profile p : profileList) {
-                    CCEStudentProfile csp = new CCEStudentProfile();
-                    csp.setSchoolId(schoolId + "");
-                    csp.setClassId(classId + "");
-                    csp.setSectionId(sectionId + "");
-                    csp.setStudentId(p.getStudentId() + "");
-                    csp.setStudentName(p.getName());
-                    csp.setHeight(p.getHeight());
-                    csp.setWeight(p.getWeight());
-                    try {
-                        csp.setDaysAttended1(Double.parseDouble(p.getDaysAttended()));
-                    } catch (NumberFormatException e) {
-                        csp.setDaysAttended1(0);
+                if(!totalDays.getText().toString().equals("")) {
+                    List<CCEStudentProfile> cspList = new ArrayList<>();
+                    for (Profile p : profileList) {
+                        CCEStudentProfile csp = new CCEStudentProfile();
+                        csp.setSchoolId(schoolId + "");
+                        csp.setClassId(classId + "");
+                        csp.setSectionId(sectionId + "");
+                        csp.setStudentId(p.getStudentId() + "");
+                        csp.setStudentName(p.getName());
+                        csp.setHeight(p.getHeight());
+                        csp.setWeight(p.getWeight());
+                        try {
+                            csp.setDaysAttended1(Double.parseDouble(p.getDaysAttended()));
+                        } catch (NumberFormatException e) {
+                            csp.setDaysAttended1(0);
+                        }
+                        csp.setTotalDays1(Double.parseDouble(totalDays.getText().toString()));
+                        csp.setTerm(term);
+                        cspList.add(csp);
                     }
-                    csp.setTerm(term);
-                    cspList.add(csp);
+                    CCEStudentProfileDao.insertCCEStudentProfile(cspList, sqliteDatabase);
+                    ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
+                }else{
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter total number of days");
                 }
-                CCEStudentProfileDao.insertCCEStudentProfile(cspList, sqliteDatabase);
-                ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
             }
         });
 
