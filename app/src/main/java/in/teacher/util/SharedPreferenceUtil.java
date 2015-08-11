@@ -55,13 +55,6 @@ public class SharedPreferenceUtil {
         return sharedPref.getInt("partition",0);
     }
 
-    public static void updateSavedVersion(Context context){
-        SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("saved_version", "v1.1");
-        editor.apply();
-    }
-
     public static void updateTabletLock(Context context, int i){
         SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -112,9 +105,16 @@ public class SharedPreferenceUtil {
         editor.apply();
     }
 
+    public static void updateSavedVersion(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("saved_version", "v1.2");
+        editor.apply();
+    }
+
     public static String getSavedVersion(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        return sharedPref.getString("saved_version", "v1.1");
+        return sharedPref.getString("saved_version", "v1.2");
     }
 
     public static int getTabletLock(Context context){

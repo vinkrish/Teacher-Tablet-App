@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version">Version - 2.2</string>
+    <string name="version">Version - 1.2</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_master_authentication">MasterAuthentication</string>
@@ -85,8 +85,10 @@
     <string name="grade">Grade</string>
     <string name="grades">Grades</string>
     <string name="reset">Reset</string>
+    <string name="insert">Insert</string>
+    <string name="update">Update</string>
     <string name="enter">Enter marks for created sliptest</string>
-    <string name="update">Update marks for created slipTest</string>
+    <string name="update_mark">Update marks for created slipTest</string>
     <string name="enterst">Enter marks for selected slipTest</string>
     <string name="updatest">Update marks for selected slipTest</string>
     <string name="sliptest">SlipTest</string>

@@ -131,6 +131,7 @@
     <string name="hwmessage">Enter Homework</string>
     <string name="hwpt">Tap on the list to view homework assigned</string>
     <string name="idxcolumn"> # </string>
+    <string name="insert">Insert</string>
     <string name="insertA">Insert A for all</string>
     <string name="internet_block_1">Tab is not connected to Internet. Please check internet connection.</string>
     <string name="internet_block_2">Steps to check internet connection</string>
@@ -219,14 +220,15 @@
     <string name="toggleGradeMark">Toggle Grade/Mark</string>
     <string name="total">No of Evaluations</string>
     <string name="two">2</string>
-    <string name="update">Update marks for created slipTest</string>
+    <string name="update">Update</string>
     <string name="update_apk">A new version of application is available, please click the update button to confirm and continue.</string>
     <string name="update_apk_button">Update the application</string>
     <string name="update_apk_wifi">*tab should be in wifi zone.</string>
+    <string name="update_mark">Update marks for created slipTest</string>
     <string name="updatest">Update marks for selected slipTest</string>
     <string name="username">Username</string>
     <string name="verify">Verify</string>
-    <string name="version">Version - 2.2</string>
+    <string name="version">Version - 1.2</string>
     <string name="view_students">View Students</string>
     <string name="viewscoreTop">Tap on the sliptest to view detailed info</string>
     <string name="vs">View Score</string>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="@color/layout_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dashboardButton"
@@ -34,11 +34,11 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/attendanceButton"
+            android:id="@+id/cce_profile"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/universal"
+            android:background="@color/layout_black"
             android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
@@ -53,12 +53,12 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/classSection"
+            android:id="@+id/insertUpdate"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
+            android:background="@color/universal"
+            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
             android:paddingLeft="10dp"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:background="@color/layoutbelowBC"
         android:orientation="horizontal"
-        android:padding="10dp" >
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/profile_term"
@@ -111,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/layoutbelowBC"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -197,7 +197,6 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

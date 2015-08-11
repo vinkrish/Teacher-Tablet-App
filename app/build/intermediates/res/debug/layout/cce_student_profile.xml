@@ -46,24 +46,6 @@
             android:text="@string/profile"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="60dp"
-            android:background="#333333" />
-
-        <Button
-            android:id="@+id/classSection"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="0.1"
-            android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
-            android:drawablePadding="10dp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
     </LinearLayout>
 
     <View
