@@ -236,7 +236,7 @@ public final class R {
         public static final int exam=0x7f0c000e;
         public static final int examButton=0x7f0c0014;
         public static final int examSubActButton=0x7f0c00a9;
-        public static final int examSubActiButton=0x7f0c00ac;
+        public static final int examSubActiButton=0x7f0c00aa;
         public static final int examSubButton=0x7f0c00a8;
         public static final int expand_drawer=0x7f0c0010;
         public static final int expandibles=0x7f0c004d;
@@ -268,11 +268,11 @@ public final class R {
         public static final int lblListHeader=0x7f0c007f;
         public static final int lblListItem=0x7f0c0080;
         public static final int left_drawer=0x7f0c0013;
-        public static final int li_txt1=0x7f0c00ad;
-        public static final int li_txt2=0x7f0c00ae;
-        public static final int li_txt3=0x7f0c00af;
-        public static final int li_txt4=0x7f0c00b0;
-        public static final int li_txt5=0x7f0c00b1;
+        public static final int li_txt1=0x7f0c00ab;
+        public static final int li_txt2=0x7f0c00ac;
+        public static final int li_txt3=0x7f0c00ad;
+        public static final int li_txt4=0x7f0c00ae;
+        public static final int li_txt5=0x7f0c00af;
         public static final int linearLayout1=0x7f0c0000;
         public static final int linearlayout2=0x7f0c004e;
         public static final int list=0x7f0c0049;
@@ -308,7 +308,7 @@ public final class R {
         public static final int one=0x7f0c0060;
         public static final int otherday=0x7f0c0008;
         public static final int password=0x7f0c0025;
-        public static final int percent=0x7f0c00ab;
+        public static final int percent=0x7f0c00b2;
         public static final int percent1=0x7f0c0097;
         public static final int percent2=0x7f0c0099;
         public static final int percentage=0x7f0c00cb;
@@ -355,7 +355,7 @@ public final class R {
         public static final int spinner=0x7f0c0043;
         public static final int splash=0x7f0c0036;
         public static final int stButton=0x7f0c009c;
-        public static final int stSub=0x7f0c00b2;
+        public static final int stSub=0x7f0c00b0;
         public static final int steps_but=0x7f0c0018;
         public static final int stmaxmark=0x7f0c00bd;
         public static final int stmaxmark2=0x7f0c00c3;
@@ -366,7 +366,7 @@ public final class R {
         public static final int stviewrl=0x7f0c00c7;
         public static final int sub=0x7f0c00cc;
         public static final int subActivityButton=0x7f0c00d1;
-        public static final int subAvgProgress=0x7f0c00aa;
+        public static final int subAvgProgress=0x7f0c00b1;
         public static final int subjectName=0x7f0c007b;
         public static final int submit=0x7f0c0048;
         public static final int submit2=0x7f0c008b;

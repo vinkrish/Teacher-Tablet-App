@@ -46,6 +46,7 @@ public class UpdateCCEStudentProfile extends Fragment {
     private List<Integer> studentsRoll;
     private ArrayList<Profile> profileList = new ArrayList<>();
     private ListView lv;
+    private EditText totalDays;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,10 +59,10 @@ public class UpdateCCEStudentProfile extends Fragment {
         Bundle b = getArguments();
         term = b.getInt("Term");
 
-        Button insert = (Button)view.findViewById(R.id.insertUpdate);
+        Button insert = (Button) view.findViewById(R.id.insertUpdate);
         insert.setText("Update");
 
-        final EditText totalDays = (EditText)view.findViewById(R.id.today_days);
+        totalDays = (EditText) view.findViewById(R.id.today_days);
         Button submit = (Button) view.findViewById(R.id.submit);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -89,7 +90,7 @@ public class UpdateCCEStudentProfile extends Fragment {
         }
         c.close();
 
-        totalDays.setText(totalDay+"");
+        totalDays.setText(totalDay + "");
 
         profileAdapter = new ProfileAdapter(context, R.layout.profile_adapter, profileList);
         lv.setAdapter(profileAdapter);
@@ -97,35 +98,39 @@ public class UpdateCCEStudentProfile extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!totalDays.getText().toString().equals("")) {
-                    List<CCEStudentProfile> cspList = new ArrayList<CCEStudentProfile>();
-                    for (Profile p : profileList) {
-                        CCEStudentProfile csp = new CCEStudentProfile();
-                        csp.setSchoolId(schoolId + "");
-                        csp.setClassId(classId + "");
-                        csp.setSectionId(sectionId + "");
-                        csp.setStudentId(p.getStudentId() + "");
-                        csp.setStudentName(p.getName());
-                        csp.setHeight(p.getHeight());
-                        csp.setWeight(p.getWeight());
-                        try {
-                            csp.setDaysAttended1(Double.parseDouble(p.getDaysAttended()));
-                        } catch (NumberFormatException e) {
-                            csp.setDaysAttended1(0);
+                if (!totalDays.getText().toString().equals("")) {
+                    if (validateDate()) {
+                        List<CCEStudentProfile> cspList = new ArrayList<>();
+                        for (Profile p : profileList) {
+                            CCEStudentProfile csp = new CCEStudentProfile();
+                            csp.setSchoolId(schoolId + "");
+                            csp.setClassId(classId + "");
+                            csp.setSectionId(sectionId + "");
+                            csp.setStudentId(p.getStudentId() + "");
+                            csp.setStudentName(p.getName());
+                            csp.setHeight(p.getHeight());
+                            csp.setWeight(p.getWeight());
+                            try {
+                                csp.setDaysAttended1(Double.parseDouble(p.getDaysAttended()));
+                            } catch (NumberFormatException e) {
+                                csp.setDaysAttended1(0);
+                            }
+                            csp.setTotalDays1(Double.parseDouble(totalDays.getText().toString()));
+                            csp.setTerm(term);
+                            cspList.add(csp);
                         }
-                        csp.setTotalDays1(Double.parseDouble(totalDays.getText().toString()));
-                        csp.setTerm(term);
-                        cspList.add(csp);
+                        CCEStudentProfileDao.updateCCEStudentProfile(cspList, sqliteDatabase);
+                        ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
+                    } else {
+                        CommonDialogUtils.displayAlertWhiteDialog(act, "Days attended for one or more students is more than Total Days!");
                     }
-                    CCEStudentProfileDao.updateCCEStudentProfile(cspList, sqliteDatabase);
-                    ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
-                }else{
-                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter total number of days");
+                } else {
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter valid total number of days");
                 }
             }
         });
 
-        Button cceProfile = (Button)view.findViewById(R.id.cce_profile);
+        Button cceProfile = (Button) view.findViewById(R.id.cce_profile);
         cceProfile.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +139,19 @@ public class UpdateCCEStudentProfile extends Fragment {
         });
 
         return view;
+    }
+
+    private boolean validateDate() {
+        boolean flag = true;
+        for (Profile p : profileList) {
+            try {
+                if (Integer.parseInt(totalDays.getText().toString()) < Double.parseDouble(p.getDaysAttended())) {
+                    flag = false;
+                }
+            } catch (NumberFormatException e) {
+            }
+        }
+        return flag;
     }
 
     public class ProfileAdapter extends ArrayAdapter<Profile> {
@@ -221,7 +239,6 @@ public class UpdateCCEStudentProfile extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (edListChild.getText().toString().equals("")) {
-
                     } else {
                         Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
                                 edListChild.getText().toString().replaceAll("\n", " "), profileList.get(position).getWeight(), profileList.get(position).getDaysAttended());
@@ -255,7 +272,6 @@ public class UpdateCCEStudentProfile extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (edListChild.getText().toString().equals("")) {
-
                     } else {
                         Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
                                 profileList.get(position).getHeight(), edListChild.getText().toString().replaceAll("\n", " "), profileList.get(position).getDaysAttended());
@@ -291,13 +307,24 @@ public class UpdateCCEStudentProfile extends Fragment {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (edListChild.getText().toString().equals("")) {
-
-                    } else {
-                        Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
-                                profileList.get(position).getHeight(), profileList.get(position).getWeight(), edListChild.getText().toString().replaceAll("\n", " "));
-                        profileList.set(position, prof);
-                        profileAdapter.notifyDataSetChanged();
+                    String s1 = edListChild.getText().toString();
+                    String s2 = totalDays.getText().toString();
+                    if (!s1.equals("")) {
+                        if (!s2.equals("")) {
+                            if (Double.parseDouble(s1) <= Integer.parseInt(s2)) {
+                                Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
+                                        profileList.get(position).getHeight(), profileList.get(position).getWeight(), s1.replaceAll("\n", " "));
+                                profileList.set(position, prof);
+                                profileAdapter.notifyDataSetChanged();
+                            } else {
+                                CommonDialogUtils.displayAlertWhiteDialog(act, "Entered day is greater than total days");
+                            }
+                        } else {
+                            Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
+                                    profileList.get(position).getHeight(), profileList.get(position).getWeight(), s1.replaceAll("\n", " "));
+                            profileList.set(position, prof);
+                            profileAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
             });

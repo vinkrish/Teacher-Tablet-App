@@ -94,16 +94,7 @@ public class EditSlipTest extends Fragment {
 		int classId = t.getCurrentClass();
 	//	sectionId = t.getSectionId();
 		int subjectId = t.getCurrentSubject();
-		int teacherId = t.getTeacherId();
 		slipTestId = t.getSlipTestId();
-
-		String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-		Button name = (Button)view.findViewById(R.id.classSection);
-		if(teacherName.length()>11){
-			name.setText(teacherName.substring(0, 9)+"...");
-		}else{
-			name.setText(teacherName);
-		}
 
 		SlipTestt slipTest = SlipTesttDao.selectSlipTest(slipTestId, sqliteDatabase);
 		portionId = slipTest.getPortion();

@@ -37,11 +37,13 @@ public class MasterAuthentication extends BaseActivity {
 
         setContentView(R.layout.activity_master_authentication);
         sharedPref = this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+
+        init();
+
         int newlyUpdated = sharedPref.getInt("newly_updated", 0);
         if (newlyUpdated == 1) {
             authSuccess();
-        } else
-            init();
+        }
     }
 
     private void init() {

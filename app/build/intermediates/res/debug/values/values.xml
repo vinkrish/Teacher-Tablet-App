@@ -81,7 +81,7 @@
     <string name="average">Average (%)</string>
     <string name="back">Back</string>
     <string name="buffer_full">Please do the sync.</string>
-    <string name="bugs">Touch here to resolve the issue</string>
+    <string name="bugs">Touch here to sync</string>
     <string name="cc">content description</string>
     <string name="cce_student_profile">CCE Student Profile</string>
     <string name="clear">Clear</string>
@@ -165,7 +165,7 @@
     <string name="score">Score</string>
     <string name="se">Exam</string>
     <string name="search">Search</string>
-    <string name="server_resolve">Resolving Issues</string>
+    <string name="server_resolve">Tab is in Sync</string>
     <string name="setag">Tap  on  the  exam  to  view  detailed  info</string>
     <string name="seven">7</string>
     <string name="six">6</string>

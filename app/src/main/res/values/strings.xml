@@ -158,8 +158,8 @@
     <string name="remark">Remark</string>
     <string name="insertA">Insert A for all</string>
     <string name="resolving">Resolving Errors</string>
-    <string name="bugs">Touch here to resolve the issue</string>
-    <string name="server_resolve">Resolving Issues</string>
+    <string name="bugs">Touch here to sync</string>
+    <string name="server_resolve">Tab is in Sync</string>
     <string name="profile">Profile</string>
     <string name="cce_student_profile">CCE Student Profile</string>
     <string name="height">Height (cm)</string>

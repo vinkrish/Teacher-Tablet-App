@@ -97,6 +97,25 @@ public class LoginActivity extends BaseActivity {
             startActivity(i);
         }
 
+        checkSyncUpdate();
+
+        int bootSync = sharedPref.getInt("boot_sync", 0);
+        if (bootSync == 1) {
+            Intent service = new Intent(this, in.teacher.adapter.SyncService.class);
+            startService(service);
+            SharedPreferenceUtil.updateBootSync(this, 0);
+        }
+
+        alertSync();
+    }
+
+    private void checkSyncUpdate(){
+        if(!TeacherDao.isTeacherPresent(sqliteDatabase)){
+            SharedPreferences.Editor editr = sharedPref.edit();
+            editr.putInt("newly_updated", 1);
+            editr.apply();
+        }
+
         int apkUpdate = sharedPref.getInt("apk_update", 0);
         int newlyUpdated = sharedPref.getInt("newly_updated", 0);
         if (apkUpdate == 1) {
@@ -107,15 +126,6 @@ public class LoginActivity extends BaseActivity {
             Intent i = new Intent(this, in.teacher.activity.MasterAuthentication.class);
             startActivity(i);
         }
-
-        int bootSync = sharedPref.getInt("boot_sync", 0);
-        if (bootSync == 1) {
-            Intent service = new Intent(this, in.teacher.adapter.SyncService.class);
-            startService(service);
-            SharedPreferenceUtil.updateBootSync(this, 0);
-        }
-
-        alertSync();
     }
 
     private void alertSync() {
@@ -436,6 +446,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
+        checkSyncUpdate();
         updateWifiStatus();
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("INTERNET_STATUS"));
