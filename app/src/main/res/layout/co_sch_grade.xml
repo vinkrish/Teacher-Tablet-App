@@ -18,6 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
+            android:onClick="toDashbord"
             android:background="@color/layout_black"
             android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
@@ -33,11 +34,11 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/attendanceButton"
+            android:id="@+id/coSchButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/universal"
+            android:background="@color/layout_black"
             android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
@@ -52,12 +53,12 @@
             android:background="#333333" />
 
         <Button
-            android:id="@+id/classSection"
+            android:id="@+id/coSchInsertUpdate"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
+            android:background="@color/universal"
+            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
             android:paddingLeft="10dp"
@@ -78,6 +79,7 @@
         android:padding="10dp" >
 
         <TextView
+            android:id="@+id/classSec"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"

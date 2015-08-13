@@ -75,15 +75,6 @@ public class CoScholastic extends Fragment {
 		Temp t = TempDao.selectTemp(sqliteDatabase);
 		sectionId = t.getSectionId();
 		classId = t.getClassId();
-		int teacherId = t.getTeacherId();
-
-		String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-		Button name = (Button)view.findViewById(R.id.classSection);
-		if(teacherName.length()>11){
-			name.setText(teacherName.substring(0, 9)+"...");
-		}else{
-			name.setText(teacherName);
-		}
 
 		setCoScholasticId();
 		Cursor c1 = sqliteDatabase.rawQuery("select distinct Term from exams where ClassId="+classId, null);

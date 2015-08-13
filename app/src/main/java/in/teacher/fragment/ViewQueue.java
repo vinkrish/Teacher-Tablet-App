@@ -41,18 +41,6 @@ public class ViewQueue extends Fragment {
 
 		TextView queryCount = (TextView)view.findViewById(R.id.queue);
 
-		Temp t = TempDao.selectTemp(sqliteDatabase);
-		int teacherId = t.getTeacherId();
-
-		String teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-		Button name = (Button)view.findViewById(R.id.classSection);
-		if(teacherName.length()>11){
-			StringBuilder sb2 = new StringBuilder(teacherName.substring(0, 9)).append("...");
-			name.setText(sb2.toString());
-		}else{
-			name.setText(teacherName);
-		}
-
 		lv = (ListView)view.findViewById(R.id.list);
 		uploadSqlList = UploadSqlDao.selectUploadSql(sqliteDatabase);
 		queryCount.setText("Query ["+uploadSqlList.size()+"]");
