@@ -238,10 +238,13 @@ public class UpdateCCEStudentProfile extends Fragment {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (edListChild.getText().toString().equals("")) {
-                    } else {
+                    String s = edListChild.getText().toString();
+                    if (s.endsWith(".")) {
+                        s = s.substring(0, s.length() - 1);
+                    }
+                    if (!s.equals("") && !s.equals(".")) {
                         Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
-                                edListChild.getText().toString().replaceAll("\n", " "), profileList.get(position).getWeight(), profileList.get(position).getDaysAttended());
+                                s.replaceAll("\n", " "), profileList.get(position).getWeight(), profileList.get(position).getDaysAttended());
                         profileList.set(position, prof);
                         profileAdapter.notifyDataSetChanged();
                     }
@@ -271,10 +274,13 @@ public class UpdateCCEStudentProfile extends Fragment {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (edListChild.getText().toString().equals("")) {
-                    } else {
+                    String s = edListChild.getText().toString();
+                    if (s.endsWith(".")) {
+                        s = s.substring(0, s.length() - 1);
+                    }
+                    if (!s.equals("") && !s.equals(".")) {
                         Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
-                                profileList.get(position).getHeight(), edListChild.getText().toString().replaceAll("\n", " "), profileList.get(position).getDaysAttended());
+                                profileList.get(position).getHeight(), s.replaceAll("\n", " "), profileList.get(position).getDaysAttended());
                         profileList.set(position, prof);
                         profileAdapter.notifyDataSetChanged();
                     }
@@ -309,7 +315,7 @@ public class UpdateCCEStudentProfile extends Fragment {
                 public void onClick(DialogInterface dialog, int which) {
                     String s1 = edListChild.getText().toString();
                     String s2 = totalDays.getText().toString();
-                    if (!s1.equals("")) {
+                    if (!s1.equals("") && !s1.equals(".")) {
                         if (!s2.equals("")) {
                             if (Double.parseDouble(s1) <= Integer.parseInt(s2)) {
                                 Profile prof = new Profile(p.getStudentId(), studentsRoll.get(position) + "", p.getName(),
