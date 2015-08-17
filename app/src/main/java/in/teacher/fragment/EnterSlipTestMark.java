@@ -66,7 +66,6 @@ public class EnterSlipTestMark extends Fragment {
 	private int index=0,indexBound,top,lastVisible,firstVisible,totalVisible;
 	private Bitmap empty, entered;
 	private StringBuffer sf = new StringBuffer();
-	private Button name;
 	private TextView clasSecSub;
 	private SlipTestt st;
 
@@ -83,7 +82,6 @@ public class EnterSlipTestMark extends Fragment {
 		marksAdapter = new MarksAdapter(context, studentsArrayList);
 		lv.setAdapter(marksAdapter);
 
-		name = (Button)view.findViewById(R.id.classSection);
 		clasSecSub = (TextView)view.findViewById(R.id.clasSecSub);
 		empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
 		entered = BitmapFactory.decodeResource(this.getResources(), R.drawable.indicator);

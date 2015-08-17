@@ -64,7 +64,7 @@ public class SubActivityMarkDao {
 	public static List<String> selectSubActivityMarc(int subActivityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
 		List<String> aList = new ArrayList<>();
 		for(Integer i: studentId){
-			Cursor c = sqliteDatabase.rawQuery("select * from subactivitymark where SubActivityId="+subActivityId+" and StudentId="+i, null);	
+			Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitymark where SubActivityId="+subActivityId+" and StudentId="+i, null);
 			c.moveToFirst();
 			if(c.getCount()>0){
 				aList.add(c.getString(c.getColumnIndex("Mark")));

@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class ActivityMarkDao {
 
 	public static List<String> selectActivityMarc(int activityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
-		List<String> mList = new ArrayList<String>();
+		List<String> mList = new ArrayList<>();
 		for(Integer i: studentId){
 			Cursor c = sqliteDatabase.rawQuery("select Mark from activitymark where ActivityId="+activityId+" and StudentId="+i, null);
 			c.moveToFirst();
