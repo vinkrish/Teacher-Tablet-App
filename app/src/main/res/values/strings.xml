@@ -99,7 +99,8 @@
     <string name="next">Next</string>
     <string name="clear">Clear</string>
     <string name="total_days">Total Days :</string>
-    <string name="toggleGradeMark">Toggle Grade/Mark</string>
+    <string name="enter_grade">Enter Grade</string>
+    <string name="enter_marks">Enter Marks</string>
     <string name="zero">0</string>
     <string name="one">1</string>
     <string name="two">2</string>

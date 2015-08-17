@@ -441,8 +441,8 @@ public final class R {
         public static final int dialog_search=0x7f03001c;
         public static final int drawer_list_item=0x7f03001d;
         public static final int enter_cce_student_profile=0x7f03001e;
-        public static final int exam_mark=0x7f03001f;
-        public static final int exam_mark_grade=0x7f030020;
+        public static final int mark_score =0x7f03001f;
+        public static final int mark_grade =0x7f030020;
         public static final int exp_list_item_edit=0x7f030021;
         public static final int fragment_insert_homework=0x7f030022;
         public static final int group_item=0x7f030023;

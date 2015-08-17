@@ -12,7 +12,6 @@ import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectExamsDao;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.ActivityMark;
@@ -75,7 +74,7 @@ public class InsertActivityMark extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState){
 
-		View view = inflater.inflate(R.layout.exam_mark, container, false);
+		View view = inflater.inflate(R.layout.mark_score, container, false);
 		activity = AppGlobal.getActivity();
 		context = AppGlobal.getContext();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();

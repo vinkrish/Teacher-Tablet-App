@@ -74,7 +74,7 @@ public class EnterSlipTestMark extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState){
 
-		View view = inflater.inflate(R.layout.exam_mark, container, false);
+		View view = inflater.inflate(R.layout.enter_mark, container, false);
 		activity = AppGlobal.getActivity();
 		context = AppGlobal.getContext();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();

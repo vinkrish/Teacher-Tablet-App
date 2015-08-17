@@ -13,7 +13,6 @@ import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubActivityDao;
 import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectExamsDao;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.Students;
@@ -77,7 +76,7 @@ public class UpdateSubActivityMark extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState){
 
-		View view = inflater.inflate(R.layout.exam_mark, container, false);
+		View view = inflater.inflate(R.layout.mark_score, container, false);
 		act = AppGlobal.getActivity();
 		context = AppGlobal.getContext();
 		sqliteDatabase = AppGlobal.getSqliteDatabase();
