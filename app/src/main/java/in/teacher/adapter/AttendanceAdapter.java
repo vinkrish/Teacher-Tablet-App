@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.view.LayoutInflater;
 
 public class AttendanceAdapter extends BaseAdapter {
-	private ArrayList<Students>	data = new ArrayList<Students>();
+	private ArrayList<Students>	data = new ArrayList<>();
 	private LayoutInflater inflater = null;
 
 	public AttendanceAdapter(Context context, ArrayList<Students> gridArray) {
@@ -25,7 +25,7 @@ public class AttendanceAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
-		RecordHolder holder = null;
+		RecordHolder holder;
 
 		if (row == null) {
 			row = inflater.inflate(R.layout.attendance_grid, parent, false);

@@ -72,12 +72,13 @@ public class InsertSubActivityMark extends Fragment {
     private TextView clasSecSub;
     private Bitmap empty, entered;
     private SharedPreferences sharedPref;
+    private Button previous, next, submit, clear;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.mark_score, container, false);
+
         activity = AppGlobal.getActivity();
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
@@ -87,14 +88,69 @@ public class InsertSubActivityMark extends Fragment {
         marksAdapter = new MarksAdapter(context, studentsArrayList);
         lv.setAdapter(marksAdapter);
 
+        initView(view);
+
+        lv.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && studentScore.get(index).equals("."))
+                    studentScore.set(index, "");
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
+                    studentScore.set(index, "");
+                    Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
+                }
+                index = pos;
+                View v = lv.getChildAt(0);
+                top = (v == null) ? 0 : v.getTop();
+                for (int idx = 0; idx < studentsArray.size(); idx++)
+                    studentIndicate.set(idx, false);
+
+                Boolean b = studentIndicate.get(index);
+                if (!b) studentIndicate.set(index, true);
+
+                repopulateListArray();
+            }
+        });
+
+        new CalledBackLoad().execute();
+
+        lv.setOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                firstVisible = lv.getFirstVisiblePosition();
+                lastVisible = lv.getLastVisiblePosition();
+                totalVisible = lastVisible - firstVisible;
+            }
+        });
+
+        initButton(view);
+
+        view.findViewById(R.id.enter_grade).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new InsertSubActivityGrade(), getFragmentManager());
+            }
+        });
+
+        return view;
+    }
+
+    private void initView(View view) {
         clasSecSub = (TextView) view.findViewById(R.id.clasSecSub);
         empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
         entered = BitmapFactory.decodeResource(this.getResources(), R.drawable.indicator);
 
-        Button previous = (Button) view.findViewById(R.id.previous);
-        Button next = (Button) view.findViewById(R.id.next);
-        Button submit = (Button) view.findViewById(R.id.submit);
-        Button clear = (Button) view.findViewById(R.id.clear);
+        previous = (Button) view.findViewById(R.id.previous);
+        next = (Button) view.findViewById(R.id.next);
+        submit = (Button) view.findViewById(R.id.submit);
+        clear = (Button) view.findViewById(R.id.clear);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         schoolId = t.getSchoolId();
@@ -115,75 +171,27 @@ public class InsertSubActivityMark extends Fragment {
 
         TextView maxMarkView = (TextView) view.findViewById(R.id.maxmark);
         maxMarkView.setText(maxMark + "");
+    }
 
-        lv.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int pos,
-                                    long id) {
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && studentScore.get(index).equals("."))
-                    studentScore.set(index, "");
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && Double.parseDouble(studentScore.get(index)) > maxMark) {
-                    studentScore.set(index, "");
-                    Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
-                }
-                index = pos;
-                View v = lv.getChildAt(0);
-                top = (v == null) ? 0 : v.getTop();
-                for (int idx = 0; idx < studentsArray.size(); idx++) {
-                    studentIndicate.set(idx, false);
-                }
-                Boolean b = studentIndicate.get(index);
-                if (!b) {
-                    studentIndicate.set(index, true);
-                }
-                repopulateListArray();
-            }
-        });
-
-        new CalledBackLoad().execute();
-
-        lv.setOnScrollListener(new OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-                firstVisible = lv.getFirstVisiblePosition();
-                lastVisible = lv.getLastVisiblePosition();
-                totalVisible = lastVisible - firstVisible;
-            }
-        });
-
-        int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero, R.id.decimal, R.id.minus};
+    private void initButton(final View view) {
+        int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven,
+                R.id.eight, R.id.nine, R.id.zero, R.id.decimal, R.id.minus};
         for (int i = 0; i < 12; i++) {
             Button b = (Button) view.findViewById(buttonIds[i]);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v.getId() == R.id.one)
-                        updateScoreField("1");
-                    if (v.getId() == R.id.two)
-                        updateScoreField("2");
-                    if (v.getId() == R.id.three)
-                        updateScoreField("3");
-                    if (v.getId() == R.id.four)
-                        updateScoreField("4");
-                    if (v.getId() == R.id.five)
-                        updateScoreField("5");
-                    if (v.getId() == R.id.six)
-                        updateScoreField("6");
-                    if (v.getId() == R.id.seven)
-                        updateScoreField("7");
-                    if (v.getId() == R.id.eight)
-                        updateScoreField("8");
-                    if (v.getId() == R.id.nine)
-                        updateScoreField("9");
-                    if (v.getId() == R.id.zero)
-                        updateScoreField("0");
-                    if (v.getId() == R.id.decimal)
-                        updateScoreField(".");
+                    if (v.getId() == R.id.one) updateScoreField("1");
+                    if (v.getId() == R.id.two) updateScoreField("2");
+                    if (v.getId() == R.id.three) updateScoreField("3");
+                    if (v.getId() == R.id.four) updateScoreField("4");
+                    if (v.getId() == R.id.five) updateScoreField("5");
+                    if (v.getId() == R.id.six) updateScoreField("6");
+                    if (v.getId() == R.id.seven) updateScoreField("7");
+                    if (v.getId() == R.id.eight) updateScoreField("8");
+                    if (v.getId() == R.id.nine) updateScoreField("9");
+                    if (v.getId() == R.id.zero) updateScoreField("0");
+                    if (v.getId() == R.id.decimal) updateScoreField(".");
                     if (v.getId() == R.id.minus) {
                         studentScore.set(index, "-1");
                         repopulateListArray();
@@ -191,11 +199,14 @@ public class InsertSubActivityMark extends Fragment {
                 }
             });
         }
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && !studentScore.get(index).equals(".") && Double.parseDouble(studentScore.get(index)) > maxMark) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && !studentScore.get(index).equals(".")
+                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
                     String s = "";
                     studentScore.set(index, s);
                     Toast.makeText(context, "Marks Entered is Greater than Max Mark", Toast.LENGTH_SHORT).show();
@@ -206,6 +217,7 @@ public class InsertSubActivityMark extends Fragment {
                 }
             }
         });
+
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -213,27 +225,29 @@ public class InsertSubActivityMark extends Fragment {
                 repopulateListArray();
             }
         });
+
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && studentScore.get(index).equals(".")) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && studentScore.get(index).equals(".")) {
                     studentScore.set(index, "");
                 }
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && Double.parseDouble(studentScore.get(index)) > maxMark) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
                     String s = "";
                     studentScore.set(index, s);
                     Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (index != 0) {
-                        index--;
-                    }
-                    for (int idx = 0; idx < studentsArray.size(); idx++) {
+                    if (index != 0) index--;
+                    for (int idx = 0; idx < studentsArray.size(); idx++)
                         studentIndicate.set(idx, false);
-                    }
+
                     Boolean b = studentIndicate.get(index);
-                    if (!b) {
-                        studentIndicate.set(index, true);
-                    }
+                    if (!b) studentIndicate.set(index, true);
+
                 }
                 repopulateListArray();
             }
@@ -241,37 +255,28 @@ public class InsertSubActivityMark extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && studentScore.get(index).equals(".")) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && studentScore.get(index).equals(".")) {
                     studentScore.set(index, "");
                 }
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && Double.parseDouble(studentScore.get(index)) > maxMark) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
                     String s = "";
                     studentScore.set(index, s);
                     Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (index < indexBound - 1) {
-                        index++;
-                    }
-                    for (int idx = 0; idx < studentsArray.size(); idx++) {
+                    if (index < indexBound - 1) index++;
+                    for (int idx = 0; idx < studentsArray.size(); idx++)
                         studentIndicate.set(idx, false);
-                    }
+
                     Boolean b = studentIndicate.get(index);
-                    if (!b) {
-                        studentIndicate.set(index, true);
-                    }
+                    if (!b) studentIndicate.set(index, true);
                 }
                 repopulateListArray();
             }
         });
-
-        view.findViewById(R.id.enter_grade).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ReplaceFragment.replace(new InsertSubActivityGrade(), getFragmentManager());
-            }
-        });
-
-        return view;
     }
 
     class CalledSubmit extends AsyncTask<Void, Void, Void> {
@@ -302,8 +307,7 @@ public class InsertSubActivityMark extends Fragment {
     private void pushSubmit() {
         int i = 0;
         for (String ss : studentScore) {
-            if (ss == null || ss.equals(".") || ss.equals(""))
-                studentScore.set(i, "0");
+            if (ss == null || ss.equals(".") || ss.equals("")) studentScore.set(i, "0");
             i++;
         }
         int j = 0;
@@ -368,9 +372,9 @@ public class InsertSubActivityMark extends Fragment {
                         markList.add((float) (mark / subActMaxMarkList.get(j)) * weightMarkList.get(j));
                     }
                     float finalMark = 0;
-                    for (Float flo : markList) {
+                    for (Float flo : markList)
                         finalMark += flo;
-                    }
+
                     String sql = "insert into activitymark(SchoolId, ExamId, SubjectId, StudentId, ActivityId, Mark) " +
                             "values(" + schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," + activityId + ",'" + finalMark + "')";
                     try {
@@ -384,9 +388,9 @@ public class InsertSubActivityMark extends Fragment {
                 }
             } else if (calculation == -1) {
                 Float subActMaxMark = 0f;
-                for (Float f : subActMaxMarkList) {
+                for (Float f : subActMaxMarkList)
                     subActMaxMark += f;
-                }
+
                 for (Students st : studentsArray) {
                     String sql = "insert into activitymark(SchoolId, ExamId, SubjectId, StudentId, ActivityId, Mark) " +
                             "values(" + schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," + activityId + "," +
@@ -441,9 +445,9 @@ public class InsertSubActivityMark extends Fragment {
                         markList.add((float) (mark / actMaxMarkList.get(j)) * weightMarkList.get(j));
                     }
                     float finalMark = 0;
-                    for (Float flo : markList) {
+                    for (Float flo : markList)
                         finalMark += flo;
-                    }
+
                     String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
                             schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalMark + "')";
                     try {
@@ -457,9 +461,8 @@ public class InsertSubActivityMark extends Fragment {
                 }
             } else if (calculation == -1) {
                 Float actMaxMark = 0f;
-                for (Float f : actMaxMarkList) {
+                for (Float f : actMaxMarkList)
                     actMaxMark += f;
-                }
                 for (Students st : studentsArray) {
                     //		String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values("+
                     //				schoolId+","+examId+","+subjectId+","+st.getStudentId()+"," +
@@ -483,9 +486,10 @@ public class InsertSubActivityMark extends Fragment {
 
     private void updateScoreField(String upScore) {
         try {
-            if (studentScore.get(index) != null && !studentScore.get(index).equals("") && !studentScore.get(index).equals("-1")) {
+            if (studentScore.get(index) != null
+                    && !studentScore.get(index).equals("")
+                    && !studentScore.get(index).equals("-1")) {
                 studentScore.set(index, studentScore.get(index) + upScore);
-                //	Double.parseDouble(studentScore.get(index));
             } else {
                 studentScore.set(index, upScore);
             }
@@ -525,12 +529,9 @@ public class InsertSubActivityMark extends Fragment {
             idx++;
         }
         marksAdapter.notifyDataSetChanged();
-        if (index == lastVisible)
-            lv.setSelectionFromTop(index - 1, top);
-        else if (index < firstVisible)
-            lv.setSelectionFromTop(index, firstVisible - totalVisible);
-        else
-            lv.setSelection(firstVisible);
+        if (index == lastVisible) lv.setSelectionFromTop(index - 1, top);
+        else if (index < firstVisible) lv.setSelectionFromTop(index, firstVisible - totalVisible);
+        else lv.setSelection(firstVisible);
     }
 
     class CalledBackLoad extends AsyncTask<String, String, String> {
@@ -550,11 +551,11 @@ public class InsertSubActivityMark extends Fragment {
                     .append("   " + activityName).append("   " + subActivityName);
 
             int partition = sharedPref.getInt("partition", 0);
-            if (partition == 1) {
+            if (partition == 1)
                 studentsArray = StudentsDao.selectStudents2("" + sectionId, subId, sqliteDatabase);
-            } else {
+            else
                 studentsArray = StudentsDao.selectStudents2("" + sectionId, subjectId, sqliteDatabase);
-            }
+
             Collections.sort(studentsArray, new StudentsSort());
             for (int idx = 0; idx < studentsArray.size(); idx++)
                 studentIndicate.add(false);
@@ -566,9 +567,9 @@ public class InsertSubActivityMark extends Fragment {
             super.onPostExecute(s);
             clasSecSub.setText(PKGenerator.trim(0, 52, sf.toString()));
             populateListArray();
-
             if (studentsArray.size() == 0) {
-                getFragmentManager().popBackStack();
+                Toast.makeText(context, "No students!", Toast.LENGTH_SHORT).show();
+                ReplaceFragment.replace(new SubActivityExam(), getFragmentManager());
             }
         }
     }

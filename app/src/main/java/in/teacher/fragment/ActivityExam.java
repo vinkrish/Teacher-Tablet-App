@@ -239,13 +239,13 @@ public class ActivityExam extends Fragment {
 
             for (Activiti a : activitiList) {
                 int markEntry = ActivityMarkDao.isThereActMark(a.getActivityId(), subjectId, sqliteDatabase);
-                if (markEntry == 1) {
+                if (markEntry == 1)
                     mi1.put(a.getActivityId(), true);
-                }
+
                 int gradeEntry = ActivityGradeDao.isThereActGrade(a.getActivityId(), subjectId, sqliteDatabase);
-                if (gradeEntry == 1) {
+                if (gradeEntry == 1)
                     mi2.put(a.getActivityId(), true);
-                }
+
                 actIdList.add(a.getActivityId());
                 int avg = (int) a.getActivityAvg();
 

@@ -15,7 +15,7 @@ public class MarksDao {
 	public static List<String> selectMarks(int examId, int subjectId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
 		List<String> mList = new ArrayList<>();
 		for(Integer i: studentId){
-			Cursor c = sqliteDatabase.rawQuery("select * from marks where ExamId="+examId+" AND SubjectId="+subjectId+" AND StudentId="+i, null);
+			Cursor c = sqliteDatabase.rawQuery("select Mark from marks where ExamId="+examId+" AND SubjectId="+subjectId+" AND StudentId="+i, null);
 			if(c.getCount()>0){
 				c.moveToFirst();
 				mList.add(c.getString(c.getColumnIndex("Mark")));
@@ -26,6 +26,21 @@ public class MarksDao {
 		}
 		return mList;
 	}
+
+    public static List<String> selectGrade(int examId, int subjectId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
+        List<String> mList = new ArrayList<>();
+        for(Integer i: studentId){
+            Cursor c = sqliteDatabase.rawQuery("select Grade from marks where ExamId="+examId+" AND SubjectId="+subjectId+" AND StudentId="+i, null);
+            if(c.getCount()>0){
+                c.moveToFirst();
+                mList.add(c.getString(c.getColumnIndex("Grade")));
+            }else{
+                mList.add("");
+            }
+            c.close();
+        }
+        return mList;
+    }
 	
 	public static int getMarksCount(int examId, int subjectId, SQLiteDatabase sqliteDatabase){
 		int count = 0;
@@ -42,7 +57,7 @@ public class MarksDao {
 	public static List<Marks> selectMarks(int examId, int sectionId, int subjectId, SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery("SELECT A.StudentId,ExamId,B.SectionId,SubjectId,Mark FROM marks A, students B"+
 				" where A.ExamId="+examId+" and B.SectionId="+sectionId+" and A.SubjectId="+subjectId+" and A.StudentId=B.StudentId group by B.RollNoInClass", null);
-		List<Marks> mList = new ArrayList<Marks>();
+		List<Marks> mList = new ArrayList<>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			Marks m = new Marks();
@@ -67,6 +82,19 @@ public class MarksDao {
 			sqliteDatabase.insert("uploadsql", null, cv);
 		}
 	}
+
+	public static void insertGrade(List<Marks> mList, SQLiteDatabase sqliteDatabase){
+		for(Marks m: mList){
+			String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark, Grade) values("+
+					m.getSchoolId()+","+m.getExamId()+","+m.getSubjectId()+","+m.getStudentId()+",'"+m.getMark()+"','"+m.getGrade()+"')";
+			try{
+				sqliteDatabase.execSQL(sql);
+			}catch(SQLException e){}
+			ContentValues cv = new ContentValues();
+			cv.put("Query", sql);
+			sqliteDatabase.insert("uploadsql", null, cv);
+		}
+	}
 	
 	public static void updateMarks(List<Marks> mList, SQLiteDatabase sqliteDatabase){
 		for(Marks m: mList){
@@ -79,6 +107,18 @@ public class MarksDao {
 			sqliteDatabase.insert("uploadsql", null, cv);
 		}
 	}
+
+    public static void updateGrade(List<Marks> mList, SQLiteDatabase sqliteDatabase){
+        for(Marks m: mList){
+            String sql = "update marks set Grade='"+m.getGrade()+"' where ExamId="+m.getExamId()+" and SubjectId="+m.getSubjectId()+" and StudentId="+m.getStudentId();
+            try{
+                sqliteDatabase.execSQL(sql);
+            }catch(SQLException e){}
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
+        }
+    }
 
 	public static void insertUpdateMarks(List<Marks> mList, SQLiteDatabase sqliteDatabase){
 		for(Marks m: mList){
@@ -119,6 +159,46 @@ public class MarksDao {
 			c.close();
 		}
 	}
+
+    public static void insertUpdateGrade(List<Marks> mList, SQLiteDatabase sqliteDatabase){
+        for(Marks m: mList){
+            Cursor c = sqliteDatabase.rawQuery("select * from marks where ExamId="+m.getExamId()+" AND SubjectId="+m.getSubjectId()+" AND StudentId="+m.getStudentId(), null);
+            if(c.getCount()>0){
+                String sql = "update marks set Grade='"+m.getGrade()+"' where ExamId="+m.getExamId()+" and SubjectId="+m.getSubjectId()+" and StudentId="+m.getStudentId();
+                try{
+                    sqliteDatabase.execSQL(sql);
+                }catch(SQLException e){}
+                if(m.getMark().equals("")){
+                    String sql2 = "update marks set Grade=NULL where ExamId="+m.getExamId()+" and SubjectId="+m.getSubjectId()+" and StudentId="+m.getStudentId();
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql2);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                }else{
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                }
+            }else{
+                String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark, Grade) values("+
+                        m.getSchoolId()+","+m.getExamId()+","+m.getSubjectId()+","+m.getStudentId()+",'"+m.getMark()+"','"+m.getGrade()+"')";
+                try{
+                    sqliteDatabase.execSQL(sql);
+                }catch(SQLException e){}
+                if(m.getMark().equals("")){
+                    String sql2 = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark, Grade) values("+
+                            m.getSchoolId()+","+m.getExamId()+","+m.getSubjectId()+","+m.getStudentId()+",'0',"+"NULL)";
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql2);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                }else{
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                }
+            }
+            c.close();
+        }
+    }
 	
 	public static int getStudExamAvg(int studentId, int subjectId, int examId, SQLiteDatabase sqliteDatabase){
 		int i = 0;
@@ -158,14 +238,24 @@ public class MarksDao {
 	}
 	
 	public static int isThereExamMark(int examId, int sectionId, int subjectId, SQLiteDatabase sqliteDatabase){
-		int isThere = 0;
-		Cursor c = sqliteDatabase.rawQuery("SELECT A.SchoolId from marks A, students B where A.ExamId="+examId+" and A.StudentId=B.StudentId and B.SectionId="+sectionId
-				+" and A.SubjectId="+subjectId+" LIMIT 1", null);
-		if(c.getCount()>0){
-			isThere = 1;
-		}
-		c.close();
-		return isThere;
-	}
-	
+        int isThere = 0;
+        Cursor c = sqliteDatabase.rawQuery("SELECT A.Mark from marks A, students B where A.ExamId="+examId+" and A.StudentId=B.StudentId and B.SectionId="+sectionId
+                +" and A.SubjectId="+subjectId+" and A.Mark!=0", null);
+        if(c.getCount()>0){
+            isThere = 1;
+        }
+        c.close();
+        return isThere;
+    }
+
+    public static int isThereExamGrade(int examId, int sectionId, int subjectId, SQLiteDatabase sqliteDatabase){
+        int isThere = 0;
+        Cursor c = sqliteDatabase.rawQuery("SELECT A.Grade from marks A, students B where A.ExamId="+examId+" and A.StudentId=B.StudentId and B.SectionId="+sectionId
+                +" and A.SubjectId="+subjectId+" LIMIT 1", null);
+        if(c.getCount()>0){
+            isThere = 1;
+        }
+        c.close();
+        return isThere;
+    }
 }

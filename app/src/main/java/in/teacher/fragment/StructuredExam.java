@@ -56,7 +56,8 @@ public class StructuredExam extends Fragment {
 	private String subjectName;
 	private int classId, sectionId, subjectId;
 	private List<Activiti> activitiList = new ArrayList<>();;
-	private final Map<Object,Object> m = new HashMap<>();
+	private final Map<Object,Object> mi1 = new HashMap<>();
+	private final Map<Object,Object> mi2 = new HashMap<>();
 	private List<Integer> examIdList = new ArrayList<>();
 	private ArrayList<SeObject> circleArrayGrid = new ArrayList<>();
 	private CircleAdapter cA;
@@ -93,7 +94,8 @@ public class StructuredExam extends Fragment {
 	}
 	
 	private void initializeList(){
-		m.clear();
+		mi1.clear();
+        mi2.clear();
 		activitiList.clear();
 		examIdList.clear();
 		circleArrayGrid.clear();
@@ -204,10 +206,13 @@ public class StructuredExam extends Fragment {
 		}else{
 			int isExmMaxMark = SubjectExamsDao.isExmMaxMarkDefined(classId, i, subjectId, sqliteDatabase);
 			if(isExmMaxMark==1){
-				Boolean b = (Boolean)m.get(i);
-				if(b!=null && b){
+				Boolean b1 = (Boolean)mi1.get(i);
+                Boolean b2 = (Boolean)mi2.get(i);
+				if(b1!=null && b1){
 					ReplaceFragment.replace(new UpdateExamMark(), getFragmentManager());
-				}else{
+				}else if(b2!=null && b2){
+                    ReplaceFragment.replace(new UpdateExamGrade(), getFragmentManager());
+                } else{
 					ReplaceFragment.replace(new InsertExamMark(), getFragmentManager());
 				}
 			}else{
@@ -229,9 +234,14 @@ public class StructuredExam extends Fragment {
 			List<Exams> examList = ExamsDao.selectExams(classId, subjectId, sqliteDatabase);
 			for(Exams exam: examList){
 				int markEntry = MarksDao.isThereExamMark(exam.getExamId(), sectionId, subjectId, sqliteDatabase);
-				if(markEntry==1){
-					m.put(exam.getExamId(), true);
-				}
+				if(markEntry==1)
+					mi1.put(exam.getExamId(), true);
+
+                int gradeEntry = MarksDao.isThereExamGrade(exam.getExamId(), sectionId, subjectId, sqliteDatabase);
+                if(gradeEntry == 1){
+                    mi2.put(exam.getExamId(), true);
+                }
+
 				examIdList.add(exam.getExamId());
 				int avg = ExmAvgDao.selectedExmAvg(sectionId, subjectId, exam.getExamId(), sqliteDatabase);
 				boolean imageFlag = false;
