@@ -51,7 +51,6 @@ public class InsertExamGrade extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private int sectionId, schoolId, subjectId, subId, classId, examId, partition;
-    private float maxMark;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
     private ArrayList<Students> studentsArrayList = new ArrayList<>();
@@ -59,6 +58,7 @@ public class InsertExamGrade extends Fragment {
     private List<String> gradeList = new ArrayList<>();
     private ListView lv;
     private MarksAdapter marksAdapter;
+    private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, top, firstVisible, lastVisible, totalVisible;
     private Button previous, next, clear, submit;
     private StringBuffer sf = new StringBuffer();
@@ -80,6 +80,16 @@ public class InsertExamGrade extends Fragment {
         marksAdapter = new MarksAdapter(context, studentsArrayList);
         lv.setAdapter(marksAdapter);
 
+        gradeAdapter = new GradeAdapter(context, gradeList);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
+        gridView.setAdapter(gradeAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                updateScoreField(gradeList.get(position));
+            }
+        });
+
         initView(view);
 
         new CalledBackLoad().execute();
@@ -88,18 +98,6 @@ public class InsertExamGrade extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos,
                                     long id) {
-                if (studentScore.get(index) != null
-                        && !studentScore.get(index).equals("")
-                        && studentScore.get(index).equals(".")) {
-                    studentScore.set(index, "");
-                }
-                if (studentScore.get(index) != null
-                        && !studentScore.get(index).equals("")
-                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
-                    studentScore.set(index, "");
-                    Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
-                }
-
                 index = pos;
                 View v = lv.getChildAt(0);
                 top = (v == null) ? 0 : v.getTop();
@@ -115,7 +113,9 @@ public class InsertExamGrade extends Fragment {
 
         lv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
@@ -125,28 +125,16 @@ public class InsertExamGrade extends Fragment {
             }
         });
 
-        GradeAdapter gradeAdapter = new GradeAdapter(context, gradeList);
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        gridView.setAdapter(gradeAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateScoreField(gradeList.get(position));
-            }
-        });
-
         initButtons();
 
         return view;
     }
 
     private void initView(View view) {
-        index = 0;
         previous = (Button) view.findViewById(R.id.previous);
         next = (Button) view.findViewById(R.id.next);
         submit = (Button) view.findViewById(R.id.submit);
         clear = (Button) view.findViewById(R.id.clear);
-        TextView maxMarkTv = (TextView) view.findViewById(R.id.maxmark);
 
         clasSecSub = (TextView) view.findViewById(R.id.clasSecSub);
         empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
@@ -159,9 +147,6 @@ public class InsertExamGrade extends Fragment {
         subjectId = t.getCurrentSubject();
         subId = t.getSubjectId();
         examId = t.getExamId();
-
-        maxMark = SubjectExamsDao.getExmMaxMark(classId, examId, subjectId, sqliteDatabase);
-        maxMarkTv.setText(maxMark + "");
 
         view.findViewById(R.id.enter_marks).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +183,7 @@ public class InsertExamGrade extends Fragment {
     private void pushSubmit() {
         int i = 0;
         for (String ss : studentScore) {
-            if (ss == null || ss.equals(".") || ss.equals("")) studentScore.set(i, "0");
+            if (ss == null) studentScore.set(i, "");
             i++;
         }
         int k = 0;
@@ -348,6 +333,7 @@ public class InsertExamGrade extends Fragment {
             super.onPostExecute(s);
             clasSecSub.setText(PKGenerator.trim(0, 52, sf.toString()));
             populateListArray();
+            gradeAdapter.notifyDataSetChanged();
             if (studentsArray.size() == 0) {
                 Toast.makeText(context, "No students!", Toast.LENGTH_SHORT).show();
                 ReplaceFragment.replace(new StructuredExam(), getFragmentManager());

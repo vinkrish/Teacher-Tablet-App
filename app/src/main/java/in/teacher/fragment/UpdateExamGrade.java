@@ -49,7 +49,6 @@ public class UpdateExamGrade extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private Activity act;
     private int sectionId, schoolId, subjectId, subId, classId, examId, partition;
-    private float maxMark;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Integer> studentsArrayId = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
@@ -58,6 +57,7 @@ public class UpdateExamGrade extends Fragment {
     private List<String> gradeList = new ArrayList<>();
     private ListView lv;
     private MarksAdapter marksAdapter;
+    private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, top, firstVisible, lastVisible, totalVisible, marksCount;
     private Button previous, next, clear, submit;
     private Bitmap empty, entered;
@@ -78,6 +78,16 @@ public class UpdateExamGrade extends Fragment {
         lv = (ListView) view.findViewById(R.id.list);
         marksAdapter = new MarksAdapter(context, studentsArrayList);
         lv.setAdapter(marksAdapter);
+
+        gradeAdapter = new GradeAdapter(context, gradeList);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
+        gridView.setAdapter(gradeAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                updateScoreField(gradeList.get(position));
+            }
+        });
 
         initView(view);
 
@@ -114,16 +124,6 @@ public class UpdateExamGrade extends Fragment {
             }
         });
 
-        GradeAdapter gradeAdapter = new GradeAdapter(context, gradeList);
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        gridView.setAdapter(gradeAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateScoreField(gradeList.get(position));
-            }
-        });
-
         initButton();
 
         return view;
@@ -138,7 +138,6 @@ public class UpdateExamGrade extends Fragment {
         next = (Button) view.findViewById(R.id.next);
         submit = (Button) view.findViewById(R.id.submit);
         clear = (Button) view.findViewById(R.id.clear);
-        TextView maxMarkTv = (TextView) view.findViewById(R.id.maxmark);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         schoolId = t.getSchoolId();
@@ -147,9 +146,6 @@ public class UpdateExamGrade extends Fragment {
         subjectId = t.getCurrentSubject();
         subId = t.getSubjectId();
         examId = t.getExamId();
-
-        maxMark = SubjectExamsDao.getExmMaxMark(classId, examId, subjectId, sqliteDatabase);
-        maxMarkTv.setText(maxMark + "");
 
         marksCount = MarksDao.getMarksCount(examId, subjectId, sqliteDatabase);
         view.findViewById(R.id.enter_marks).setBackgroundColor(Color.TRANSPARENT);
@@ -183,7 +179,7 @@ public class UpdateExamGrade extends Fragment {
     private void pushSubmit() {
         int i = 0;
         for (String ss : studentScore) {
-            if (ss == null || ss.equals(".") || ss.equals("")) studentScore.set(i, "0");
+            if (ss == null) studentScore.set(i, "");
             i++;
         }
         int k = 0;
@@ -211,7 +207,7 @@ public class UpdateExamGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "grades entered has been saved", Toast.LENGTH_LONG).show();
                 new CalledSubmit().execute();
             }
         });
@@ -258,7 +254,7 @@ public class UpdateExamGrade extends Fragment {
             if (studentScore.get(index) != null
                     && !studentScore.get(index).equals("")
                     && !studentScore.get(index).equals("-1")) {
-                studentScore.set(index, studentScore.get(index) + upScore);
+                studentScore.set(index, upScore);
             } else {
                 studentScore.set(index, upScore);
             }
@@ -341,6 +337,7 @@ public class UpdateExamGrade extends Fragment {
             super.onPostExecute(v);
             clasSecSub.setText(sf);
             populateListArray();
+            gradeAdapter.notifyDataSetChanged();
             if (studentsArray.size() == 0) {
                 Toast.makeText(context, "No students!", Toast.LENGTH_SHORT).show();
                 ReplaceFragment.replace(new StructuredExam(), getFragmentManager());

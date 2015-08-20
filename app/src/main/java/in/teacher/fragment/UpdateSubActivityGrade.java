@@ -48,6 +48,7 @@ import in.teacher.sqlite.SubActivityGrade;
 import in.teacher.sqlite.SubActivityMark;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
 public class UpdateSubActivityGrade extends Fragment {
@@ -64,6 +65,7 @@ public class UpdateSubActivityGrade extends Fragment {
     private List<String> gradeList = new ArrayList<>();
     private ListView lv;
     private MarksAdapter marksAdapter;
+    private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, top, firstVisible, totalVisible, lastVisible, marksCount;
     private StringBuffer sf = new StringBuffer();
     private Bitmap empty, entered;
@@ -84,6 +86,16 @@ public class UpdateSubActivityGrade extends Fragment {
         lv = (ListView) view.findViewById(R.id.list);
         marksAdapter = new MarksAdapter(context, studentsArrayList);
         lv.setAdapter(marksAdapter);
+
+        gradeAdapter = new GradeAdapter(context, gradeList);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
+        gridView.setAdapter(gradeAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                updateScoreField(gradeList.get(position));
+            }
+        });
 
         initView(view);
 
@@ -107,23 +119,15 @@ public class UpdateSubActivityGrade extends Fragment {
 
         lv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 firstVisible = lv.getFirstVisiblePosition();
                 lastVisible = lv.getLastVisiblePosition();
                 totalVisible = lastVisible - firstVisible;
-            }
-        });
-
-        GradeAdapter gradeAdapter = new GradeAdapter(context, gradeList);
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        gridView.setAdapter(gradeAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateScoreField(gradeList.get(position));
             }
         });
 
@@ -165,7 +169,7 @@ public class UpdateSubActivityGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "grades entered has been saved", Toast.LENGTH_LONG).show();
                 new CalledSubmit().execute();
             }
         });
@@ -235,7 +239,7 @@ public class UpdateSubActivityGrade extends Fragment {
     private void pushSubmit() {
         int i = 0;
         for (String ss : studentScore) {
-            if (ss == null || ss.equals(".") || ss.equals("")) studentScore.set(i, "");
+            if (ss == null) studentScore.set(i, "");
             i++;
         }
         int j = 0;
@@ -346,14 +350,9 @@ public class UpdateSubActivityGrade extends Fragment {
 
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
-            if (sf.length() > 55) {
-                String breadcrumTitle = sf.substring(0, 53);
-                StringBuilder sb = new StringBuilder(breadcrumTitle).append("...");
-                clasSecSub.setText(sb);
-            } else {
-                clasSecSub.setText(sf);
-            }
+            clasSecSub.setText(PKGenerator.trim(0, 52, sf.toString()));
             populateListArray();
+            gradeAdapter.notifyDataSetChanged();
             if (studentsArray.size() == 0) {
                 Toast.makeText(context, "No students!", Toast.LENGTH_SHORT).show();
                 ReplaceFragment.replace(new SubActivityExam(), getFragmentManager());

@@ -65,6 +65,7 @@ public class InsertSubActivityGrade extends Fragment {
     private List<String> gradeList = new ArrayList<>();
     private ListView lv;
     private MarksAdapter marksAdapter;
+    private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, top, lastVisible, firstVisible, totalVisible;
     private int schoolId, examId, subjectId, subId, classId, activityId, subActivityId;
     private StringBuffer sf = new StringBuffer();
@@ -86,6 +87,16 @@ public class InsertSubActivityGrade extends Fragment {
         lv = (ListView) view.findViewById(R.id.list);
         marksAdapter = new MarksAdapter(context, studentsArrayList);
         lv.setAdapter(marksAdapter);
+
+        gradeAdapter = new GradeAdapter(context, gradeList);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
+        gridView.setAdapter(gradeAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                updateScoreField(gradeList.get(position));
+            }
+        });
 
         initView(view);
 
@@ -109,23 +120,15 @@ public class InsertSubActivityGrade extends Fragment {
 
         lv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 firstVisible = lv.getFirstVisiblePosition();
                 lastVisible = lv.getLastVisiblePosition();
                 totalVisible = lastVisible - firstVisible;
-            }
-        });
-
-        GradeAdapter gradeAdapter = new GradeAdapter(context, gradeList);
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        gridView.setAdapter(gradeAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateScoreField(gradeList.get(position));
             }
         });
 
@@ -243,8 +246,7 @@ public class InsertSubActivityGrade extends Fragment {
     private void pushSubmit() {
         int i = 0;
         for (String ss : studentScore) {
-            if (ss == null || ss.equals(".") || ss.equals(""))
-                studentScore.set(i, "");
+            if (ss == null) studentScore.set(i, "");
             i++;
         }
         int j = 0;
@@ -351,6 +353,7 @@ public class InsertSubActivityGrade extends Fragment {
             super.onPostExecute(s);
             clasSecSub.setText(PKGenerator.trim(0, 52, sf.toString()));
             populateListArray();
+            gradeAdapter.notifyDataSetChanged();
             if (studentsArray.size() == 0) {
                 Toast.makeText(context, "No students!", Toast.LENGTH_SHORT).show();
                 ReplaceFragment.replace(new SubActivityExam(), getFragmentManager());

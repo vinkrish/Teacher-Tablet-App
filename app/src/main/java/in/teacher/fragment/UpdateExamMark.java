@@ -69,7 +69,7 @@ public class UpdateExamMark extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.enter_mark, container, false);
+        View view = inflater.inflate(R.layout.mark_score, container, false);
 
         act = AppGlobal.getActivity();
         context = AppGlobal.getContext();
