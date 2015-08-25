@@ -248,13 +248,13 @@ public class SubActivityExam extends Fragment {
 
             for (SubActivity a : subActivityList) {
                 int markEntry = SubActivityMarkDao.isThereSubActMark(a.getSubActivityId(), subjectId, sqliteDatabase);
-                if (markEntry == 1) {
+                if (markEntry == 1)
                     mi1.put(a.getSubActivityId(), true);
-                }
+
                 int gradeEntry = SubActivityGradeDao.isThereSubActGrade(a.getSubActivityId(), subjectId, sqliteDatabase);
-                if (gradeEntry == 1) {
+                if (gradeEntry == 1)
                     mi2.put(a.getSubActivityId(), true);
-                }
+
                 subActIdList.add(a.getSubActivityId());
                 int avg = (int) a.getSubActivityAvg();
 

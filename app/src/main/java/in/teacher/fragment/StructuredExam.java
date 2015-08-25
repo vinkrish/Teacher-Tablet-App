@@ -234,21 +234,17 @@ public class StructuredExam extends Fragment {
 			List<Exams> examList = ExamsDao.selectExams(classId, subjectId, sqliteDatabase);
 			for(Exams exam: examList){
 				int markEntry = MarksDao.isThereExamMark(exam.getExamId(), sectionId, subjectId, sqliteDatabase);
-				if(markEntry==1)
-					mi1.put(exam.getExamId(), true);
+				if(markEntry==1) mi1.put(exam.getExamId(), true);
 
                 int gradeEntry = MarksDao.isThereExamGrade(exam.getExamId(), sectionId, subjectId, sqliteDatabase);
-                if(gradeEntry == 1){
-                    mi2.put(exam.getExamId(), true);
-                }
+                if(gradeEntry == 1) mi2.put(exam.getExamId(), true);
 
 				examIdList.add(exam.getExamId());
 				int avg = ExmAvgDao.selectedExmAvg(sectionId, subjectId, exam.getExamId(), sqliteDatabase);
 				boolean imageFlag = false;
 				int i = ExmAvgDao.selectedExmComplete(sectionId, subjectId, exam.getExamId(), sqliteDatabase);
-				if(i==1){
-					imageFlag = true;
-				}
+				if(i==1) imageFlag = true;
+
 				if(imageFlag){
 					circleArrayGrid.add(new SeObject(avg, PKGenerator.trim(0, 20, exam.getExamName()), exmName.toString(), inserted));
 				}else{

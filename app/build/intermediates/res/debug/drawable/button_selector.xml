@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/button_border_selected" android:state_pressed="true"></item>
-    <item android:drawable="@drawable/button_border_normal"></item>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/universal" />
+            <corners android:radius="10dp"></corners>
+
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/login_button" />
+            <corners android:radius="10dp"></corners>
+        </shape>
+    </item>
 
 </selector><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/drawable/button_selector.xml -->

@@ -31,6 +31,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,235 +45,254 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class Dashbord extends Fragment implements AnimationListener{
+public class Dashbord extends Fragment implements AnimationListener {
     private Activity activity;
-	private Context context;
-	private int teacherId;
-	private ArrayList<Integer> sectionIdList = new ArrayList<>();
-	private ArrayList<Integer> classIdList = new ArrayList<>();
-	private ArrayList<String> classNameList = new ArrayList<>();
-	private ArrayList<String> sectionNameList = new ArrayList<>();
-	private String teacherName;
-	private ArrayList<Integer> subjectIdList = new ArrayList<>();
-	private ArrayList<String> subjectNameList = new ArrayList<>();
-	private ArrayList<Integer> hasPartitionList = new ArrayList<>();
-	private Animation animFadeIn,animFadeOut;
-	private SQLiteDatabase sqliteDatabase;
-	private ArrayList<CircleObject> circleArrayGrid = new ArrayList<>();
-	private CircleAdapter cA;
-	private GridView gridView;
-	private TextView name;
+    private Context context;
+    private int teacherId;
+    private ArrayList<Integer> sectionIdList = new ArrayList<>();
+    private ArrayList<Integer> classIdList = new ArrayList<>();
+    private ArrayList<String> classNameList = new ArrayList<>();
+    private ArrayList<String> sectionNameList = new ArrayList<>();
+    private String teacherName;
+    private ArrayList<Integer> subjectIdList = new ArrayList<>();
+    private ArrayList<String> subjectNameList = new ArrayList<>();
+    private ArrayList<Integer> hasPartitionList = new ArrayList<>();
+    private Animation animFadeIn, animFadeOut;
+    private SQLiteDatabase sqliteDatabase;
+    private ArrayList<CircleObject> circleArrayGrid = new ArrayList<>();
+    private CircleAdapter cA;
+    private GridView gridView;
+    private TextView name;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState){
-		View view = inflater.inflate(R.layout.dashbord, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dashbord, container, false);
 
         activity = AppGlobal.getActivity();
-		context = AppGlobal.getContext();
-		sqliteDatabase = AppGlobal.getSqliteDatabase();
+        context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
 
-		initializeList();
+        initializeList();
 
-		gridView = (GridView) view.findViewById(R.id.gridView);
+        gridView = (GridView) view.findViewById(R.id.gridView);
 
-		animFadeIn = AnimationUtils.loadAnimation(context.getApplicationContext(),R.anim.fade_in);
-		animFadeIn.setAnimationListener(this);
-		animFadeOut = AnimationUtils.loadAnimation(context.getApplicationContext(),R.anim.fade_out);
-		animFadeOut.setAnimationListener(this);
+        animFadeIn = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fade_in);
+        animFadeIn.setAnimationListener(this);
+        animFadeOut = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fade_out);
+        animFadeOut.setAnimationListener(this);
 
-		Temp t = TempDao.selectTemp(sqliteDatabase);
-		teacherId = t.getTeacherId();
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        teacherId = t.getTeacherId();
 
-		cA = new CircleAdapter(context, R.layout.circle_grid, circleArrayGrid);
-		gridView.setAdapter(cA);
+        cA = new CircleAdapter(context, R.layout.dashboard_grid, circleArrayGrid);
+        gridView.setAdapter(cA);
 
-		name = (TextView)view.findViewById(R.id.teacherName);
+        name = (TextView) view.findViewById(R.id.teacherName);
 
-		new CalledBackLoad().execute();
+        new CalledBackLoad().execute();
 
-		return view;
-	}
+        return view;
+    }
 
-	public void callUpdateTemp(int pos){
-		Temp t = new Temp();
-		t.setCurrentSection(sectionIdList.get(pos));
-		t.setCurrentSubject(subjectIdList.get(pos));
-		t.setCurrentClass(classIdList.get(pos));
-		t.setSubjectId(subjectIdList.get(pos));
-		TempDao.updateSecSubClas(t, sqliteDatabase);
-		if(hasPartitionList.get(pos)==1){
-			SharedPreferenceUtil.updatePartition(context, 1);
-		}else{
-			SharedPreferenceUtil.updatePartition(context, 0);
-		}
-	}
+    public void callUpdateTemp(int pos) {
+        Temp t = new Temp();
+        t.setCurrentSection(sectionIdList.get(pos));
+        t.setCurrentSubject(subjectIdList.get(pos));
+        t.setCurrentClass(classIdList.get(pos));
+        t.setSubjectId(subjectIdList.get(pos));
+        TempDao.updateSecSubClas(t, sqliteDatabase);
+        if (hasPartitionList.get(pos) == 1) {
+            SharedPreferenceUtil.updatePartition(context, 1);
+        } else {
+            SharedPreferenceUtil.updatePartition(context, 0);
+        }
+    }
 
-	public class CircleAdapter extends ArrayAdapter<CircleObject>{
-		private Context context2;
-		private int layoutResourceId;
-		private ArrayList<CircleObject>	data = new ArrayList<>();
-		private LayoutInflater inflater;
+    public class CircleAdapter extends ArrayAdapter<CircleObject> {
+        private Context context2;
+        private int layoutResourceId;
+        private ArrayList<CircleObject> data = new ArrayList<>();
+        private LayoutInflater inflater;
 
-		public CircleAdapter(Context context, int layoutResourceId, ArrayList<CircleObject> gridArray) {
-			super(context, layoutResourceId, gridArray);
-			this.context2 = context;
-			this.layoutResourceId = layoutResourceId;
-			this.data = gridArray;
-			inflater = (LayoutInflater)context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		}
+        public CircleAdapter(Context context, int layoutResourceId, ArrayList<CircleObject> gridArray) {
+            super(context, layoutResourceId, gridArray);
+            this.context2 = context;
+            this.layoutResourceId = layoutResourceId;
+            this.data = gridArray;
+            inflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
 
-		@Override
-		public View getView(final int position, View convertView, ViewGroup parent) {
-			View row = convertView;
-			RecordHolder holder = null;
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            RecordHolder holder;
 
-			if(row == null){
-				row = inflater.inflate(layoutResourceId, parent, false);
-				holder = new RecordHolder();
-				holder.clasTxt = (TextView) row.findViewById(R.id.clas);
-				row.setTag(holder);
-			}else
-				holder = (RecordHolder) row.getTag();
+            if (row == null) {
+                row = inflater.inflate(layoutResourceId, parent, false);
+                holder = new RecordHolder();
+                holder.classTxt = (TextView) row.findViewById(R.id.class_name);
+                holder.secTxt = (TextView) row.findViewById(R.id.section_name);
+                holder.subTxt = (TextView) row.findViewById(R.id.subject_name);
+                holder.dashbordGrid = (LinearLayout) row.findViewById(R.id.dashboard_grid);
+                row.setTag(holder);
+            } else
+                holder = (RecordHolder) row.getTag();
 
-			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-			FrameLayout fl = (FrameLayout)row.findViewById(R.id.fl);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            FrameLayout fl = (FrameLayout) row.findViewById(R.id.fl);
 
-			CircleObject gridItem = data.get(position);
-			holder.clasTxt.setText(gridItem.getClas());
-			SampleView sV = new SampleView(context2, gridItem.getProgressInt());
-			fl.addView(sV,layoutParams);
+            CircleObject gridItem = data.get(position);
+            holder.classTxt.setText(gridItem.getClas());
+            holder.secTxt.setText(gridItem.getSection());
+            holder.subTxt.setText(gridItem.getSubject());
 
-			sV.setOnClickListener(new OnClickListener(){	
-				@Override
-				public void onClick(View v) {
-					viewClickListener(position);
-				}
-			});
-			return row;
-		}
+            SampleView sV = new SampleView(context2, gridItem.getProgressInt());
+            fl.addView(sV, layoutParams);
 
-		public class RecordHolder {
-			TextView clasTxt;
-		}
+            holder.dashbordGrid.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewClickListener(position);
+                }
+            });
+            return row;
+        }
 
-		private class SampleView extends View {
-			Paint p,defaultPaint;
-			RectF rectF;
-			int localInt;
-			public SampleView(Context context, int i) {
-				super(context);
-				setFocusable(true);
-				localInt = i;
-				init();
-			}
+        public class RecordHolder {
+            LinearLayout dashbordGrid;
+            TextView classTxt;
+            TextView secTxt;
+            TextView subTxt;
+        }
 
-			public void init(){
-				p = new Paint();
-				defaultPaint = new Paint();
-				defaultPaint.setAntiAlias(true);
-				defaultPaint.setStyle(Paint.Style.STROKE); 
-				defaultPaint.setStrokeWidth(4);
-				Resources res = getResources();
-				int defalt = res.getColor(R.color.defalt);
-				defaultPaint.setColor(defalt);
+        private class SampleView extends View {
+            Paint p, defaultPaint;
+            RectF rectF;
+            int localInt;
 
-				rectF = new RectF(20, 20, 100, 100);
-			}
+            public SampleView(Context context, int i) {
+                super(context);
+                setFocusable(true);
+                localInt = i;
+                init();
+            }
 
-			@Override
-			protected void onDraw(Canvas canvas) {
-				p.setAntiAlias(true);
-				p.setStyle(Paint.Style.STROKE); 
-				p.setStrokeWidth(4);
+            public void init() {
+                p = new Paint();
+                defaultPaint = new Paint();
+                defaultPaint.setAntiAlias(true);
+                defaultPaint.setStyle(Paint.Style.STROKE);
+                defaultPaint.setStrokeWidth(5);
+                Resources res = getResources();
+                int defalt = res.getColor(R.color.defalt);
+                defaultPaint.setColor(defalt);
 
-				if(localInt>=270){
-					p.setColor(getResources().getColor(R.color.green));
-				}else if(localInt>=180){
-					p.setColor(getResources().getColor(R.color.orange));
-				}else if(localInt>0){
-					p.setColor(getResources().getColor(R.color.red));
-				}
-				canvas.drawArc (rectF, 0, 360, false, defaultPaint);
-				canvas.drawArc (rectF, 270, Float.parseFloat(localInt+""), false, p);
-			}
+                rectF = new RectF(25, 35, 105, 115);
+            }
 
-		}
+            @Override
+            protected void onDraw(Canvas canvas) {
+                p.setAntiAlias(true);
+                p.setStyle(Paint.Style.STROKE);
+                p.setStrokeWidth(5);
 
-	}
+                if (localInt >= 270) {
+                    p.setColor(getResources().getColor(R.color.green));
+                } else if (localInt >= 180) {
+                    p.setColor(getResources().getColor(R.color.orange));
+                } else if (localInt > 0) {
+                    p.setColor(getResources().getColor(R.color.red));
+                }
+                canvas.drawArc(rectF, 0, 360, false, defaultPaint);
+                canvas.drawArc(rectF, 270, Float.parseFloat(localInt + ""), false, p);
+            }
+        }
+    }
 
-	public void viewClickListener(int position){
+    public void viewClickListener(int position) {
         callUpdateTemp(position);
         CommonDialogUtils.displayDashbordSelector(activity, sqliteDatabase);
-	}
+    }
 
-	private void initializeList(){
-		circleArrayGrid.clear();
-		sectionIdList.clear();
-		classIdList.clear();
-		subjectIdList.clear();
-		sectionNameList.clear();
-		classNameList.clear();
-		subjectNameList.clear();
-		hasPartitionList.clear();
-	}
+    private void initializeList() {
+        circleArrayGrid.clear();
+        sectionIdList.clear();
+        classIdList.clear();
+        subjectIdList.clear();
+        sectionNameList.clear();
+        classNameList.clear();
+        subjectNameList.clear();
+        hasPartitionList.clear();
+    }
 
-	class CalledBackLoad extends AsyncTask<String, String, String>{
-		protected void onPreExecute(){
-			super.onPreExecute();
-		}
+    class CalledBackLoad extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
-		@Override
-		protected String doInBackground(String... params) {
-			Cursor c = sqliteDatabase.rawQuery("select A.ClassId, A.SectionId, A.SubjectId, B.ClassName, C.SectionName, D.SubjectName, D.has_partition " +
-					"from subjectteacher A, class B, section C, subjects D "+
-					"where A.TeacherId="+teacherId+" and A.ClassId=B.ClassId and A.SectionId=C.SectionId and A.SubjectId=D.SubjectId", null);
-			c.moveToFirst();
-			while(!c.isAfterLast()){
-				classIdList.add(c.getInt(c.getColumnIndex("ClassId")));
-				sectionIdList.add(c.getInt(c.getColumnIndex("SectionId")));
-				subjectIdList.add(c.getInt(c.getColumnIndex("SubjectId")));
-				classNameList.add(c.getString(c.getColumnIndex("ClassName")));
-				sectionNameList.add(c.getString(c.getColumnIndex("SectionName")));
-				subjectNameList.add(c.getString(c.getColumnIndex("SubjectName")));
-				hasPartitionList.add(c.getInt(c.getColumnIndex("has_partition")));
-				c.moveToNext();
-			}
-			c.close();
+        @Override
+        protected String doInBackground(String... params) {
+            Cursor c = sqliteDatabase.rawQuery("select A.ClassId, A.SectionId, A.SubjectId, B.ClassName, C.SectionName, D.SubjectName, D.has_partition " +
+                    "from subjectteacher A, class B, section C, subjects D " +
+                    "where A.TeacherId=" + teacherId + " and A.ClassId=B.ClassId and A.SectionId=C.SectionId and A.SubjectId=D.SubjectId", null);
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                classIdList.add(c.getInt(c.getColumnIndex("ClassId")));
+                sectionIdList.add(c.getInt(c.getColumnIndex("SectionId")));
+                subjectIdList.add(c.getInt(c.getColumnIndex("SubjectId")));
+                classNameList.add(c.getString(c.getColumnIndex("ClassName")));
+                sectionNameList.add(c.getString(c.getColumnIndex("SectionName")));
+                subjectNameList.add(c.getString(c.getColumnIndex("SubjectName")));
+                hasPartitionList.add(c.getInt(c.getColumnIndex("has_partition")));
+                c.moveToNext();
+            }
+            c.close();
 
-			for(int i=0; i<sectionIdList.size(); i++){
-				int avg = StAvgDao.selectStAvg(sectionIdList.get(i), subjectIdList.get(i), sqliteDatabase);
-				StringBuilder sb = new StringBuilder();
-				sb.append(trim(7,classNameList.get(i))+"-"+(trim(3,sectionNameList.get(i)))+"  "+trim(3,subjectNameList.get(i)));
-				String s = sb.toString();
-				circleArrayGrid.add(new CircleObject(avg, s));
-			}
+            for (int i = 0; i < sectionIdList.size(); i++) {
+                int avg = StAvgDao.selectStAvg(sectionIdList.get(i), subjectIdList.get(i), sqliteDatabase);
+                circleArrayGrid.add(new CircleObject(avg, classNameList.get(i), sectionNameList.get(i), subjectNameList.get(i)));
+            }
 
-			return null;
-		}
-		private String trim(int pos2, String s) {
-			if(s.length()>pos2){
-				StringBuilder sb = new StringBuilder(s.substring(0, pos2));
-				return sb.toString();
-			}else{
-				return s;
-			}
-		}
-		protected void onPostExecute(String s){
-			super.onPostExecute(s);
-			teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-			name.setText(teacherName);
-			cA.notifyDataSetChanged();
-		}
-	}
+            return null;
+        }
 
-	@Override
-	public void onAnimationEnd(Animation animation) {}
-	@Override
-	public void onAnimationRepeat(Animation animation) {}
-	@Override
-	public void onAnimationStart(Animation animation) {}
+        private String trim(int pos2, String s) {
+            if (s.length() > pos2) {
+                StringBuilder sb = new StringBuilder(s.substring(0, pos2));
+                return sb.toString();
+            } else {
+                return s;
+            }
+        }
+
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
+            name.setText(teacherName);
+            cA.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
 
 }

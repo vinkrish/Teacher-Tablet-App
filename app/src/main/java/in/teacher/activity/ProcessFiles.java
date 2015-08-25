@@ -174,7 +174,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             }
             Log.d("process_file_res", "...");
 
-            publishProgress("100", 100 + "", "acknowledge processes file");
+            publishProgress("100", 100 + "", "acknowledge processed file");
 
             StringBuffer sb = new StringBuffer();
             Cursor c4 = sqliteDatabase.rawQuery("select filename from downloadedfile where processed=1 and isack=0", null);
