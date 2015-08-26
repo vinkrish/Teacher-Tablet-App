@@ -152,11 +152,34 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_black" />
 
+    <LinearLayout
+        android:id="@+id/copyHw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hwPleaseTap"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/copy_hw" />
+
+        <EditText
+            android:id="@+id/secSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:hint="@string/select_sec"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hwPleaseTap"
+        android:layout_below="@id/copyHw"
         android:layout_marginBottom="50dp"
         android:background="@color/homework_background"
         android:dividerHeight="5dp"

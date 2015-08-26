@@ -125,7 +125,7 @@ public class InsertHomework extends Fragment {
             view.findViewById(R.id.rl).setVisibility(View.GONE);
         } else {
             StringBuilder hwString = new StringBuilder();
-            hwString.append(className).append("-" + sectionName + "  ").append("Tap on the list to view / assign homework  ").append(getToday());
+            hwString.append(className).append("-" + sectionName + "  ").append("Tap on the list to assign homework  ").append(getToday());
             hwTv.setText(hwString);
         }
 

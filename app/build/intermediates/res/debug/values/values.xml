@@ -32,7 +32,7 @@
     <color name="grade_pressed">#5FB01C</color>
     <color name="gray_light">#C0C0C0</color>
     <color name="green">#41AB15</color>
-    <color name="homework_background">#DFE0DC</color>
+    <color name="homework_background">#EDEFF2</color>
     <color name="layout_black">#232422</color>
     <color name="layoutbelowBC">#EDEFF2</color>
     <color name="light_black">#4D4F4F</color>
@@ -85,10 +85,11 @@
     <string name="cc">content description</string>
     <string name="cce_student_profile">CCE Student Profile</string>
     <string name="clear">Clear</string>
+    <string name="copy_hw">Copy homework to:</string>
     <string name="coscholastic">CoScholastic</string>
     <string name="coscholastic2">Co-scholastic area</string>
     <string name="crash">Something went wrong, will be rectified soon.</string>
-    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
+    <string name="crash_toast_text">Oops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
     <string name="dashboard">Dashboard</string>
     <string name="date">Enter Date :</string>
     <string name="date2">Date</string>
@@ -167,6 +168,7 @@
     <string name="score">Score</string>
     <string name="se">Exam</string>
     <string name="search">Search</string>
+    <string name="select_sec">select section</string>
     <string name="server_resolve">Tab is in Sync</string>
     <string name="setag">Tap  on  the  exam  to  view  detailed  info</string>
     <string name="seven">7</string>

@@ -123,11 +123,13 @@
     <string name="hwpt">Tap on the list to view homework assigned</string>
     <string name="title_activity_prepare_data">PrepareData</string>
     <string name="title_activity_intermediate">Intermediate</string>
-    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
+    <string name="crash_toast_text">Oops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
     <string name="no_absent">No Absentees</string>
     <string name="crash">Something went wrong, will be rectified soon.</string>
     <string name="syncing">Tab is in sync, please wait.</string>
     <string name="buffer_full">Please do the sync.</string>
+    <string name="copy_hw">Copy homework to:</string>
+    <string name="select_sec">select section</string>
 
     <string name="search">Search</string>
     <string name="students">Students</string>

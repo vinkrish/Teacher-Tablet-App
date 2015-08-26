@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/homework_background">
@@ -155,6 +154,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/hwPleaseTap"
         android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@color/homework_background"
         android:dividerHeight="5dp"></ListView>
 
 </RelativeLayout>
