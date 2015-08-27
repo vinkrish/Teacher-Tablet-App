@@ -295,7 +295,7 @@ public class UpdateSlipTestMark extends Fragment {
         else
             SlipTestMarkDao.insertUpdateSTMark(mList, sqliteDatabase);
 
-        int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(sectionId, subjectId, sqliteDatabase);
+        double updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(sectionId, subjectId, sqliteDatabase);
         StAvgDao.updateSlipTestAvg(sectionId, subjectId, updatedSTAvg, sqliteDatabase);
     }
 

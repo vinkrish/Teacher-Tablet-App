@@ -170,7 +170,7 @@ public class ViewScore extends Fragment {
                 selectedSlipTestId = stIdList.get(position);
                 SlipTesttDao.deleteSlipTest(selectedSlipTestId, schoolId, sqliteDatabase);
                 initialize();
-                int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(sectionId, subjectId, sqliteDatabase);
+                double updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(sectionId, subjectId, sqliteDatabase);
                 StAvgDao.updateSlipTestAvg(sectionId, subjectId, updatedSTAvg, sqliteDatabase);
                 populateListArray();
                 lv.setAdapter(stAdapter);
