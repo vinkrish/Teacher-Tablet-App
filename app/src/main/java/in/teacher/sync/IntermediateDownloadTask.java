@@ -111,10 +111,10 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
         boolean screenLocked = km.inKeyguardRestrictedInputMode();
 
         if (manualSync == 1) {
-            SharedPreferenceUtil.updateManualSync(context, 0);
-            Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(intent);
+            SharedPreferenceUtil.updateManualSync(context, 2);
+            Intent i = new Intent(context, in.teacher.activity.ProcessFiles.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(i);
         } else if (screenLocked) {
             /*KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
             final KeyguardManager.KeyguardLock kl = km .newKeyguardLock("MyKeyguardLock");

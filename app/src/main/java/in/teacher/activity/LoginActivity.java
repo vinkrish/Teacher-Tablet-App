@@ -191,36 +191,16 @@ public class LoginActivity extends BaseActivity {
                             password.setText("");
                         }
 
-                        if (v.getId() == R.id.num1) {
-                            updateFields("1");
-                        }
-                        if (v.getId() == R.id.num2) {
-                            updateFields("2");
-                        }
-                        if (v.getId() == R.id.num3) {
-                            updateFields("3");
-                        }
-                        if (v.getId() == R.id.num4) {
-                            updateFields("4");
-                        }
-                        if (v.getId() == R.id.num5) {
-                            updateFields("5");
-                        }
-                        if (v.getId() == R.id.num6) {
-                            updateFields("6");
-                        }
-                        if (v.getId() == R.id.num7) {
-                            updateFields("7");
-                        }
-                        if (v.getId() == R.id.num8) {
-                            updateFields("8");
-                        }
-                        if (v.getId() == R.id.num9) {
-                            updateFields("9");
-                        }
-                        if (v.getId() == R.id.num0) {
-                            updateFields("0");
-                        }
+                        if (v.getId() == R.id.num1) updateFields("1");
+                        else if (v.getId() == R.id.num2) updateFields("2");
+                        else if (v.getId() == R.id.num3) updateFields("3");
+                        else if (v.getId() == R.id.num4) updateFields("4");
+                        else if (v.getId() == R.id.num5) updateFields("5");
+                        else if (v.getId() == R.id.num6) updateFields("6");
+                        else if (v.getId() == R.id.num7) updateFields("7");
+                        else if (v.getId() == R.id.num8) updateFields("8");
+                        else if (v.getId() == R.id.num9) updateFields("9");
+                        else if (v.getId() == R.id.num0) updateFields("0");
                     }
 
                 });

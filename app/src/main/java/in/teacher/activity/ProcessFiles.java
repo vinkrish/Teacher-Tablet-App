@@ -402,6 +402,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             } else if (manualSync == 1) {
                 new CallFTP().syncFTP();
             } else {
+                editor.putInt("manual_sync", 0);
+                editor.apply();
                 Intent intent = new Intent(ProcessFiles.this, in.teacher.activity.LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
