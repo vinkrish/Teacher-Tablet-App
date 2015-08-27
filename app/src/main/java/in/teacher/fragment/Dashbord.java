@@ -186,7 +186,7 @@ public class Dashbord extends Fragment implements AnimationListener {
                 defaultPaint = new Paint();
                 defaultPaint.setAntiAlias(true);
                 defaultPaint.setStyle(Paint.Style.STROKE);
-                defaultPaint.setStrokeWidth(5);
+                defaultPaint.setStrokeWidth(6);
                 Resources res = getResources();
                 int defalt = res.getColor(R.color.defalt);
                 defaultPaint.setColor(defalt);
@@ -198,15 +198,15 @@ public class Dashbord extends Fragment implements AnimationListener {
             protected void onDraw(Canvas canvas) {
                 p.setAntiAlias(true);
                 p.setStyle(Paint.Style.STROKE);
-                p.setStrokeWidth(5);
+                p.setStrokeWidth(6);
 
-                if (localInt >= 270) {
+                if (localInt >= 270)
                     p.setColor(getResources().getColor(R.color.green));
-                } else if (localInt >= 180) {
+                else if (localInt >= 180)
                     p.setColor(getResources().getColor(R.color.orange));
-                } else if (localInt > 0) {
+                else if (localInt > 0)
                     p.setColor(getResources().getColor(R.color.red));
-                }
+
                 canvas.drawArc(rectF, 0, 360, false, defaultPaint);
                 canvas.drawArc(rectF, 270, Float.parseFloat(localInt + ""), false, p);
             }

@@ -53,7 +53,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class ProcessFiles extends BaseActivity implements StringConstant {
-    private Context context;
     private ProgressBar progressBar;
     private TextView txtPercentage, txtSync;
     private SQLiteDatabase sqliteDatabase;
@@ -74,8 +73,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 		/*PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WakeLock");
 			wakeLock.acquire();*/
-
-        context = AppGlobal.getContext();
 
         SharedPreferences pref = getSharedPreferences("db_access", Context.MODE_PRIVATE);
         manualSync = pref.getInt("manual_sync", 0);
@@ -352,8 +349,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             }
             c11.close();
             for (int i = 0, j = subjectIdList.size(); i < j; i++) {
-                int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(ProcessFiles.this, sectionIdList.get(i), subjectIdList.get(i), schoolId);
-                StAvgDao.updateSlipTestAvg(sectionIdList.get(i), subjectIdList.get(i), updatedSTAvg, schoolId, sqliteDatabase);
+                double updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(sectionIdList.get(i), subjectIdList.get(i), sqliteDatabase);
+                StAvgDao.updateSlipTestAvg(sectionIdList.get(i), subjectIdList.get(i), updatedSTAvg, sqliteDatabase);
             }
             subjectIdList.clear();
             sectionIdList.clear();
@@ -368,8 +365,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             }
             c12.close();
             for (int i = 0, j = subjectIdList.size(); i < j; i++) {
-                int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(ProcessFiles.this, sectionIdList.get(i), subjectIdList.get(i), schoolId);
-                StAvgDao.updateSlipTestAvg(sectionIdList.get(i), subjectIdList.get(i), updatedSTAvg, schoolId, sqliteDatabase);
+                double updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(sectionIdList.get(i), subjectIdList.get(i), sqliteDatabase);
+                StAvgDao.updateSlipTestAvg(sectionIdList.get(i), subjectIdList.get(i), updatedSTAvg, sqliteDatabase);
             }
             subjectIdList.clear();
             sectionIdList.clear();
@@ -381,13 +378,11 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            //	wakeLock.release();
             SharedPreferences sharedPref = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("is_sync", 0);
             editor.putInt("sleep_sync", 0);
             editor.apply();
-
             if (isException) {
                 editor.putInt("manual_sync", 0);
                 editor.apply();

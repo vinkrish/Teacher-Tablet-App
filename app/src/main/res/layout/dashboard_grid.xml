@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
+            android:textSize="@dimen/text_medium"
             android:textColor="@color/light_black" />
 
         <TextView
@@ -33,12 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
+            android:textSize="@dimen/text_medium"
             android:textColor="@color/light_black" />
 
         <TextView
             android:id="@+id/subject_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/text_medium"
             android:textColor="@color/light_black" />
     </LinearLayout>
 

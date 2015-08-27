@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class StAvgDao {
 	
-	public static void initStAvg(int classId, int sectionId, int subjectId, int avg, SQLiteDatabase sqliteDatabase){
+	public static void initStAvg(int classId, int sectionId, int subjectId, double avg, SQLiteDatabase sqliteDatabase){
 		String sql = "insert into stavg(ClassId, SectionId, SubjectId, SlipTestAvg) values("+classId+","+sectionId+","+
 				subjectId+","+avg+")";
 		try{
@@ -28,7 +28,7 @@ public class StAvgDao {
 		return avg;
 	}
 	
-	public static void updateSlipTestAvg(int sectionId, int subjectId, int avg, int schoolId, SQLiteDatabase sqliteDatabase){
+	public static void updateSlipTestAvg(int sectionId, int subjectId, double avg, SQLiteDatabase sqliteDatabase){
 		String sql = "update stavg set SlipTestAvg="+avg+" where SectionId="+sectionId+" and SubjectId="+subjectId;
 		sqliteDatabase.execSQL(sql);
 	}

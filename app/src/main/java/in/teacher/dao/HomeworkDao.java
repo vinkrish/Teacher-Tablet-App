@@ -84,9 +84,11 @@ public class HomeworkDao {
         ContentValues cv = new ContentValues();
         cv.put("Query", sql);
         sqliteDatabase.insert("uploadsql", null, cv);
+        long homeworkId = h.getHomeworkId();
         for (int i = 0; i < secIdList.size(); i++) {
+            homeworkId++;
             String sql2 = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate,IsNew) " +
-                    "values(" + h.getHomeworkId() + "," + h.getSchoolId() + "," + h.getClassId() + "," + secIdList.get(i) + "," + teacherIdList.get(i) + ",'" +
+                    "values(" + homeworkId + "," + h.getSchoolId() + "," + h.getClassId() + "," + secIdList.get(i) + "," + teacherIdList.get(i) + ",'" +
                     h.getSubjectIDs() + "'," + DatabaseUtils.sqlEscapeString(h.getHomework().replaceAll("\n", " ")) + ",'" + h.getHomeworkDate() + "',1)";
             sqliteDatabase.execSQL(sql2);
             cv.put("Query", sql2);

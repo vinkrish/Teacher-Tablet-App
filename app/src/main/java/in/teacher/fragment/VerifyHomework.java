@@ -91,9 +91,8 @@ public class VerifyHomework extends Fragment {
         }
         c.close();
 
-        String sql = "select A.SectionId, A.TeacherId, B.SectionName from homeworkmessage A, section B " +
-                "where A.SectionId!=" + sectionId + " and B.SectionId!=" + sectionId + " and B.ClassId=" + classId + " and A.SectionId=B.SectionId " +
-                "group by A.SectionId";
+        String sql = "select B.SectionId, A.TeacherId, B.SectionName from homeworkmessage A, section B " +
+                "where A.SectionId!=" + sectionId + " and B.SectionId!=" + sectionId + " and B.ClassId=" + classId + " group by B.SectionId";
         Cursor c2 = sqliteDatabase.rawQuery(sql, null);
         c2.moveToFirst();
         while (!c2.isAfterLast()) {
@@ -125,7 +124,7 @@ public class VerifyHomework extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(context, "homework has been updated successfully", Toast.LENGTH_LONG).show();
                 HomeworkDao.insertHwPresent(sectionId, getToday(), sqliteDatabase);
-                HomeworkDao.insertHwSql(homework,selectedSecIdList, selectedTeacherIdList, sqliteDatabase);
+                HomeworkDao.insertHwSql(homework, selectedSecIdList, selectedTeacherIdList, sqliteDatabase);
                 ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
             }
         });
@@ -198,12 +197,12 @@ public class VerifyHomework extends Fragment {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < sectionIdList.size(); i++) {
             if (secSelections[i]) {
-                sb.append(sectionNameList.get(i)+",");
+                sb.append(sectionNameList.get(i) + ",");
                 selectedSecIdList.add(sectionIdList.get(i));
                 selectedTeacherIdList.add(secTeacherIdList.get(i));
             }
         }
-        if(sb.length()>0) sectionSpinner.setText(sb.toString().substring(0, sb.length()-1));
+        if (sb.length() > 0) sectionSpinner.setText(sb.toString().substring(0, sb.length() - 1));
         else sectionSpinner.setText("");
     }
 

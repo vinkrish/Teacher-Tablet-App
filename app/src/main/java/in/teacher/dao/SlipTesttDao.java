@@ -26,7 +26,7 @@ public class SlipTesttDao {
 	
 	public static List<SlipTestt> selectSlipTest(int sectionId, int subjectId, SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery("select * from sliptest where SectionId="+sectionId+" and SubjectId="+subjectId, null);
-		List<SlipTestt> stList = new ArrayList<SlipTestt>();
+		List<SlipTestt> stList = new ArrayList<>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			SlipTestt st = new SlipTestt();

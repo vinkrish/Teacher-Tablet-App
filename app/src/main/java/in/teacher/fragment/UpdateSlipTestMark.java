@@ -104,25 +104,27 @@ public class UpdateSlipTestMark extends Fragment {
 
         lv.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int pos,
-                                    long id) {
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && studentScore.get(index).equals(".")) {
+            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && studentScore.get(index).equals(".")) {
                     studentScore.set(index, "");
                 }
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && Double.parseDouble(studentScore.get(index)) > maxMark) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
                     studentScore.set(index, "");
                     Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
                 }
                 index = pos;
                 View v = lv.getChildAt(0);
                 top = (v == null) ? 0 : v.getTop();
-                for (int idx = 0; idx < studentsArray.size(); idx++) {
+                for (int idx = 0; idx < studentsArray.size(); idx++)
                     studentIndicate.set(idx, false);
-                }
+
                 Boolean b = studentIndicate.get(index);
-                if (!b) {
+                if (!b)
                     studentIndicate.set(index, true);
-                }
                 repopulateListArray();
             }
         });
@@ -130,7 +132,6 @@ public class UpdateSlipTestMark extends Fragment {
         lv.setOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
             }
 
             @Override
@@ -142,34 +143,24 @@ public class UpdateSlipTestMark extends Fragment {
             }
         });
 
-        int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero, R.id.decimal, R.id.minus};
+        int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven,
+                R.id.eight, R.id.nine, R.id.zero, R.id.decimal, R.id.minus};
         for (int i = 0; i < 12; i++) {
             Button b = (Button) view.findViewById(buttonIds[i]);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v.getId() == R.id.one)
-                        updateScoreField("1");
-                    if (v.getId() == R.id.two)
-                        updateScoreField("2");
-                    if (v.getId() == R.id.three)
-                        updateScoreField("3");
-                    if (v.getId() == R.id.four)
-                        updateScoreField("4");
-                    if (v.getId() == R.id.five)
-                        updateScoreField("5");
-                    if (v.getId() == R.id.six)
-                        updateScoreField("6");
-                    if (v.getId() == R.id.seven)
-                        updateScoreField("7");
-                    if (v.getId() == R.id.eight)
-                        updateScoreField("8");
-                    if (v.getId() == R.id.nine)
-                        updateScoreField("9");
-                    if (v.getId() == R.id.zero)
-                        updateScoreField("0");
-                    if (v.getId() == R.id.decimal)
-                        updateScoreField(".");
+                    if (v.getId() == R.id.one) updateScoreField("1");
+                    if (v.getId() == R.id.two) updateScoreField("2");
+                    if (v.getId() == R.id.three) updateScoreField("3");
+                    if (v.getId() == R.id.four) updateScoreField("4");
+                    if (v.getId() == R.id.five) updateScoreField("5");
+                    if (v.getId() == R.id.six) updateScoreField("6");
+                    if (v.getId() == R.id.seven) updateScoreField("7");
+                    if (v.getId() == R.id.eight) updateScoreField("8");
+                    if (v.getId() == R.id.nine) updateScoreField("9");
+                    if (v.getId() == R.id.zero) updateScoreField("0");
+                    if (v.getId() == R.id.decimal) updateScoreField(".");
                     if (v.getId() == R.id.minus) {
                         studentScore.set(index, "-1");
                         repopulateListArray();
@@ -180,7 +171,6 @@ public class UpdateSlipTestMark extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
                 if (studentScore.get(index) != null && !studentScore.get(index).equals("") && !studentScore.get(index).equals(".") && Double.parseDouble(studentScore.get(index)) > maxMark) {
                     String s = "";
                     studentScore.set(index, s);
@@ -202,24 +192,24 @@ public class UpdateSlipTestMark extends Fragment {
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && studentScore.get(index).equals(".")) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && studentScore.get(index).equals(".")) {
                     studentScore.set(index, "");
                 }
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && Double.parseDouble(studentScore.get(index)) > maxMark) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
                     String s = "";
                     studentScore.set(index, s);
                     Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (index != 0) {
-                        index--;
-                    }
-                    for (int idx = 0; idx < studentsArray.size(); idx++) {
+                    if (index != 0) index--;
+                    for (int idx = 0; idx < studentsArray.size(); idx++)
                         studentIndicate.set(idx, false);
-                    }
+
                     Boolean b = studentIndicate.get(index);
-                    if (!b) {
-                        studentIndicate.set(index, true);
-                    }
+                    if (!b) studentIndicate.set(index, true);
                 }
                 repopulateListArray();
             }
@@ -227,24 +217,24 @@ public class UpdateSlipTestMark extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && studentScore.get(index).equals(".")) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && studentScore.get(index).equals(".")) {
                     studentScore.set(index, "");
                 }
-                if (studentScore.get(index) != null && !studentScore.get(index).equals("") && Double.parseDouble(studentScore.get(index)) > maxMark) {
+                if (studentScore.get(index) != null
+                        && !studentScore.get(index).equals("")
+                        && Double.parseDouble(studentScore.get(index)) > maxMark) {
                     String s = "";
                     studentScore.set(index, s);
                     Toast.makeText(context, "marks entered is greater than max mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (index < indexBound - 1) {
-                        index++;
-                    }
-                    for (int idx = 0; idx < studentsArray.size(); idx++) {
+                    if (index < indexBound - 1) index++;
+                    for (int idx = 0; idx < studentsArray.size(); idx++)
                         studentIndicate.set(idx, false);
-                    }
+
                     Boolean b = studentIndicate.get(index);
-                    if (!b) {
-                        studentIndicate.set(index, true);
-                    }
+                    if (!b) studentIndicate.set(index, true);
                 }
                 repopulateListArray();
             }
@@ -281,13 +271,12 @@ public class UpdateSlipTestMark extends Fragment {
     private void pushSubmit() {
         int i = 0;
         for (String ss : studentScore) {
-            if (ss == null || ss.equals(".") || ss.equals("")) {
+            if (ss == null || ss.equals(".") || ss.equals(""))
                 studentScore.set(i, "0");
-            }
             i++;
         }
         int j = 0;
-        List<SlipTestMark> mList = new ArrayList<SlipTestMark>();
+        List<SlipTestMark> mList = new ArrayList<>();
         for (Students st : studentsArray) {
             SlipTestMark m = new SlipTestMark();
             m.setSchoolId(schoolId);
@@ -301,14 +290,13 @@ public class UpdateSlipTestMark extends Fragment {
             j++;
         }
 
-        if (studentsArray.size() == marksCount) {
+        if (studentsArray.size() == marksCount)
             SlipTestMarkDao.updateSlipTestMark(mList, sqliteDatabase);
-        } else {
+        else
             SlipTestMarkDao.insertUpdateSTMark(mList, sqliteDatabase);
-        }
 
-        int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(context, sectionId, subjectId, schoolId);
-        StAvgDao.updateSlipTestAvg(sectionId, subjectId, updatedSTAvg, schoolId, sqliteDatabase);
+        int updatedSTAvg = PercentageSlipTest.findSlipTestPercentage(sectionId, subjectId, sqliteDatabase);
+        StAvgDao.updateSlipTestAvg(sectionId, subjectId, updatedSTAvg, sqliteDatabase);
     }
 
     private void updateScoreField(String upScore) {
@@ -392,11 +380,6 @@ public class UpdateSlipTestMark extends Fragment {
 
             List<String> amList = SlipTestMarkDao.selectSlipTestMark(slipTestId, studentsArrayId, schoolId, sqliteDatabase);
             for (String am : amList) {
-                /*if(am.getMark().equals("0")){
-					studentScore.add("");
-				}else{
-					studentScore.add(am.getMark());
-				}*/
                 studentScore.add(am);
             }
             return null;

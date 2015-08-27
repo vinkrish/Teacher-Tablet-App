@@ -170,7 +170,7 @@ public interface SqlConstant {
     public static String CREATE_EXMAVG = "CREATE TABLE exmavg(ClassId INTEGER, SectionId INTEGER, SubjectId INTEGER, ExamId INTEGER, ExamAvg REAL DEFAULT 0, CompleteEntry INTEGER DEFAULT 0," +
             "PRIMARY KEY(SectionId, SubjectId, ExamId))";
 
-    public static String CREATE_STAVG = "CREATE TABLE stavg(ClassId INTEGER, SectionId INTEGER, SubjectId INTEGER, SlipTestAvg INTEGER DEFAULT 0, PRIMARY KEY(SectionId, SubjectId))";
+    public static String CREATE_STAVG = "CREATE TABLE stavg(ClassId INTEGER, SectionId INTEGER, SubjectId INTEGER, SlipTestAvg REAL DEFAULT 0, PRIMARY KEY(SectionId, SubjectId))";
 
     public static String CREATE_GCW = "CREATE TABLE gradesclasswise(GradeId INTEGER, SchoolId INTEGER, ClassId INTEGER, Grade TEXT, MarkFrom INTEGER, MarkTo INTEGER, GradePoint INTEGER, DateTimeRecordInserted DATETIME)";
 
