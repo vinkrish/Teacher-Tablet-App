@@ -8,4 +8,4 @@
     android:duration="1200" 
     android:interpolator="@android:anim/linear_interpolator" />
 
-<!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/anim/rotate_picture.xml -->
+<!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/anim/rotate_picture.xml -->

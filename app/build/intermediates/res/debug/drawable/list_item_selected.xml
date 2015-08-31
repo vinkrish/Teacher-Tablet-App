@@ -4,4 +4,4 @@
     <item android:drawable="@drawable/list_selected_shape" android:state_activated="true" android:state_pressed="true" android:state_selected="true"/>
     <item android:drawable="@drawable/list_deselected_shape"/>
 
-</selector><!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/drawable/list_item_selected.xml -->
+</selector><!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/drawable/list_item_selected.xml -->

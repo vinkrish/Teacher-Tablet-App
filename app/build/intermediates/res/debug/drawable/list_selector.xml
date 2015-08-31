@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/list_item_bg_pressed" android:state_activated="true"/>
 
 </selector>
-<!-- From: file:/Users/Vidhya/Desktop/AndroidStudioProjects/Teacher/app/src/main/res/drawable/list_selector.xml -->
+<!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/drawable/list_selector.xml -->
