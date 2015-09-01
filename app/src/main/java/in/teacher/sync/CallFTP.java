@@ -85,7 +85,8 @@ public class CallFTP implements StringConstant {
                 block = jsonReceived.getInt(TAG_SUCCESS);
                 Log.d("block", block + "");
                 if(jsonReceived.getInt("update") == 1){
-                    SharedPreferenceUtil.updateApkUpdate(appContext, 1);
+                    String folder = jsonReceived.getString("version");
+                    SharedPreferenceUtil.updateApkUpdate(appContext, 1, folder);
                 }
                 zipFile = jsonReceived.getString("folder_name");
                 String s = jsonReceived.getString("files");

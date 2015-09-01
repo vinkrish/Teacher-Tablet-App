@@ -40,6 +40,7 @@ import in.teacher.util.Util;
 public class UpdateApk extends BaseActivity {
     private SharedPreferences sharedPref;
     private ProgressDialog pDialog;
+    private String apkFolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class UpdateApk extends BaseActivity {
 
         sharedPref = getSharedPreferences("db_access", Context.MODE_PRIVATE);
         int updateApk = sharedPref.getInt("update_apk", 0);
+        apkFolder = sharedPref.getString("apk_folder", "v1.2");
         if (updateApk == 2) {
             new ApkDownloadTask(this.getApplicationContext(), "teacher.zip").execute();
         }
@@ -74,7 +76,7 @@ public class UpdateApk extends BaseActivity {
 
         public ApkDownloadTask(Context context, String fName) {
             this.context = context;
-            this.fileName = "download/" + fName;
+            this.fileName = "download/"+apkFolder +"/"+ fName;
         }
 
         protected void onPreExecute() {
