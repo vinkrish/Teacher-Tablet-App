@@ -119,15 +119,9 @@ public class InsertHomework extends Fragment {
         subjectIdList.add(0);
         subjectNameList.add("Extra");
 
-        if (classId == 0) {
-            hwTv.setText("Not a class teacher.");
-            lv.setVisibility(View.GONE);
-            view.findViewById(R.id.rl).setVisibility(View.GONE);
-        } else {
-            StringBuilder hwString = new StringBuilder();
-            hwString.append(className).append("-" + sectionName + "  ").append("Tap on the list to assign homework  ").append(getToday());
-            hwTv.setText(hwString);
-        }
+        StringBuilder hwString = new StringBuilder();
+        hwString.append(className).append("-" + sectionName + "  ").append("Tap on the list to assign homework  ").append(getToday());
+        hwTv.setText(hwString);
 
         Button todayButton = (Button) view.findViewById(R.id.today);
         Button yesterdayButton = (Button) view.findViewById(R.id.yesterday);

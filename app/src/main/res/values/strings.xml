@@ -27,6 +27,7 @@
         <item>Homework</item>
         <item>Co-scholastic</item>
         <item>CCE student profile</item>
+        <item>SMS</item>
     </string-array>
 
     <array name="nav_drawer_icons">
@@ -35,6 +36,7 @@
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
+        <item>@drawable/attendance</item>
     </array>
 
     <string name="drawer_open">Open navigation drawer</string>
@@ -130,6 +132,11 @@
     <string name="buffer_full">Please do the sync.</string>
     <string name="copy_hw">Copy homework to:</string>
     <string name="select_sec">select section</string>
+    <string name="sms">SMS</string>
+    <string name="send_sms">Send SMS to:</string>
+    <string name="all_students">All Students</string>
+    <string name="student">Student</string>
+    <string name="all_students_mes">Recorded message will be sent to all students.</string>
 
     <string name="search">Search</string>
     <string name="students">Students</string>

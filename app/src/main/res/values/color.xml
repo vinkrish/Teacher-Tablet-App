@@ -30,5 +30,8 @@
     
     <color name="homework_background">#EDEFF2</color>
     <color name="gray_light">#C0C0C0</color>
+    <color name="light_blue">#91CDF2</color>
+    <color name="selected_sub_heading">#7A7D79</color>
+    <color name="gradient_text">#A4A5AB</color>
 
 </resources>

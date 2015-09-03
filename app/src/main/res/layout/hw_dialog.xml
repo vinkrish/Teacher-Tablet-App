@@ -21,7 +21,6 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:inputType="textMultiLine"/>
-
+        android:inputType="text|textMultiLine"/>
 
 </LinearLayout>

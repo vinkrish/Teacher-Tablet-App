@@ -82,12 +82,6 @@ public class MarkAttendance extends Fragment {
         classId = t.getClassId();
         sectionId = t.getSectionId();
 
-        if (classId == 0) {
-            ptTV.setText("Not a class teacher.");
-            LinearLayout l2 = (LinearLayout) view.findViewById(R.id.linearlayout2);
-            l2.setVisibility(View.GONE);
-        }
-
         populateGridArray();
 
         gridView.setOnItemClickListener(new OnItemClickListener() {

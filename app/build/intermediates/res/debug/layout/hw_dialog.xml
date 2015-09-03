@@ -21,8 +21,7 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:inputType="textMultiLine"/>
-
+        android:inputType="text|textMultiLine"/>
 
 </LinearLayout>
 <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/layout/hw_dialog.xml -->

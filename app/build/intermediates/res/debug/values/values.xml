@@ -8,6 +8,7 @@
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
+        <item>@drawable/attendance</item>
     </array>
     <string-array name="nav_drawer_items">
         <item>Dashboard</item>
@@ -15,6 +16,7 @@
         <item>Homework</item>
         <item>Co-scholastic</item>
         <item>CCE student profile</item>
+        <item>SMS</item>
     </string-array>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/color.xml -->
     <eat-comment/>
@@ -30,18 +32,21 @@
     <color name="drawer_list_background">#17171A</color>
     <color name="grade_normal">#EAF0E9</color>
     <color name="grade_pressed">#5FB01C</color>
+    <color name="gradient_text">#A4A5AB</color>
     <color name="gray_light">#C0C0C0</color>
     <color name="green">#41AB15</color>
     <color name="homework_background">#EDEFF2</color>
     <color name="layout_black">#232422</color>
     <color name="layoutbelowBC">#EDEFF2</color>
     <color name="light_black">#4D4F4F</color>
+    <color name="light_blue">#91CDF2</color>
     <color name="list_background_pressed">#3E97D6</color>
     <color name="list_highlighted">#A1C8F0</color>
     <color name="list_selec">#EDEFF2</color>
     <color name="login_button">#383A3B</color>
     <color name="orange">#FA7000</color>
     <color name="red">#AD200A</color>
+    <color name="selected_sub_heading">#7A7D79</color>
     <color name="universal">#3E97D6</color>
     <color name="white">#FFFFFF</color>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/dimens.xml -->
@@ -75,6 +80,8 @@
     <string name="adminLogin">Admin Login</string>
     <string name="adminusername">Admin Username</string>
     <string name="al">Absentees List</string>
+    <string name="all_students">All Students</string>
+    <string name="all_students_mes">Recorded message will be sent to all students.</string>
     <string name="app_name">Teacher</string>
     <string name="attendance">Attendance</string>
     <string name="attendinfo">Attendance information</string>
@@ -169,6 +176,7 @@
     <string name="se">Exam</string>
     <string name="search">Search</string>
     <string name="select_sec">select section</string>
+    <string name="send_sms">Send SMS to:</string>
     <string name="server_resolve">Tab is in Sync</string>
     <string name="setag">Tap  on  the  exam  to  view  detailed  info</string>
     <string name="seven">7</string>
@@ -176,11 +184,13 @@
     <string name="sliptest">SlipTest</string>
     <string name="sliptests">Selected slipTest will appear here</string>
     <string name="slno">S.No</string>
+    <string name="sms">SMS</string>
     <string name="st">Slip Test</string>
     <string name="stdate">Slip test date</string>
     <string name="stname">Slip Test Name :</string>
     <string name="stoan">Select the options as need</string>
     <string name="stud_avg">Student avg / Class avg</string>
+    <string name="student">Student</string>
     <string name="studentname">Student Name</string>
     <string name="students">Students</string>
     <string name="sub_teacher">Subject Teacher</string>

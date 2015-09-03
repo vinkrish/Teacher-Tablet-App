@@ -23,6 +23,7 @@ import in.teacher.fragment.SelectCCEStudentProfile;
 import in.teacher.fragment.SlipTest;
 import in.teacher.fragment.StructuredExam;
 import in.teacher.fragment.StudentClassSec;
+import in.teacher.fragment.TextSms;
 import in.teacher.fragment.ViewQueue;
 import in.teacher.fragment.ViewScore;
 import in.teacher.model.NavDrawerItem;
@@ -30,6 +31,7 @@ import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
 import in.teacher.util.ReplaceFragment;
@@ -110,6 +112,7 @@ public class Dashboard extends BaseActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 
         navMenuIcons.recycle();
         navDrawerListAdapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -153,7 +156,7 @@ public class Dashboard extends BaseActivity {
     };
 
     public void open() {
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START))
             mDrawerLayout.closeDrawer(Gravity.LEFT);
         else
             mDrawerLayout.openDrawer(Gravity.LEFT);
@@ -275,18 +278,40 @@ public class Dashboard extends BaseActivity {
     private void selectItem(int position) {
         if (position == 0) {
             ReplaceFragment.replace(new Dashbord(), getFragmentManager());
-        } else if (position == 1) {
-            checkAttendance();
-        } else if (position == 2) {
-            ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
-        } else if (position == 3) {
-            ReplaceFragment.replace(new CoScholastic(), getFragmentManager());
-        } else if (position == 4) {
-            ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
+        } else if (!isClassTeacher()) {
+            showNotAClassTeacher();
+        } else {
+            if (position == 1) {
+                checkAttendance();
+            } else if (position == 2) {
+                ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+            } else if (position == 3) {
+                ReplaceFragment.replace(new CoScholastic(), getFragmentManager());
+            } else if (position == 4) {
+                ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
+            } else if (position == 5) {
+                if (NetworkUtils.isNetworkConnected(context)) {
+                    ReplaceFragment.replace(new TextSms(), getFragmentManager());
+                } else {
+                    CommonDialogUtils.displayAlertWhiteDialog(this, "Please be in WiFi zone or check the status of WiFi");
+                }
+            }
         }
         mDrawerList.setItemChecked(position, true);
         setTitle(navMenuTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    private boolean isClassTeacher() {
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        if (t.getClassId() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    private void showNotAClassTeacher() {
+        CommonDialogUtils.displayAlertWhiteDialog(this, "You must be a class teacher to use this feature!");
     }
 
     private void checkAttendance() {
@@ -343,11 +368,14 @@ public class Dashboard extends BaseActivity {
     }
 
     public void callAttendance(View view) {
-        checkAttendance();
+        if (isClassTeacher()) checkAttendance();
+        else showNotAClassTeacher();
     }
 
     public void callHomework(View view) {
-        ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+        if (isClassTeacher())
+            ReplaceFragment.replace(new InsertHomework(), getFragmentManager());
+        else showNotAClassTeacher();
     }
 
     public void callSlipTest(View view) {
