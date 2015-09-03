@@ -475,9 +475,9 @@ public class InsertActivityMark extends Fragment {
 
             int partition = sharedPref.getInt("partition", 0);
             if (partition == 1)
-                studentsArray = StudentsDao.selectStudents2("" + sectionId, subId, sqliteDatabase);
+                studentsArray = StudentsDao.selectStudents2(sectionId, subId, sqliteDatabase);
             else
-                studentsArray = StudentsDao.selectStudents2("" + sectionId, subjectId, sqliteDatabase);
+                studentsArray = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
 
             Collections.sort(studentsArray, new StudentsSort());
             for (int idx = 0; idx < studentsArray.size(); idx++)

@@ -382,7 +382,7 @@ public class Dashboard extends BaseActivity {
         Temp temp = TempDao.selectTemp(sqliteDatabase);
         int sectId = temp.getCurrentSection();
         int subjId = temp.getCurrentSubject();
-        List<Students> studentsArray = StudentsDao.selectStudents2("" + sectId, subjId, sqliteDatabase);
+        List<Students> studentsArray = StudentsDao.selectStudents2(sectId, subjId, sqliteDatabase);
         if (studentsArray.size() > 0) {
             SlipTesttDao.deleteSlipTest(sqliteDatabase);
             ReplaceFragment.replace(new SlipTest(), getFragmentManager());

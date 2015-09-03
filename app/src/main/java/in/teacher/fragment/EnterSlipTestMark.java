@@ -379,7 +379,7 @@ public class EnterSlipTestMark extends Fragment {
 
             st = SlipTesttDao.selectSlipTest(sqliteDatabase);
 
-            studentsArray = StudentsDao.selectStudents2("" + sectionId, subjectId, sqliteDatabase);
+            studentsArray = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
             Collections.sort(studentsArray, new StudentsSort());
             for (int idx = 0; idx < studentsArray.size(); idx++)
                 studentIndicate.add(false);

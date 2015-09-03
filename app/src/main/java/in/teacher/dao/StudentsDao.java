@@ -62,9 +62,9 @@ public class StudentsDao {
 		return sList;
 	}
 	
-	public static List<Students> selectStudents2(String sectionId, int subjectId, SQLiteDatabase sqliteDatabase){
+	public static List<Students> selectStudents2(int sectionId, int subjectId, SQLiteDatabase sqliteDatabase){
 		String sql = "select * from students where SectionId="+sectionId+" and SubjectIds LIKE '"+subjectId+"#%' UNION " +
-				"select * from students where SectionId="+sectionId+" and  SubjectIds LIKE '%#"+subjectId+"#%' UNION " +
+				"select * from students where SectionId="+sectionId+" and SubjectIds LIKE '%#"+subjectId+"#%' UNION " +
 				"select * from students where SectionId="+sectionId+" and SubjectIds LIKE '%#"+subjectId+"' UNION " +
 				"select * from students where SectionId="+sectionId+" and SubjectIds='"+subjectId +
 				"' order by RollNoInClass";

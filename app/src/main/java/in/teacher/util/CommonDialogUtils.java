@@ -72,7 +72,7 @@ public class CommonDialogUtils {
             public void onClick(View v) {
                 dialog.dismiss();
                 Temp temp = TempDao.selectTemp(sqliteDatabase);
-                List<Students> studentsArray = StudentsDao.selectStudents2("" + temp.getCurrentSection(), temp.getCurrentSubject(), sqliteDatabase);
+                List<Students> studentsArray = StudentsDao.selectStudents2(temp.getCurrentSection(), temp.getCurrentSubject(), sqliteDatabase);
                 if(studentsArray.size()>0){
                     SlipTesttDao.deleteSlipTest(sqliteDatabase);
                     ReplaceFragment.replace(new SlipTest(), activity.getFragmentManager());

@@ -369,7 +369,7 @@ public class UpdateSlipTestMark extends Fragment {
             sectionName = SectionDao.getSectionName(sectionId, sqliteDatabase);
             portionName = SlipTesttDao.selectSlipTestName(slipTestId, sqliteDatabase);
             sf.append(className).append("-").append(sectionName).append("   " + subjectName).append("   " + portionName);
-            studentsArray = StudentsDao.selectStudents2("" + sectionId, subjectId, sqliteDatabase);
+            studentsArray = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
             //	Collections.sort(studentsArray, new StudentsSort());
             for (int idx = 0; idx < studentsArray.size(); idx++) {
                 studentIndicate.add(false);

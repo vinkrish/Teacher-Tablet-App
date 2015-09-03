@@ -82,7 +82,7 @@ public class StudentClassSec extends Fragment{
     }
 
     private void updateListView(){
-        List<Students> studentList = StudentsDao.selectStudents(sectionId, sqliteDatabase);
+        List<Students> studentList = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
         for(Students s: studentList){
             studIDList.add(s.getStudentId());
             studentIdList.add(s.getRollNoInClass());
