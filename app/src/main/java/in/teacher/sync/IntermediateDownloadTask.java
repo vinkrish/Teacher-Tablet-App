@@ -90,8 +90,8 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
                     jsonObject.put("tab_id", deviceId);
                     jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
                     jsonReceived = UploadSyncParser.makePostRequest(update_downloaded_file, jsonObject);
-                    if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
-                    }
+                    if (jsonReceived.getInt(TAG_SUCCESS) == 1)
+                        Log.d("update", "downloaded_file");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -113,10 +113,10 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
         if (manualSync == 1) {
             SharedPreferenceUtil.updateManualSync(context, 2);
             Intent i = new Intent(context, in.teacher.activity.ProcessFiles.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
         } else if (screenLocked) {
-            /*KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+            /*KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             final KeyguardManager.KeyguardLock kl = km .newKeyguardLock("MyKeyguardLock");
 			try{
 			    kl.disableKeyguard();
@@ -126,7 +126,7 @@ public class IntermediateDownloadTask extends AsyncTask<String, String, String> 
             SharedPreferenceUtil.updateIsSync(context, 1);
 
             Intent i = new Intent(context, in.teacher.activity.ProcessFiles.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
         } else {
             SharedPreferenceUtil.updateSleepSync(context, 1);

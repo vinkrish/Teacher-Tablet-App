@@ -68,7 +68,7 @@ public class TextSms extends Fragment implements StringConstant {
     private FrameLayout allStudentsFrame;
     private LinearLayout selectionFrame;
     private EditText studentSpinner, textSms;
-    private int classId, sectionId, teacherId, schoolId;
+    private int sectionId, teacherId, schoolId;
     private ArrayList<Integer> studIdList;
     private ArrayList<String> studNameList;
     private ArrayList<Long> idList = new ArrayList<>();
@@ -152,7 +152,6 @@ public class TextSms extends Fragment implements StringConstant {
 
     private void initializeList() {
         Temp t = TempDao.selectTemp(sqliteDatabase);
-        classId = t.getClassId();
         sectionId = t.getSectionId();
         teacherId = t.getTeacherId();
         studIdList = new ArrayList<>();

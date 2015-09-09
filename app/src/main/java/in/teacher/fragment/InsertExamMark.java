@@ -27,6 +27,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -259,7 +260,9 @@ public class InsertExamMark extends Fragment {
             String sql = "insert into marks (SchoolId, ExamId, SubjectId, StudentId, Mark) values(" + schoolId + "," + examId + "," + subId + "," + val1 + ",'" + val2 + "')";
             try {
                 sqliteDatabase.execSQL(sql);
-                sqliteDatabase.execSQL("insert into uploadsql(Query) values('" + sql + "')");
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

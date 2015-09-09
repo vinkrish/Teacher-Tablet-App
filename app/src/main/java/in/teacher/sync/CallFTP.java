@@ -39,7 +39,7 @@ import android.util.Log;
 public class CallFTP implements StringConstant {
     private SqlDbHelper sqlHandler;
     private SQLiteDatabase sqliteDatabase;
-    private Context appContext;
+    private Context context;
     private int schoolId, block, batteryLevel, manualSync;
     private String deviceId, zipFile;
     private IntentFilter ifilter;
@@ -50,7 +50,7 @@ public class CallFTP implements StringConstant {
     private SharedPreferences sharedPref;
 
     public CallFTP() {
-        appContext = AppGlobal.getContext();
+        context = AppGlobal.getContext();
         sqlHandler = AppGlobal.getSqlDbHelper();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
     }
@@ -61,13 +61,13 @@ public class CallFTP implements StringConstant {
         @Override
         protected String doInBackground(String... arg0) {
 
-            sharedPref = appContext.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+            sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 
             ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            batteryStatus = appContext.getApplicationContext().registerReceiver(null, ifilter);
+            batteryStatus = context.getApplicationContext().registerReceiver(null, ifilter);
             batteryLevel = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 
-            mTransferManager = new TransferManager(Util.getCredProvider(appContext));
+            mTransferManager = new TransferManager(Util.getCredProvider(context));
             uploadComplete = false;
             exception = false;
 
@@ -86,7 +86,7 @@ public class CallFTP implements StringConstant {
                 Log.d("block", block + "");
                 if(jsonReceived.getInt("update") == 1){
                     String folder = jsonReceived.getString("version");
-                    SharedPreferenceUtil.updateApkUpdate(appContext, 1, folder);
+                    SharedPreferenceUtil.updateApkUpdate(context, 1, folder);
                 }
                 zipFile = jsonReceived.getString("folder_name");
                 String s = jsonReceived.getString("files");
@@ -121,7 +121,7 @@ public class CallFTP implements StringConstant {
                 for (String f : upFileList) {
                     TempDao.updateSyncTimer(sqliteDatabase);
                     File file = new File(dir, f);
-                    UploadModel model = new UploadModel(appContext, f, mTransferManager);
+                    UploadModel model = new UploadModel(context, f, mTransferManager);
                     model.upload();
 
                     while (!uploadComplete) {
@@ -161,10 +161,10 @@ public class CallFTP implements StringConstant {
             manualSync = sharedPref.getInt("manual_sync", 0);
             int updateApk = sharedPref.getInt("update_apk", 0);
             SharedPreferences.Editor editor = sharedPref.edit();
-            KeyguardManager km = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+            KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             boolean screenLocked = km.inKeyguardRestrictedInputMode();
             if (block != 2 && zipFile != "") {
-                new IntermediateDownloadTask(appContext, zipFile).execute();
+                new IntermediateDownloadTask(context, zipFile).execute();
             } else if (block == 2) {
                 editor.putInt("manual_sync", 0);
                 editor.putInt("tablet_lock", 2);
@@ -173,22 +173,22 @@ public class CallFTP implements StringConstant {
                 editor.putInt("manual_sync", 0);
                 editor.putInt("update_apk", 2);
                 editor.apply();
-                Intent intent = new Intent(appContext, in.teacher.activity.UpdateApk.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                appContext.startActivity(intent);
+                Intent intent = new Intent(context, in.teacher.activity.UpdateApk.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (manualSync == 1) {
                 editor.putInt("manual_sync", 0);
                 editor.apply();
-               // SharedPreferenceUtil.updateManualSync(appContext, 0);
-                Intent intent = new Intent(appContext, in.teacher.activity.LoginActivity.class);
+               // SharedPreferenceUtil.updateManualSync(context, 0);
+                Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                appContext.startActivity(intent);
+                context.startActivity(intent);
             } else if (screenLocked) {
-                Intent i = new Intent(appContext, in.teacher.activity.ProcessFiles.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                appContext.startActivity(i);
+                Intent i = new Intent(context, in.teacher.activity.ProcessFiles.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
             } else {
-                SharedPreferenceUtil.updateSleepSync(appContext, 1);
+                SharedPreferenceUtil.updateSleepSync(context, 1);
             }
         }
     }
