@@ -333,7 +333,8 @@ public class TextSms extends Fragment implements StringConstant {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
             for (Long id : idList) {
                 writer.write("insert into queue_transaction(SchoolId, Phone, Message, UserId, Role) " +
-                        "values(" + schoolId + ",'" + id + "','" + textSms.getText().toString().replaceAll("\n", "-") + "'," + teacherId + ", 'Teacher');");
+                        "values(" + schoolId + ",'" + id + "','" + textSms.getText().toString().replaceAll("\n", "-").replace("'", "\\'").replace("\"", "\\\"") +
+                        "'," + teacherId + ", 'Teacher');");
                 writer.newLine();
             }
             writer.close();
