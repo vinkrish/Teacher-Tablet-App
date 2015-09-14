@@ -46,6 +46,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class LoginActivity extends BaseActivity {
     private Context context;
     private boolean flag, tvflag, authflag;
@@ -109,8 +113,8 @@ public class LoginActivity extends BaseActivity {
         alertSync();
     }
 
-    private void checkSyncUpdate(){
-        if(!TeacherDao.isTeacherPresent(sqliteDatabase)){
+    private void checkSyncUpdate() {
+        if (!TeacherDao.isTeacherPresent(sqliteDatabase)) {
             SharedPreferences.Editor editr = sharedPref.edit();
             editr.putInt("newly_updated", 1);
             editr.apply();

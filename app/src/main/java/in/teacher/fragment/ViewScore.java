@@ -40,6 +40,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class ViewScore extends Fragment {
     private Context context;
     private Activity act;

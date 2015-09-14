@@ -51,6 +51,10 @@ import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class UpdateSubActivityMark extends Fragment {
     private Activity act;
     private Context context;
@@ -119,7 +123,9 @@ public class UpdateSubActivityMark extends Fragment {
 
         lv.setOnScrollListener(new OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {

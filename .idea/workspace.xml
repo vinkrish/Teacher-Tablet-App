@@ -25,10 +25,110 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Teacher" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a68048eb-9806-460d-bd90-f4e1b459db9c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/TextSms.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/TextSms.java" />
+    <list default="true" id="a68048eb-9806-460d-bd90-f4e1b459db9c" name="Default" comment="retain escape character in text sms">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/HwAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/layout/hw_list.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/ActivityProgress.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/ActivityProgress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/AnimationUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/AnimationUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/AppGlobal.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/AppGlobal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/AsecAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/AsecAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/AttGraph.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/AttGraph.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/AttendanceAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/AttendanceAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/BaseActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/BootSync.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/BootSync.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/CallFTP.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/CallFTP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/Capitalize.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/Capitalize.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/CoScholastic.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/CoScholastic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/CommonDialogUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/CommonDialogUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/DateTrackerModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/DateTrackerModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/DownloadModelTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/DownloadModelTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EditSlipTest.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EditSlipTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EnterSlipTestMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EnterSlipTestMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/EscCharacter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/EscCharacter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/ExamProgress.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/ExamProgress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ExceptionHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ExceptionHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/FirstTimeSync.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/FirstTimeSync.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/FirstTimeSyncParser.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/FirstTimeSyncParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/GradeAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/GradeAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HasPartition.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HasPartition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HomeworkView.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HomeworkView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/HomeworkViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/HomeworkViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/IntermediateDownloadTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/IntermediateDownloadTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/InternetBlock.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/InternetBlock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LockActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LockActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/MarksAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/MarksAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/MasterAuthentication.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/MasterAuthentication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/NavDrawerListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/NavDrawerListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/NetworkUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/NetworkUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ObservableScrollView.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ObservableScrollView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/PKGenerator.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/PKGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/PercentageSlipTest.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/PercentageSlipTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/QueueAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/QueueAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ReplaceFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ReplaceFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Restart.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Restart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SchoolId.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SchoolId.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SearchStAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SearchStAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAtt.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAtt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExam.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExam.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudST.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudST.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSTSub.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSTSub.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSubAct.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSubAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SelectCCEStudentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SelectCCEStudentProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ServerBlock.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ServerBlock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SharedPreferenceUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SharedPreferenceUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SlipTestAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SlipTestAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/SlipTestProgress.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/SlipTestProgress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlConstant.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlConstant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlDbHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlDbHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StSearchAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StSearchAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StructuredExam.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StructuredExam.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudActAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudActAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudExamAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudExamAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudExamSubAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudExamSubAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StudentClassSec.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StudentClassSec.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudentsSort.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/StudentsSort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SubActivityExam.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SubActivityExam.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/SubActivityProgress.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/SubActivityProgress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SwipeDismissListViewTouchListener.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SwipeDismissListViewTouchListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncService.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/TestInternetReceiver.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/TestInternetReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/UpdateApk.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/UpdateApk.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityGrade.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityGrade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/UploadError.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/UploadError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/UploadSyncParser.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/UploadSyncParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Util.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Util.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyHomework.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyHomework.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewQueue.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" afterPath="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Teacher.iws" />
@@ -56,7 +156,18 @@
     <favorites_list name="Teacher" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="AbsentList.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7407407">
+              <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -1495,57 +1606,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/verify_homework.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/adapter/SyncServiceReceiver.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dashboard_grid.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SlipTestMarkDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/SlipTesttDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/HomeworkDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyHomework.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlConstant.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/SlipTestProgress.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/PercentageSlipTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/StAvgDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/color.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/text_sms.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/hw_dialog.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/white_ok_popup_dialog.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StudentClassSec.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/StudentsDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/PKGenerator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/ReplaceFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SharedPreferenceUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SwipeDismissListViewTouchListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Util.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlConstant.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlDbHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/CoScholastic.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EditSlipTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HasPartition.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HomeworkView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EnterSlipTestMark.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamGrade.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAtt.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExam.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudST.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSubAct.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSTSub.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SelectCCEStudentProfile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StructuredExam.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StudentClassSec.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SubActivityExam.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityMark.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamGrade.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityGrade.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/CommonDialogUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/UploadError.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/CallFTP.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/dao/ExmAvgDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/SharedPreferenceUtil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/IntermediateDownloadTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/UpdateApk.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/TextSms.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewQueue.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyHomework.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java" />
       </list>
     </option>
   </component>
@@ -1587,92 +1698,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="teacher" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="in.teacher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Teacher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="in.teacher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sync" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1781,6 +1806,106 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="values" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="in.teacher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="in.teacher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sync" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="teacher" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2026,12 +2151,6 @@
       <created>1435290598792</created>
       <option name="number" value="Default" />
       <updated>1435290598792</updated>
-    </task>
-    <task id="LOCAL-00006" summary="red background for sync button is added which indicates there is data either in queue or file to be uploaded">
-      <created>1436708174281</created>
-      <option name="number" value="00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1436708174281</updated>
     </task>
     <task id="LOCAL-00007" summary="checking network condition before manual sync is added">
       <created>1436713463429</created>
@@ -2321,19 +2440,25 @@
       <option name="project" value="LOCAL" />
       <updated>1441792328336</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="retain escape character in text sms">
+      <created>1441808138509</created>
+      <option name="number" value="00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1441808138511</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32761088" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48612946" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3989432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32717678" sideWeight="0.50858366" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -2346,13 +2471,13 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24982105" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22603719" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32760897" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22603719" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32760897" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32761088" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3989432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2369,7 +2494,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="restructured exam for easy back navigation" />
     <MESSAGE value="subactivity added fro search student profile" />
     <MESSAGE value="before adding score field in search student" />
     <MESSAGE value="viewing marks in search student is added" />
@@ -2394,7 +2518,8 @@
     <MESSAGE value="new feature for class teacher - send sms to students of her class" />
     <MESSAGE value="view student bug for viewing regiestered students for respective subject" />
     <MESSAGE value="at version 1.2 and using ContentValues for uploadsql entry" />
-    <option name="LAST_COMMIT_MESSAGE" value="at version 1.2 and using ContentValues for uploadsql entry" />
+    <MESSAGE value="retain escape character in text sms" />
+    <option name="LAST_COMMIT_MESSAGE" value="retain escape character in text sms" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2403,351 +2528,310 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0">
-          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/hw_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8314088">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_insert_homework.xml">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/TempDao.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/PKGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="23" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/white_ok_popup_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.310345">
-          <caret line="27" column="41" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="174" column="49" selection-start-line="174" selection-start-column="42" selection-end-line="174" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dashbord.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.965517">
-          <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/mark_attendance.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.1785715">
-          <caret line="163" column="36" selection-start-line="163" selection-start-column="36" selection-end-line="163" selection-end-column="36" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/ReplaceFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="37" selection-start-line="82" selection-start-column="37" selection-end-line="82" selection-end-column="37" />
+          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/logo_icon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/logo_background.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/text_sms.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2078522">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/SharedPreferenceUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/StudentsDao.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/SwipeDismissListViewTouchListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="52" selection-start-line="64" selection-start-column="52" selection-end-line="64" selection-end-column="52" />
+          <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12345679">
+          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlDbHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12345679">
+          <caret line="9" column="3" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sqlite/SqlConstant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ActivityExam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="3" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/CoScholastic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="3" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4056#5118#0" expanded="false" />
+            <element signature="e#5117#5118#0" expanded="false" />
+            <element signature="e#5165#6467#0" expanded="false" />
+            <element signature="e#6466#6467#0" expanded="false" />
+            <element signature="e#23546#23547#0" expanded="false" />
+            <element signature="e#23590#23591#0" expanded="false" />
+            <element signature="e#24839#24840#0" expanded="false" />
+            <element signature="e#24895#24896#0" expanded="false" />
+            <element signature="e#24951#24952#0" expanded="false" />
+            <element signature="e#24995#24996#0" expanded="false" />
+            <element signature="e#25066#25067#0" expanded="false" />
+            <element signature="e#25110#25111#0" expanded="false" />
+            <element signature="e#26352#26353#0" expanded="false" />
+            <element signature="e#26387#26388#0" expanded="false" />
+            <element signature="e#26487#26488#0" expanded="false" />
+            <element signature="e#26522#26523#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EditSlipTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HasPartition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/HomeworkView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12345679">
+          <caret line="47" column="3" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/EnterSlipTestMark.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="381" column="56" selection-start-line="381" selection-start-column="56" selection-end-line="381" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.12345679">
+          <caret line="54" column="3" selection-start-line="54" selection-start-column="3" selection-end-line="54" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/Dashbord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12345679">
+          <caret line="52" column="3" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityGrade.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="329" column="44" selection-start-line="329" selection-start-column="44" selection-end-line="329" selection-end-column="44" />
+          <caret line="53" column="3" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12345679">
+          <caret line="54" column="3" selection-start-line="54" selection-start-column="3" selection-end-line="54" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCCEStudentProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertCoSchGrade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="3" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamGrade.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="318" column="60" selection-start-line="318" selection-start-column="60" selection-end-line="318" selection-end-column="60" />
+          <caret line="50" column="3" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="53" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertHomework.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityGrade.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="338" column="60" selection-start-line="338" selection-start-column="60" selection-end-line="338" selection-end-column="60" />
+          <caret line="56" column="3" selection-start-line="56" selection-start-column="3" selection-end-line="56" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertSubActivityMark.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60215056">
-          <caret line="564" column="0" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="3" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/MarkAttendance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="3" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
+          <folding>
+            <element signature="e#8547#8584#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="3" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudAtt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12345679">
+          <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExamSub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudExam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="3" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudST.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="3" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSubAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="3" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SearchStudSTSub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="3" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SelectCCEStudentProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SlipTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StructuredExam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/StudentClassSec.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="49" selection-start-line="84" selection-start-column="49" selection-end-line="84" selection-end-column="49" />
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityGrade.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/SubActivityExam.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="329" column="60" selection-start-line="329" selection-start-column="60" selection-end-line="329" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="470" column="60" selection-start-line="470" selection-start-column="60" selection-end-line="470" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamGrade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="316" column="60" selection-start-line="316" selection-start-column="60" selection-end-line="316" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="371" column="56" selection-start-line="371" selection-start-column="56" selection-end-line="371" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityGrade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="331" column="60" selection-start-line="331" selection-start-column="60" selection-end-line="331" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="544" column="60" selection-start-line="544" selection-start-column="60" selection-end-line="544" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/CommonDialogUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="74" column="75" selection-start-line="74" selection-start-column="75" selection-end-line="74" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/Dashboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29220778">
-          <caret line="384" column="67" selection-start-line="384" selection-start-column="67" selection-end-line="384" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/FirstTimeSync.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.1730769">
-          <caret line="104" column="45" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/DownloadModelTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9014423">
-          <caret line="224" column="43" selection-start-line="224" selection-start-column="36" selection-end-line="224" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/UploadError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32921812">
-          <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08230453">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/PercentageSlipTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21505377">
-          <caret line="14" column="59" selection-start-line="14" selection-start-column="59" selection-end-line="14" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/ExmAvgDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4408602">
-          <caret line="159" column="125" selection-start-line="159" selection-start-column="125" selection-end-line="159" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/ExamProgress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47311828">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/IntermediateDownloadTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24691358">
-          <caret line="65" column="85" selection-start-line="65" selection-start-column="85" selection-end-line="65" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1375464">
-          <caret line="213" column="44" selection-start-line="213" selection-start-column="44" selection-end-line="213" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/dao/MarksDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57992566">
-          <caret line="104" column="12" selection-start-line="104" selection-start-column="12" selection-end-line="106" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertExamMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.85873604">
-          <caret line="263" column="37" selection-start-line="263" selection-start-column="37" selection-end-line="263" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/InsertActivityMark.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.491735">
-          <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/SharedPreferenceUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.5">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/ProcessFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.27272728">
-          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/UpdateApk.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11622276">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/CallFTP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.0568181">
-          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/activity/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75">
-          <caret line="66" column="55" selection-start-line="66" selection-start-column="55" selection-end-line="66" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/SlipTestProgress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
+          <caret line="53" column="3" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -2755,23 +2839,119 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/TextSms.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="335" column="158" selection-start-line="335" selection-start-column="158" selection-end-line="335" selection-end-column="158" />
+          <caret line="66" column="55" selection-start-line="66" selection-start-column="55" selection-end-line="66" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/sync/StringConstant.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityMark.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18518518">
-          <caret line="9" column="119" selection-start-line="9" selection-start-column="119" selection-end-line="9" selection-end-column="119" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="3" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/util/Constants.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateActivityGrade.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22633745">
-          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="3" selection-start-line="54" selection-start-column="3" selection-end-line="54" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCEStudentProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateCCSGrade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="3" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamGrade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateExamMark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="3" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSlipTestMark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityGrade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/UpdateSubActivityMark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyAttendance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="3" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/VerifyHomework.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/ViewScore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.6008232">
+          <caret line="44" column="3" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/teacher/fragment/AbsentList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7407407">
+          <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
           <folding />
         </state>
       </provider>

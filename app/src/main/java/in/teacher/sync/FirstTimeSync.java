@@ -8,6 +8,7 @@ import in.teacher.util.AppGlobal;
 import in.teacher.util.SharedPreferenceUtil;
 
 import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,99 +19,103 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class FirstTimeSync implements StringConstant{
-	private ProgressDialog pDialog;
-	private SqlDbHelper sqlHandler;
-	private String deviceId, zipFile;
-	private Context context;
-	private int schoolId, block;
-	private SQLiteDatabase sqliteDatabase;
+/**
+ * Created by vinkrish.
+ */
 
-	public FirstTimeSync(){
-		context = AppGlobal.getActivity();
-		sqlHandler = AppGlobal.getSqlDbHelper();
-		sqliteDatabase = AppGlobal.getSqliteDatabase();
-		pDialog = new ProgressDialog(context);
-	}
+public class FirstTimeSync implements StringConstant {
+    private ProgressDialog pDialog;
+    private SqlDbHelper sqlHandler;
+    private String deviceId, zipFile;
+    private Context context;
+    private int schoolId, block;
+    private SQLiteDatabase sqliteDatabase;
 
-	private class RunFirstTimeSync extends AsyncTask<Void, String, Void>{
+    public FirstTimeSync() {
+        context = AppGlobal.getActivity();
+        sqlHandler = AppGlobal.getSqlDbHelper();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+        pDialog = new ProgressDialog(context);
+    }
 
-		protected void onPreExecute(){
-			super.onPreExecute();
-			pDialog.setMessage("Downloading/Processing File ...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.setMax(100);
-			pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			pDialog.show();
-		}
+    private class RunFirstTimeSync extends AsyncTask<Void, String, Void> {
 
-		@Override
-		protected void onProgressUpdate(String... progress) {
-			pDialog.setProgress(Integer.parseInt(progress[0]));
-		}
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Downloading/Processing File ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.setMax(100);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            pDialog.show();
+        }
 
-		@Override
-		protected Void doInBackground(Void... params) {
-			sqlHandler.removeIndex(sqliteDatabase);
-			sqlHandler.dropTrigger(sqliteDatabase);
+        @Override
+        protected void onProgressUpdate(String... progress) {
+            pDialog.setProgress(Integer.parseInt(progress[0]));
+        }
 
-			Temp t = TempDao.selectTemp(sqliteDatabase);
-			deviceId = t.getDeviceId();
+        @Override
+        protected Void doInBackground(Void... params) {
+            sqlHandler.removeIndex(sqliteDatabase);
+            sqlHandler.dropTrigger(sqliteDatabase);
 
-			publishProgress("10");
+            Temp t = TempDao.selectTemp(sqliteDatabase);
+            deviceId = t.getDeviceId();
 
-			JSONObject ack_json = new JSONObject();
-			try{
-				ack_json.put("tab_id", deviceId);
-				JSONObject jsonReceived = FirstTimeSyncParser.makePostRequest(request_first_time_sync, ack_json);
-				block = jsonReceived.getInt(TAG_SUCCESS);
+            publishProgress("10");
 
-				publishProgress("25");
+            JSONObject ack_json = new JSONObject();
+            try {
+                ack_json.put("tab_id", deviceId);
+                JSONObject jsonReceived = FirstTimeSyncParser.makePostRequest(request_first_time_sync, ack_json);
+                block = jsonReceived.getInt(TAG_SUCCESS);
 
-				schoolId = jsonReceived.getInt("schoolId");
-				TempDao.updateSchoolId(schoolId, sqliteDatabase);
-				zipFile = jsonReceived.getString("folder_name");
-				String s = jsonReceived .getString("file_names");
-				String[] sArray = s.split(",");
-				for(String split: sArray){
-					sqlHandler.insertDownloadedFile(split, sqliteDatabase);
-				}
-			}catch(JSONException e){
-				e.printStackTrace();
-			}catch(IOException e){
-				e.printStackTrace();
-			}
+                publishProgress("25");
 
-			if(block==1){
-				SharedPreferenceUtil.updateTabletLock(context, 0);
-				UploadSqlDao.deleteTable("locked", sqliteDatabase);
-			}
+                schoolId = jsonReceived.getInt("schoolId");
+                TempDao.updateSchoolId(schoolId, sqliteDatabase);
+                zipFile = jsonReceived.getString("folder_name");
+                String s = jsonReceived.getString("file_names");
+                String[] sArray = s.split(",");
+                for (String split : sArray) {
+                    sqlHandler.insertDownloadedFile(split, sqliteDatabase);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-			if(block!=2){
-				publishProgress("50");
+            if (block == 1) {
+                SharedPreferenceUtil.updateTabletLock(context, 0);
+                UploadSqlDao.deleteTable("locked", sqliteDatabase);
+            }
 
-				sqliteDatabase.execSQL("DROP TABLE IF EXISTS sliptestmark_"+schoolId);
-				sqliteDatabase.execSQL("CREATE TABLE sliptestmark_"+schoolId+"(SchoolId INTEGER, ClassId INTEGER, SectionId INTEGER, SubjectId INTEGER, NewSubjectId INTEGER," +
-						" SlipTestId INTEGER, StudentId INTEGER, Mark TEXT, DateTimeRecordInserted DATETIME, PRIMARY KEY(SlipTestId, StudentId))");
-			}
-			
-			return null;
-		}
+            if (block != 2) {
+                publishProgress("50");
 
-		protected void onPostExecute(Void v){
-			super.onPostExecute(v);
-			pDialog.dismiss();
-			if(block!=2 && zipFile!=""){
-				new DownloadModelTask(context, zipFile).execute();
-			}
-		}
-	}
+                sqliteDatabase.execSQL("DROP TABLE IF EXISTS sliptestmark_" + schoolId);
+                sqliteDatabase.execSQL("CREATE TABLE sliptestmark_" + schoolId + "(SchoolId INTEGER, ClassId INTEGER, SectionId INTEGER, SubjectId INTEGER, NewSubjectId INTEGER," +
+                        " SlipTestId INTEGER, StudentId INTEGER, Mark TEXT, DateTimeRecordInserted DATETIME, PRIMARY KEY(SlipTestId, StudentId))");
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            pDialog.dismiss();
+            if (block != 2 && zipFile != "") {
+                new DownloadModelTask(context, zipFile).execute();
+            }
+        }
+    }
 
 
-	public void callFirstTimeSync(){
-		sqlHandler.deleteTables(sqliteDatabase);
-		new RunFirstTimeSync().execute();
-	}
+    public void callFirstTimeSync() {
+        sqlHandler.deleteTables(sqliteDatabase);
+        new RunFirstTimeSync().execute();
+    }
 
 }

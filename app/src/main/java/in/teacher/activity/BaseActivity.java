@@ -4,6 +4,10 @@ import in.teacher.util.AppGlobal;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class BaseActivity extends FragmentActivity {
 	
 	@Override

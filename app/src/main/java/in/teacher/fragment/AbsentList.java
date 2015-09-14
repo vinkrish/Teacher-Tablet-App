@@ -44,70 +44,74 @@ import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.TextView;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class AbsentList extends Fragment {
-	private List<Students> studentsArray = new ArrayList<>();
-	private ArrayList<Students> studentsArrayGrid =  new ArrayList<>();
-	private AttendanceAdapter attendanceAdapter;
-	private static Activity act;
-	private SQLiteDatabase sqliteDatabase;
-	private int classId, sectionId;
-	private static String otherdate;
-	private static boolean absentListFlag;
-	private static Button otherdayButton, yesterdayButton, todayButton;
-	private TextView noAbsentees,ptTV;
+    private List<Students> studentsArray = new ArrayList<>();
+    private ArrayList<Students> studentsArrayGrid = new ArrayList<>();
+    private AttendanceAdapter attendanceAdapter;
+    private static Activity act;
+    private SQLiteDatabase sqliteDatabase;
+    private int classId, sectionId;
+    private static String otherdate;
+    private static boolean absentListFlag;
+    private static Button otherdayButton, yesterdayButton, todayButton;
+    private TextView noAbsentees, ptTV;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState){
-		
-		View view = inflater.inflate(R.layout.absent_list, container, false);
-		act = AppGlobal.getActivity();
-		Context context = AppGlobal.getContext();
-		sqliteDatabase = AppGlobal.getSqliteDatabase();
-		
-		clearList();
-		
-		noAbsentees = (TextView)view.findViewById(R.id.noAbsentee);
-		todayButton = (Button)view.findViewById(R.id.today);
-		yesterdayButton = (Button)view.findViewById(R.id.yesterday);
-		otherdayButton = (Button)view.findViewById(R.id.otherday);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-		Temp t = TempDao.selectTemp(sqliteDatabase);
-		classId = t.getClassId();
-		sectionId = t.getSectionId();
+        View view = inflater.inflate(R.layout.absent_list, container, false);
+        act = AppGlobal.getActivity();
+        Context context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+
+        clearList();
+
+        noAbsentees = (TextView) view.findViewById(R.id.noAbsentee);
+        todayButton = (Button) view.findViewById(R.id.today);
+        yesterdayButton = (Button) view.findViewById(R.id.yesterday);
+        otherdayButton = (Button) view.findViewById(R.id.otherday);
+
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        classId = t.getClassId();
+        sectionId = t.getSectionId();
 
         todayButton.setOnClickListener(todayAbsentees);
         yesterdayButton.setOnClickListener(yesterdayAbsentees);
         otherdayButton.setOnClickListener(otherdayAbsentees);
 
-		ptTV = (TextView) view.findViewById(R.id.absentList);
-		if(classId==0){
-			ptTV.setText("Not a class teacher.");
-		}
+        ptTV = (TextView) view.findViewById(R.id.absentList);
+        if (classId == 0) {
+            ptTV.setText("Not a class teacher.");
+        }
 
-		GridView gridView = (GridView) view.findViewById(R.id.gridView);
-		attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
-		gridView.setAdapter(attendanceAdapter);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
+        attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
+        gridView.setAdapter(attendanceAdapter);
 
         Bundle b = getArguments();
-		int today = b.getInt("today");
-		int yesterday = b.getInt("yesterday");
-		int otherday = b.getInt("otherday");
-		if(today == 1){
-			todayButton.performClick();
-		}else if(yesterday == 1){
-			yesterdayButton.performClick();
-		}else if(otherday == 1){
-			otherdayButton.performClick();
-		}
-		
-		return view;
-	}
-	
-	private void clearList(){
-		studentsArray.clear();
-		studentsArrayGrid.clear();
-	}
+        int today = b.getInt("today");
+        int yesterday = b.getInt("yesterday");
+        int otherday = b.getInt("otherday");
+        if (today == 1) {
+            todayButton.performClick();
+        } else if (yesterday == 1) {
+            yesterdayButton.performClick();
+        } else if (otherday == 1) {
+            otherdayButton.performClick();
+        }
+
+        return view;
+    }
+
+    private void clearList() {
+        studentsArray.clear();
+        studentsArrayGrid.clear();
+    }
 
     private View.OnClickListener todayAbsentees = new View.OnClickListener() {
         @Override
@@ -119,22 +123,22 @@ public class AbsentList extends Fragment {
             studentsArray.clear();
             boolean flag = false;
             int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, getDate(), sqliteDatabase);
-            if(marked==1){
+            if (marked == 1) {
                 flag = true;
             }
-            if(flag){
+            if (flag) {
                 String today = getToday();
                 //	List<Integer> studentIdList = sqlHandler.selectStudentIds(today, sectionId);
                 List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(today, sectionId, sqliteDatabase);
-                if(!studentIdList.isEmpty()){
+                if (!studentIdList.isEmpty()) {
                     studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
                     Collections.sort(studentsArray, new StudentsSort());
-                }else{
+                } else {
                     noAbsentees.setText("No Absentees");
                     noAbsentees.setVisibility(View.VISIBLE);
                 }
                 populateGridArray();
-            }else{
+            } else {
                 ReplaceFragment.replace(new MarkAttendance(), getFragmentManager());
             }
         }
@@ -152,18 +156,18 @@ public class AbsentList extends Fragment {
 
             boolean flag = false;
             int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, yesterday, sqliteDatabase);
-            if(marked==1){
+            if (marked == 1) {
                 flag = true;
             }
-            if(flag){
+            if (flag) {
                 List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(yesterday, sectionId, sqliteDatabase);
-                if(!studentIdList.isEmpty()){
+                if (!studentIdList.isEmpty()) {
                     studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
                     Collections.sort(studentsArray, new StudentsSort());
-                }else{
+                } else {
                     noAbsentees.setVisibility(View.VISIBLE);
                 }
-            }else{
+            } else {
                 noAbsentees.setText("Attendance is not taken for this day");
                 noAbsentees.setVisibility(View.VISIBLE);
             }
@@ -179,107 +183,108 @@ public class AbsentList extends Fragment {
             yesterdayButton.setActivated(false);
             otherdayButton.setActivated(true);
             studentsArray.clear();
-            if(absentListFlag){
+            if (absentListFlag) {
                 boolean flag = false;
                 int marked = StudentAttendanceDao.isStudentAttendanceMarked(sectionId, otherdate, sqliteDatabase);
-                if(marked==1){
+                if (marked == 1) {
                     flag = true;
                 }
-                if(flag){
+                if (flag) {
                     List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(otherdate, sectionId, sqliteDatabase);
-                    if(!studentIdList.isEmpty()){
+                    if (!studentIdList.isEmpty()) {
                         studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
                         Collections.sort(studentsArray, new StudentsSort());
-                    }else{
+                    } else {
                         noAbsentees.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     noAbsentees.setText("Attendance is not taken for this day");
                     noAbsentees.setVisibility(View.VISIBLE);
                 }
                 populateGridArray();
-            }else{
+            } else {
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         }
     };
 
-	
-	private String getYesterday() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.add( Calendar.DAY_OF_YEAR, -1);
-		Date yesterday = cal.getTime();
-		return dateFormat.format(yesterday);
-	}
-	private String getToday() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		Date today = new Date();
-		return dateFormat.format(today);
-	}
 
-	private void populateGridArray() {
-		if(classId!=0){
-			String clasName = ClasDao.getClassName(classId, sqliteDatabase);
-			String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
-			ptTV.setText(clasName+" - "+secName+"  "+getResources().getString(R.string.al));
-		}
-		absentListFlag = false;
-		studentsArrayGrid.clear();
-		Bitmap attendYes = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
-		for(Students s: studentsArray){
-			studentsArrayGrid.add(new Students(s.getRollNoInClass(),Capitalize.capitalThis(s.getName()),attendYes));
-		}
-		attendanceAdapter.notifyDataSetChanged();
-	}
+    private String getYesterday() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -1);
+        Date yesterday = cal.getTime();
+        return dateFormat.format(yesterday);
+    }
 
-	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			final Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
-			int day = c.get(Calendar.DAY_OF_MONTH);
-			return new DatePickerDialog(getActivity(), this, year, month, day);
-		}
+    private String getToday() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date today = new Date();
+        return dateFormat.format(today);
+    }
 
-		@Override
-		public void onDateSet(DatePicker view, int year, int month, int day) {
-			/*Date d = null;
+    private void populateGridArray() {
+        if (classId != 0) {
+            String clasName = ClasDao.getClassName(classId, sqliteDatabase);
+            String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
+            ptTV.setText(clasName + " - " + secName + "  " + getResources().getString(R.string.al));
+        }
+        absentListFlag = false;
+        studentsArrayGrid.clear();
+        Bitmap attendYes = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
+        for (Students s : studentsArray) {
+            studentsArrayGrid.add(new Students(s.getRollNoInClass(), Capitalize.capitalThis(s.getName()), attendYes));
+        }
+        attendanceAdapter.notifyDataSetChanged();
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            /*Date d = null;
 			try {
 				d = dateFormat.parse(new StringBuilder().append(year).append("-").append(month + 1).append("-").append(day).toString());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}*/
 
-			if(view.isShown()){
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-				Calendar cal = GregorianCalendar.getInstance();
-				cal.set(year,month,day);
-				Date d = cal.getTime();
-				if(GregorianCalendar.getInstance().get(Calendar.YEAR)<cal.get(Calendar.YEAR)){
-					CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
-				}else if(GregorianCalendar.getInstance().get(Calendar.MONTH)<cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
-					CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
-				}else if(GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH)<cal.get(Calendar.DAY_OF_MONTH) && 
-						GregorianCalendar.getInstance().get(Calendar.MONTH)<=cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
-					CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
-				}else if(Calendar.SUNDAY==cal.get(Calendar.DAY_OF_WEEK)){
-					CommonDialogUtils.displayAlertWhiteDialog(act, "Sundays are not working days");
-				}else{
-					otherdate = dateFormat.format(d);
-					absentListFlag = true;
-					otherdayButton.performClick();
-				}
-			}
-		}
-	}
-	
-	private String getDate() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
+            if (view.isShown()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                Calendar cal = GregorianCalendar.getInstance();
+                cal.set(year, month, day);
+                Date d = cal.getTime();
+                if (GregorianCalendar.getInstance().get(Calendar.YEAR) < cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
+                } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
+                } else if (GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH) < cal.get(Calendar.DAY_OF_MONTH) &&
+                        GregorianCalendar.getInstance().get(Calendar.MONTH) <= cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
+                } else if (Calendar.SUNDAY == cal.get(Calendar.DAY_OF_WEEK)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(act, "Sundays are not working days");
+                } else {
+                    otherdate = dateFormat.format(d);
+                    absentListFlag = true;
+                    otherdayButton.performClick();
+                }
+            }
+        }
+    }
+
+    private String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 
 }

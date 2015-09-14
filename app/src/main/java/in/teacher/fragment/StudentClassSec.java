@@ -1,6 +1,5 @@
 package in.teacher.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,7 +28,11 @@ import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 
-public class StudentClassSec extends Fragment{
+/**
+ * Created by vinkrish.
+ */
+
+public class StudentClassSec extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private String subjectName, teacherName;
@@ -48,8 +51,8 @@ public class StudentClassSec extends Fragment{
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
-        name = (Button)view.findViewById(R.id.teacherName);
-        clasSecSubTv = (TextView)view.findViewById(R.id.headerClasSecSub);
+        name = (Button) view.findViewById(R.id.teacherName);
+        clasSecSubTv = (TextView) view.findViewById(R.id.headerClasSecSub);
 
         clearList();
 
@@ -65,9 +68,9 @@ public class StudentClassSec extends Fragment{
         teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
         StringBuilder exmName = new StringBuilder();
         exmName.append(className).append("-").append(sectionName).append("    ").append(subjectName);
-        if(teacherName.length()>11){
-            name.setText(teacherName.substring(0, 9)+"...");
-        }else{
+        if (teacherName.length() > 11) {
+            name.setText(teacherName.substring(0, 9) + "...");
+        } else {
             name.setText(teacherName);
         }
         clasSecSubTv.setText(exmName);
@@ -81,20 +84,20 @@ public class StudentClassSec extends Fragment{
         return view;
     }
 
-    private void updateListView(){
+    private void updateListView() {
         List<Students> studentList = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
-        for(Students s: studentList){
+        for (Students s : studentList) {
             studIDList.add(s.getStudentId());
             studentIdList.add(s.getRollNoInClass());
             studentNameList.add(s.getName());
         }
         amrList.clear();
-        for(int i=0; i<studentList.size(); i++){
-            amrList.add(new Amr(studentIdList.get(i)+"",studentNameList.get(i)));
+        for (int i = 0; i < studentList.size(); i++) {
+            amrList.add(new Amr(studentIdList.get(i) + "", studentNameList.get(i)));
         }
     }
 
-    private void clearList(){
+    private void clearList() {
         studentIdList.clear();
         studentNameList.clear();
         studIDList.clear();

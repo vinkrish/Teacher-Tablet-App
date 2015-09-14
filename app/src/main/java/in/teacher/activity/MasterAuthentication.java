@@ -20,6 +20,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class MasterAuthentication extends BaseActivity {
     private TextView adminUser, adminPass, deviceId;
     private boolean tvflag, authflag;

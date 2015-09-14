@@ -37,6 +37,10 @@ import in.teacher.util.Constants;
 import in.teacher.util.SharedPreferenceUtil;
 import in.teacher.util.Util;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class UpdateApk extends BaseActivity {
     private SharedPreferences sharedPref;
     private ProgressDialog pDialog;
@@ -76,7 +80,7 @@ public class UpdateApk extends BaseActivity {
 
         public ApkDownloadTask(Context context, String fName) {
             this.context = context;
-            this.fileName = "download/"+apkFolder +"/"+ fName;
+            this.fileName = "download/" + apkFolder + "/" + fName;
         }
 
         protected void onPreExecute() {
@@ -99,7 +103,7 @@ public class UpdateApk extends BaseActivity {
             while (!downloadCompleted)
                 Log.d("download", "...");
 
-            if(!exception)
+            if (!exception)
                 unZipIt("teacher.zip");
 
             return null;
@@ -110,7 +114,7 @@ public class UpdateApk extends BaseActivity {
             super.onPostExecute(s);
             pDialog.dismiss();
 
-            if(!exception){
+            if (!exception) {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putInt("apk_update", 0);
                 editor.putInt("update_apk", 0);
@@ -177,13 +181,16 @@ public class UpdateApk extends BaseActivity {
             }
 
             @Override
-            public void abort() {}
+            public void abort() {
+            }
 
             @Override
-            public void pause() {}
+            public void pause() {
+            }
 
             @Override
-            public void resume() {}
+            public void resume() {
+            }
         }
 
     }
@@ -222,7 +229,7 @@ public class UpdateApk extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
     }
 

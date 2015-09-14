@@ -30,14 +30,18 @@ import in.teacher.sqlite.Clas;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class CommonDialogUtils {
 
     public static Dialog displayAlertWhiteDialog(Activity activity, String dialogBody) {
-        final Dialog dialog = new Dialog(activity,R.style.DialogSlideAnim);
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.white_ok_popup_dialog);
-        if(dialogBody != null)
+        if (dialogBody != null)
             ((TextView) dialog.findViewById(R.id.alertText)).setText(dialogBody);
         ((Button) dialog.findViewById(R.id.ok_button)).setOnClickListener(new OnClickListener() {
             @Override
@@ -57,8 +61,8 @@ public class CommonDialogUtils {
         return dialog;
     }
 
-    public static Dialog displayDashbordSelector(final Activity activity, final SQLiteDatabase sqliteDatabase){
-        final Dialog dialog = new Dialog(activity,R.style.DialogSlideAnim);
+    public static Dialog displayDashbordSelector(final Activity activity, final SQLiteDatabase sqliteDatabase) {
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dashbord_selector);
@@ -66,17 +70,17 @@ public class CommonDialogUtils {
         String className = ClasDao.getClassName(temp.getCurrentClass(), sqliteDatabase);
         String sectionName = SectionDao.getSectionName(temp.getCurrentSection(), sqliteDatabase);
         String subjectName = SubjectsDao.getSubjectName(temp.getSubjectId(), sqliteDatabase);
-        ((TextView)dialog.findViewById(R.id.classSectionSubject)).setText(className + " - " + sectionName + "  " + subjectName);
+        ((TextView) dialog.findViewById(R.id.classSectionSubject)).setText(className + " - " + sectionName + "  " + subjectName);
         dialog.findViewById(R.id.es).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 Temp temp = TempDao.selectTemp(sqliteDatabase);
                 List<Students> studentsArray = StudentsDao.selectStudents2(temp.getCurrentSection(), temp.getCurrentSubject(), sqliteDatabase);
-                if(studentsArray.size()>0){
+                if (studentsArray.size() > 0) {
                     SlipTesttDao.deleteSlipTest(sqliteDatabase);
                     ReplaceFragment.replace(new SlipTest(), activity.getFragmentManager());
-                }else{
+                } else {
                     Toast.makeText(activity, "No students taken this subject", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -94,14 +98,14 @@ public class CommonDialogUtils {
             public void onClick(View v) {
                 dialog.dismiss();
                 int partition = SharedPreferenceUtil.getPartition(activity);
-                if(partition==1){
+                if (partition == 1) {
                     ReplaceFragment.replace(new HasPartition(), activity.getFragmentManager());
-                }else{
+                } else {
                     ReplaceFragment.replace(new StructuredExam(), activity.getFragmentManager());
                 }
             }
         });
-        dialog.findViewById(R.id.view_students).setOnClickListener(new OnClickListener(){
+        dialog.findViewById(R.id.view_students).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

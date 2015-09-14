@@ -47,6 +47,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class ActivityExam extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private int sectionId, classId, subjectId, examId;

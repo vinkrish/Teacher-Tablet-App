@@ -20,6 +20,10 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class FirstTimeSyncParser {
     private static InputStream is = null;
     private static JSONObject jObj = null;

@@ -34,6 +34,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class SearchStudExamSub extends Fragment {
     private Context context;
     private int studentId, sectionId, examId;
@@ -201,8 +205,8 @@ public class SearchStudExamSub extends Fragment {
                     if (avg != 0) {
                         int score = MarksDao.getStudExamMark(studentId, sub, examId, sqliteDatabase);
                         int maxScore = MarksDao.getExamMaxMark(sub, examId, sqliteDatabase);
-                        scoreList.add(score+"/"+maxScore);
-                    }else{
+                        scoreList.add(score + "/" + maxScore);
+                    } else {
                         scoreList.add("-");
                     }
                     progressList1.add(avg);

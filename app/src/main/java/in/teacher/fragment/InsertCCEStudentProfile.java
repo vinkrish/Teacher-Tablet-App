@@ -36,6 +36,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Created by vinkrish.
+ */
+
 @SuppressLint("InflateParams")
 public class InsertCCEStudentProfile extends Fragment {
     private Activity act;
@@ -253,8 +257,8 @@ public class InsertCCEStudentProfile extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String s = edListChild.getText().toString();
-                    if(s.endsWith(".")){
-                        s = s.substring(0, s.length()-1);
+                    if (s.endsWith(".")) {
+                        s = s.substring(0, s.length() - 1);
                     }
                     if (!s.equals("") && !s.equals(".")) {
                         Profile prof = new Profile(studentsArray.get(position).getStudentId(), studentsArray.get(position).getRollNoInClass() + "", studentsArray.get(position).getName(),

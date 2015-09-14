@@ -35,6 +35,10 @@ import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.util.Log;
 
+/**
+ * Created by vinkrish.
+ */
+
 @SuppressWarnings("deprecation")
 public class CallFTP implements StringConstant {
     private SqlDbHelper sqlHandler;
@@ -84,7 +88,7 @@ public class CallFTP implements StringConstant {
                 Log.d("get_file_res", "1");
                 block = jsonReceived.getInt(TAG_SUCCESS);
                 Log.d("block", block + "");
-                if(jsonReceived.getInt("update") == 1){
+                if (jsonReceived.getInt("update") == 1) {
                     String folder = jsonReceived.getString("version");
                     SharedPreferenceUtil.updateApkUpdate(context, 1, folder);
                 }
@@ -179,7 +183,7 @@ public class CallFTP implements StringConstant {
             } else if (manualSync == 1) {
                 editor.putInt("manual_sync", 0);
                 editor.apply();
-               // SharedPreferenceUtil.updateManualSync(context, 0);
+                // SharedPreferenceUtil.updateManualSync(context, 0);
                 Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);

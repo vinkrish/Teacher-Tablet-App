@@ -46,6 +46,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class MarkAttendance extends Fragment {
     private List<Students> studentsArray = new ArrayList<>();
     private ArrayList<Students> studentsArrayGrid = new ArrayList<>();

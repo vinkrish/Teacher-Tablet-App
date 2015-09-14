@@ -14,6 +14,10 @@ import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class StudExamSubAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Amr> data = new ArrayList<>();
@@ -41,9 +45,7 @@ public class StudExamSubAdapter extends BaseAdapter {
             holder.pb2 = (ProgressBar) row.findViewById(R.id.avgProgress2);
             holder.percentage2 = (TextView) row.findViewById(R.id.percent2);
             row.setTag(holder);
-        } else {
-            holder = (RecordHolder) row.getTag();
-        }
+        } else holder = (RecordHolder) row.getTag();
 
         if (position % 2 == 0)
             row.setBackgroundResource(R.drawable.list_selector1);

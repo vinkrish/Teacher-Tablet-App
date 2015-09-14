@@ -5,6 +5,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     private static SqlDbHelper dbHelper;
     public SQLiteDatabase sqliteDatabase;

@@ -13,45 +13,50 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class ServerBlock extends BaseActivity {
-	private Button butResolve;
+    private Button butResolve;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_server_block);
-		
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		
-		butResolve = (Button)findViewById(R.id.butResolve);
-		resolveClicked(butResolve);
-	}
-	
-	public void resolveClicked(View view){
-		SharedPreferenceUtil.updateFirstSync(this, 1);
-		if(NetworkUtils.isNetworkConnected(ServerBlock.this)){
-			new FirstTimeSync().callFirstTimeSync();
-		}
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_server_block);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.server_block, menu);
-		return true;
-	}
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return super.onOptionsItemSelected(item);
-	}
-	
-	@Override
-	protected void onDestroy(){
-		super.onDestroy();
-		SharedPreferenceUtil.updateFirstSync(this, 0);
-	}
-	
-	@Override
-	public void onBackPressed(){}
+        butResolve = (Button) findViewById(R.id.butResolve);
+        resolveClicked(butResolve);
+    }
+
+    public void resolveClicked(View view) {
+        SharedPreferenceUtil.updateFirstSync(this, 1);
+        if (NetworkUtils.isNetworkConnected(ServerBlock.this)) {
+            new FirstTimeSync().callFirstTimeSync();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.server_block, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferenceUtil.updateFirstSync(this, 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+    }
 }

@@ -12,14 +12,18 @@ import java.util.List;
 
 import in.teacher.activity.R;
 
-public class GradeAdapter extends BaseAdapter{
+/**
+ * Created by vinkrish.
+ */
+
+public class GradeAdapter extends BaseAdapter {
 
     private List<String> data = new ArrayList<>();
     private LayoutInflater inflater = null;
 
     public GradeAdapter(Context context, List<String> gridArray) {
         this.data = gridArray;
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -32,8 +36,7 @@ public class GradeAdapter extends BaseAdapter{
             holder = new RecordHolder();
             holder.gradeBut = (TextView) row.findViewById(R.id.grade_button);
             row.setTag(holder);
-        }else
-            holder = (RecordHolder) row.getTag();
+        } else holder = (RecordHolder) row.getTag();
 
         String gridItem = data.get(position);
         holder.gradeBut.setText(gridItem);

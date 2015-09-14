@@ -49,6 +49,10 @@ import in.teacher.util.AppGlobal;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class InsertActivityGrade extends Fragment {
     private Activity activity;
     private Context context;
@@ -86,7 +90,7 @@ public class InsertActivityGrade extends Fragment {
         lv.setAdapter(marksAdapter);
 
         gradeAdapter = new GradeAdapter(context, gradeList);
-        GridView gridView = (GridView)view.findViewById(R.id.gridView);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
         gridView.setAdapter(gradeAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -135,7 +139,7 @@ public class InsertActivityGrade extends Fragment {
         return view;
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         clasSecSub = (TextView) view.findViewById(R.id.clasSecSub);
         empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
         entered = BitmapFactory.decodeResource(this.getResources(), R.drawable.indicator);
@@ -166,7 +170,7 @@ public class InsertActivityGrade extends Fragment {
         });
     }
 
-    private void initButton(){
+    private void initButton() {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -334,7 +338,7 @@ public class InsertActivityGrade extends Fragment {
                 studentIndicate.add(false);
 
             List<GradesClassWise> gcwList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
-            for(GradesClassWise gcw: gcwList)
+            for (GradesClassWise gcw : gcwList)
                 gradeList.add(gcw.getGrade());
 
             return null;

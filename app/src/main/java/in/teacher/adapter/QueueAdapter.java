@@ -15,61 +15,64 @@ import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class QueueAdapter extends BaseAdapter{
-	private ArrayList<UploadSql> data = new ArrayList<UploadSql>();
-	private LayoutInflater inflater = null;
+/**
+ * Created by vinkrish.
+ */
 
-	public QueueAdapter(Context context, ArrayList<UploadSql> listArray) {
-		this.data = listArray;
-		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
+public class QueueAdapter extends BaseAdapter {
+    private ArrayList<UploadSql> data = new ArrayList<>();
+    private LayoutInflater inflater = null;
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View row = convertView;
-		RecordHolder holder = null;
+    public QueueAdapter(Context context, ArrayList<UploadSql> listArray) {
+        this.data = listArray;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
-		if (row == null) {
-			row = inflater.inflate( R.layout.queue_list, parent, false);
-			holder = new RecordHolder();
-			holder.txtQuery = (TextView) row.findViewById(R.id.tableQuery);
-			row.setTag(holder);
-		}else
-			holder = (RecordHolder) row.getTag();
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View row = convertView;
+        RecordHolder holder;
 
-		if(position % 2 == 0)
-			row.setBackgroundColor(Color.rgb(255, 255, 255));
-		else
-			row.setBackgroundColor(Color.rgb(237, 239, 242));
+        if (row == null) {
+            row = inflater.inflate(R.layout.queue_list, parent, false);
+            holder = new RecordHolder();
+            holder.txtQuery = (TextView) row.findViewById(R.id.tableQuery);
+            row.setTag(holder);
+        } else holder = (RecordHolder) row.getTag();
 
-		UploadSql listItem = data.get(position);
-		holder.txtQuery.setText(listItem.getQuery());
-		
-		Animation animationY = new TranslateAnimation(0, 0, holder.txtQuery.getHeight()/4, 0);
-		animationY.setDuration(500);
-		row.startAnimation(animationY);  
-		animationY = null;
-		
-		return row;
-	}
+        if (position % 2 == 0)
+            row.setBackgroundColor(Color.rgb(255, 255, 255));
+        else
+            row.setBackgroundColor(Color.rgb(237, 239, 242));
 
-	public static class RecordHolder {
-		public TextView txtQuery;
-	}
+        UploadSql listItem = data.get(position);
+        holder.txtQuery.setText(listItem.getQuery());
 
-	@Override
-	public int getCount() {
-		return data.size();
-	}
+        Animation animationY = new TranslateAnimation(0, 0, holder.txtQuery.getHeight() / 4, 0);
+        animationY.setDuration(500);
+        row.startAnimation(animationY);
+        animationY = null;
 
-	@Override
-	public Object getItem(int position) {
-		return data.get(position);
-	}
+        return row;
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    public static class RecordHolder {
+        public TextView txtQuery;
+    }
+
+    @Override
+    public int getCount() {
+        return data.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return data.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
 }

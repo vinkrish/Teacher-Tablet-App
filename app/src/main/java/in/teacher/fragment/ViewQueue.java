@@ -24,39 +24,43 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class ViewQueue extends Fragment {
-	private Context context;
-	private SQLiteDatabase sqliteDatabase;
-	private ListView lv;
-	private ArrayList<UploadSql> queueList = new ArrayList<>();
-	private List<UploadSql> uploadSqlList  = new ArrayList<>();
+    private Context context;
+    private SQLiteDatabase sqliteDatabase;
+    private ListView lv;
+    private ArrayList<UploadSql> queueList = new ArrayList<>();
+    private List<UploadSql> uploadSqlList = new ArrayList<>();
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState){
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.queue_view, container, false);
-		context = AppGlobal.getContext();
-		sqliteDatabase = AppGlobal.getSqliteDatabase();
+        View view = inflater.inflate(R.layout.queue_view, container, false);
+        context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
 
-		TextView queryCount = (TextView)view.findViewById(R.id.queue);
+        TextView queryCount = (TextView) view.findViewById(R.id.queue);
 
-		lv = (ListView)view.findViewById(R.id.list);
-		uploadSqlList = UploadSqlDao.selectUploadSql(sqliteDatabase);
-		queryCount.setText("Query ["+uploadSqlList.size()+"]");
-		
-		populateListArray();
-		
-		return view;
+        lv = (ListView) view.findViewById(R.id.list);
+        uploadSqlList = UploadSqlDao.selectUploadSql(sqliteDatabase);
+        queryCount.setText("Query [" + uploadSqlList.size() + "]");
 
-	}
+        populateListArray();
 
-	private void populateListArray(){
-		for(UploadSql upSqlList: uploadSqlList){
-			queueList.add(new UploadSql(upSqlList.getTableName(), upSqlList.getAction(), upSqlList.getQuery()));
-		}
-		QueueAdapter queueAdapter = new QueueAdapter(context, queueList);
-		lv.setAdapter(queueAdapter);
-	}
+        return view;
+
+    }
+
+    private void populateListArray() {
+        for (UploadSql upSqlList : uploadSqlList) {
+            queueList.add(new UploadSql(upSqlList.getTableName(), upSqlList.getAction(), upSqlList.getQuery()));
+        }
+        QueueAdapter queueAdapter = new QueueAdapter(context, queueList);
+        lv.setAdapter(queueAdapter);
+    }
 
 }

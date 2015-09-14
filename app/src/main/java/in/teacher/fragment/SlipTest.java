@@ -44,6 +44,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class SlipTest extends Fragment {
     private Context context;
     private static Activity act;

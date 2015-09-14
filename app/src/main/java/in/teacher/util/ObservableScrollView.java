@@ -7,6 +7,10 @@ import android.widget.ScrollView;
 
 import in.teacher.model.ScrollViewListener;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class ObservableScrollView extends ScrollView {
     private ScrollViewListener scrollViewListener = null;
     private boolean mScrollable = true;
@@ -55,7 +59,7 @@ public class ObservableScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int x, int y, int oldx, int oldy) {
         super.onScrollChanged(x, y, oldx, oldy);
-        if(scrollViewListener != null) {
+        if (scrollViewListener != null) {
             scrollViewListener.onScrollChanged(this, x, y, oldx, oldy);
         }
     }

@@ -9,12 +9,16 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class NetworkUtils {
 
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if(mWifi.isConnected() && mWifi!=null){
+        if (mWifi.isConnected() && mWifi != null) {
             return true;
         }
         return false;

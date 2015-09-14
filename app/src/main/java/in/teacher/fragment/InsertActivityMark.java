@@ -50,6 +50,10 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class InsertActivityMark extends Fragment {
     private Activity activity;
     private Context context;
@@ -119,7 +123,9 @@ public class InsertActivityMark extends Fragment {
 
         lv.setOnScrollListener(new OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
@@ -134,7 +140,7 @@ public class InsertActivityMark extends Fragment {
         return view;
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         clasSecSub = (TextView) view.findViewById(R.id.clasSecSub);
         empty = BitmapFactory.decodeResource(this.getResources(), R.drawable.deindicator);
         entered = BitmapFactory.decodeResource(this.getResources(), R.drawable.indicator);
@@ -170,7 +176,7 @@ public class InsertActivityMark extends Fragment {
         });
     }
 
-    private void initButton(final View view){
+    private void initButton(final View view) {
         int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven,
                 R.id.eight, R.id.nine, R.id.zero, R.id.decimal, R.id.minus};
         for (int i = 0; i < 12; i++) {

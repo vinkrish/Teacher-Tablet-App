@@ -33,6 +33,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Created by vinkrish.
+ */
+
 public class SearchStudAct extends Fragment {
     private Context context;
     private int studentId, sectionId, examId, subjectId;
@@ -132,7 +136,7 @@ public class SearchStudAct extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             TempDao.updateActivityId(actIdList.get(position), sqliteDatabase);
             int cache = SubActivityDao.isThereSubAct(actIdList.get(position), sqliteDatabase);
-            if(cache == 1) {
+            if (cache == 1) {
                 ReplaceFragment.replace(new SearchStudSubAct(), getFragmentManager());
             }
         }
@@ -190,12 +194,12 @@ public class SearchStudAct extends Fragment {
                 } else {
                     int avg = ActivityMarkDao.getStudActAvg(studentId, act.getActivityId(), sqliteDatabase);
                     avgList1.add(avg);
-                    if(avg == 0){
+                    if (avg == 0) {
                         scoreList.add("");
-                    }else{
+                    } else {
                         int score = ActivityMarkDao.getStudActMark(studentId, act.getActivityId(), sqliteDatabase);
                         float maxScore = ActivitiDao.getActivityMaxMark(act.getActivityId(), sqliteDatabase);
-                        scoreList.add(score+"/"+maxScore);
+                        scoreList.add(score + "/" + maxScore);
                     }
                 }
             }
