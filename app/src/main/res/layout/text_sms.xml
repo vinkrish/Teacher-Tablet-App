@@ -106,7 +106,25 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@drawable/button_activated_light_blue"
-                android:text="@string/student"
+                android:text="@string/sel_student"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/male_students"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_activated_light_blue"
+                android:text="@string/male_students"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/female_students"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_activated_light_blue"
+                android:text="@string/female_students"
                 android:textColor="#FFFFFF" />
 
             <Button
@@ -135,13 +153,13 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/student_context"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="70dp"
-                    android:text="@string/all_students_mes"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </FrameLayout>
 

@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amazonaws.mobileconnectors.s3.transfermanager.Transfer;
 import com.amazonaws.mobileconnectors.s3.transfermanager.TransferManager;
@@ -64,17 +65,18 @@ import in.teacher.util.Util;
  */
 public class TextSms extends Fragment implements StringConstant {
     private SQLiteDatabase sqliteDatabase;
-    private Button allStudentsBtn, studentBtn, submitBtn;
+    private Button allStudentsBtn, studentBtn, allMaleStudBtn, allFemaleStudBtn, submitBtn;
     private FrameLayout allStudentsFrame;
     private LinearLayout selectionFrame;
     private EditText studentSpinner, textSms;
+    private TextView studentContext;
     private int sectionId, teacherId, schoolId;
     private ArrayList<Integer> studIdList;
     private ArrayList<String> studNameList;
     private ArrayList<Long> idList = new ArrayList<>();
     protected boolean[] studentSelections;
 
-    private String ids, zipName, deviceId, messageTo;
+    private String ids, zipName, deviceId;
     private int target;
     private ProgressDialog progressBar;
 
@@ -91,8 +93,11 @@ public class TextSms extends Fragment implements StringConstant {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         initializeList();
 
+        studentContext = (TextView) view.findViewById(R.id.student_context);
         allStudentsBtn = (Button) view.findViewById(R.id.allStudents);
         studentBtn = (Button) view.findViewById(R.id.stud);
+        allMaleStudBtn = (Button) view.findViewById(R.id.male_students);
+        allFemaleStudBtn = (Button) view.findViewById(R.id.female_students);
         submitBtn = (Button) view.findViewById(R.id.submit);
 
         allStudentsFrame = (FrameLayout) view.findViewById(R.id.allStudentsFrame);
@@ -110,6 +115,7 @@ public class TextSms extends Fragment implements StringConstant {
                 v.setActivated(true);
                 submitBtn.setEnabled(true);
                 allStudentsFrame.setVisibility(View.VISIBLE);
+                studentContext.setText(getResources().getText(R.string.all_students_mes));
                 target = 0;
             }
         });
@@ -131,6 +137,30 @@ public class TextSms extends Fragment implements StringConstant {
                 }
                 studentSelections = new boolean[studIdList.size()];
                 target = 1;
+            }
+        });
+
+        allMaleStudBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deActivate();
+                v.setActivated(true);
+                allMaleStudBtn.setEnabled(true);
+                allStudentsFrame.setVisibility(View.VISIBLE);
+                studentContext.setText(getResources().getText(R.string.all_male_stud_mes));
+                target = 2;
+            }
+        });
+
+        allFemaleStudBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deActivate();
+                v.setActivated(true);
+                allFemaleStudBtn.setEnabled(true);
+                allStudentsFrame.setVisibility(View.VISIBLE);
+                studentContext.setText(getResources().getText(R.string.all_female_stud_mes));
+                target = 3;
             }
         });
 
@@ -297,8 +327,7 @@ public class TextSms extends Fragment implements StringConstant {
 
     private void prepareIds() {
         if (target == 0) {
-            messageTo = "Section";
-            Cursor c = sqliteDatabase.rawQuery("select Mobile1 from students where SectionId in (" + ids + ")", null);
+            Cursor c = sqliteDatabase.rawQuery("select Mobile1 from students where SectionId = "+sectionId , null);
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 idList.add(c.getLong(c.getColumnIndex("Mobile1")));
@@ -306,8 +335,23 @@ public class TextSms extends Fragment implements StringConstant {
             }
             c.close();
         } else if (target == 1) {
-            messageTo = "Student";
             Cursor c = sqliteDatabase.rawQuery("select Mobile1 from students where StudentId in (" + ids + ")", null);
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                idList.add(c.getLong(c.getColumnIndex("Mobile1")));
+                c.moveToNext();
+            }
+            c.close();
+        } else if (target == 2) {
+            Cursor c = sqliteDatabase.rawQuery("select Mobile1 from students where SectionId = "+sectionId +" and Gender = 'M'", null);
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                idList.add(c.getLong(c.getColumnIndex("Mobile1")));
+                c.moveToNext();
+            }
+            c.close();
+        } else if (target == 3) {
+            Cursor c = sqliteDatabase.rawQuery("select Mobile1 from students where SectionId = "+sectionId +" and Gender = 'F'", null);
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 idList.add(c.getLong(c.getColumnIndex("Mobile1")));
