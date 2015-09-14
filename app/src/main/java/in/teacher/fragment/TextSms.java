@@ -203,6 +203,8 @@ public class TextSms extends Fragment implements StringConstant {
 
     private void deActivate() {
         allStudentsBtn.setActivated(false);
+        allMaleStudBtn.setActivated(false);
+        allFemaleStudBtn.setActivated(false);
         studentBtn.setActivated(false);
         submitBtn.setEnabled(false);
         allStudentsFrame.setVisibility(View.GONE);

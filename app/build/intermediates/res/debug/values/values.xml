@@ -80,6 +80,8 @@
     <string name="adminLogin">Admin Login</string>
     <string name="adminusername">Admin Username</string>
     <string name="al">Absentees List</string>
+    <string name="all_female_stud_mes">Recorded message will be sent to all female students.</string>
+    <string name="all_male_stud_mes">Recorded message will be sent to all male students.</string>
     <string name="all_students">All Students</string>
     <string name="all_students_mes">Recorded message will be sent to all students.</string>
     <string name="app_name">Teacher</string>
@@ -115,6 +117,7 @@
     <string name="es">Enter Score</string>
     <string name="evaluation">Evaluation Type</string>
     <string name="exam">Exam</string>
+    <string name="female_students">All Female Students</string>
     <string name="five">5</string>
     <string name="fltv">Select  the  below  options</string>
     <string name="four">4</string>
@@ -140,6 +143,7 @@
     <string name="internet_steps_6">Select Reboot</string>
     <string name="internet_steps_7">Select OK</string>
     <string name="login">LOGIN</string>
+    <string name="male_students">All Male Students</string>
     <string name="manualportion">Enter title of your choice</string>
     <string name="marks">Marks</string>
     <string name="max_mark">Max Mark</string>
@@ -175,6 +179,7 @@
     <string name="score">Score</string>
     <string name="se">Exam</string>
     <string name="search">Search</string>
+    <string name="sel_student">Select Students</string>
     <string name="select_sec">select section</string>
     <string name="send_sms">Send SMS to:</string>
     <string name="server_resolve">Tab is in Sync</string>
@@ -190,7 +195,6 @@
     <string name="stname">Slip Test Name :</string>
     <string name="stoan">Select the options as need</string>
     <string name="stud_avg">Student avg / Class avg</string>
-    <string name="student">Student</string>
     <string name="studentname">Student Name</string>
     <string name="students">Students</string>
     <string name="sub_teacher">Subject Teacher</string>
@@ -229,7 +233,7 @@
     <string name="updatest">Update marks for selected slipTest</string>
     <string name="username">Username</string>
     <string name="verify">Verify</string>
-    <string name="version">Version - 1.2</string>
+    <string name="version">Version - 1.3</string>
     <string name="view_students">View Students</string>
     <string name="viewscoreTop">Tap on the sliptest to view detailed info</string>
     <string name="vs">View Score</string>

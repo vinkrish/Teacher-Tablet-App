@@ -81,7 +81,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
         SharedPreferences pref = getSharedPreferences("db_access", Context.MODE_PRIVATE);
         manualSync = pref.getInt("manual_sync", 0);
-        savedVersion = pref.getString("saved_version", "v1.2");
+        savedVersion = pref.getString("saved_version", "v1.3");
 
         txtPercentage = (TextView) findViewById(R.id.txtPercentage);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);

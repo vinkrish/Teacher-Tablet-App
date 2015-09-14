@@ -113,13 +113,13 @@ public class SharedPreferenceUtil {
     public static void updateSavedVersion(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("saved_version", "v1.2");
+        editor.putString("saved_version", "v1.3");
         editor.apply();
     }
 
     public static String getSavedVersion(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        return sharedPref.getString("saved_version", "v1.2");
+        return sharedPref.getString("saved_version", "v1.3");
     }
 
     public static int getTabletLock(Context context) {
