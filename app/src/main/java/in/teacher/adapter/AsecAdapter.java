@@ -15,7 +15,6 @@ import in.teacher.sqlite.Amr;
 /**
  * Created by vinkrish.
  */
-
 public class AsecAdapter extends ArrayAdapter<Amr> {
     private int resource;
     private ArrayList<Amr> data = new ArrayList<>();

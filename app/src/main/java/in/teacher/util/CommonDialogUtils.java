@@ -64,6 +64,7 @@ public class CommonDialogUtils {
     public static Dialog displayDashbordSelector(final Activity activity, final SQLiteDatabase sqliteDatabase) {
         final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+       // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(R.color.half_transparent)));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dashbord_selector);
         Temp temp = TempDao.selectTemp(sqliteDatabase);

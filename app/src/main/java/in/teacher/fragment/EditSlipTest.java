@@ -47,9 +47,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 /**
  * Created by vinkrish.
  */
-
 public class EditSlipTest extends Fragment {
-    private static Context newContext;
     private Context context;
     private static Activity act;
     private SQLiteDatabase sqliteDatabase;
@@ -72,7 +70,6 @@ public class EditSlipTest extends Fragment {
 
         View view = inflater.inflate(R.layout.slip_test, container, false);
 
-        newContext = AppGlobal.getContext();
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         act = this.getActivity();
@@ -365,10 +362,12 @@ public class EditSlipTest extends Fragment {
 
                 if (GregorianCalendar.getInstance().get(Calendar.YEAR) < cal.get(Calendar.YEAR)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
-                } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH)
+                        && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
                 } else if (GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH) < cal.get(Calendar.DAY_OF_MONTH) &&
-                        GregorianCalendar.getInstance().get(Calendar.MONTH) <= cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                        GregorianCalendar.getInstance().get(Calendar.MONTH) <= cal.get(Calendar.MONTH)
+                        && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
                 } else if (Calendar.SUNDAY == cal.get(Calendar.DAY_OF_WEEK)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Sundays are not working days");

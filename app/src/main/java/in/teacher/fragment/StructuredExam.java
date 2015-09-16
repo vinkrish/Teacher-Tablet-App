@@ -1,7 +1,6 @@
 package in.teacher.fragment;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Capitalize;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
@@ -9,7 +8,6 @@ import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.SubjectExamsDao;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.Exams;
@@ -17,7 +15,6 @@ import in.teacher.sqlite.SeObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
-import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
@@ -43,16 +40,14 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  * Created by vinkrish.
  */
-
 public class StructuredExam extends Fragment {
     private Context context;
     private Activity act;
@@ -60,7 +55,6 @@ public class StructuredExam extends Fragment {
     private String subjectName;
     private int classId, sectionId, subjectId;
     private List<Activiti> activitiList = new ArrayList<>();
-    ;
     private final Map<Object, Object> mi1 = new HashMap<>();
     private final Map<Object, Object> mi2 = new HashMap<>();
     private List<Integer> examIdList = new ArrayList<>();
@@ -74,14 +68,22 @@ public class StructuredExam extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.se, container, false);
+
+        gridView = (GridView) view.findViewById(R.id.gridView);
+        clasSecSubTv = (TextView) view.findViewById(R.id.headerClasSecSub);
+
+        init();
+
+        new CalledBackLoad().execute();
+
+        return view;
+    }
+
+    private void init() {
         act = AppGlobal.getActivity();
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
-        initializeList();
-
-        gridView = (GridView) view.findViewById(R.id.gridView);
-        clasSecSubTv = (TextView) view.findViewById(R.id.headerClasSecSub);
         inserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
         notinserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
         cA = new CircleAdapter(context, R.layout.se_grid, circleArrayGrid);
@@ -92,30 +94,20 @@ public class StructuredExam extends Fragment {
         sectionId = t.getCurrentSection();
         subjectId = t.getCurrentSubject();
         subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
-
-        new CalledBackLoad().execute();
-
-        return view;
-    }
-
-    private void initializeList() {
-        mi1.clear();
-        mi2.clear();
-        activitiList.clear();
-        examIdList.clear();
-        circleArrayGrid.clear();
     }
 
     public class CircleAdapter extends ArrayAdapter<SeObject> {
         Context context;
         int layoutResourceId;
         ArrayList<SeObject> data = new ArrayList<>();
+        private LayoutInflater inflater = null;
 
         public CircleAdapter(Context context, int layoutResourceId, ArrayList<SeObject> gridArray) {
             super(context, layoutResourceId, gridArray);
             this.context = context;
             this.layoutResourceId = layoutResourceId;
             this.data = gridArray;
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
@@ -124,14 +116,12 @@ public class StructuredExam extends Fragment {
             RecordHolder holder;
 
             if (row == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 row = inflater.inflate(layoutResourceId, parent, false);
-
                 holder = new RecordHolder();
-                holder.image = (ImageView) row.findViewById(R.id.tickCross);
+                //holder.image = (ImageView) row.findViewById(R.id.tickCross);
                 holder.examTxt = (TextView) row.findViewById(R.id.exam);
+                holder.seGrid = (LinearLayout) row.findViewById(R.id.se_grid);
                 row.setTag(holder);
-
             } else {
                 holder = (RecordHolder) row.getTag();
             }
@@ -141,11 +131,11 @@ public class StructuredExam extends Fragment {
 
             SeObject gridItem = data.get(position);
             holder.examTxt.setText(gridItem.getExam());
-            holder.image.setImageBitmap(gridItem.getTickCross());
+            //holder.image.setImageBitmap(gridItem.getTickCross());
             SampleView sV = new SampleView(context, gridItem.getProgressInt());
             fl.addView(sV, layoutParams);
 
-            sV.setOnClickListener(new OnClickListener() {
+            holder.seGrid.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     viewClickListener(position);
@@ -156,12 +146,13 @@ public class StructuredExam extends Fragment {
 
         public class RecordHolder {
             TextView examTxt;
-            ImageView image;
+            LinearLayout seGrid;
+            //ImageView image;
         }
 
         private class SampleView extends View {
             Paint p, defaultPaint;
-            RectF rectF1;
+            RectF rectF;
             int localInt;
 
             public SampleView(Context context, int i) {
@@ -180,7 +171,7 @@ public class StructuredExam extends Fragment {
                 Resources res = getResources();
                 int defalt = res.getColor(R.color.defalt);
                 defaultPaint.setColor(defalt);
-                rectF1 = new RectF(10, 10, 120, 120);
+                rectF = new RectF(15, 25, 115, 125);
             }
 
             @Override
@@ -196,8 +187,8 @@ public class StructuredExam extends Fragment {
                 } else if (localInt > 0) {
                     p.setColor(getResources().getColor(R.color.red));
                 }
-                canvas.drawArc(rectF1, 0, 360, false, defaultPaint);
-                canvas.drawArc(rectF1, 270, Float.parseFloat(localInt + ""), false, p);
+                canvas.drawArc(rectF, 0, 360, false, defaultPaint);
+                canvas.drawArc(rectF, 270, Float.parseFloat(localInt + ""), false, p);
             }
         }
     }
@@ -254,9 +245,9 @@ public class StructuredExam extends Fragment {
                 if (i == 1) imageFlag = true;
 
                 if (imageFlag) {
-                    circleArrayGrid.add(new SeObject(avg, PKGenerator.trim(0, 20, exam.getExamName()), exmName.toString(), inserted));
+                    circleArrayGrid.add(new SeObject(avg, exam.getExamName(), inserted));
                 } else {
-                    circleArrayGrid.add(new SeObject(avg, PKGenerator.trim(0, 20, exam.getExamName()), exmName.toString(), notinserted));
+                    circleArrayGrid.add(new SeObject(avg, exam.getExamName(), notinserted));
                 }
             }
 

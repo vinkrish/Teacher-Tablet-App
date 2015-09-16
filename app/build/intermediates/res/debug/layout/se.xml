@@ -79,13 +79,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/bottom"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_margin="10dp"
         android:gravity="center"
-        android:horizontalSpacing="20dp"
-        android:numColumns="3"
-        android:verticalSpacing="40dp"></GridView>
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:verticalSpacing="10dp"></GridView>
 
 </RelativeLayout><!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/layout/se.xml -->

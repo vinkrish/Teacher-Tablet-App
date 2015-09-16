@@ -53,7 +53,6 @@ import android.widget.AdapterView.OnItemClickListener;
 /**
  * Created by vinkrish.
  */
-
 public class EnterSlipTestMark extends Fragment {
     private Activity activity;
     private Context context;

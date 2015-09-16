@@ -1,5 +1,6 @@
 package in.teacher.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -64,6 +66,7 @@ import in.teacher.util.Util;
  * Created by vinkrish on 03/09/15.
  */
 public class TextSms extends Fragment implements StringConstant {
+    private Activity act;
     private SQLiteDatabase sqliteDatabase;
     private Button allStudentsBtn, studentBtn, allMaleStudBtn, allFemaleStudBtn, submitBtn;
     private FrameLayout allStudentsFrame;
@@ -90,6 +93,7 @@ public class TextSms extends Fragment implements StringConstant {
         View view = inflater.inflate(R.layout.text_sms, container, false);
 
         appContext = AppGlobal.getContext();
+        act = AppGlobal.getActivity();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         initializeList();
 
@@ -145,7 +149,7 @@ public class TextSms extends Fragment implements StringConstant {
             public void onClick(View v) {
                 deActivate();
                 v.setActivated(true);
-                allMaleStudBtn.setEnabled(true);
+                submitBtn.setEnabled(true);
                 allStudentsFrame.setVisibility(View.VISIBLE);
                 studentContext.setText(getResources().getText(R.string.all_male_stud_mes));
                 target = 2;
@@ -157,7 +161,7 @@ public class TextSms extends Fragment implements StringConstant {
             public void onClick(View v) {
                 deActivate();
                 v.setActivated(true);
-                allFemaleStudBtn.setEnabled(true);
+                submitBtn.setEnabled(true);
                 allStudentsFrame.setVisibility(View.VISIBLE);
                 studentContext.setText(getResources().getText(R.string.all_female_stud_mes));
                 target = 3;
@@ -167,6 +171,7 @@ public class TextSms extends Fragment implements StringConstant {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
                 idList.clear();
                 if (textSms.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(TextSms.this.getActivity(), "Please enter message to deliver");
@@ -186,6 +191,14 @@ public class TextSms extends Fragment implements StringConstant {
         teacherId = t.getTeacherId();
         studIdList = new ArrayList<>();
         studNameList = new ArrayList<>();
+    }
+
+    private void hideKeyboard() {
+        View view = act.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) act.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     private View.OnTouchListener studentTouch = new View.OnTouchListener() {

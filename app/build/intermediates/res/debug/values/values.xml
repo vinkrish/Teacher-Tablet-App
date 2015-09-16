@@ -35,6 +35,7 @@
     <color name="gradient_text">#A4A5AB</color>
     <color name="gray_light">#C0C0C0</color>
     <color name="green">#41AB15</color>
+    <color name="half_transparent">#80000000</color>
     <color name="homework_background">#EDEFF2</color>
     <color name="layout_black">#232422</color>
     <color name="layoutbelowBC">#EDEFF2</color>

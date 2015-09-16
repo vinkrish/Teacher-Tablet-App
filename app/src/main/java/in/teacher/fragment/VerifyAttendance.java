@@ -43,7 +43,6 @@ import android.widget.Toast;
 /**
  * Created by vinkrish.
  */
-
 public class VerifyAttendance extends Fragment {
     private List<Students> studentsArray = new ArrayList<>();
     private ArrayList<Students> studentsArrayGrid = new ArrayList<>();
@@ -58,23 +57,9 @@ public class VerifyAttendance extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.verify_attendance, container, false);
-        context = AppGlobal.getContext();
-        sqliteDatabase = AppGlobal.getSqliteDatabase();
-
-        clearList();
-
         gridView = (GridView) view.findViewById(R.id.gridView);
-        attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
-        gridView.setAdapter(attendanceAdapter);
 
-        Temp t = TempDao.selectTemp(sqliteDatabase);
-        schoolId = t.getSchoolId();
-        sectionId = t.getSectionId();
-
-        studentsArray = StudentAttendanceDao.selectTempAttendance(sqliteDatabase);
-        Collections.sort(studentsArray, new StudentsSort());
-
-        populateGridArray();
+        init();
 
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -109,10 +94,21 @@ public class VerifyAttendance extends Fragment {
         return view;
     }
 
-    private void clearList() {
-        studentAttend.clear();
-        studentsArray.clear();
-        studentsArrayGrid.clear();
+    private void init() {
+        context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+
+        attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
+        gridView.setAdapter(attendanceAdapter);
+
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        schoolId = t.getSchoolId();
+        sectionId = t.getSectionId();
+
+        studentsArray = StudentAttendanceDao.selectTempAttendance(sqliteDatabase);
+        Collections.sort(studentsArray, new StudentsSort());
+
+        populateGridArray();
     }
 
     private View.OnClickListener submitAttendance = new View.OnClickListener() {

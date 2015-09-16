@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 /**
  * Created by vinkrish.
  */
-
 public class SubActivityProgress {
     private Context context;
     private SqlDbHelper sqlHandler;
@@ -39,8 +38,8 @@ public class SubActivityProgress {
             sqliteDatabase = sqlHandler.getWritableDatabase();
 
             SubActivityDao.updateSubActivityAvg(sqliteDatabase);
-            SubActivityDao.checkSubActivityIsMark(sqliteDatabase);
-            SubActivityDao.checkSubActivityMarkEmpty(sqliteDatabase);
+         //   SubActivityDao.checkSubActivityIsMark(sqliteDatabase);
+         //   SubActivityDao.checkSubActivityMarkEmpty(sqliteDatabase);
 
             return null;
         }

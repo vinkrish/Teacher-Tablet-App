@@ -9,13 +9,11 @@ import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.SubjectExamsDao;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.SeObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
-import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
@@ -40,17 +38,14 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  * Created by vinkrish.
  */
-
 public class ActivityExam extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private int sectionId, classId, subjectId, examId;
@@ -68,25 +63,12 @@ public class ActivityExam extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.activity_exam, container, false);
-        Context context = AppGlobal.getContext();
-        sqliteDatabase = AppGlobal.getSqliteDatabase();
 
         gridView = (GridView) view.findViewById(R.id.gridView);
-        cA = new CircleAdapter(context, R.layout.act_grid, circleArrayGrid);
         clasSecSubTv = (TextView) view.findViewById(R.id.headerClasSecSub);
-        inserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
-        notinserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
 
-        initializeList();
-
-        Temp t = TempDao.selectTemp(sqliteDatabase);
-        classId = t.getCurrentClass();
-        sectionId = t.getCurrentSection();
-        subjectId = t.getCurrentSubject();
-        examId = t.getExamId();
-        subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
+        init();
 
         new CalledBackLoad().execute();
 
@@ -100,11 +82,20 @@ public class ActivityExam extends Fragment {
         return view;
     }
 
-    private void initializeList() {
-        mi1.clear();
-        mi2.clear();
-        circleArrayGrid.clear();
-        actIdList.clear();
+    private void init() {
+        Context context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+
+        cA = new CircleAdapter(context, R.layout.se_grid, circleArrayGrid);
+        inserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.tick);
+        notinserted = BitmapFactory.decodeResource(this.getResources(), R.drawable.cross);
+
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        classId = t.getCurrentClass();
+        sectionId = t.getCurrentSection();
+        subjectId = t.getCurrentSubject();
+        examId = t.getExamId();
+        subjectName = SubjectExamsDao.selectSubjectName(subjectId, sqliteDatabase);
     }
 
     public void viewClickListener(int position) {
@@ -131,12 +122,14 @@ public class ActivityExam extends Fragment {
         Context context;
         int layoutResourceId;
         ArrayList<SeObject> data = new ArrayList<>();
+        private LayoutInflater inflater = null;
 
         public CircleAdapter(Context context, int layoutResourceId, ArrayList<SeObject> gridArray) {
             super(context, layoutResourceId, gridArray);
             this.context = context;
             this.layoutResourceId = layoutResourceId;
             this.data = gridArray;
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
@@ -145,14 +138,12 @@ public class ActivityExam extends Fragment {
             RecordHolder holder;
 
             if (row == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 row = inflater.inflate(layoutResourceId, parent, false);
-
                 holder = new RecordHolder();
-                holder.image = (ImageView) row.findViewById(R.id.tickCross);
+                //holder.image = (ImageView) row.findViewById(R.id.tickCross);
                 holder.examTxt = (TextView) row.findViewById(R.id.exam);
+                holder.seGrid = (LinearLayout) row.findViewById(R.id.se_grid);
                 row.setTag(holder);
-
             } else {
                 holder = (RecordHolder) row.getTag();
             }
@@ -162,11 +153,11 @@ public class ActivityExam extends Fragment {
 
             SeObject gridItem = data.get(position);
             holder.examTxt.setText(gridItem.getExam());
-            holder.image.setImageBitmap(gridItem.getTickCross());
+            //holder.image.setImageBitmap(gridItem.getTickCross());
             SampleView sV = new SampleView(context, gridItem.getProgressInt());
             fl.addView(sV, layoutParams);
 
-            sV.setOnClickListener(new OnClickListener() {
+            holder.seGrid.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     viewClickListener(position);
@@ -179,7 +170,8 @@ public class ActivityExam extends Fragment {
 
         public class RecordHolder {
             TextView examTxt;
-            ImageView image;
+            LinearLayout seGrid;
+            //ImageView image;
         }
 
         private class SampleView extends View {
@@ -203,7 +195,7 @@ public class ActivityExam extends Fragment {
                 Resources res = getResources();
                 int defalt = res.getColor(R.color.defalt);
                 defaultPaint.setColor(defalt);
-                rectF1 = new RectF(10, 10, 130, 130);
+                rectF1 = new RectF(15, 25, 115, 125);
             }
 
             @Override
@@ -254,9 +246,9 @@ public class ActivityExam extends Fragment {
                 int avg = (int) a.getActivityAvg();
 
                 if (a.getCompleteEntry() == 1) {
-                    circleArrayGrid.add(new SeObject(avg, Capitalize.capitalThis(PKGenerator.trim(0, 20, a.getActivityName())), sf.toString(), inserted));
+                    circleArrayGrid.add(new SeObject(avg, Capitalize.capitalThis(a.getActivityName()), inserted));
                 } else {
-                    circleArrayGrid.add(new SeObject(avg, Capitalize.capitalThis(PKGenerator.trim(0, 20, a.getActivityName())), sf.toString(), notinserted));
+                    circleArrayGrid.add(new SeObject(avg, Capitalize.capitalThis(a.getActivityName()), notinserted));
                 }
             }
 

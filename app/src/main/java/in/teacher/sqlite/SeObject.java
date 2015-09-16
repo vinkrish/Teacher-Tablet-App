@@ -40,10 +40,9 @@ public class SeObject {
 		this.tickCross = tickCross;
 	}
 
-	public SeObject(int progressInt,String exam, String clasSecSub, Bitmap tickCross){
+	public SeObject(int progressInt,String exam, Bitmap tickCross){
 		this.progressInt = progressInt;
 		this.exam = exam;
-		this.clasSecSub = clasSecSub;
 		this.tickCross = tickCross;
 	}
 

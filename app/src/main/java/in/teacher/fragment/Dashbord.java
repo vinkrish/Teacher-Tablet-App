@@ -51,7 +51,6 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class Dashbord extends Fragment implements AnimationListener {
     private Activity activity;
     private Context context;
@@ -64,7 +63,6 @@ public class Dashbord extends Fragment implements AnimationListener {
     private ArrayList<Integer> subjectIdList = new ArrayList<>();
     private ArrayList<String> subjectNameList = new ArrayList<>();
     private ArrayList<Integer> hasPartitionList = new ArrayList<>();
-    private Animation animFadeIn, animFadeOut;
     private SQLiteDatabase sqliteDatabase;
     private ArrayList<CircleObject> circleArrayGrid = new ArrayList<>();
     private CircleAdapter cA;
@@ -76,30 +74,26 @@ public class Dashbord extends Fragment implements AnimationListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dashbord, container, false);
 
+        gridView = (GridView) view.findViewById(R.id.gridView);
+        name = (TextView) view.findViewById(R.id.teacherName);
+
+        init();
+
+        new CalledBackLoad().execute();
+
+        return view;
+    }
+
+    private void init() {
         activity = AppGlobal.getActivity();
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
-
-        initializeList();
-
-        gridView = (GridView) view.findViewById(R.id.gridView);
-
-        animFadeIn = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fade_in);
-        animFadeIn.setAnimationListener(this);
-        animFadeOut = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fade_out);
-        animFadeOut.setAnimationListener(this);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         teacherId = t.getTeacherId();
 
         cA = new CircleAdapter(context, R.layout.dashboard_grid, circleArrayGrid);
         gridView.setAdapter(cA);
-
-        name = (TextView) view.findViewById(R.id.teacherName);
-
-        new CalledBackLoad().execute();
-
-        return view;
     }
 
     public void callUpdateTemp(int pos) {
@@ -220,17 +214,6 @@ public class Dashbord extends Fragment implements AnimationListener {
     public void viewClickListener(int position) {
         callUpdateTemp(position);
         CommonDialogUtils.displayDashbordSelector(activity, sqliteDatabase);
-    }
-
-    private void initializeList() {
-        circleArrayGrid.clear();
-        sectionIdList.clear();
-        classIdList.clear();
-        subjectIdList.clear();
-        sectionNameList.clear();
-        classNameList.clear();
-        subjectNameList.clear();
-        hasPartitionList.clear();
     }
 
     class CalledBackLoad extends AsyncTask<String, String, String> {

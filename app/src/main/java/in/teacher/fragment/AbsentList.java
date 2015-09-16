@@ -47,8 +47,8 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class AbsentList extends Fragment {
+    private Context context;
     private List<Students> studentsArray = new ArrayList<>();
     private ArrayList<Students> studentsArrayGrid = new ArrayList<>();
     private AttendanceAdapter attendanceAdapter;
@@ -59,22 +59,31 @@ public class AbsentList extends Fragment {
     private static boolean absentListFlag;
     private static Button otherdayButton, yesterdayButton, todayButton;
     private TextView noAbsentees, ptTV;
+    private GridView gridView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.absent_list, container, false);
-        act = AppGlobal.getActivity();
-        Context context = AppGlobal.getContext();
-        sqliteDatabase = AppGlobal.getSqliteDatabase();
+        initView(view);
+        init();
 
-        clearList();
+        return view;
+    }
 
+    private void initView(View view){
         noAbsentees = (TextView) view.findViewById(R.id.noAbsentee);
         todayButton = (Button) view.findViewById(R.id.today);
         yesterdayButton = (Button) view.findViewById(R.id.yesterday);
         otherdayButton = (Button) view.findViewById(R.id.otherday);
+        ptTV = (TextView) view.findViewById(R.id.absentList);
+        gridView = (GridView) view.findViewById(R.id.gridView);
+    }
+
+    private void init() {
+        act = AppGlobal.getActivity();
+        context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         classId = t.getClassId();
@@ -84,12 +93,10 @@ public class AbsentList extends Fragment {
         yesterdayButton.setOnClickListener(yesterdayAbsentees);
         otherdayButton.setOnClickListener(otherdayAbsentees);
 
-        ptTV = (TextView) view.findViewById(R.id.absentList);
         if (classId == 0) {
             ptTV.setText("Not a class teacher.");
         }
 
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
         attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
         gridView.setAdapter(attendanceAdapter);
 
@@ -104,13 +111,6 @@ public class AbsentList extends Fragment {
         } else if (otherday == 1) {
             otherdayButton.performClick();
         }
-
-        return view;
-    }
-
-    private void clearList() {
-        studentsArray.clear();
-        studentsArrayGrid.clear();
     }
 
     private View.OnClickListener todayAbsentees = new View.OnClickListener() {
@@ -265,10 +265,12 @@ public class AbsentList extends Fragment {
                 Date d = cal.getTime();
                 if (GregorianCalendar.getInstance().get(Calendar.YEAR) < cal.get(Calendar.YEAR)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
-                } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH)
+                        && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
                 } else if (GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH) < cal.get(Calendar.DAY_OF_MONTH) &&
-                        GregorianCalendar.getInstance().get(Calendar.MONTH) <= cal.get(Calendar.MONTH) && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                        GregorianCalendar.getInstance().get(Calendar.MONTH) <= cal.get(Calendar.MONTH)
+                        && GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Selected future date !");
                 } else if (Calendar.SUNDAY == cal.get(Calendar.DAY_OF_WEEK)) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Sundays are not working days");

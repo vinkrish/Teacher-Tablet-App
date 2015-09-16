@@ -49,7 +49,6 @@ import android.widget.Toast;
 /**
  * Created by vinkrish.
  */
-
 public class MarkAttendance extends Fragment {
     private List<Students> studentsArray = new ArrayList<>();
     private ArrayList<Students> studentsArrayGrid = new ArrayList<>();
@@ -69,24 +68,10 @@ public class MarkAttendance extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mark_attendance, container, false);
 
-        act = AppGlobal.getActivity();
-        context = AppGlobal.getContext();
-        sqlHandler = AppGlobal.getSqlDbHelper();
-        sqliteDatabase = AppGlobal.getSqliteDatabase();
-        sqlHandler.clearTempAttendance(sqliteDatabase);
-
-        attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
         gridView = (GridView) view.findViewById(R.id.gridView);
-        gridView.setAdapter(attendanceAdapter);
-
         ptTV = (TextView) view.findViewById(R.id.pleaseTap);
 
-        Temp t = TempDao.selectTemp(sqliteDatabase);
-        schoolId = t.getSchoolId();
-        classId = t.getClassId();
-        sectionId = t.getSectionId();
-
-        populateGridArray();
+        init();
 
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -115,6 +100,24 @@ public class MarkAttendance extends Fragment {
         view.findViewById(R.id.otherday).setOnClickListener(otherdayAbsentees);
 
         return view;
+    }
+
+    private void init(){
+        act = AppGlobal.getActivity();
+        context = AppGlobal.getContext();
+        sqlHandler = AppGlobal.getSqlDbHelper();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+        sqlHandler.clearTempAttendance(sqliteDatabase);
+
+        attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
+        gridView.setAdapter(attendanceAdapter);
+
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        schoolId = t.getSchoolId();
+        classId = t.getClassId();
+        sectionId = t.getSectionId();
+
+        populateGridArray();
     }
 
     private View.OnClickListener verifyAbsentees = new View.OnClickListener() {
