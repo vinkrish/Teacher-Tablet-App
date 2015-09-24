@@ -16,7 +16,6 @@ import in.teacher.sqlite.Section;
 import in.teacher.sqlite.Teacher;
 import in.teacher.sqlite.Temp;
 import in.teacher.sync.CallFTP;
-import in.teacher.sync.FirstTimeSync;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -24,6 +23,7 @@ import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
 import in.teacher.util.SharedPreferenceUtil;
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -31,25 +31,20 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings.Secure;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * Created by vinkrish.
  */
-
 public class LoginActivity extends BaseActivity {
     private Context context;
     private boolean flag, tvflag, authflag;
@@ -155,13 +150,25 @@ public class LoginActivity extends BaseActivity {
     private void login() {
         int isSync = sharedPref.getInt("is_sync", 0);
         if (isSync == 0) {
-            ImageView admin = (ImageView) findViewById(R.id.admin);
-            admin.setOnClickListener(new View.OnClickListener() {
+            findViewById(R.id.admin).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(LoginActivity.this, in.teacher.activity.MasterAuthentication.class);
                     startActivity(i);
                     AnimationUtils.activityEnter(LoginActivity.this);
+                }
+            });
+
+            findViewById(R.id.admin).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    View image = findViewById(R.id.admin);
+                    ObjectAnimator anim
+                            = ObjectAnimator.ofFloat(image, "alpha",
+                            1.0f, 0.25f, 0.75f, 0.5f, 0.25f, 1.0f);
+                    anim.setDuration(4000);
+                    anim.start();
+                    return true;
                 }
             });
 

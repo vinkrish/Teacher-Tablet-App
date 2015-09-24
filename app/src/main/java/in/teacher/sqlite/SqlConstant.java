@@ -3,7 +3,6 @@ package in.teacher.sqlite;
 /**
  * Created by vinkrish.
  */
-
 public interface SqlConstant {
 
     public static String DATABASE_NAME = "teacher.db";

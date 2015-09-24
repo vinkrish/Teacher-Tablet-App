@@ -142,7 +142,7 @@
     <string name="all_male_stud_mes">Recorded message will be sent to all male students.</string>
     <string name="all_female_stud_mes">Recorded message will be sent to all female students.</string>
 
-    <string name="search">Search</string>
+    <string name="search">Search Student</string>
     <string name="students">Students</string>
     <string name="studentname">Student Name</string>
     <string name="attendinfo">Attendance information</string>
