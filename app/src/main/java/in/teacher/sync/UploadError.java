@@ -53,11 +53,9 @@ public class UploadError implements StringConstant {
                 json.put("tab_id", deviceId);
                 json.put("log", errorReport);
                 json.put("date", getToday());
-                jsonReceived = UploadSyncParser.makePostRequest(logged, json);
+                jsonReceived = new JSONObject(RequestResponseHandler.reachServer(logged, json));
             } catch (JSONException e1) {
                 e1.printStackTrace();
-            } catch (ConnectException e) {
-                e.printStackTrace();
             }
             try {
                 uploadSuccess = jsonReceived.getInt(TAG_SUCCESS);

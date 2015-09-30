@@ -1,11 +1,8 @@
 package in.teacher.activity;
 
-import java.io.IOException;
-import java.net.ConnectException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.locks.Lock;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,16 +10,13 @@ import org.json.JSONObject;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
 import in.teacher.sync.FirstTimeSync;
-import in.teacher.sync.FirstTimeSyncParser;
+import in.teacher.sync.RequestResponseHandler;
 import in.teacher.sync.StringConstant;
-import in.teacher.sync.UploadSyncParser;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.NetworkUtils;
 import in.teacher.util.SharedPreferenceUtil;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -114,11 +108,9 @@ public class LockActivity extends BaseActivity implements StringConstant {
                 jsonObject.put("school", schoolId);
                 jsonObject.put("tab_id", deviceId);
                 jsonObject.put("line_number", lineNumber);
-                jsonReceived = FirstTimeSyncParser.makePostRequest(block_a_tab, jsonObject);
+                jsonReceived = new JSONObject(RequestResponseHandler.reachServer(block_a_tab, jsonObject));
                 syncSent = jsonReceived.getInt(TAG_SUCCESS);
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -128,11 +120,9 @@ public class LockActivity extends BaseActivity implements StringConstant {
                 json.put("tab_id", deviceId);
                 json.put("log", stackTrace);
                 json.put("date", getToday());
-                jsonReceived = UploadSyncParser.makePostRequest(logged, json);
+                jsonReceived = new JSONObject(RequestResponseHandler.reachServer(logged, json));
             } catch (JSONException e1) {
                 e1.printStackTrace();
-            } catch (ConnectException e) {
-                e.printStackTrace();
             }
 
             return null;

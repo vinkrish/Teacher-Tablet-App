@@ -1,6 +1,5 @@
 package in.teacher.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +13,8 @@ import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Temp;
 import in.teacher.sync.CallFTP;
 import in.teacher.sync.FirstTimeSync;
+import in.teacher.sync.RequestResponseHandler;
 import in.teacher.sync.StringConstant;
-import in.teacher.sync.UploadSyncParser;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.PKGenerator;
@@ -55,7 +54,6 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class ProcessFiles extends BaseActivity implements StringConstant {
     private Context context;
     private ProgressBar progressBar;
@@ -197,14 +195,12 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                         jsonObject.put("tab_id", deviceId);
                         jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
                         jsonObject.put("version", savedVersion);
-                        jsonReceived = UploadSyncParser.makePostRequest(update_processed_file, jsonObject);
+                        jsonReceived = new JSONObject(RequestResponseHandler.reachServer(update_processed_file, jsonObject));
                         Log.d("request_update", jsonObject + "");
                         if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
                             sqliteDatabase.execSQL("update downloadedfile set isack=1 where processed=1 and filename in ('" + sb.substring(0, sb.length() - 3) + "')");
                         }
                     } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

@@ -53,8 +53,8 @@ import in.teacher.dao.TempDao;
 import in.teacher.model.TransferModel;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
+import in.teacher.sync.RequestResponseHandler;
 import in.teacher.sync.StringConstant;
-import in.teacher.sync.UploadSyncParser;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.Constants;
@@ -317,13 +317,11 @@ public class TextSms extends Fragment implements StringConstant {
                     jsonObject.put("school", schoolId);
                     jsonObject.put("tab_id", deviceId);
                     jsonObject.put("file_name", zipName.substring(0, zipName.length() - 3) + "sql");
-                    jsonReceived = UploadSyncParser.makePostRequest(acknowledge_uploaded_file, jsonObject);
+                    jsonReceived = new JSONObject(RequestResponseHandler.reachServer(acknowledge_uploaded_file, jsonObject));
                     if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
                         file.delete();
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

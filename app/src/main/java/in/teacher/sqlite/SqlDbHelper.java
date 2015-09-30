@@ -64,7 +64,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL("insert into temp(id,DeviceId, SchoolId, ClassId, SectionId, SectionName, TeacherId, StudentId,SubjectId, CurrentSection, CurrentSubject, "
                 + "CurrentClass, ExamId, ActivityId, SubActivityId, SlipTestId, SyncTime, IsSync) " +
                 "values(1,0,0,0,0,'A',0,0,0,0,0,0,0,0,0,0,'Not Yet Synced',0)");
-
         db.execSQL(HOMEWORK_TRIGGER);
         db.execSQL(MARKS_TRIGGER);
         db.execSQL(ACTIVITYMARK_TRIGGER);
@@ -73,6 +72,8 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL(SUBACTGRADE_TRIGGER);
         db.execSQL(CREATE_CCE_STUDENT_PROFILE);
         db.execSQL(CREATE_SUB_GROUPS);
+        db.execSQL(CREATE_TIMETABLE);
+        db.execSQL(CREATE_TIMETABLE_TIMING);
     }
 
     @Override
@@ -116,6 +117,8 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL("DROP TABLE IF EXISTS locked");
         db.execSQL("DROP TABLE IF EXISTS ccestudentprofile");
         db.execSQL("DROP TABLE IF EXISTS subjects_groups");
+        db.execSQL("DROP TABLE IF EXISTS timetable");
+        db.execSQL("DROP TABLE IF EXISTS timetabletimings");
         onCreate(db);
     }
 

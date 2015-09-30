@@ -6,7 +6,7 @@ package in.teacher.sqlite;
 public interface SqlConstant {
 
     public static String DATABASE_NAME = "teacher.db";
-    public static int DATABASE_VERSION = 2;
+    public static int DATABASE_VERSION = 3;
 
     public static String CREATE_CLASS = "CREATE TABLE class(SchoolId INTEGER, ClassId INT DEFAULT 0,"
             + "ClassName TEXT, ClassType TEXT, DateTimeRecordInserted DATETIME, SubjectGroupIds TEXT)";
@@ -218,4 +218,10 @@ public interface SqlConstant {
             "BEGIN " +
             "DELETE FROM ccestudentprofile WHERE ccestudentprofile.SectionId=NEW.SectionId AND ccestudentprofile.Term=NEW.Term AND ccestudentprofile.StudentId=NEW.StudentId; " +
             "END";
+
+    public static String CREATE_TIMETABLE = "CREATE TABLE timetable(SchoolId INTEGER, ClassId INTEGER, SectionId INTEGER, DayId INTEGER, " +
+            "PeriodId INTEGER, SubjectId INTEGER, DateTimeRecordInserted DATETIME)";
+
+    public static String CREATE_TIMETABLE_TIMING = "CREATE TABLE timetabletimings(SchoolId INTEGER, ClassId INTEGER, Period INTEGER, " +
+            "FromTiming TEXT, ToTiming TEXT, DateTimeRecordInserted DATETIME)";
 }

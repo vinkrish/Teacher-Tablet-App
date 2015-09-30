@@ -38,7 +38,6 @@ import android.util.Log;
 /**
  * Created by vinkrish.
  */
-
 @SuppressWarnings("deprecation")
 public class CallFTP implements StringConstant {
     private SqlDbHelper sqlHandler;
@@ -84,7 +83,7 @@ public class CallFTP implements StringConstant {
                 ack_json.put("tab_id", deviceId);
                 ack_json.put("battery_status", batteryLevel);
                 Log.d("get_file_req", "1");
-                jsonReceived = UploadSyncParser.makePostRequest(ask_for_download_file, ack_json);
+                jsonReceived = new JSONObject(RequestResponseHandler.reachServer(ask_for_download_file, ack_json));
                 Log.d("get_file_res", "1");
                 block = jsonReceived.getInt(TAG_SUCCESS);
                 Log.d("block", block + "");
@@ -102,8 +101,6 @@ public class CallFTP implements StringConstant {
                 }
             } catch (JSONException e) {
                 zipFile = "";
-                e.printStackTrace();
-            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -143,15 +140,13 @@ public class CallFTP implements StringConstant {
                         jsonObject.put("school", schoolId);
                         jsonObject.put("tab_id", deviceId);
                         jsonObject.put("file_name", f.substring(0, f.length() - 3) + "sql");
-                        jsonReceived = UploadSyncParser.makePostRequest(acknowledge_uploaded_file, jsonObject);
+                        jsonReceived = new JSONObject(RequestResponseHandler.reachServer(acknowledge_uploaded_file, jsonObject));
                         if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
                             TempDao.updateSyncTimer(sqliteDatabase);
                             file.delete();
                             sqliteDatabase.execSQL("update uploadedfile set processed=1 where filename='" + f + "'");
                         }
                     } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     uploadComplete = false;
