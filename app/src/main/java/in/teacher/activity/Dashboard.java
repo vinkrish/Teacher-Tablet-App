@@ -23,6 +23,8 @@ import in.teacher.fragment.SelectCCEStudentProfile;
 import in.teacher.fragment.SlipTest;
 import in.teacher.fragment.StructuredExam;
 import in.teacher.fragment.StudentClassSec;
+import in.teacher.fragment.SubjectMapStudentCreate;
+import in.teacher.fragment.SubjectMapStudentUpdate;
 import in.teacher.fragment.TextSms;
 import in.teacher.fragment.ViewQueue;
 import in.teacher.fragment.ViewScore;
@@ -117,6 +119,7 @@ public class Dashboard extends BaseActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
 
         navMenuIcons.recycle();
         navDrawerListAdapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -309,6 +312,12 @@ public class Dashboard extends BaseActivity {
                     ReplaceFragment.replace(new TextSms(), getFragmentManager());
                 } else {
                     CommonDialogUtils.displayAlertWhiteDialog(this, "Please be in WiFi zone or check the status of WiFi");
+                }
+            } else if (position == 6) {
+                if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId)) {
+                    ReplaceFragment.replace(new SubjectMapStudentUpdate(), getFragmentManager());
+                } else {
+                    ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
                 }
             }
         }

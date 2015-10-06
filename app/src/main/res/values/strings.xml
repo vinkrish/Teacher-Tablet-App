@@ -25,9 +25,10 @@
         <item>Dashboard</item>
         <item>Attendance</item>
         <item>Homework</item>
-        <item>Co-scholastic</item>
-        <item>CCE student profile</item>
+        <item>Co-Scholastic</item>
+        <item>CCE Student Profile</item>
         <item>SMS</item>
+        <item>Map Subjects to Students</item>
     </string-array>
 
     <array name="nav_drawer_icons">
@@ -36,6 +37,7 @@
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
+        <item>@drawable/attendance</item>
         <item>@drawable/attendance</item>
     </array>
 
@@ -199,5 +201,9 @@
     <string name="update_apk">A new version of application is available, please click the update button to confirm and continue.</string>
     <string name="update_apk_wifi">*tab should be in wifi zone.</string>
     <string name="update_apk_button">Update the application</string>
+    <string name="map_student_subject">Map Subjects to Students</string>
+
+    <string name="ed_up_mapped_students">Edit / Update Mapped Students</string>
+    <string name="map_students">Map Selected Subejcts to Students</string>
 
 </resources>

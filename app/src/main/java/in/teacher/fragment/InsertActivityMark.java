@@ -53,7 +53,6 @@ import android.widget.Toast;
 /**
  * Created by vinkrish.
  */
-
 public class InsertActivityMark extends Fragment {
     private Activity activity;
     private Context context;

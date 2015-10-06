@@ -9,14 +9,16 @@
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
         <item>@drawable/attendance</item>
+        <item>@drawable/attendance</item>
     </array>
     <string-array name="nav_drawer_items">
         <item>Dashboard</item>
         <item>Attendance</item>
         <item>Homework</item>
-        <item>Co-scholastic</item>
-        <item>CCE student profile</item>
+        <item>Co-Scholastic</item>
+        <item>CCE Student Profile</item>
         <item>SMS</item>
+        <item>Map Subjects to Students</item>
     </string-array>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/color.xml -->
     <eat-comment/>
@@ -109,6 +111,7 @@
     <string name="decimal">.</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
+    <string name="ed_up_mapped_students">Edit / Update Mapped Students</string>
     <string name="eight">8</string>
     <string name="enter">Enter marks for created sliptest</string>
     <string name="enter_grade">Enter Grade</string>
@@ -146,6 +149,8 @@
     <string name="login">LOGIN</string>
     <string name="male_students">All Male Students</string>
     <string name="manualportion">Enter title of your choice</string>
+    <string name="map_student_subject">Map Subjects to Students</string>
+    <string name="map_students">Map Selected Subejcts to Students</string>
     <string name="marks">Marks</string>
     <string name="max_mark">Max Mark</string>
     <string name="maxmarc">Max Mark :</string>

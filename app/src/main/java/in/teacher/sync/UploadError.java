@@ -21,7 +21,6 @@ import android.util.Log;
 /**
  * Created by vinkrish.
  */
-
 public class UploadError implements StringConstant {
     private SqlDbHelper sqlHandler;
     private SQLiteDatabase sqliteDatabase;

@@ -41,12 +41,13 @@ public class RequestResponseHandler {
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
                 response = convertInputStreamToString(inputStream);
             } else {
-                response = null;
+                response = "";
             }
 
         } catch (Exception e) {
             Log.d("RequestResponseHandler", e.getLocalizedMessage());
         }
+        Log.d("Response", response);
         return response;
     }
 

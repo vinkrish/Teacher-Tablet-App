@@ -30,7 +30,6 @@ import android.widget.Button;
 /**
  * Created by vinkrish.
  */
-
 public class LockActivity extends BaseActivity implements StringConstant {
     private ProgressDialog pDialog;
     private Button butSend, butRefresh;
