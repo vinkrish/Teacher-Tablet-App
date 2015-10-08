@@ -204,6 +204,8 @@
     <string name="map_student_subject">Map Subjects to Students</string>
 
     <string name="ed_up_mapped_students">Edit / Update Mapped Students</string>
-    <string name="map_students">Map Selected Subejcts to Students</string>
+    <string name="map_students">Map Selected Subjects to Students</string>
+    <string name="group_subject">Subject Group / Subjects</string>
+    <string name="save">Save</string>
 
 </resources>

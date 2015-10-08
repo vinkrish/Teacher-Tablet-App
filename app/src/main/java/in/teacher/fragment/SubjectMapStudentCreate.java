@@ -55,7 +55,7 @@ import in.teacher.util.ReplaceFragment;
 public class SubjectMapStudentCreate extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private Activity activity;
-    private int schoolId, classId, sectionId;
+    private int classId, sectionId;
     private List<Integer> subjectGroupIdList = new ArrayList<>();
     private List<String> subjectGroupNameList = new ArrayList<>();
     //private HashMap<Integer, List<Integer>> subjectGroupMap = new HashMap<>();
@@ -88,7 +88,6 @@ public class SubjectMapStudentCreate extends Fragment {
     private void init() {
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
-        schoolId = t.getSchoolId();
         classId = t.getClassId();
         sectionId = t.getSectionId();
 
@@ -102,7 +101,20 @@ public class SubjectMapStudentCreate extends Fragment {
         mapSubjectBtn.setActivated(false);
         mapSubjectBtn.setOnClickListener(mapSubjectListener);
 
+        editUpdateBtn.setOnClickListener(editListener);
+
+        if (StudentsDao.isFewStudentMapped(sqliteDatabase, sectionId)) {
+            editUpdateBtn.setVisibility(View.VISIBLE);
+        }
+
     }
+
+    View.OnClickListener editListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ReplaceFragment.replace(new SubjectMapStudentEdit(), getFragmentManager());
+        }
+    };
 
     View.OnClickListener mapSubjectListener = new View.OnClickListener() {
         @Override
@@ -177,10 +189,10 @@ public class SubjectMapStudentCreate extends Fragment {
                 String sql = "update students set SubjectIds = '" + sb.substring(0, sb.length()-1) + "' where StudentId = " + ssi;
                 try{
                     sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
                 }catch(SQLException e){}
-                ContentValues cv = new ContentValues();
-                cv.put("Query", sql);
-                sqliteDatabase.insert("uploadsql", null, cv);
             }
             return null;
         }
@@ -209,9 +221,6 @@ public class SubjectMapStudentCreate extends Fragment {
         TableLayout tableC;
         TableLayout tableD;
 
-        HorizontalScrollView horizontalScrollViewB;
-        HorizontalScrollView horizontalScrollViewD;
-
         ScrollView scrollViewC;
         ScrollView scrollViewD;
 
@@ -229,12 +238,9 @@ public class SubjectMapStudentCreate extends Fragment {
             this.setComponentsId();
             this.setScrollViewAndHorizontalScrollViewTag();
 
-            this.horizontalScrollViewB.addView(this.tableB);
-
             this.scrollViewC.addView(this.tableC);
 
-            this.scrollViewD.addView(this.horizontalScrollViewD);
-            this.horizontalScrollViewD.addView(this.tableD);
+            this.scrollViewD.addView(this.tableD);
 
             this.addComponentToMainLayout();
             this.setBackgroundColor(Color.RED);
@@ -258,37 +264,28 @@ public class SubjectMapStudentCreate extends Fragment {
             this.tableC = new TableLayout(this.context);
             this.tableD = new TableLayout(this.context);
 
-            this.horizontalScrollViewB = new MyHorizontalScrollView(this.context);
-            this.horizontalScrollViewD = new MyHorizontalScrollView(this.context);
-
             this.scrollViewC = new MyScrollView(this.context);
             this.scrollViewD = new MyScrollView(this.context);
 
             this.tableA.setBackgroundColor(Color.LTGRAY);
-            this.horizontalScrollViewB.setBackgroundColor(Color.LTGRAY);
+            this.tableB.setBackgroundColor(Color.LTGRAY);
 
         }
 
         private void setComponentsId() {
-            this.tableA.setId(1);
-            this.horizontalScrollViewB.setId(2);
-            this.scrollViewC.setId(3);
-            this.scrollViewD.setId(4);
+            this.tableA.setId(View.generateViewId());
+            this.tableB.setId(View.generateViewId());
+            this.scrollViewC.setId(View.generateViewId());
+            this.scrollViewD.setId(View.generateViewId());
         }
 
         private void setScrollViewAndHorizontalScrollViewTag() {
-
-            this.horizontalScrollViewB.setTag("horizontal scroll view b");
-            this.horizontalScrollViewD.setTag("horizontal scroll view d");
-
             this.scrollViewC.setTag("scroll view c");
             this.scrollViewD.setTag("scroll view d");
         }
 
         private void addComponentToMainLayout() {
 
-            // RelativeLayout params were very useful here
-            // the addRule method is the key to arrange the components properly
             RelativeLayout.LayoutParams componentB_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             componentB_Params.addRule(RelativeLayout.RIGHT_OF, this.tableA.getId());
 
@@ -297,12 +294,10 @@ public class SubjectMapStudentCreate extends Fragment {
 
             RelativeLayout.LayoutParams componentD_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             componentD_Params.addRule(RelativeLayout.RIGHT_OF, this.scrollViewC.getId());
-            componentD_Params.addRule(RelativeLayout.BELOW, this.horizontalScrollViewB.getId());
+            componentD_Params.addRule(RelativeLayout.BELOW, this.tableB.getId());
 
-            // 'this' is a relative layout,
-            // we extend this table layout as relative layout as seen during the creation of this class
             this.addView(this.tableA);
-            this.addView(this.horizontalScrollViewB, componentB_Params);
+            this.addView(this.tableB, componentB_Params);
             this.addView(this.scrollViewC, componentC_Params);
             this.addView(this.scrollViewD, componentD_Params);
 
@@ -368,7 +363,6 @@ public class SubjectMapStudentCreate extends Fragment {
 
                 this.tableC.addView(tableRowForTableC);
                 this.tableD.addView(taleRowForTableD);
-
             }
         }
 
@@ -407,7 +401,7 @@ public class SubjectMapStudentCreate extends Fragment {
 
             //printMap(subjectGroupMap);
 
-            final RadioButton[] rb = new RadioButton[2];
+            final RadioButton[] rb = new RadioButton[subjectIdList.size()];
             RadioGroup rg = new RadioGroup(this.getContext());
             rg.setGravity(Gravity.CENTER_VERTICAL);
             rg.setBackgroundColor(Color.WHITE);
@@ -442,7 +436,6 @@ public class SubjectMapStudentCreate extends Fragment {
                         if (selectedSubjectId.size() == subjectGroupIdList.size()) {
                             mapSubjectBtn.setActivated(true);
                         }
-                        Log.d("selected subjects", selectedSubjectId+"");
                     }
                 });
                 rg.addView(rb[j]);
@@ -451,16 +444,6 @@ public class SubjectMapStudentCreate extends Fragment {
 
             return taleRowForTableD;
 
-        }
-
-        public void printMap(Map mp) {
-            Iterator it = mp.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                Log.d("Key", pair.getKey()+"");
-                Log.d("Value", pair.getValue()+"");
-                it.remove();
-            }
         }
 
         int getCellWidth() {
@@ -504,7 +487,6 @@ public class SubjectMapStudentCreate extends Fragment {
 
             int tableAChildCount = ((TableRow) this.tableA.getChildAt(0)).getChildCount();
             int tableBChildCount = ((TableRow) this.tableB.getChildAt(0)).getChildCount();
-            ;
 
             for (int x = 0; x < (tableAChildCount + tableBChildCount); x++) {
 
@@ -598,24 +580,6 @@ public class SubjectMapStudentCreate extends Fragment {
         private int viewWidth(View view) {
             view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             return view.getMeasuredWidth();
-        }
-
-        class MyHorizontalScrollView extends HorizontalScrollView {
-            public MyHorizontalScrollView(Context context) {
-                super(context);
-            }
-
-            @Override
-            protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-                String tag = (String) this.getTag();
-
-                if (tag.equalsIgnoreCase("horizontal scroll view b")) {
-                    horizontalScrollViewD.scrollTo(l, 0);
-                } else {
-                    horizontalScrollViewB.scrollTo(l, 0);
-                }
-            }
-
         }
 
         class MyScrollView extends ScrollView {

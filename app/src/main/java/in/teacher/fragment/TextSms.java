@@ -30,7 +30,6 @@ import com.amazonaws.mobileconnectors.s3.transfermanager.Upload;
 import com.amazonaws.services.s3.model.ProgressEvent;
 import com.amazonaws.services.s3.model.ProgressListener;
 
-import org.apache.commons.net.io.CopyStreamAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -273,7 +272,6 @@ public class TextSms extends Fragment implements StringConstant {
     }
 
     class CalledFTPSync extends AsyncTask<String, Integer, String> {
-        CopyStreamAdapter streamListener;
         private JSONObject jsonReceived;
 
         @Override

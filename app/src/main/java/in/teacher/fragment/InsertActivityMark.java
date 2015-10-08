@@ -18,6 +18,7 @@ import in.teacher.sqlite.ActivityMark;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
@@ -213,10 +214,7 @@ public class InsertActivityMark extends Fragment {
                     studentScore.set(index, s);
                     Toast.makeText(context, "Marks Entered is Greater than Max Mark", Toast.LENGTH_SHORT).show();
                     repopulateListArray();
-                } else {
-                    Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
-                    new CalledSubmit().execute();
-                }
+                } else new CalledSubmit().execute();
             }
         });
 
@@ -284,6 +282,7 @@ public class InsertActivityMark extends Fragment {
 
     class CalledSubmit extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog = new ProgressDialog(activity);
+        Boolean submitStatus = false;
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -295,14 +294,24 @@ public class InsertActivityMark extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            pushSubmit();
+            for (String ss : studentScore) {
+                if (!ss.equals("")) {
+                    submitStatus = true;
+                    break;
+                }
+            }
+            if (submitStatus) pushSubmit();
             return null;
         }
 
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
-            ReplaceFragment.replace(new ActivityExam(), getFragmentManager());
+            if (submitStatus) {
+                Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
+                ReplaceFragment.replace(new ActivityExam(), getFragmentManager());
+            } else
+                CommonDialogUtils.displayAlertWhiteDialog(activity, "Please enter marks to save !");
         }
 
     }

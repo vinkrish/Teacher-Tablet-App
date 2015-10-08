@@ -43,13 +43,13 @@ import in.teacher.sqlite.Marks;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
  */
-
 public class InsertExamGrade extends Fragment {
     private Activity activity;
     private Context context;
@@ -162,10 +162,11 @@ public class InsertExamGrade extends Fragment {
 
     class CalledSubmit extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog = new ProgressDialog(activity);
+        Boolean submitStatus = false;
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog.setMessage("Submitting marks...");
+            pDialog.setMessage("Submitting grade...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -173,14 +174,24 @@ public class InsertExamGrade extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            pushSubmit();
+            for (String ss : studentScore) {
+                if (!ss.equals("")) {
+                    submitStatus = true;
+                    break;
+                }
+            }
+            if (submitStatus) pushSubmit();
             return null;
         }
 
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
-            ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
+            if (submitStatus) {
+                Toast.makeText(context, "grade entered has been saved", Toast.LENGTH_LONG).show();
+                ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
+            } else
+                CommonDialogUtils.displayAlertWhiteDialog(activity, "Please enter grades to save !");
         }
     }
 
@@ -211,7 +222,6 @@ public class InsertExamGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
                 new CalledSubmit().execute();
             }
         });
@@ -344,6 +354,5 @@ public class InsertExamGrade extends Fragment {
             }
         }
     }
-
 
 }

@@ -24,7 +24,7 @@ import in.teacher.fragment.SlipTest;
 import in.teacher.fragment.StructuredExam;
 import in.teacher.fragment.StudentClassSec;
 import in.teacher.fragment.SubjectMapStudentCreate;
-import in.teacher.fragment.SubjectMapStudentUpdate;
+import in.teacher.fragment.SubjectMapStudentEdit;
 import in.teacher.fragment.TextSms;
 import in.teacher.fragment.ViewQueue;
 import in.teacher.fragment.ViewScore;
@@ -314,8 +314,10 @@ public class Dashboard extends BaseActivity {
                     CommonDialogUtils.displayAlertWhiteDialog(this, "Please be in WiFi zone or check the status of WiFi");
                 }
             } else if (position == 6) {
+                Temp t = TempDao.selectTemp(sqliteDatabase);
+                sectionId = t.getSectionId();
                 if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId)) {
-                    ReplaceFragment.replace(new SubjectMapStudentUpdate(), getFragmentManager());
+                    ReplaceFragment.replace(new SubjectMapStudentEdit(), getFragmentManager());
                 } else {
                     ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
                 }

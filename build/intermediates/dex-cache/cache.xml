@@ -2,11 +2,81 @@
 <items version="2" >
 
     <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-953e455a94e5167b8223e8db427d76d8185d252d.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/libs/aws-android-sdk-s3-2.2.5.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b6307ddcf3dee4bb3b2be06cb4f392d69c1ca309">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/aws-android-sdk-s3-2.2.5-569862ad1e9097ccd19217a41de3147509d9aa6a.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-d981531fad4f1f15c60756829fb1996aabc1c427.jar" />
+    </item>
+    <item
         jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/libs/aws-android-sdk-s3-2.2.5.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="b6307ddcf3dee4bb3b2be06cb4f392d69c1ca309">
         <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/aws-android-sdk-s3-2.2.5-569862ad1e9097ccd19217a41de3147509d9aa6a.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/classes-2623a85c046112ff6672eeb6b5e210dd8148a851.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-953e455a94e5167b8223e8db427d76d8185d252d.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/libs/aws-android-sdk-core-2.2.5.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="ccd427b798b68d6add14c1926e987903b6d762b3">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/aws-android-sdk-core-2.2.5-d5616140c389169ee6a24bc293e7977a53d63852.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-8e86dc5935366bbe9d72676c7de8eff456b594bb.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/classes-2623a85c046112ff6672eeb6b5e210dd8148a851.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-8e86dc5935366bbe9d72676c7de8eff456b594bb.jar" />
+    </item>
+    <item
+        jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250">
+        <dex dex="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-d981531fad4f1f15c60756829fb1996aabc1c427.jar" />
     </item>
     <item
         jar="/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/libs/aws-android-sdk-core-2.2.5.jar"

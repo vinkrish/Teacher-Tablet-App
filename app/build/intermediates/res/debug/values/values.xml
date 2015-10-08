@@ -129,6 +129,7 @@
     <string name="grade">Grade</string>
     <string name="grades">Grades</string>
     <string name="graphcolumn">Percentage %</string>
+    <string name="group_subject">Subject Group / Subjects</string>
     <string name="height">Height (cm)</string>
     <string name="hello_world">Hello world!</string>
     <string name="homework">Homework</string>
@@ -182,6 +183,7 @@
     <string name="remark">Remark</string>
     <string name="reset">Reset</string>
     <string name="resolving">Resolving Errors</string>
+    <string name="save">Save</string>
     <string name="score">Score</string>
     <string name="se">Exam</string>
     <string name="search">Search Student</string>

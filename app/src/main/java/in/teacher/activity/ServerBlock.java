@@ -16,7 +16,6 @@ import android.widget.Button;
 /**
  * Created by vinkrish.
  */
-
 public class ServerBlock extends BaseActivity {
     private Button butResolve;
 

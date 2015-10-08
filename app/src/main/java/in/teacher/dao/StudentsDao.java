@@ -117,13 +117,43 @@ public class StudentsDao {
     }
 
     public static boolean isStudentMapped(SQLiteDatabase sqliteDatabase, int sectionId) {
-        Cursor c = sqliteDatabase.rawQuery("select StudentId from students where SubjectIds='' and SectionId=" + sectionId, null);
+        Cursor c = sqliteDatabase.rawQuery("select StudentId from students where SubjectIds='' and SectionId="+sectionId, null);
         if (c.getCount() > 0) {
+            Log.d("null exist", "false");
             c.close();
             return false;
         }
+        Log.d("null doesn't exist", "true");
         c.close();
         return true;
+    }
+
+    public static boolean isStudentMapped2 (SQLiteDatabase sqliteDatabase, int sectionId) {
+        Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where SubjectIds!='' and SectionId="+sectionId, null);
+        if (c.getCount() > 0) {
+            Log.d("c count", c.getCount()+"");
+            Cursor c2 = sqliteDatabase.rawQuery("select count(*) as count from students where SectionId="+sectionId, null);
+            Log.d("c2 count", c2.getCount()+"");
+            if (c.getCount() == c2.getCount()) {
+                c.close();
+                c2.close();
+                return true;
+            }
+            c2.close();
+        }
+        Log.d("doesn't exist", "false");
+        c.close();
+        return false;
+    }
+
+    public static boolean isFewStudentMapped (SQLiteDatabase sqliteDatabase, int sectionId) {
+        Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where SubjectIds!='' and SectionId="+sectionId, null);
+        if (c.getCount() > 0) {
+           c.close();
+            return true;
+        }
+        c.close();
+        return false;
     }
 
 }
