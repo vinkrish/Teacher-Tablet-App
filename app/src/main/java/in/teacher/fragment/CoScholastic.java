@@ -2,9 +2,7 @@ package in.teacher.fragment;
 
 import in.teacher.activity.R;
 import in.teacher.activity.R.animator;
-import in.teacher.adapter.Capitalize;
 import in.teacher.dao.CceCoScholasticGradeDao;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.model.ExpChild;
 import in.teacher.model.ExpGroup;
@@ -18,14 +16,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
@@ -35,7 +31,6 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class CoScholastic extends Fragment {
     private Context context;
     private ExpandListAdapter ExpAdapter;
@@ -447,7 +442,7 @@ public class CoScholastic extends Fragment {
                     temp += 1;
                 }
             } else if (i == 4) {
-                Cursor c = sqliteDatabase.rawQuery("select * from cceaspectprimary where TopicId=" + TopicId, null);
+                Cursor c = sqliteDatabase.rawQuery("select * from cceaspectprimary where TopicId=" + TopicId +" ORDER BY CAST(strftime('%s', DateTimeRecordInserted) AS INT)", null);
                 c.moveToFirst();
                 aspectList.clear();
                 aspectNameList.clear();
@@ -503,7 +498,7 @@ public class CoScholastic extends Fragment {
             b.putInt("Term", Term);
             b.putInt("TopicId", TopicId);
             b.putInt("AspectId", AspectId);
-            Log.d("Marks", "Present");
+
             Fragment fragment = new UpdateCCSGrade();
             fragment.setArguments(b);
             getFragmentManager()
@@ -515,7 +510,7 @@ public class CoScholastic extends Fragment {
             b.putInt("Term", Term);
             b.putInt("TopicId", TopicId);
             b.putInt("AspectId", AspectId);
-            Log.d("Marks", "Absent");
+
             Fragment fragment = new InsertCoSchGrade();
             fragment.setArguments(b);
             getFragmentManager()
@@ -687,7 +682,7 @@ public class CoScholastic extends Fragment {
 			c1.close();*/
 
         //	for(Integer t: termList){
-        Cursor c2 = sqliteDatabase.rawQuery("select * from ccesectionheading where CoScholasticId=" + CoScholasticId, null);
+        Cursor c2 = sqliteDatabase.rawQuery("select * from ccesectionheading where CoScholasticId=" + CoScholasticId + " ORDER BY CAST(strftime('%s', DateTimeRecordInserted) AS INT)", null);
         c2.moveToFirst();
         secHeadingList.clear();
         secNameList.clear();
@@ -699,7 +694,7 @@ public class CoScholastic extends Fragment {
         c2.close();
 
         for (Integer s : secHeadingList) {
-            Cursor c3 = sqliteDatabase.rawQuery("select * from ccetopicprimary where SectionHeadingId=" + s, null);
+            Cursor c3 = sqliteDatabase.rawQuery("select * from ccetopicprimary where SectionHeadingId=" + s + " ORDER BY CAST(strftime('%s', DateTimeRecordInserted) AS INT)", null);
             c3.moveToFirst();
             topicList.clear();
             topicNameList.clear();
@@ -711,7 +706,7 @@ public class CoScholastic extends Fragment {
             c3.close();
 
             for (Integer top : topicList) {
-                Cursor c4 = sqliteDatabase.rawQuery("select * from cceaspectprimary where TopicId=" + top, null);
+                Cursor c4 = sqliteDatabase.rawQuery("select * from cceaspectprimary where TopicId=" + top + " ORDER BY CAST(strftime('%s', DateTimeRecordInserted) AS INT)", null);
                 c4.moveToFirst();
                 aspectList.clear();
                 aspectNameList.clear();

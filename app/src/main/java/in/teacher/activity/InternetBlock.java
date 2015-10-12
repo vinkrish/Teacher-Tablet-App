@@ -21,7 +21,6 @@ import in.teacher.util.SharedPreferenceUtil;
 /**
  * Created by vinkrish.
  */
-
 public class InternetBlock extends BaseActivity {
     private int ignoreCount;
     private LinearLayout ignoreText;
