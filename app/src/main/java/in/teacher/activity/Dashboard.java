@@ -15,6 +15,7 @@ import in.teacher.dao.TempDao;
 import in.teacher.fragment.AbsentList;
 import in.teacher.fragment.CoScholastic;
 import in.teacher.fragment.Dashbord;
+import in.teacher.fragment.ExamCreate;
 import in.teacher.fragment.HasPartition;
 import in.teacher.fragment.InsertHomework;
 import in.teacher.fragment.MarkAttendance;
@@ -55,6 +56,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,7 +90,6 @@ public class Dashboard extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
 
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_dashboard);
@@ -119,7 +120,8 @@ public class Dashboard extends BaseActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-        //navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
 
         navMenuIcons.recycle();
         navDrawerListAdapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -294,6 +296,7 @@ public class Dashboard extends BaseActivity {
     }
 
     private void selectItem(int position) {
+
         if (position == 0) {
             ReplaceFragment.replace(new Dashbord(), getFragmentManager());
         } else if (!isClassTeacher()) {
@@ -321,11 +324,15 @@ public class Dashboard extends BaseActivity {
                 } else {
                     ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
                 }
+            } else if (position == 7) {
+                ReplaceFragment.replace(new ExamCreate(), getFragmentManager());
             }
         }
+
         mDrawerList.setItemChecked(position, true);
         setTitle(navMenuTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
+
     }
 
     private boolean isClassTeacher() {

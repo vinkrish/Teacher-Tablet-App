@@ -76,7 +76,9 @@ public class MarksDao {
 					m.getSchoolId()+","+m.getExamId()+","+m.getSubjectId()+","+m.getStudentId()+",'"+m.getMark()+"')";
 			try{
 				sqliteDatabase.execSQL(sql);
-			}catch(SQLException e){}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
 			ContentValues cv = new ContentValues();
 			cv.put("Query", sql);
 			sqliteDatabase.insert("uploadsql", null, cv);

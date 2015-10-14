@@ -28,4 +28,18 @@ public class SubjectsDao {
         return list;
     }
 
+    public static boolean isPartition (SQLiteDatabase sqliteDatabase, int subjectId) {
+        Cursor c = sqliteDatabase.rawQuery("select has_partition from subjects where SubjectId = "+subjectId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            if (c.getInt(c.getColumnIndex("has_partition")) == 1) {
+                c.close();
+                return true;
+            }
+            c.moveToNext();
+        }
+        c.close();
+        return false;
+    }
+
 }

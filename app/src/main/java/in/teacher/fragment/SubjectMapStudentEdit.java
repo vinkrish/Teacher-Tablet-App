@@ -147,14 +147,13 @@ public class SubjectMapStudentEdit extends Fragment {
         c.close();
         String[] idArray = ids.split("#");
         for (String id : idArray) {
-            if (id != "") selectedSubjectId.add(Integer.parseInt(id));
+            if (!id.equals("")) selectedSubjectId.add(Integer.parseInt(id));
         }
     }
 
     private void generateTable() {
         for (int i = 0; i < subjectGroupNameList.size(); i++) {
             TableRow tableRow = tableRow(subjectGroupIdList.get(i), subjectGroupNameList.get(i));
-            //tableRow.setBackgroundColor(Color.LTGRAY);
             table.addView(tableRow);
         }
     }
@@ -163,7 +162,6 @@ public class SubjectMapStudentEdit extends Fragment {
 
         TableRow taleRowForTableD = new TableRow(this.context);
         TableRow.LayoutParams params = new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        //params.setMargins(2, 2, 0, 0);
 
         LinearLayout ll = new LinearLayout(activity);
         ll.setOrientation(LinearLayout.VERTICAL);

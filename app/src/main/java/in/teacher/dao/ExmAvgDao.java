@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteStatement;
 
 public class ExmAvgDao {
 	
-	public static int selectedExmComplete(int sectionId, int subjectId, int examId, SQLiteDatabase sqliteDatabase){
+	public static int selectedExmComplete(int sectionId, int subjectId, long examId, SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery("select * from exmavg where SectionId="+sectionId+" and SubjectId="+subjectId+" and ExamId="+examId, null);
 		int i = 0;
 		c.moveToFirst();

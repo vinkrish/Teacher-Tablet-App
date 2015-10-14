@@ -10,6 +10,7 @@
         <item>@drawable/homework</item>
         <item>@drawable/attendance</item>
         <item>@drawable/attendance</item>
+        <item>@drawable/homework</item>
     </array>
     <string-array name="nav_drawer_items">
         <item>Dashboard</item>
@@ -19,6 +20,7 @@
         <item>CCE Student Profile</item>
         <item>SMS</item>
         <item>Map Subjects to Students</item>
+        <item>Exam Create</item>
     </string-array>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/color.xml -->
     <eat-comment/>
@@ -57,7 +59,7 @@
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">10dp</dimen>
     <dimen name="marging_tiny">5dp</dimen>
-    <dimen name="slider_height">100dp</dimen>
+    <dimen name="slider_height">80dp</dimen>
     <dimen name="slider_image">40dp</dimen>
     <dimen name="slider_image_margin">30dp</dimen>
     <dimen name="slider_text">329dp</dimen>
@@ -121,12 +123,14 @@
     <string name="es">Enter Score</string>
     <string name="evaluation">Evaluation Type</string>
     <string name="exam">Exam</string>
+    <string name="exam_create">Exam Create</string>
     <string name="female_students">All Female Students</string>
     <string name="five">5</string>
     <string name="fltv">Select  the  below  options</string>
     <string name="four">4</string>
     <string name="gen_log">Generate Log File</string>
     <string name="grade">Grade</string>
+    <string name="grade_system">Grade System : </string>
     <string name="grades">Grades</string>
     <string name="graphcolumn">Percentage %</string>
     <string name="group_subject">Subject Group / Subjects</string>
@@ -156,6 +160,7 @@
     <string name="max_mark">Max Mark</string>
     <string name="maxmarc">Max Mark :</string>
     <string name="maxmark">Maximum mark</string>
+    <string name="min_mark">Min Mark</string>
     <string name="minus">AB</string>
     <string name="month">Month</string>
     <string name="next">Next</string>
@@ -170,6 +175,7 @@
     <string name="otherday">Otherday</string>
     <string name="password">Password</string>
     <string name="pc">Please check if the absentees are listed below</string>
+    <string name="percentage">Percentage</string>
     <string name="portion">Portions</string>
     <string name="portioncolumn">Portion</string>
     <string name="portions">Click here to select portions</string>
@@ -188,6 +194,7 @@
     <string name="se">Exam</string>
     <string name="search">Search Student</string>
     <string name="sel_student">Select Students</string>
+    <string name="sel_sub_group">Select Subject Group</string>
     <string name="select_sec">select section</string>
     <string name="send_sms">Send SMS to:</string>
     <string name="server_resolve">Tab is in Sync</string>
@@ -205,6 +212,7 @@
     <string name="stud_avg">Student avg / Class avg</string>
     <string name="studentname">Student Name</string>
     <string name="students">Students</string>
+    <string name="sub_partition">Subject Partition</string>
     <string name="sub_teacher">Subject Teacher</string>
     <string name="subact">Sub Activity</string>
     <string name="subject">Subject</string>
@@ -214,6 +222,7 @@
     <string name="table">Table</string>
     <string name="teacher">Teacher</string>
     <string name="teacher_login">Teacher Login</string>
+    <string name="term">Term</string>
     <string name="three">3</string>
     <string name="title_activity_alarm_activiity">AlarmActiviity</string>
     <string name="title_activity_dashboard">SchoolCom</string>

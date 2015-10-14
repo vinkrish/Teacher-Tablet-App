@@ -29,6 +29,7 @@
         <item>CCE Student Profile</item>
         <item>SMS</item>
         <item>Map Subjects to Students</item>
+        <item>Exam Create</item>
     </string-array>
 
     <array name="nav_drawer_icons">
@@ -39,6 +40,7 @@
         <item>@drawable/homework</item>
         <item>@drawable/attendance</item>
         <item>@drawable/attendance</item>
+        <item>@drawable/homework</item>
     </array>
 
     <string name="drawer_open">Open navigation drawer</string>
@@ -86,8 +88,11 @@
     <string name="sliptests">Selected slipTest will appear here</string>
     <string name="stdate">Slip test date</string>
     <string name="marks">Marks</string>
+    <string name="term">Term</string>
+    <string name="percentage">Percentage</string>
     <string name="grade">Grade</string>
     <string name="grades">Grades</string>
+    <string name="grade_system">Grade System : </string>
     <string name="reset">Reset</string>
     <string name="insert">Insert</string>
     <string name="update">Update</string>
@@ -158,6 +163,7 @@
     <string name="subject">Subject</string>
     <string name="slno">S.No</string>
     <string name="max_mark">Max Mark</string>
+    <string name="min_mark">Min Mark</string>
     <string name="exam">Exam</string>
     <string name="stud_avg">Student avg / Class avg</string>
     <string name="teacher">Teacher</string>
@@ -207,5 +213,8 @@
     <string name="map_students">Map Selected Subjects to Students</string>
     <string name="group_subject">Subject Group / Subjects</string>
     <string name="save">Save</string>
+    <string name="exam_create">Exam Create</string>
+    <string name="sel_sub_group">Select Subject Group</string>
+    <string name="sub_partition">Subject Partition</string>
 
 </resources>
