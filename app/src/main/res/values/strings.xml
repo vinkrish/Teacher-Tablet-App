@@ -30,6 +30,7 @@
         <item>SMS</item>
         <item>Map Subjects to Students</item>
         <item>Exam Create</item>
+        <item>Map Subject Teacher</item>
     </string-array>
 
     <array name="nav_drawer_icons">
@@ -40,6 +41,7 @@
         <item>@drawable/homework</item>
         <item>@drawable/attendance</item>
         <item>@drawable/attendance</item>
+        <item>@drawable/homework</item>
         <item>@drawable/homework</item>
     </array>
 
@@ -208,6 +210,7 @@
     <string name="update_apk_wifi">*tab should be in wifi zone.</string>
     <string name="update_apk_button">Update the application</string>
     <string name="map_student_subject">Map Subjects to Students</string>
+    <string name="map_subject_teacher">Map Subject Teacher</string>
 
     <string name="ed_up_mapped_students">Edit / Update Mapped Students</string>
     <string name="map_students">Map Selected Subjects to Students</string>

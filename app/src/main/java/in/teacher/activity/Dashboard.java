@@ -26,6 +26,7 @@ import in.teacher.fragment.StructuredExam;
 import in.teacher.fragment.StudentClassSec;
 import in.teacher.fragment.SubjectMapStudentCreate;
 import in.teacher.fragment.SubjectMapStudentEdit;
+import in.teacher.fragment.SubjectTeacherMapping;
 import in.teacher.fragment.TextSms;
 import in.teacher.fragment.ViewQueue;
 import in.teacher.fragment.ViewScore;
@@ -122,6 +123,7 @@ public class Dashboard extends BaseActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1)));
 
         navMenuIcons.recycle();
         navDrawerListAdapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -326,6 +328,8 @@ public class Dashboard extends BaseActivity {
                 }
             } else if (position == 7) {
                 ReplaceFragment.replace(new ExamCreate(), getFragmentManager());
+            } else if (position == 8) {
+                ReplaceFragment.replace(new SubjectTeacherMapping(), getFragmentManager());
             }
         }
 

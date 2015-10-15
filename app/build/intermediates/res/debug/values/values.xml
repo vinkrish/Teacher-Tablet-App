@@ -11,6 +11,7 @@
         <item>@drawable/attendance</item>
         <item>@drawable/attendance</item>
         <item>@drawable/homework</item>
+        <item>@drawable/homework</item>
     </array>
     <string-array name="nav_drawer_items">
         <item>Dashboard</item>
@@ -21,6 +22,7 @@
         <item>SMS</item>
         <item>Map Subjects to Students</item>
         <item>Exam Create</item>
+        <item>Map Subject Teacher</item>
     </string-array>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/color.xml -->
     <eat-comment/>
@@ -156,6 +158,7 @@
     <string name="manualportion">Enter title of your choice</string>
     <string name="map_student_subject">Map Subjects to Students</string>
     <string name="map_students">Map Selected Subjects to Students</string>
+    <string name="map_subject_teacher">Map Subject Teacher</string>
     <string name="marks">Marks</string>
     <string name="max_mark">Max Mark</string>
     <string name="maxmarc">Max Mark :</string>
