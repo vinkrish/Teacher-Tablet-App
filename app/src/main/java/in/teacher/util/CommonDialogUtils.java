@@ -21,12 +21,11 @@ import in.teacher.dao.SlipTesttDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.fragment.HasPartition;
-import in.teacher.fragment.SlipTest;
-import in.teacher.fragment.StructuredExam;
+import in.teacher.examfragment.HasPartition;
+import in.teacher.sliptestfragment.SlipTest;
+import in.teacher.examfragment.StructuredExam;
 import in.teacher.fragment.StudentClassSec;
-import in.teacher.fragment.ViewScore;
-import in.teacher.sqlite.Clas;
+import in.teacher.sliptestfragment.ViewScore;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 

@@ -1,17 +1,25 @@
 package in.teacher.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +32,7 @@ import in.teacher.dao.SubjectGroupDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
+import in.teacher.sqlite.SubjectTeacher;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 
@@ -34,7 +43,7 @@ public class SubjectTeacherMapping extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private Activity activity;
     private Context context;
-    private int classId, sectionId;
+    private int classId, sectionId, schoolId;
     private ListView listView;
     private List<Integer> subjectGroupIdList = new ArrayList<>();
     private List<Integer> subjectIdList = new ArrayList<>();
@@ -43,24 +52,36 @@ public class SubjectTeacherMapping extends Fragment {
     private List<String> teacherNameList = new ArrayList<>();
     private List<SubjectTeacherItem> subjectTeacherList = new ArrayList<>();
     private SubjectTeacherAdapter stAdapter;
+    private Button save;
+    int pos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subject_teacher_mapping, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
+        save = (Button) view.findViewById(R.id.save);
 
-        init();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+        activity = AppGlobal.getActivity();
+        context = AppGlobal.getContext();
+
+        new CalledInit().execute();
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CalledSubmit().execute();
+            }
+        });
 
         return view;
     }
 
     private void init(){
-        sqliteDatabase = AppGlobal.getSqliteDatabase();
-        activity = AppGlobal.getActivity();
-        context = AppGlobal.getContext();
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
+        schoolId = t.getSchoolId();
         classId = t.getClassId();
         sectionId = t.getSectionId();
 
@@ -125,10 +146,94 @@ public class SubjectTeacherMapping extends Fragment {
                 subjectTeacherList.add(st);
             }
         }
+    }
 
-        stAdapter = new SubjectTeacherAdapter(context, subjectTeacherList);
-        listView.setAdapter(stAdapter);
+    class CalledInit extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog = new ProgressDialog(activity);
 
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Loading Data...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            init();
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            pDialog.dismiss();
+            stAdapter = new SubjectTeacherAdapter(context, subjectTeacherList);
+            listView.setAdapter(stAdapter);
+        }
+    }
+
+    class CalledSubmit extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog = new ProgressDialog(activity);
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Saving Changes...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            saveChanges();
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            pDialog.dismiss();
+        }
+    }
+
+    private void saveChanges () {
+        String sql = "";
+        for (SubjectTeacherItem st: subjectTeacherList) {
+            if (st.isInsert()) {
+                sql = "insert into subjectteacher (ClassId, SubjectId, SchoolId, TeacherId, SectionId) " +
+                        "values("+classId+", "+st.getSubjectId()+", "+schoolId+", "+st.getTeacherId()+", "+sectionId+")";
+            } else {
+                sql = "update subjectteacher set TeacherId = "+ st.getTeacherId() + " where SubjectId = "+ st.getSubjectId();
+            }
+            try {
+                sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void showTeacherDialog(){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Teachers")
+                .setCancelable(true)
+                .setSingleChoiceItems(teacherNameList.toArray(new CharSequence[teacherNameList.size()]), -1, new TeacherSelectionClickHandler())
+                .show();
+    }
+
+    private class TeacherSelectionClickHandler implements DialogInterface.OnClickListener {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            SubjectTeacherItem sei = subjectTeacherList.get(pos);
+            sei.setTeacherName(teacherNameList.get(which));
+            sei.setTeacherId(teacherIdList.get(which));
+            subjectTeacherList.set(pos, sei);
+            stAdapter.notifyDataSetChanged();
+            dialog.dismiss();
+        }
     }
 
     class SubjectTeacherAdapter extends BaseAdapter {
@@ -141,7 +246,7 @@ public class SubjectTeacherMapping extends Fragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View row = convertView;
             RecordHolder holder;
 
@@ -149,20 +254,30 @@ public class SubjectTeacherMapping extends Fragment {
                 row = inflater.inflate(R.layout.subject_teacher_list, parent, false);
                 holder = new RecordHolder();
                 holder.subjectName = (TextView) row.findViewById(R.id.subject_name);
-                holder.teacherName = (EditText) row.findViewById(R.id.teacher_name);
+                holder.teacherName = (TextView) row.findViewById(R.id.teacher_name);
+                holder.selectTeacher = (LinearLayout) row.findViewById(R.id.select_teacher);
                 row.setTag(holder);
             } else holder = (RecordHolder) row.getTag();
 
             SubjectTeacherItem item = data.get(position);
             holder.subjectName.setText(item.getSubjectName());
             holder.teacherName.setText(item.getTeacherName());
-            holder.teacherName.getBackground().setColorFilter(getResources().getColor(R.color.light_black), PorterDuff.Mode.SRC_ATOP);
+
+            holder.selectTeacher.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showTeacherDialog();
+                    pos = position;
+                }
+            });
+
             return row;
         }
 
         public class RecordHolder {
             public TextView subjectName;
-            public EditText teacherName;
+            public TextView teacherName;
+            public LinearLayout selectTeacher;
         }
 
         @Override
@@ -188,18 +303,6 @@ public class SubjectTeacherMapping extends Fragment {
         private String subjectName;
         private String teacherName;
         private boolean insert;
-
-        public SubjectTeacherItem() {
-
-        }
-
-        public SubjectTeacherItem(int subjectId, int teacherId, String subjectName, String teacherName, boolean insert){
-            this.subjectId= subjectId;
-            this.teacherId = teacherId;
-            this.subjectName = subjectName;
-            this.teacherName = teacherName;
-            this.insert = insert;
-        }
 
         public int getSubjectId() {
             return subjectId;
@@ -241,6 +344,4 @@ public class SubjectTeacherMapping extends Fragment {
             this.teacherName = teacherName;
         }
     }
-
-
 }

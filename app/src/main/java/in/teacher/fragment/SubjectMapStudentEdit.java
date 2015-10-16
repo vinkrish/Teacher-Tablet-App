@@ -306,7 +306,7 @@ public class SubjectMapStudentEdit extends Fragment {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog.setMessage("Submitting marks...");
+            pDialog.setMessage("Saving Changes...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();

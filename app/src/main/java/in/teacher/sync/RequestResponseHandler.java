@@ -47,7 +47,6 @@ public class RequestResponseHandler {
         } catch (Exception e) {
             Log.d("RequestResponseHandler", e.getLocalizedMessage());
         }
-        Log.d("Response", response);
         return response;
     }
 

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:id="@+id/select_teacher"
     android:orientation="horizontal">
 
     <TextView
@@ -19,15 +20,13 @@
         android:layout_height="match_parent"
         android:background="@color/divider"></View>
 
-    <EditText
+    <TextView
         android:id="@+id/teacher_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"
         android:layout_weight="0.5"
-        android:editable="false"
-        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black" />
-
 </LinearLayout>

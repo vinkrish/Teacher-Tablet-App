@@ -46,6 +46,21 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#333333" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/button_submit"
+            android:text="@string/save"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
     <View
