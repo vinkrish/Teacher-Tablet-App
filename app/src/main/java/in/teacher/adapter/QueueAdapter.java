@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 public class QueueAdapter extends BaseAdapter {
     private ArrayList<UploadSql> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public QueueAdapter(Context context, ArrayList<UploadSql> listArray) {
         this.data = listArray;

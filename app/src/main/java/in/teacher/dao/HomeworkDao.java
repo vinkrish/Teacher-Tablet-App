@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class HomeworkDao {
 
@@ -80,16 +81,17 @@ public class HomeworkDao {
         //	String escape = h.getHomework().replaceAll("['\"]", " ");
         String sql = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate,IsNew) " +
                 "values(" + h.getHomeworkId() + "," + h.getSchoolId() + "," + h.getClassId() + "," + h.getSectionId() + "," + h.getTeacherId() + ",'" +
-                h.getSubjectIDs() + "'," + DatabaseUtils.sqlEscapeString(h.getHomework().replaceAll("\n", " ")) + ",'" + h.getHomeworkDate() + "',1)";
+                h.getSubjectIDs() + "',\"" + h.getHomework().replaceAll("\n", " ") + "\",'" + h.getHomeworkDate() + "',1)";
         ContentValues cv = new ContentValues();
         cv.put("Query", sql);
         sqliteDatabase.insert("uploadsql", null, cv);
+
         long homeworkId = h.getHomeworkId();
         for (int i = 0; i < secIdList.size(); i++) {
             homeworkId++;
             String sql2 = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate,IsNew) " +
                     "values(" + homeworkId + "," + h.getSchoolId() + "," + h.getClassId() + "," + secIdList.get(i) + "," + teacherIdList.get(i) + ",'" +
-                    h.getSubjectIDs() + "'," + DatabaseUtils.sqlEscapeString(h.getHomework().replaceAll("\n", " ")) + ",'" + h.getHomeworkDate() + "',1)";
+                    h.getSubjectIDs() + "',\"" + h.getHomework().replaceAll("\n", " ") + "\",'" + h.getHomeworkDate() + "',1)";
             sqliteDatabase.execSQL(sql2);
             cv.put("Query", sql2);
             sqliteDatabase.insert("uploadsql", null, cv);

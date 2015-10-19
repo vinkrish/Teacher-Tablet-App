@@ -18,7 +18,7 @@ import in.teacher.sqlite.Amr;
 public class AsecAdapter extends ArrayAdapter<Amr> {
     private int resource;
     private ArrayList<Amr> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public AsecAdapter(Context context, int resource, ArrayList<Amr> listArray) {
         super(context, resource, listArray);

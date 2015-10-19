@@ -35,11 +35,11 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:onClick="callAttendance"
             android:background="@color/layout_black"
             android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
+            android:onClick="callAttendance"
             android:paddingLeft="10dp"
             android:text="@string/attendance"
             android:textColor="#FFFFFF"
@@ -55,13 +55,13 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:onClick="callHomework"
-            android:text="@string/homework"
             android:background="@color/layout_black"
             android:drawableLeft="@drawable/homework"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
+            android:onClick="callHomework"
             android:paddingLeft="10dp"
+            android:text="@string/homework"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
@@ -87,35 +87,32 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:background="@color/layoutbelowBC"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/yourClass"
+                    android:id="@+id/teacherName"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.5"
-                    android:background="@color/layoutbelowBC"
                     android:gravity="left|center"
                     android:paddingLeft="15dp"
                     android:text="@string/yourclasses"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#79787D" />
 
-                <TextView
-                    android:id="@+id/teacherName"
+                <Switch
+                    android:id="@+id/classIncharge"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="right"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:background="@color/layoutbelowBC"
                     android:gravity="right|center"
-                    android:paddingRight="15dp"
-                    android:text="asdf"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="10dp"
+                    android:text="@string/class_incharge"
                     android:textColor="#79787D" />
+
             </LinearLayout>
 
             <View

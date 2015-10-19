@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class AttGraph extends BaseAdapter {
     private ArrayList<Amr> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public AttGraph(Context context, ArrayList<Amr> listArray) {
         this.data = listArray;

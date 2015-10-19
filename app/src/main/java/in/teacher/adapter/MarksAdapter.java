@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class MarksAdapter extends BaseAdapter {
     private ArrayList<Students> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public MarksAdapter(Context context, ArrayList<Students> gridArray) {
         this.data = gridArray;

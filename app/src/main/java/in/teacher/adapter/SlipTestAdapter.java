@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class SlipTestAdapter extends ArrayAdapter<SlipTestt> {
     private ArrayList<SlipTestt> data = new ArrayList<SlipTestt>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
     private Context context;
     private int resource;
 

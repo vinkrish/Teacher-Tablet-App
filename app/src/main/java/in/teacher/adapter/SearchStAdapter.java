@@ -16,10 +16,9 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class SearchStAdapter extends BaseAdapter {
-    private ArrayList<Amr> data = new ArrayList<Amr>();
-    private LayoutInflater inflater = null;
+    private ArrayList<Amr> data = new ArrayList<>();
+    private LayoutInflater inflater;
 
     public SearchStAdapter(Context context, ArrayList<Amr> listArray) {
         this.data = listArray;

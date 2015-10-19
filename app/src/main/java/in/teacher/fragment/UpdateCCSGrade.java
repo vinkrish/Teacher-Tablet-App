@@ -2,6 +2,7 @@ package in.teacher.fragment;
 
 import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
+import in.teacher.dao.CceCoScholasticGradeDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
@@ -23,11 +24,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -95,26 +98,7 @@ public class UpdateCCSGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<CceCoScholasticGrade> cceCoSchGrade = new ArrayList<>();
-                int subLoop = 0;
-                for (Students st : studentsArray) {
-                    CceCoScholasticGrade ccsg = new CceCoScholasticGrade();
-                    ccsg.setSchoolId(schoolId);
-                    ccsg.setClassId(classId);
-                    ccsg.setSectionId(sectionId);
-                    ccsg.setStudentId(st.getStudentId());
-                    ccsg.setType(1);
-                    ccsg.setTerm(Term);
-                    ccsg.setTopicId(TopicId);
-                    ccsg.setAspectId(AspectId);
-                    CoSch coSch = coSchList.get(subLoop);
-                    ccsg.setGrade(map.get(inGradList.get(subLoop)));
-                    ccsg.setDescription(coSch.getRemark().replaceAll("['\"]", " ").replaceAll("\n", " "));
-                    subLoop += 1;
-                    cceCoSchGrade.add(ccsg);
-                }
-                UploadSqlDao.updateCoSchGrade(cceCoSchGrade, sqliteDatabase);
-                ReplaceFragment.replace(new CoScholastic(), getFragmentManager());
+                new SubmitTask().execute();
             }
         });
 
@@ -191,6 +175,50 @@ public class UpdateCCSGrade extends Fragment {
             insertA.setEnabled(false);
         }
         coSchAdapter.notifyDataSetChanged();
+    }
+
+    class SubmitTask extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog = new ProgressDialog(act);
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Submitting CoScholastic Grade...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            List<CceCoScholasticGrade> cceCoSchGrade = new ArrayList<>();
+            int subLoop = 0;
+            for (Students st : studentsArray) {
+                CceCoScholasticGrade ccsg = new CceCoScholasticGrade();
+                ccsg.setSchoolId(schoolId);
+                ccsg.setClassId(classId);
+                ccsg.setSectionId(sectionId);
+                ccsg.setStudentId(st.getStudentId());
+                ccsg.setType(1);
+                ccsg.setTerm(Term);
+                ccsg.setTopicId(TopicId);
+                ccsg.setAspectId(AspectId);
+                CoSch coSch = coSchList.get(subLoop);
+                ccsg.setGrade(map.get(inGradList.get(subLoop)));
+                ccsg.setDescription(coSch.getRemark().replaceAll("\n", " "));
+                subLoop += 1;
+                cceCoSchGrade.add(ccsg);
+            }
+            CceCoScholasticGradeDao.updateCoSchGrade(cceCoSchGrade, sqliteDatabase);
+
+            return null;
+        }
+
+        protected void onPostExecute(Void v){
+            super.onPostExecute(v);
+            pDialog.dismiss();
+            ReplaceFragment.replace(new CoScholastic(), getFragmentManager());
+        }
     }
 
     public class CoSchAdapter extends ArrayAdapter<CoSch> {

@@ -220,4 +220,6 @@
     <string name="sel_sub_group">Select Subject Group</string>
     <string name="sub_partition">Subject Partition</string>
 
+    <string name="class_incharge">Class InCharge :</string>
+
 </resources>

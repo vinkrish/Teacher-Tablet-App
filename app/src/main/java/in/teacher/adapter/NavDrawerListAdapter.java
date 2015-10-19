@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class NavDrawerListAdapter extends BaseAdapter {
     private ArrayList<NavDrawerItem> navDrawerItems;
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems) {
         this.navDrawerItems = navDrawerItems;

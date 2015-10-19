@@ -569,12 +569,12 @@ public class CoScholastic extends Fragment {
     }
 
     public class ExpandListAdapter extends BaseExpandableListAdapter {
-        private Context context;
         private ArrayList<ExpGroup> groups;
+        private LayoutInflater inflater;
 
         public ExpandListAdapter(Context context, ArrayList<ExpGroup> groups) {
-            this.context = context;
             this.groups = groups;
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
@@ -594,9 +594,7 @@ public class CoScholastic extends Fragment {
 
             ExpChild child = (ExpChild) getChild(groupPosition, childPosition);
             if (convertView == null) {
-                LayoutInflater infalInflater = (LayoutInflater) context
-                        .getSystemService(context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.child_item, null);
+                convertView = inflater.inflate(R.layout.child_item, null);
             }
             TextView tv = (TextView) convertView.findViewById(R.id.childText1);
             tv.setText(child.getText().toString());
@@ -636,9 +634,7 @@ public class CoScholastic extends Fragment {
                                  View convertView, ViewGroup parent) {
             ExpGroup group = (ExpGroup) getGroup(groupPosition);
             if (convertView == null) {
-                LayoutInflater inf = (LayoutInflater) context
-                        .getSystemService(context.LAYOUT_INFLATER_SERVICE);
-                convertView = inf.inflate(R.layout.group_item, null);
+                convertView = inflater.inflate(R.layout.group_item, null);
             }
 
             ImageView iv1 = (ImageView) convertView.findViewById(R.id.img1);

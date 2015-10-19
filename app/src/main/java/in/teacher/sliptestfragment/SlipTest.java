@@ -304,7 +304,7 @@ public class SlipTest extends Fragment {
         st.setMaximumMark(Integer.parseInt(maxmark.getText().toString()));
         st.setPortion(portionId + "");
         st.setExtraPortion(extraPortion);
-        st.setPortionName(portion.getText().toString().replace("\n", " ").replaceAll("'", ""));
+        st.setPortionName(portion.getText().toString().replace("\n", " "));
         st.setSchoolId(schoolId);
         st.setSectionId(sectionId);
         st.setTestDate(otherdate);
@@ -327,7 +327,7 @@ public class SlipTest extends Fragment {
         st.setMaximumMark(Integer.parseInt(maxmark2.getText().toString()));
         st.setPortion(portionId + "");
         st.setExtraPortion("0");
-        st.setPortionName(manualPortion.getText().toString().replace("\n", " ").replaceAll("'", ""));
+        st.setPortionName(manualPortion.getText().toString().replace("\n", " "));
         st.setSchoolId(schoolId);
         st.setSectionId(sectionId);
         st.setTestDate(otherdate);

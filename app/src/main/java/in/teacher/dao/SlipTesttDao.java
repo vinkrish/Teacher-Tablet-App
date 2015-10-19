@@ -121,7 +121,7 @@ public class SlipTesttDao {
 	
 	public static void editSlipTest(SlipTestt st, SQLiteDatabase sqliteDatabase){
 		String sql = "update sliptest set Portion='"+st.getPortion()+"',ExtraPortion='"+st.getExtraPortion()+"',MaximumMark="+st.getMaximumMark()+",TestDate='"+st.getTestDate()
-				+ "',PortionName='"+st.getPortionName()+"' where SlipTestId="+st.getSlipTestId();
+				+ "',PortionName=\""+st.getPortionName()+"\" where SlipTestId="+st.getSlipTestId();
 		sqliteDatabase.execSQL(sql);
 		ContentValues cv = new ContentValues();
 		cv.put("Query", sql);
@@ -131,7 +131,7 @@ public class SlipTesttDao {
 	public static void insertST2(SlipTestt st, SQLiteDatabase sqliteDatabase){
 		String sql = "insert into sliptest(SlipTestId,SchoolId,ClassId,SectionId,SubjectId,Portion,ExtraPortion,PortionName,MaximumMark,AverageMark,TestDate,SubmissionDate,MarkEntered)"
 				+ " values("+st.getSlipTestId()+","+st.getSchoolId()+","+st.getClassId()+","+st.getSectionId()+","+st.getSubjectId()+","+st.getPortion()+",'"
-				+ st.getExtraPortion()+"','"+st.getPortionName()+"',"+st.getMaximumMark()+","+st.getAverageMark()+",'"+st.getTestDate()+"','"+st.getSubmissionDate()+"',1)";
+				+ st.getExtraPortion()+"',\""+st.getPortionName()+"\","+st.getMaximumMark()+","+st.getAverageMark()+",'"+st.getTestDate()+"','"+st.getSubmissionDate()+"',1)";
 		ContentValues cv = new ContentValues();
 		cv.put("Query", sql);
 		sqliteDatabase.insert("uploadsql", null, cv);
@@ -140,7 +140,7 @@ public class SlipTesttDao {
 	public static void insertST(SlipTestt st, SQLiteDatabase sqliteDatabase){
 		String sql = "insert into sliptest(SlipTestId,SchoolId,ClassId,SectionId,SubjectId,Portion,ExtraPortion,PortionName,MaximumMark,AverageMark,TestDate,MarkEntered)"
 				+ " values("+st.getSlipTestId()+","+st.getSchoolId()+","+st.getClassId()+","+st.getSectionId()+","+st.getSubjectId()+","+st.getPortion()+",'"
-				+ st.getExtraPortion()+"','"+st.getPortionName()+"',"+st.getMaximumMark()+","+st.getAverageMark()+",'"+st.getTestDate()+"',1)";
+				+ st.getExtraPortion()+"',\""+st.getPortionName()+"\","+st.getMaximumMark()+","+st.getAverageMark()+",'"+st.getTestDate()+"',1)";
 		sqliteDatabase.execSQL(sql);
 	}
 	

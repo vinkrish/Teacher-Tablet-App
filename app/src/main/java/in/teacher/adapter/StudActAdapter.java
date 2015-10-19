@@ -18,11 +18,10 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class StudActAdapter extends BaseAdapter {
     private Context context;
     private List<Amr> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public StudActAdapter(Context context, List<Amr> listArray) {
         this.context = context;

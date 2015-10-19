@@ -26,11 +26,15 @@
     </string-array>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/color.xml -->
     <eat-comment/>
+    <color name="amber">#FFC107</color>
     <color name="black">#000000</color>
+    <color name="blue">#2196F3</color>
+    <color name="blue_grey">#607D8B</color>
     <color name="border">#DCDCE3</color>
     <color name="class_avg">#1E96D6</color>
     <color name="clear_normal">#90998D</color>
     <color name="clear_pressed">#E03326</color>
+    <color name="cyan">#00BCD4</color>
     <color name="dark_black">#323236</color>
     <color name="dash_seperator">#666363</color>
     <color name="defalt">#E8E8E8</color>
@@ -40,9 +44,10 @@
     <color name="grade_pressed">#5FB01C</color>
     <color name="gradient_text">#A4A5AB</color>
     <color name="gray_light">#C0C0C0</color>
-    <color name="green">#41AB15</color>
+    <color name="green">#4CAF50</color>
     <color name="half_transparent">#80000000</color>
     <color name="homework_background">#EDEFF2</color>
+    <color name="indigo">#3F51B5</color>
     <color name="layout_black">#232422</color>
     <color name="layoutbelowBC">#EDEFF2</color>
     <color name="light_black">#4D4F4F</color>
@@ -52,8 +57,12 @@
     <color name="list_selec">#EDEFF2</color>
     <color name="login_button">#383A3B</color>
     <color name="orange">#FA7000</color>
+    <color name="original_light_blue">#03A9F4</color>
+    <color name="original_red">#F44336</color>
+    <color name="purple">#9C27B0</color>
     <color name="red">#AD200A</color>
     <color name="selected_sub_heading">#7A7D79</color>
+    <color name="teal">#009688</color>
     <color name="universal">#3E97D6</color>
     <color name="white">#FFFFFF</color>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/dimens.xml -->
@@ -100,6 +109,7 @@
     <string name="bugs">Touch here to sync</string>
     <string name="cc">content description</string>
     <string name="cce_student_profile">CCE Student Profile</string>
+    <string name="class_incharge">Class InCharge :</string>
     <string name="clear">Clear</string>
     <string name="copy_hw">Copy homework to:</string>
     <string name="coscholastic">CoScholastic</string>

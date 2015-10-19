@@ -19,7 +19,7 @@ import android.view.LayoutInflater;
 
 public class AttendanceAdapter extends BaseAdapter {
     private ArrayList<Students> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public AttendanceAdapter(Context context, ArrayList<Students> gridArray) {
         this.data = gridArray;

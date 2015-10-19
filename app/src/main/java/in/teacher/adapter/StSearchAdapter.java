@@ -17,11 +17,10 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class StSearchAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Amr> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public StSearchAdapter(Context context, ArrayList<Amr> listArray) {
         this.context = context;

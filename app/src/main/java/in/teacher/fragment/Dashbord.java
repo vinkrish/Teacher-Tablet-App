@@ -1,10 +1,8 @@
 package in.teacher.fragment;
 
 import in.teacher.activity.R;
-import in.teacher.activity.R.animator;
 import in.teacher.adapter.Capitalize;
 import in.teacher.dao.StAvgDao;
-import in.teacher.dao.StudentAttendanceDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.CircleObject;
@@ -14,15 +12,11 @@ import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 import in.teacher.util.SharedPreferenceUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,21 +31,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 /**
  * Created by vinkrish.
  */
-public class Dashbord extends Fragment implements AnimationListener {
+public class Dashbord extends Fragment {
     private Activity activity;
     private Context context;
     private int teacherId;
@@ -68,6 +59,7 @@ public class Dashbord extends Fragment implements AnimationListener {
     private CircleAdapter cA;
     private GridView gridView;
     private TextView name;
+    private Switch teacherIncharge;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +68,7 @@ public class Dashbord extends Fragment implements AnimationListener {
 
         gridView = (GridView) view.findViewById(R.id.gridView);
         name = (TextView) view.findViewById(R.id.teacherName);
+        teacherIncharge = (Switch) view.findViewById(R.id.classIncharge);
 
         init();
 
@@ -94,6 +87,15 @@ public class Dashbord extends Fragment implements AnimationListener {
 
         cA = new CircleAdapter(context, R.layout.dashboard_grid, circleArrayGrid);
         gridView.setAdapter(cA);
+
+        teacherIncharge.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
+                }
+            }
+        });
     }
 
     public void callUpdateTemp(int pos) {
@@ -247,33 +249,12 @@ public class Dashbord extends Fragment implements AnimationListener {
             return null;
         }
 
-        private String trim(int pos2, String s) {
-            if (s.length() > pos2) {
-                StringBuilder sb = new StringBuilder(s.substring(0, pos2));
-                return sb.toString();
-            } else {
-                return s;
-            }
-        }
-
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-            name.setText(teacherName);
+            name.setText("[ "+teacherName + " ] Classes");
             cA.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-    }
-
-    @Override
-    public void onAnimationStart(Animation animation) {
     }
 
     public int dpToPx(int dp) {

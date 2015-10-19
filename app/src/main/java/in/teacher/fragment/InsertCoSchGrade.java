@@ -22,11 +22,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,26 +110,7 @@ public class InsertCoSchGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<CceCoScholasticGrade> cceCoSchGrade = new ArrayList<>();
-                int subLoop = 0;
-                for (Students st : studentsArray) {
-                    CceCoScholasticGrade ccsg = new CceCoScholasticGrade();
-                    ccsg.setSchoolId(schoolId);
-                    ccsg.setClassId(classId);
-                    ccsg.setSectionId(sectionId);
-                    ccsg.setStudentId(st.getStudentId());
-                    ccsg.setType(1);
-                    ccsg.setTerm(Term);
-                    ccsg.setTopicId(TopicId);
-                    ccsg.setAspectId(AspectId);
-                    CoSch coSch = coSchList.get(subLoop);
-                    ccsg.setGrade(map.get(inGradList.get(subLoop)));
-                    ccsg.setDescription(coSch.getRemark().replaceAll("['\"]", " ").replaceAll("\n", " "));
-                    subLoop += 1;
-                    cceCoSchGrade.add(ccsg);
-                }
-                CceCoScholasticGradeDao.insertCoSchGrade(cceCoSchGrade, sqliteDatabase);
-                ReplaceFragment.replace(new CoScholastic(), getFragmentManager());
+                new SubmitTask().execute();
             }
         });
 
@@ -160,6 +143,49 @@ public class InsertCoSchGrade extends Fragment {
         return view;
     }
 
+    class SubmitTask extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog = new ProgressDialog(act);
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Submitting CoScholastic Grade...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            List<CceCoScholasticGrade> cceCoSchGrade = new ArrayList<>();
+            int subLoop = 0;
+            for (Students st : studentsArray) {
+                CceCoScholasticGrade ccsg = new CceCoScholasticGrade();
+                ccsg.setSchoolId(schoolId);
+                ccsg.setClassId(classId);
+                ccsg.setSectionId(sectionId);
+                ccsg.setStudentId(st.getStudentId());
+                ccsg.setType(1);
+                ccsg.setTerm(Term);
+                ccsg.setTopicId(TopicId);
+                ccsg.setAspectId(AspectId);
+                CoSch coSch = coSchList.get(subLoop);
+                ccsg.setGrade(map.get(inGradList.get(subLoop)));
+                ccsg.setDescription(coSch.getRemark().replaceAll("\n", " "));
+                subLoop += 1;
+                cceCoSchGrade.add(ccsg);
+            }
+            CceCoScholasticGradeDao.insertCoSchGrade(cceCoSchGrade, sqliteDatabase);
+
+            return null;
+        }
+
+        protected void onPostExecute(Void v){
+            super.onPostExecute(v);
+            pDialog.dismiss();
+            ReplaceFragment.replace(new CoScholastic(), getFragmentManager());
+        }
+    }
+
     public class CoSchAdapter extends ArrayAdapter<CoSch> {
         int resource;
         Context context;
@@ -189,9 +215,7 @@ public class InsertCoSchGrade extends Fragment {
                 holder.spin = (Spinner) row.findViewById(R.id.grade);
 
                 row.setTag(holder);
-            } else {
-                holder = (RecordHolder) row.getTag();
-            }
+            } else holder = (RecordHolder) row.getTag();
 
             if (position % 2 == 0)
                 row.setBackgroundResource(R.drawable.list_selector1);

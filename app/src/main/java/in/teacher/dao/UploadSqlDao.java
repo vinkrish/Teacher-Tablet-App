@@ -48,16 +48,6 @@ public class UploadSqlDao {
 		sqliteDatabase.insert("uploadsql", null, cv);
 	}
 	
-	public static void updateCoSchGrade(List<CceCoScholasticGrade> cceList, SQLiteDatabase sqliteDatabase){
-		for(CceCoScholasticGrade cce: cceList){
-			String sql = "update ccecoscholasticgrade set Grade="+cce.getGrade()+", Description='"+cce.getDescription()+"' where AspectId="+cce.getAspectId()+" and StudentId="+cce.getStudentId();
-			sqliteDatabase.execSQL(sql);
-			ContentValues cv = new ContentValues();
-			cv.put("Query", sql);
-			sqliteDatabase.insert("uploadsql", null, cv);
-		}
-	}
-	
 	public static void deleteTable(String tableName, SQLiteDatabase sqliteDatabase){
 		sqliteDatabase.execSQL("delete from "+tableName);
 	}

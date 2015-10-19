@@ -17,11 +17,10 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class StudExamSubAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Amr> data = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     public StudExamSubAdapter(Context context, ArrayList<Amr> listArray) {
         this.context = context;

@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by vinkrish.
  */
-
 public class SchoolId {
 
     public static int getSchoolId(Context context) {

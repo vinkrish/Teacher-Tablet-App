@@ -17,7 +17,7 @@ import android.widget.TextView;
  */
 
 public class HomeworkViewAdapter extends BaseAdapter {
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
     private ArrayList<HW> data = new ArrayList<>();
 
     public HomeworkViewAdapter(Context context, ArrayList<HW> data) {
