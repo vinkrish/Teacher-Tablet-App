@@ -8,6 +8,7 @@ import in.teacher.model.ExpChild;
 import in.teacher.model.ExpGroup;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 
 import java.util.ArrayList;
 
@@ -154,8 +155,17 @@ public class CoScholastic extends Fragment {
             }
         });
 
+        view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
+
         return view;
     }
+
+    private View.OnClickListener switchClass = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CommonDialogUtils.displaySwitchClass(getActivity(), sqliteDatabase, new CoScholastic());
+        }
+    };
 
     private void groupFirst() {
         child[0] = childPosArr[0];

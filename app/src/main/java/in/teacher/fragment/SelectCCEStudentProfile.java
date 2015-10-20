@@ -7,6 +7,7 @@ import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,6 @@ import android.widget.Spinner;
 /**
  * Created by vinkrish.
  */
-
 public class SelectCCEStudentProfile extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
@@ -93,6 +93,15 @@ public class SelectCCEStudentProfile extends Fragment {
             }
         });
 
+        view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
+
         return view;
     }
+
+    private View.OnClickListener switchClass = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CommonDialogUtils.displaySwitchClass(getActivity(), sqliteDatabase, new SelectCCEStudentProfile());
+        }
+    };
 }

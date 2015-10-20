@@ -142,9 +142,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dividerbottom"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_black" />
+
+    <Button
+        android:id="@+id/switchClass"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@color/universal"
+        android:layout_below="@id/dividerbottom"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:text="@string/switch_class"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFF" />
 
     <GridView
         android:id="@+id/gridView"

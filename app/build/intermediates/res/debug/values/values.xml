@@ -206,6 +206,7 @@
     <string name="search">Search Student</string>
     <string name="sel_student">Select Students</string>
     <string name="sel_sub_group">Select Subject Group</string>
+    <string name="select_clas">select class</string>
     <string name="select_sec">select section</string>
     <string name="send_sms">Send SMS to:</string>
     <string name="server_resolve">Tab is in Sync</string>
@@ -228,6 +229,7 @@
     <string name="subact">Sub Activity</string>
     <string name="subject">Subject</string>
     <string name="submit">Submit</string>
+    <string name="switch_class">Switch Class</string>
     <string name="syncing">Tab is in sync, please wait.</string>
     <string name="syncme">sync the data</string>
     <string name="table">Table</string>

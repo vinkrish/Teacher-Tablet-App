@@ -147,6 +147,18 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_black" />
 
+    <Button
+        android:id="@+id/switchClass"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@color/universal"
+        android:layout_below="@id/dividerbottom"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:text="@string/switch_class"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFF" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"

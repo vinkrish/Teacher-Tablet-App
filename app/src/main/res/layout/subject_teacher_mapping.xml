@@ -55,16 +55,15 @@
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/button_submit"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:background="@drawable/button_submit"
             android:text="@string/save"
             android:textColor="@color/white" />
 
     </LinearLayout>
 
     <View
-        android:id="@+id/dividerup"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divider" />
@@ -72,35 +71,56 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/divider"
+        android:background="@color/layoutbelowBC"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
+            android:gravity="left"
             android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
             android:paddingTop="10dp"
-            android:text="@string/subject" />
+            android:text="@string/subject"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/light_black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
+            android:gravity="left"
             android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
             android:paddingTop="10dp"
-            android:text="@string/teacher" />
+            android:text="@string/teacher"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/light_black"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
 
 
 </LinearLayout>

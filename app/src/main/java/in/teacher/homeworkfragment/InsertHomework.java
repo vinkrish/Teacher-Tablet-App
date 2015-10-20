@@ -121,7 +121,7 @@ public class InsertHomework extends Fragment {
         subjectNameList.add("Extra");
 
         StringBuilder hwString = new StringBuilder();
-        hwString.append(className).append("-" + sectionName + "  ").append("Tap on the list to assign homework  ").append(getToday());
+        hwString.append(className).append(" - " + sectionName + "  ").append("Tap to assign homework  ").append(getToday());
         hwTv.setText(hwString);
 
         Button todayButton = (Button) view.findViewById(R.id.today);
@@ -134,6 +134,7 @@ public class InsertHomework extends Fragment {
 
         yesterdayButton.setOnClickListener(yesterdayHomework);
         otherdayButton.setOnClickListener(otherdayHomework);
+        view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
 
         populateList();
 
@@ -146,6 +147,13 @@ public class InsertHomework extends Fragment {
 
         return view;
     }
+
+    private View.OnClickListener switchClass = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CommonDialogUtils.displaySwitchClass(act, sqliteDatabase, new InsertHomework());
+        }
+    };
 
     private AdapterView.OnItemClickListener clickOnSubject = new AdapterView.OnItemClickListener() {
         @Override

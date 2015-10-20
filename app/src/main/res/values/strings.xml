@@ -138,6 +138,7 @@
     <string name="syncing">Tab is in sync, please wait.</string>
     <string name="buffer_full">Please do the sync.</string>
     <string name="copy_hw">Copy homework to:</string>
+    <string name="select_clas">select class</string>
     <string name="select_sec">select section</string>
     <string name="sms">SMS</string>
     <string name="send_sms">Send SMS to:</string>
@@ -219,5 +220,6 @@
     <string name="sub_partition">Subject Partition</string>
 
     <string name="class_incharge">Class InCharge :</string>
+    <string name="switch_class">Switch Class</string>
 
 </resources>
