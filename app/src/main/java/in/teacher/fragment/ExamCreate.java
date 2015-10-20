@@ -98,7 +98,7 @@ public class ExamCreate extends Fragment {
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         schoolId = t.getSchoolId();
-        classId = t.getClassId();
+        classId = t.getClassInchargeId();
 
         selectSubjectGroup.setActivated(true);
         selectSubjectGroup.setOnClickListener(checkSubjectGroup);

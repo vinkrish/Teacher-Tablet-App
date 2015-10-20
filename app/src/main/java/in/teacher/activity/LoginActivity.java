@@ -349,7 +349,6 @@ public class LoginActivity extends BaseActivity {
                 Temp t = new Temp();
                 t.setClassId(l.getClassId());
                 t.setSectionId(l.getSectionId());
-                t.setSectionName(l.getSectionName());
                 t.setTeacherId(l.getClassTeacherId());
                 TempDao.updateTemp(t, sqliteDatabase);
                 break;
@@ -361,8 +360,8 @@ public class LoginActivity extends BaseActivity {
                 if (mappedId == t.getTeacherId()) {
                     flag = true;
                     Temp t2 = new Temp();
+                    t2.setClassId(0);
                     t2.setSectionId(0);
-                    t2.setSectionName("0");
                     t2.setTeacherId(t.getTeacherId());
                     TempDao.updateTemp(t2, sqliteDatabase);
                     break;

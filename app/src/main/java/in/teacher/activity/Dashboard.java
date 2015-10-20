@@ -57,6 +57,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -122,7 +123,6 @@ public class Dashboard extends BaseActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1)));
 
         navMenuIcons.recycle();
         navDrawerListAdapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -319,15 +319,13 @@ public class Dashboard extends BaseActivity {
                 }
             } else if (position == 6) {
                 Temp t = TempDao.selectTemp(sqliteDatabase);
-                sectionId = t.getSectionId();
+                int sectionId = t.getSectionId();
                 if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId)) {
                     ReplaceFragment.replace(new SubjectMapStudentEdit(), getFragmentManager());
                 } else {
                     ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
                 }
             } else if (position == 7) {
-                ReplaceFragment.replace(new ExamCreate(), getFragmentManager());
-            } else if (position == 8) {
                 ReplaceFragment.replace(new SubjectTeacherMapping(), getFragmentManager());
             }
         }

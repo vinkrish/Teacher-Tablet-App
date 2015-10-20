@@ -9,7 +9,6 @@
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
         <item>@drawable/attendance</item>
-        <item>@drawable/attendance</item>
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
     </array>
@@ -21,7 +20,6 @@
         <item>CCE Student Profile</item>
         <item>SMS</item>
         <item>Map Subjects to Students</item>
-        <item>Exam Create</item>
         <item>Map Subject Teacher</item>
     </string-array>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/color.xml -->

@@ -61,9 +61,9 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL(CREATE_CCECOSCHOLASTICGRADE);
         db.execSQL(CREATE_AVGTRACK);
         db.execSQL(CREATE_LOCKED);
-        db.execSQL("insert into temp(id,DeviceId, SchoolId, ClassId, SectionId, SectionName, TeacherId, StudentId,SubjectId, CurrentSection, CurrentSubject, "
-                + "CurrentClass, ExamId, ActivityId, SubActivityId, SlipTestId, SyncTime, IsSync) " +
-                "values(1,0,0,0,0,'A',0,0,0,0,0,0,0,0,0,0,'Not Yet Synced',0)");
+        db.execSQL("insert into temp(id,DeviceId, SchoolId, ClassId, SectionId, ClassInchargeId, TeacherId, StudentId, SubjectId, " +
+                "CurrentSection, CurrentSubject, CurrentClass, ExamId, ActivityId, SubActivityId, SlipTestId, SyncTime, IsSync) " +
+                "values(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'Not Yet Synced',0)");
         db.execSQL(HOMEWORK_TRIGGER);
         db.execSQL(MARKS_TRIGGER);
         db.execSQL(ACTIVITYMARK_TRIGGER);

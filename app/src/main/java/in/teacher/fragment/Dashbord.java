@@ -59,7 +59,8 @@ public class Dashbord extends Fragment {
     private CircleAdapter cA;
     private GridView gridView;
     private TextView name;
-    private Switch teacherIncharge;
+    private Switch classIncharge;
+    private boolean isClassIncharge;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +69,7 @@ public class Dashbord extends Fragment {
 
         gridView = (GridView) view.findViewById(R.id.gridView);
         name = (TextView) view.findViewById(R.id.teacherName);
-        teacherIncharge = (Switch) view.findViewById(R.id.classIncharge);
+        classIncharge = (Switch) view.findViewById(R.id.classIncharge);
 
         init();
 
@@ -88,7 +89,7 @@ public class Dashbord extends Fragment {
         cA = new CircleAdapter(context, R.layout.dashboard_grid, circleArrayGrid);
         gridView.setAdapter(cA);
 
-        teacherIncharge.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        classIncharge.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -246,11 +247,20 @@ public class Dashbord extends Fragment {
                 circleArrayGrid.add(new CircleObject(avg, classNameList.get(i), sectionNameList.get(i), subjectNameList.get(i)));
             }
 
+            Cursor c2 = sqliteDatabase.rawQuery("select ClassId from classteacher_incharge where TeacherId = " + teacherId, null);
+            if (c2.getCount() > 0) {
+                isClassIncharge = true;
+            }
+            c.close();
+
             return null;
         }
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            if (!isClassIncharge) classIncharge.setVisibility(View.GONE);
+
             teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
             name.setText("[ "+teacherName + " ] Classes");
             cA.notifyDataSetChanged();

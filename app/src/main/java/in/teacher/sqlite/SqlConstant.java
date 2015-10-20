@@ -6,7 +6,7 @@ package in.teacher.sqlite;
 public interface SqlConstant {
 
     public static String DATABASE_NAME = "teacher.db";
-    public static int DATABASE_VERSION = 3;
+    public static int DATABASE_VERSION = 4;
 
     public static String CREATE_CLASS = "CREATE TABLE class(SchoolId INTEGER, ClassId INT DEFAULT 0,"
             + "ClassName TEXT, ClassType TEXT, DateTimeRecordInserted DATETIME, SubjectGroupIds TEXT)";
@@ -77,8 +77,10 @@ public interface SqlConstant {
             "INSERT INTO avgtrack(ExamId,SubjectId,Type) values(NEW.ExamId,NEW.SubjectId,1); " +
             "END";
 
-    public static String CREATE_TEMP = "CREATE TABLE temp(id INTEGER PRIMARY KEY, DeviceId TEXT, SchoolId INTEGER, ClassId INTEGER, SectionId INTEGER, SectionName TEXT,"
-            + "TeacherId INTEGER,StudentId INTEGER,SubjectId INTEGER,CurrentSection INTEGER, CurrentSubject INTEGER, CurrentClass INTEGER, ExamId INTEGER, ActivityId INTEGER, SubActivityId INTEGER, SlipTestId INTEGER, SyncTime TEXT, IsSync INTEGER)";
+    public static String CREATE_TEMP = "CREATE TABLE temp(id INTEGER PRIMARY KEY, DeviceId TEXT, SchoolId INTEGER, ClassId INTEGER, " +
+            "SectionId INTEGER, ClassInchargeId INTEGER, TeacherId INTEGER, StudentId INTEGER, SubjectId INTEGER, CurrentSection INTEGER, " +
+            "CurrentSubject INTEGER, CurrentClass INTEGER, ExamId INTEGER, ActivityId INTEGER, SubActivityId INTEGER, SlipTestId INTEGER, " +
+            "SyncTime TEXT, IsSync INTEGER)";
 
     public static String CREATE_ACTIVITY = "CREATE TABLE activity(ActivityId INT DEFAULT 0, SchoolId INTEGER, ClassId INTEGER, SectionId INTEGER, ExamId INTEGER, SubjectId INTEGER, RubrixId INTEGER, ActivityName TEXT, "
             + "MaximumMark INTEGER, Weightage REAL, SubActivity INTEGER, Calculation INTEGER, DateTimeRecordInserted DATETIME, ActivityAvg REAL DEFAULT 0, CompleteEntry INTEGER DEFAULT 0, UniqueKey TEXT)";
