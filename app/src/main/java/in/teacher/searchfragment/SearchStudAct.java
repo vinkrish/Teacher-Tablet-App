@@ -10,7 +10,7 @@ import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
@@ -46,7 +46,7 @@ public class SearchStudAct extends Fragment {
     private List<Integer> avgList1 = new ArrayList<>();
     private List<Integer> avgList2 = new ArrayList<>();
     private List<Activiti> activitiList = new ArrayList<>();
-    private ArrayList<Amr> amrList = new ArrayList<>();
+    private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private List<String> scoreList = new ArrayList<>();
     private StudActAdapter adapter;
     private ListView lv;
@@ -71,7 +71,7 @@ public class SearchStudAct extends Fragment {
         clasSecTV = (TextView) view.findViewById(R.id.studClasSec);
 
         lv = (ListView) view.findViewById(R.id.list);
-        adapter = new StudActAdapter(context, amrList);
+        adapter = new StudActAdapter(context, commonObjectList);
         lv.setAdapter(adapter);
 
         view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
@@ -98,7 +98,7 @@ public class SearchStudAct extends Fragment {
         avgList1.clear();
         avgList2.clear();
         actNameList.clear();
-        amrList.clear();
+        commonObjectList.clear();
         scoreList.clear();
     }
 
@@ -211,9 +211,9 @@ public class SearchStudAct extends Fragment {
 
             for (int i = 0; i < actIdList.size(); i++) {
                 try {
-                    amrList.add(new Amr(actNameList.get(i), scoreList.get(i), avgList1.get(i), avgList2.get(i)));
+                    commonObjectList.add(new CommonObject(actNameList.get(i), scoreList.get(i), avgList1.get(i), avgList2.get(i)));
                 } catch (IndexOutOfBoundsException e) {
-                    amrList.add(new Amr(actNameList.get(i), 0, 0));
+                    commonObjectList.add(new CommonObject(actNameList.get(i), 0, 0));
                 }
             }
             return null;

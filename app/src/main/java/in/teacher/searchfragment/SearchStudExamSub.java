@@ -9,7 +9,7 @@ import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
@@ -41,7 +41,7 @@ public class SearchStudExamSub extends Fragment {
     private int studentId, sectionId, examId;
     private String studentName, className, secName, examName;
     private SQLiteDatabase sqliteDatabase;
-    private ArrayList<Amr> amrList = new ArrayList<>();
+    private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private StudExamSubAdapter adapter;
     private ListView lv;
     private List<Activiti> activitiList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class SearchStudExamSub extends Fragment {
         lv = (ListView) view.findViewById(R.id.list);
         studTV = (TextView) view.findViewById(R.id.studName);
         clasSecTV = (TextView) view.findViewById(R.id.studClasSec);
-        adapter = new StudExamSubAdapter(context, amrList);
+        adapter = new StudExamSubAdapter(context, commonObjectList);
         lv.setAdapter(adapter);
 
         view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
@@ -87,7 +87,7 @@ public class SearchStudExamSub extends Fragment {
     }
 
     private void clearList() {
-        amrList.clear();
+        commonObjectList.clear();
         activitiList.clear();
         subIdList.clear();
         scoreList.clear();
@@ -216,7 +216,7 @@ public class SearchStudExamSub extends Fragment {
             }
 
             for (int i = 0; i < subIdList.size(); i++) {
-                amrList.add(new Amr(subNameList.get(i), teacherNameList.get(i), scoreList.get(i), progressList1.get(i), progressList2.get(i)));
+                commonObjectList.add(new CommonObject(subNameList.get(i), teacherNameList.get(i), scoreList.get(i), progressList1.get(i), progressList2.get(i)));
             }
             return null;
         }

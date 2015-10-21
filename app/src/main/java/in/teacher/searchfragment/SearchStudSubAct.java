@@ -25,13 +25,8 @@ import in.teacher.dao.SubActivityDao;
 import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.searchfragment.SearchStudAct;
-import in.teacher.searchfragment.SearchStudAtt;
-import in.teacher.searchfragment.SearchStudExam;
-import in.teacher.searchfragment.SearchStudExamSub;
-import in.teacher.searchfragment.SearchStudST;
 import in.teacher.sqlite.SubActivity;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
@@ -49,7 +44,7 @@ public class SearchStudSubAct extends Fragment {
     private List<Integer> avgList1 = new ArrayList<>();
     private List<Integer> avgList2 = new ArrayList<>();
     private List<SubActivity> subActList = new ArrayList<>();
-    private ArrayList<Amr> amrList = new ArrayList<>();
+    private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private List<String> scoreList = new ArrayList<>();
     private StudActAdapter adapter;
     private ListView lv;
@@ -75,7 +70,7 @@ public class SearchStudSubAct extends Fragment {
         clasSecTV = (TextView) view.findViewById(R.id.studClasSec);
 
         lv = (ListView) view.findViewById(R.id.list);
-        adapter = new StudActAdapter(context, amrList);
+        adapter = new StudActAdapter(context, commonObjectList);
         lv.setAdapter(adapter);
 
         view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
@@ -102,7 +97,7 @@ public class SearchStudSubAct extends Fragment {
         avgList1.clear();
         avgList2.clear();
         subActNameList.clear();
-        amrList.clear();
+        commonObjectList.clear();
         scoreList.clear();
     }
 
@@ -188,9 +183,9 @@ public class SearchStudSubAct extends Fragment {
 
             for (int i = 0; i < subActIdList.size(); i++) {
                 try {
-                    amrList.add(new Amr(subActNameList.get(i), scoreList.get(i), avgList1.get(i), avgList2.get(i)));
+                    commonObjectList.add(new CommonObject(subActNameList.get(i), scoreList.get(i), avgList1.get(i), avgList2.get(i)));
                 } catch (IndexOutOfBoundsException e) {
-                    amrList.add(new Amr(subActNameList.get(i), "", 0, 0));
+                    commonObjectList.add(new CommonObject(subActNameList.get(i), "", 0, 0));
                 }
             }
             return null;

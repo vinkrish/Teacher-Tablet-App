@@ -5,7 +5,7 @@ import in.teacher.adapter.AttGraph;
 import in.teacher.dao.StudentAttendanceDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.DateTracker;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
@@ -66,7 +66,7 @@ public class SearchStudAtt extends Fragment {
     private static final int SERIES_NR = 2;
     private double absentCnt, noOfDays;
     private JSONObject monthObject;
-    private ArrayList<Amr> amrList;
+    private ArrayList<CommonObject> commonObjectList;
     private AttGraph attGraph;
     private ProgressDialog pDialog;
     private TextView studTV, clasSecTV, daysPresent;
@@ -118,7 +118,7 @@ public class SearchStudAtt extends Fragment {
         act = AppGlobal.getActivity();
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
-        amrList = new ArrayList<>();
+        commonObjectList = new ArrayList<>();
         pDialog = new ProgressDialog(act);
 
         clearList();
@@ -130,7 +130,7 @@ public class SearchStudAtt extends Fragment {
         studTV = (TextView) view.findViewById(R.id.studName);
         clasSecTV = (TextView) view.findViewById(R.id.studClasSec);
 
-        attGraph = new AttGraph(context, amrList);
+        attGraph = new AttGraph(context, commonObjectList);
         lv.setAdapter(attGraph);
 
         view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
@@ -145,7 +145,7 @@ public class SearchStudAtt extends Fragment {
     }
 
     private void clearList() {
-        amrList.clear();
+        commonObjectList.clear();
         startDateList.clear();
         endDateList.clear();
         intMon.clear();
@@ -316,7 +316,7 @@ public class SearchStudAtt extends Fragment {
                 myChartSettings(multiRenderer);
 
                 for (int i = 1; i < month.length; i++) {
-                    amrList.add(new Amr(month[i], (totalDays.get(i - 1) - studAbsCnt.get(i - 1)) + " / " + totalDays.get(i - 1), studAbsCnt.get(i - 1) + ""));
+                    commonObjectList.add(new CommonObject(month[i], (totalDays.get(i - 1) - studAbsCnt.get(i - 1)) + " / " + totalDays.get(i - 1), studAbsCnt.get(i - 1) + ""));
                 }
             }
             return null;

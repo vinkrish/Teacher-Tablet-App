@@ -4,10 +4,7 @@ import in.teacher.activity.R;
 import in.teacher.adapter.SearchStAdapter;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.searchfragment.SearchStudAtt;
-import in.teacher.searchfragment.SearchStudExam;
-import in.teacher.searchfragment.SearchStudST;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
@@ -42,7 +39,7 @@ public class SearchStudSTSub extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private ListView lv;
     private SearchStAdapter searchAdapter;
-    private ArrayList<Amr> amrList = new ArrayList<>();
+    private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private List<String> dateList = new ArrayList<>();
     private List<String> stNameList = new ArrayList<>();
     private List<Integer> maxMarkList = new ArrayList<>();
@@ -81,7 +78,7 @@ public class SearchStudSTSub extends Fragment {
         Button subTV = (Button) view.findViewById(R.id.stSub);
         subTV.setText(subjectName);
 
-        searchAdapter = new SearchStAdapter(context, amrList);
+        searchAdapter = new SearchStAdapter(context, commonObjectList);
         lv.setAdapter(searchAdapter);
 
         new CalledBackLoad().execute();
@@ -90,7 +87,7 @@ public class SearchStudSTSub extends Fragment {
     }
 
     private void clearList() {
-        amrList.clear();
+        commonObjectList.clear();
         dateList.clear();
         stNameList.clear();
         maxMarkList.clear();
@@ -154,7 +151,7 @@ public class SearchStudSTSub extends Fragment {
             c2.close();
 
             for (int i = 0; i < stNameList.size(); i++) {
-                amrList.add(new Amr(stNameList.get(i), dateList.get(i), i + 1, maxMarkList.get(i), markList.get(i)));
+                commonObjectList.add(new CommonObject(stNameList.get(i), dateList.get(i), i + 1, maxMarkList.get(i), markList.get(i)));
             }
 
             Cursor c3 = sqliteDatabase.rawQuery("select C.SubjectId, AVG((CAST (B.Mark as float)/CAST (C.MaximumMark as float))*100) as avg from sliptestmark_" + schoolId + " B," +

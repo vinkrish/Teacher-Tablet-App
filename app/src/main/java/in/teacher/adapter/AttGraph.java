@@ -1,7 +1,7 @@
 package in.teacher.adapter;
 
 import in.teacher.activity.R;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 
 import java.util.ArrayList;
 
@@ -18,10 +18,10 @@ import android.widget.TextView;
  */
 
 public class AttGraph extends BaseAdapter {
-    private ArrayList<Amr> data = new ArrayList<>();
+    private ArrayList<CommonObject> data = new ArrayList<>();
     private LayoutInflater inflater;
 
-    public AttGraph(Context context, ArrayList<Amr> listArray) {
+    public AttGraph(Context context, ArrayList<CommonObject> listArray) {
         this.data = listArray;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -45,7 +45,7 @@ public class AttGraph extends BaseAdapter {
         else
             row.setBackgroundColor(Color.rgb(237, 239, 242));
 
-        Amr listItem = data.get(position);
+        CommonObject listItem = data.get(position);
         holder.txt1.setText(listItem.getText1());
         holder.txt2.setText(listItem.getText2());
         holder.txt3.setText(listItem.getText3());

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.AsecAdapter;
+import in.teacher.adapter.StudentClassSecAdapter;
 import in.teacher.adapter.Capitalize;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
@@ -23,7 +23,7 @@ import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
@@ -31,7 +31,6 @@ import in.teacher.util.AppGlobal;
 /**
  * Created by vinkrish.
  */
-
 public class StudentClassSec extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
@@ -39,7 +38,7 @@ public class StudentClassSec extends Fragment {
     private int classId, sectionId, subjectId, teacherId;
     private Button name;
     private TextView clasSecSubTv;
-    private ArrayList<Amr> amrList = new ArrayList<>();
+    private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private List<Integer> studentIdList = new ArrayList<>();
     private List<Integer> studIDList = new ArrayList<>();
     private List<String> studentNameList = new ArrayList<>();
@@ -78,8 +77,8 @@ public class StudentClassSec extends Fragment {
         updateListView();
 
         ListView lv = (ListView) view.findViewById(R.id.listView);
-        AsecAdapter asecAdapter = new AsecAdapter(context, R.layout.asec_list, amrList);
-        lv.setAdapter(asecAdapter);
+        StudentClassSecAdapter studentClassSecAdapter = new StudentClassSecAdapter(context, R.layout.asec_list, commonObjectList);
+        lv.setAdapter(studentClassSecAdapter);
 
         return view;
     }
@@ -91,9 +90,9 @@ public class StudentClassSec extends Fragment {
             studentIdList.add(s.getRollNoInClass());
             studentNameList.add(s.getName());
         }
-        amrList.clear();
+        commonObjectList.clear();
         for (int i = 0; i < studentList.size(); i++) {
-            amrList.add(new Amr(studentIdList.get(i) + "", studentNameList.get(i)));
+            commonObjectList.add(new CommonObject(studentIdList.get(i) + "", studentNameList.get(i)));
         }
     }
 

@@ -30,6 +30,7 @@
         <item>SMS</item>
         <item>Map Subjects to Students</item>
         <item>Map Subject Teacher</item>
+        <item>Student Profile</item>
     </string-array>
 
     <array name="nav_drawer_icons">
@@ -41,6 +42,7 @@
         <item>@drawable/attendance</item>
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
+        <item>@drawable/user</item>
     </array>
 
     <string name="drawer_open">Open navigation drawer</string>
@@ -185,6 +187,7 @@
     <string name="server_resolve">Tab is in Sync</string>
     <string name="profile">Profile</string>
     <string name="cce_student_profile">CCE Student Profile</string>
+    <string name="student_profile">Student Profile</string>
     <string name="height">Height (cm)</string>
     <string name="weight">Weight (kg)</string>
     <string name="days_attended">Days Attended</string>
@@ -221,5 +224,23 @@
 
     <string name="class_incharge">Class InCharge :</string>
     <string name="switch_class">Switch Class</string>
+    <string name="admission_no">Admission No</string>
+    <string name="add_student">Add Student</string>
+    <string name="edit">Edit</string>
+
+    <string name="colon">:</string>
+    <string name="clas">Class</string>
+    <string name="sec">Section</string>
+    <string name="roll_no">Roll No</string>
+    <string name="father">Father\'s Name</string>
+    <string name="mother">Mother\'s Name</string>
+    <string name="dob">Date Of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="mobile1">Mobile</string>
+    <string name="mobile2">Alternate Mob</string>
+    <string name="address">Address</string>
+    <string name="pincode">PinCode</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="delete_stud">Delete Student</string>
 
 </resources>

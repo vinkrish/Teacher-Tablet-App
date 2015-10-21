@@ -1,13 +1,12 @@
 package in.teacher.adapter;
 
 import in.teacher.activity.R;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +19,10 @@ import android.widget.TextView;
  */
 public class StudExamAdapter extends BaseAdapter {
     private Context context;
-    private List<Amr> data = new ArrayList<>();
+    private List<CommonObject> data = new ArrayList<>();
     private LayoutInflater inflater;
 
-    public StudExamAdapter(Context context, List<Amr> listArray) {
+    public StudExamAdapter(Context context, List<CommonObject> listArray) {
         this.context = context;
         this.data = listArray;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,7 +49,7 @@ public class StudExamAdapter extends BaseAdapter {
         else
             row.setBackgroundResource(R.drawable.list_selector2);
 
-        Amr listItem = data.get(position);
+        CommonObject listItem = data.get(position);
         holder.txt1.setText(listItem.getText1());
 
         if (listItem.getInt1() >= 75) {

@@ -17,6 +17,7 @@ import in.teacher.fragment.CoScholastic;
 import in.teacher.fragment.Dashbord;
 import in.teacher.fragment.ExamCreate;
 import in.teacher.examfragment.HasPartition;
+import in.teacher.fragment.StudentProfile;
 import in.teacher.homeworkfragment.InsertHomework;
 import in.teacher.attendancefragment.MarkAttendance;
 import in.teacher.searchfragment.SearchStudST;
@@ -123,6 +124,7 @@ public class Dashboard extends BaseActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1)));
 
         navMenuIcons.recycle();
         navDrawerListAdapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -327,6 +329,8 @@ public class Dashboard extends BaseActivity {
                 }
             } else if (position == 7) {
                 ReplaceFragment.replace(new SubjectTeacherMapping(), getFragmentManager());
+            } else if (position == 8) {
+                ReplaceFragment.replace(new StudentProfile(), getFragmentManager());
             }
         }
 

@@ -11,6 +11,7 @@
         <item>@drawable/attendance</item>
         <item>@drawable/homework</item>
         <item>@drawable/homework</item>
+        <item>@drawable/user</item>
     </array>
     <string-array name="nav_drawer_items">
         <item>Dashboard</item>
@@ -21,6 +22,7 @@
         <item>SMS</item>
         <item>Map Subjects to Students</item>
         <item>Map Subject Teacher</item>
+        <item>Student Profile</item>
     </string-array>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/color.xml -->
     <eat-comment/>
@@ -91,8 +93,11 @@
     <string name="activities">Activities</string>
     <string name="activity">Activity</string>
     <string name="add">Add</string>
+    <string name="add_student">Add Student</string>
+    <string name="address">Address</string>
     <string name="adminLogin">Admin Login</string>
     <string name="adminusername">Admin Username</string>
+    <string name="admission_no">Admission No</string>
     <string name="al">Absentees List</string>
     <string name="all_female_stud_mes">Recorded message will be sent to all female students.</string>
     <string name="all_male_stud_mes">Recorded message will be sent to all male students.</string>
@@ -107,8 +112,10 @@
     <string name="bugs">Touch here to sync</string>
     <string name="cc">content description</string>
     <string name="cce_student_profile">CCE Student Profile</string>
+    <string name="clas">Class</string>
     <string name="class_incharge">Class InCharge :</string>
     <string name="clear">Clear</string>
+    <string name="colon">:</string>
     <string name="copy_hw">Copy homework to:</string>
     <string name="coscholastic">CoScholastic</string>
     <string name="coscholastic2">Co-scholastic area</string>
@@ -121,9 +128,12 @@
     <string name="days_attended">Days Attended</string>
     <string name="daysabs">Days Absent</string>
     <string name="decimal">.</string>
+    <string name="delete_stud">Delete Student</string>
+    <string name="dob">Date Of Birth</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="ed_up_mapped_students">Edit / Update Mapped Students</string>
+    <string name="edit">Edit</string>
     <string name="eight">8</string>
     <string name="enter">Enter marks for created sliptest</string>
     <string name="enter_grade">Enter Grade</string>
@@ -134,11 +144,13 @@
     <string name="evaluation">Evaluation Type</string>
     <string name="exam">Exam</string>
     <string name="exam_create">Exam Create</string>
+    <string name="father">Father\'s Name</string>
     <string name="female_students">All Female Students</string>
     <string name="five">5</string>
     <string name="fltv">Select  the  below  options</string>
     <string name="four">4</string>
     <string name="gen_log">Generate Log File</string>
+    <string name="gender">Gender</string>
     <string name="grade">Grade</string>
     <string name="grade_system">Grade System : </string>
     <string name="grades">Grades</string>
@@ -173,7 +185,10 @@
     <string name="maxmark">Maximum mark</string>
     <string name="min_mark">Min Mark</string>
     <string name="minus">AB</string>
+    <string name="mobile1">Mobile</string>
+    <string name="mobile2">Alternate Mob</string>
     <string name="month">Month</string>
+    <string name="mother">Mother\'s Name</string>
     <string name="next">Next</string>
     <string name="nine">9</string>
     <string name="no_absent">No Absentees</string>
@@ -187,6 +202,7 @@
     <string name="password">Password</string>
     <string name="pc">Please check if the absentees are listed below</string>
     <string name="percentage">Percentage</string>
+    <string name="pincode">PinCode</string>
     <string name="portion">Portions</string>
     <string name="portioncolumn">Portion</string>
     <string name="portions">Click here to select portions</string>
@@ -200,10 +216,13 @@
     <string name="remark">Remark</string>
     <string name="reset">Reset</string>
     <string name="resolving">Resolving Errors</string>
+    <string name="roll_no">Roll No</string>
     <string name="save">Save</string>
+    <string name="save_changes">Save Changes</string>
     <string name="score">Score</string>
     <string name="se">Exam</string>
     <string name="search">Search Student</string>
+    <string name="sec">Section</string>
     <string name="sel_student">Select Students</string>
     <string name="sel_sub_group">Select Subject Group</string>
     <string name="select_clas">select class</string>
@@ -222,6 +241,7 @@
     <string name="stname">Slip Test Name :</string>
     <string name="stoan">Select the options as need</string>
     <string name="stud_avg">Student avg / Class avg</string>
+    <string name="student_profile">Student Profile</string>
     <string name="studentname">Student Name</string>
     <string name="students">Students</string>
     <string name="sub_partition">Subject Partition</string>

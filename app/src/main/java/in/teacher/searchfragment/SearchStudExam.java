@@ -7,7 +7,7 @@ import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.TempDao;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
@@ -39,7 +39,7 @@ public class SearchStudExam extends Fragment {
     private String studentName, className, secName;
     private SQLiteDatabase sqliteDatabase;
     private ListView lv;
-    private ArrayList<Amr> amrList = new ArrayList<>();
+    private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private StudExamAdapter adapter;
     private List<Integer> examIdList = new ArrayList<>();
     private List<String> examNameList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class SearchStudExam extends Fragment {
         studTV = (TextView) view.findViewById(R.id.studName);
         clasSecTV = (TextView) view.findViewById(R.id.studClasSec);
         lv = (ListView) view.findViewById(R.id.list);
-        adapter = new StudExamAdapter(context, amrList);
+        adapter = new StudExamAdapter(context, commonObjectList);
         lv.setAdapter(adapter);
 
         view.findViewById(R.id.slipSearch).setOnClickListener(searchSlipTest);
@@ -80,7 +80,7 @@ public class SearchStudExam extends Fragment {
     }
 
     private void clearList() {
-        amrList.clear();
+        commonObjectList.clear();
         examIdList.clear();
         examNameList.clear();
         avgList1.clear();
@@ -216,9 +216,9 @@ public class SearchStudExam extends Fragment {
 
             for (int i = 0; i < examIdList.size(); i++) {
                 try {
-                    amrList.add(new Amr(examNameList.get(i), avgList1.get(i), avgList2.get(i)));
+                    commonObjectList.add(new CommonObject(examNameList.get(i), avgList1.get(i), avgList2.get(i)));
                 } catch (IndexOutOfBoundsException e) {
-                    amrList.add(new Amr(examNameList.get(i), 0, 0));
+                    commonObjectList.add(new CommonObject(examNameList.get(i), 0, 0));
                 }
 
             }

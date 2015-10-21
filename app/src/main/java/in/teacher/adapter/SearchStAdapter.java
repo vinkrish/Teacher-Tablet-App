@@ -1,7 +1,7 @@
 package in.teacher.adapter;
 
 import in.teacher.activity.R;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 
 import java.util.ArrayList;
 
@@ -17,10 +17,10 @@ import android.widget.TextView;
  * Created by vinkrish.
  */
 public class SearchStAdapter extends BaseAdapter {
-    private ArrayList<Amr> data = new ArrayList<>();
+    private ArrayList<CommonObject> data = new ArrayList<>();
     private LayoutInflater inflater;
 
-    public SearchStAdapter(Context context, ArrayList<Amr> listArray) {
+    public SearchStAdapter(Context context, ArrayList<CommonObject> listArray) {
         this.data = listArray;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -46,7 +46,7 @@ public class SearchStAdapter extends BaseAdapter {
         else
             row.setBackgroundColor(Color.rgb(237, 239, 242));
 
-        Amr listItem = data.get(position);
+        CommonObject listItem = data.get(position);
         holder.int1.setText(listItem.getInt1() + "");
         holder.int2.setText(listItem.getInt2() + "");
         holder.int3.setText(listItem.getInt3() + "");

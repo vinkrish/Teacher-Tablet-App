@@ -3,7 +3,7 @@ package in.teacher.searchfragment;
 import in.teacher.activity.R;
 import in.teacher.adapter.StSearchAdapter;
 import in.teacher.dao.TempDao;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
@@ -40,7 +40,7 @@ public class SearchStudST extends Fragment {
     private List<String> subNameList = new ArrayList<>();
     private List<String> teacherNameList = new ArrayList<>();
     private List<Integer> progressList = new ArrayList<>();
-    private ArrayList<Amr> amrList = new ArrayList<>();
+    private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private StSearchAdapter amrAdapter;
     private ListView lv;
     private List<Integer> conductedSTList = new ArrayList<>();
@@ -71,7 +71,7 @@ public class SearchStudST extends Fragment {
         schoolId = t.getSchoolId();
         studentId = t.getStudentId();
 
-        amrAdapter = new StSearchAdapter(context, amrList);
+        amrAdapter = new StSearchAdapter(context, commonObjectList);
         lv.setAdapter(amrAdapter);
 
         new CalledBackLoad().execute();
@@ -84,7 +84,7 @@ public class SearchStudST extends Fragment {
     private void clearList() {
         conductedSTList.clear();
         absentSTList.clear();
-        amrList.clear();
+        commonObjectList.clear();
         subIdList.clear();
         subNameList.clear();
         teacherNameList.clear();
@@ -163,7 +163,7 @@ public class SearchStudST extends Fragment {
 
 
             for (int i = 0; i < subIdList.size(); i++) {
-                amrList.add(new Amr(subNameList.get(i), teacherNameList.get(i), conductedSTList.get(i), absentSTList.get(i), progressList.get(i)));
+                commonObjectList.add(new CommonObject(subNameList.get(i), teacherNameList.get(i), conductedSTList.get(i), absentSTList.get(i), progressList.get(i)));
             }
             return null;
         }

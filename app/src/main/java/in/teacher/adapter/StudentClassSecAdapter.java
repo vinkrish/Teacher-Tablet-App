@@ -10,17 +10,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import in.teacher.activity.R;
-import in.teacher.sqlite.Amr;
+import in.teacher.sqlite.CommonObject;
 
 /**
  * Created by vinkrish.
  */
-public class AsecAdapter extends ArrayAdapter<Amr> {
+public class StudentClassSecAdapter extends ArrayAdapter<CommonObject> {
     private int resource;
-    private ArrayList<Amr> data = new ArrayList<>();
+    private ArrayList<CommonObject> data = new ArrayList<>();
     private LayoutInflater inflater;
 
-    public AsecAdapter(Context context, int resource, ArrayList<Amr> listArray) {
+    public StudentClassSecAdapter(Context context, int resource, ArrayList<CommonObject> listArray) {
         super(context, resource, listArray);
         this.resource = resource;
         this.data = listArray;
@@ -35,8 +35,8 @@ public class AsecAdapter extends ArrayAdapter<Amr> {
         if (row == null) {
             row = inflater.inflate(resource, parent, false);
             holder = new RecordHolder();
-            holder.idx = (TextView) row.findViewById(R.id.txt1);
-            holder.txtAbsentee = (TextView) row.findViewById(R.id.txt2);
+            holder.text1 = (TextView) row.findViewById(R.id.txt1);
+            holder.text2 = (TextView) row.findViewById(R.id.txt2);
             row.setTag(holder);
         } else holder = (RecordHolder) row.getTag();
 
@@ -45,16 +45,16 @@ public class AsecAdapter extends ArrayAdapter<Amr> {
         else
             row.setBackgroundResource(R.drawable.list_selector2);
 
-        Amr listItem = data.get(position);
-        holder.idx.setText(listItem.getText1());
-        holder.txtAbsentee.setText(listItem.getText3());
+        CommonObject listItem = data.get(position);
+        holder.text1.setText(listItem.getText1());
+        holder.text2.setText(listItem.getText2());
 
         return row;
     }
 
     public static class RecordHolder {
-        public TextView idx;
-        public TextView txtAbsentee;
+        public TextView text1;
+        public TextView text2;
     }
 
 }
