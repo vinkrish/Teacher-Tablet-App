@@ -228,6 +228,7 @@
     <string name="add_student">Add Student</string>
     <string name="edit">Edit</string>
 
+    <string name="name">Name</string>
     <string name="colon">:</string>
     <string name="clas">Class</string>
     <string name="sec">Section</string>

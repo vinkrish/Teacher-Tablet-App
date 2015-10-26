@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -35,12 +36,14 @@ public class StudentProfile extends Fragment {
     private List<String> admissionList = new ArrayList<>();
     private ListView listView;
     private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
+    private Button addBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.student_profile, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
+        addBtn = (Button) view.findViewById(R.id.add_student);
 
         init();
 
@@ -53,7 +56,7 @@ public class StudentProfile extends Fragment {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
-        sectionId = t.getCurrentSection();
+        sectionId = t.getSectionId();
 
         Cursor c = sqliteDatabase.rawQuery("select StudentId, AdmissionNo, RollNoInClass, Name from students where SectionId = " +
                 sectionId + " order by RollNoInClass", null);
@@ -74,10 +77,17 @@ public class StudentProfile extends Fragment {
         }
         c.close();
 
-        StudentProfileAdapter studentProfileAdapterdapter = new StudentProfileAdapter(context, R.layout.student_profile_list, commonObjectList);
-        listView.setAdapter(studentProfileAdapterdapter);
+        StudentProfileAdapter studentProfileAdapter = new StudentProfileAdapter(context, R.layout.student_profile_list, commonObjectList);
+        listView.setAdapter(studentProfileAdapter);
 
         listView.setOnItemClickListener(listSelector);
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new StudentAdd(), getFragmentManager());
+            }
+        });
 
     }
 

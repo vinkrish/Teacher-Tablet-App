@@ -56,7 +56,7 @@
             android:gravity="start|center_vertical"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
-            android:text="@string/edit"
+            android:text="@string/add"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -80,20 +80,39 @@
             android:layout_marginLeft="10dp">
 
             <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/name"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/name_colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/name_tv"
+                android:layout_toRightOf="@id/name_tv"
+                android:text="@string/colon" />
+
+            <EditText
                 android:id="@+id/student_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:text="adsf"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold" />
+                android:layout_alignBaseline="@id/name_tv"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/name_colon"
+                android:inputType="textNoSuggestions"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/class_tv"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/student_name"
+                android:layout_below="@id/name_tv"
                 android:layout_marginBottom="20dp"
                 android:text="@string/clas"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -440,7 +459,7 @@
                 android:paddingRight="30dp" />
 
             <Button
-                android:id="@+id/save_butt"
+                android:id="@+id/add_student"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/pincode_tv"
@@ -448,19 +467,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_submit"
-                android:text="@string/save_changes"
-                android:textColor="#FFF" />
-
-            <Button
-                android:id="@+id/delete_butt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/save_butt"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/button_delete"
-                android:text="@string/delete_stud"
+                android:text="@string/add_student"
                 android:textColor="#FFF" />
 
         </RelativeLayout>
