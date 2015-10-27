@@ -218,7 +218,10 @@
     <string name="map_students">Map Selected Subjects to Students</string>
     <string name="group_subject">Subject Group / Subjects</string>
     <string name="save">Save</string>
+    <string name="create_exam">Create Exam</string>
+    <string name="update_exam">Update Exam</string>
     <string name="exam_create">Exam Create</string>
+    <string name="exam_update">Exam Update</string>
     <string name="sel_sub_group">Select Subject Group</string>
     <string name="sub_partition">Subject Partition</string>
 
@@ -243,5 +246,6 @@
     <string name="pincode">PinCode</string>
     <string name="save_changes">Save Changes</string>
     <string name="delete_stud">Delete Student</string>
+    <string name="delete">Delete</string>
 
 </resources>

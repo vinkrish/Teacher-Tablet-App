@@ -1,4 +1,4 @@
-package in.teacher.fragment;
+package in.teacher.sectionincharge;
 
 import in.teacher.activity.R;
 import in.teacher.activity.R.animator;

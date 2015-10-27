@@ -229,7 +229,7 @@ public class ExamCreate extends Fragment {
         }
     }
 
-    TableRow tableRow(int subId, String subName) {
+    private TableRow tableRow(int subId, String subName) {
 
         boolean partition = SubjectsDao.isPartition(sqliteDatabase, subId);
 

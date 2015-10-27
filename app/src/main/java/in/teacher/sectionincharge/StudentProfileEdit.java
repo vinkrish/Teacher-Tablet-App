@@ -1,9 +1,8 @@
-package in.teacher.fragment;
+package in.teacher.sectionincharge;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -22,6 +21,7 @@ import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.TempDao;
+import in.teacher.sectionincharge.StudentProfile;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;

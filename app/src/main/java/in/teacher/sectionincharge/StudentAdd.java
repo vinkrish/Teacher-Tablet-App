@@ -1,4 +1,4 @@
-package in.teacher.fragment;
+package in.teacher.sectionincharge;
 
 import android.app.Fragment;
 import android.content.ContentValues;

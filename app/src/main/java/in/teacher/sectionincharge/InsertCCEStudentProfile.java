@@ -1,10 +1,8 @@
-package in.teacher.fragment;
+package in.teacher.sectionincharge;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Capitalize;
 import in.teacher.dao.CCEStudentProfileDao;
 import in.teacher.dao.StudentsDao;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.model.Profile;
 import in.teacher.sqlite.CCEStudentProfile;
@@ -24,7 +22,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +36,6 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 @SuppressLint("InflateParams")
 public class InsertCCEStudentProfile extends Fragment {
     private Activity act;

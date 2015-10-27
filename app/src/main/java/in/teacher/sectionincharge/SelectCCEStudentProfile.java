@@ -1,9 +1,7 @@
-package in.teacher.fragment;
+package in.teacher.sectionincharge;
 
 import in.teacher.activity.R;
 import in.teacher.activity.R.animator;
-import in.teacher.adapter.Capitalize;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
@@ -22,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 /**

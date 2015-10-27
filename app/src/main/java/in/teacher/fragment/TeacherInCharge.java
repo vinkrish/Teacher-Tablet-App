@@ -39,7 +39,7 @@ public class TeacherInCharge extends Fragment {
     private Switch teacherIncharge;
     private int teacherId, classInchargeId, classInChargePos;
     private String teacherName;
-    private Button examBtn;
+    private Button createExamBtn, updateExamBtn;
     private Spinner classSpinner;
     private List<Integer> classInchargeList = new ArrayList<>();
     private List<String> classNameIncharge = new ArrayList<>();
@@ -51,7 +51,8 @@ public class TeacherInCharge extends Fragment {
 
         name = (TextView) view.findViewById(R.id.teacherName);
         teacherIncharge = (Switch) view.findViewById(R.id.classIncharge);
-        examBtn = (Button) view.findViewById(R.id.exams);
+        createExamBtn = (Button) view.findViewById(R.id.create_exam);
+        updateExamBtn = (Button) view.findViewById(R.id.update_exam);
 
         classSpinner = (Spinner) view.findViewById(R.id.classSpinner);
 
@@ -116,10 +117,17 @@ public class TeacherInCharge extends Fragment {
             }
         });
 
-        examBtn.setOnClickListener(new View.OnClickListener() {
+        createExamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ReplaceFragment.replace(new ExamCreate(), getFragmentManager());
+            }
+        });
+
+        updateExamBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new ExamUpdate(), getFragmentManager());
             }
         });
 

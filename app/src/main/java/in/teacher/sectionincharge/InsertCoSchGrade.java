@@ -1,19 +1,16 @@
-package in.teacher.fragment;
+package in.teacher.sectionincharge;
 
 import in.teacher.activity.R;
-import in.teacher.adapter.Capitalize;
 import in.teacher.dao.CceCoScholasticGradeDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
-import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
-import in.teacher.dao.UploadSqlDao;
+import in.teacher.sectionincharge.CoScholastic;
 import in.teacher.sqlite.CceCoScholasticGrade;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
-import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
@@ -29,45 +26,36 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * Created by vinkrish.
  */
-
 @SuppressLint("InflateParams")
-public class UpdateCCSGrade extends Fragment {
+public class InsertCoSchGrade extends Fragment {
     private int Term, TopicId, AspectId, schoolId, classId, sectionId;
     private Activity act;
-    private Context context;
     private SQLiteDatabase sqliteDatabase;
     private CoSchAdapter coSchAdapter;
     private ArrayList<CoSch> coSchList = new ArrayList<>();
     private List<Students> studentsArray = new ArrayList<>();
-    private ListView lv;
     private ArrayList<String> gradList = new ArrayList<>();
     private ArrayList<Integer> valueList = new ArrayList<>();
     private ArrayList<String> inGradList = new ArrayList<>();
-    private Button submit, insertA;
     private HashMap<String, Integer> map = new HashMap<>();
-    private SparseArray<String> map2 = new SparseArray<>();
-    private List<Integer> intGradeList = new ArrayList<>();
-    private List<String> remarkList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,22 +66,41 @@ public class UpdateCCSGrade extends Fragment {
         TopicId = b.getInt("TopicId");
         AspectId = b.getInt("AspectId");
 
-        submit = (Button) view.findViewById(R.id.submit);
-        insertA = (Button) view.findViewById(R.id.insertA);
-        act = AppGlobal.getActivity();
-        context = AppGlobal.getContext();
-        sqliteDatabase = AppGlobal.getSqliteDatabase();
+        Button submit = (Button) view.findViewById(R.id.submit);
+        Button insertA = (Button) view.findViewById(R.id.insertA);
 
-        lv = (ListView) view.findViewById(R.id.list);
-        coSchAdapter = new CoSchAdapter(context, R.layout.co_sch_list, coSchList);
-        lv.setAdapter(coSchAdapter);
+        act = AppGlobal.getActivity();
+        Context context = AppGlobal.getContext();
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         schoolId = t.getSchoolId();
         classId = t.getClassId();
         sectionId = t.getSectionId();
 
-        createListView();
+        gradList.add("");
+        valueList.add(0);
+        map.put("", 0);
+        Cursor c = sqliteDatabase.rawQuery("select * from ccetopicgrade where TopicId=" + TopicId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            gradList.add(c.getString(c.getColumnIndex("Grade")));
+            valueList.add(c.getInt(c.getColumnIndex("Value")));
+            map.put(c.getString(c.getColumnIndex("Grade")), c.getInt(c.getColumnIndex("Value")));
+            c.moveToNext();
+        }
+        c.close();
+
+        ListView lv = (ListView) view.findViewById(R.id.list);
+        studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
+
+        for (Students stud : studentsArray) {
+            coSchList.add(new CoSch(stud.getRollNoInClass() + "", stud.getName(), "", gradList));
+            inGradList.add("");
+        }
+
+        coSchAdapter = new CoSchAdapter(context, R.layout.co_sch_list, coSchList);
+        lv.setAdapter(coSchAdapter);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +128,7 @@ public class UpdateCCSGrade extends Fragment {
         });
 
         Button insertUpdate = (Button) view.findViewById(R.id.coSchInsertUpdate);
-        insertUpdate.setText("Update");
+        insertUpdate.setText("Insert");
 
         TextView classSec = (TextView) view.findViewById(R.id.classSec);
         String className = ClasDao.getClassName(classId, sqliteDatabase);
@@ -129,52 +136,6 @@ public class UpdateCCSGrade extends Fragment {
         classSec.setText(className + "  -  " + secName);
 
         return view;
-    }
-
-    public void createListView() {
-        gradList.add("");
-        valueList.add(0);
-        map.put("", 0);
-        map2.put(0, "");
-        Cursor c = sqliteDatabase.rawQuery("select * from ccetopicgrade where TopicId=" + TopicId, null);
-        c.moveToFirst();
-        while (!c.isAfterLast()) {
-            gradList.add(c.getString(c.getColumnIndex("Grade")));
-            valueList.add(c.getInt(c.getColumnIndex("Value")));
-            map.put(c.getString(c.getColumnIndex("Grade")), c.getInt(c.getColumnIndex("Value")));
-            map2.put(c.getInt(c.getColumnIndex("Value")), c.getString(c.getColumnIndex("Grade")));
-            c.moveToNext();
-        }
-        c.close();
-
-        studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
-
-        Cursor c1 = sqliteDatabase.rawQuery("select Grade,Description from ccecoscholasticgrade where AspectId=" + AspectId + " and Term=" + Term + " and StudentId in " +
-                "(select StudentId from students where SectionId=" + sectionId + " order by RollNoInClass)", null);
-        c1.moveToFirst();
-        while (!c1.isAfterLast()) {
-            intGradeList.add(c1.getInt(c1.getColumnIndex("Grade")));
-            remarkList.add(c1.getString(c1.getColumnIndex("Description")));
-            c1.moveToNext();
-        }
-        c1.close();
-
-        for (Integer i : intGradeList) {
-            inGradList.add(map2.get(i));
-        }
-
-        if (studentsArray.size() == remarkList.size()) {
-            int outLoop = 0;
-            for (Students stud : studentsArray) {
-                coSchList.add(new CoSch(stud.getRollNoInClass() + "", stud.getName(), remarkList.get(outLoop), gradList));
-                outLoop += 1;
-            }
-        } else {
-            CommonDialogUtils.displayAlertWhiteDialog(act, "Some student grades are missing, please notify contact person.");
-            submit.setEnabled(false);
-            insertA.setEnabled(false);
-        }
-        coSchAdapter.notifyDataSetChanged();
     }
 
     class SubmitTask extends AsyncTask<Void, Void, Void> {
@@ -190,7 +151,6 @@ public class UpdateCCSGrade extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-
             List<CceCoScholasticGrade> cceCoSchGrade = new ArrayList<>();
             int subLoop = 0;
             for (Students st : studentsArray) {
@@ -209,7 +169,7 @@ public class UpdateCCSGrade extends Fragment {
                 subLoop += 1;
                 cceCoSchGrade.add(ccsg);
             }
-            CceCoScholasticGradeDao.updateCoSchGrade(cceCoSchGrade, sqliteDatabase);
+            CceCoScholasticGradeDao.insertCoSchGrade(cceCoSchGrade, sqliteDatabase);
 
             return null;
         }
@@ -250,9 +210,7 @@ public class UpdateCCSGrade extends Fragment {
                 holder.spin = (Spinner) row.findViewById(R.id.grade);
 
                 row.setTag(holder);
-            } else {
-                holder = (RecordHolder) row.getTag();
-            }
+            } else holder = (RecordHolder) row.getTag();
 
             if (position % 2 == 0)
                 row.setBackgroundResource(R.drawable.list_selector1);
@@ -277,7 +235,6 @@ public class UpdateCCSGrade extends Fragment {
             }
 
             holder.tv3.setOnClickListener(remarkClickListener);
-
             return row;
         }
 
@@ -296,9 +253,7 @@ public class UpdateCCSGrade extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
-
         }
 
         private OnClickListener remarkClickListener = new OnClickListener() {
@@ -337,14 +292,13 @@ public class UpdateCCSGrade extends Fragment {
             TextView tv3;
             Spinner spin;
         }
-
     }
 
     public class CoSch {
         private String roll;
         private String name;
         private String remark;
-        private ArrayList<String> gradeList = new ArrayList<>();
+        private ArrayList<String> gradeList = new ArrayList<String>();
 
         public CoSch(String roll, String name, String remark, ArrayList<String> gradeList) {
             this.roll = roll;

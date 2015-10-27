@@ -1,4 +1,4 @@
-package in.teacher.fragment;
+package in.teacher.sectionincharge;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -30,12 +29,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
@@ -43,8 +37,8 @@ import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectGroupDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
+import in.teacher.fragment.Dashbord;
 import in.teacher.sqlite.Students;
-import in.teacher.sqlite.SubjectGroup;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
