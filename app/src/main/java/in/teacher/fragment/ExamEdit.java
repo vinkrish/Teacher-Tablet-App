@@ -1,9 +1,11 @@
 package in.teacher.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,15 +39,16 @@ import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 27/10/15.
  */
-public class ExamUpdate extends Fragment {
+public class ExamEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, examSpinner;
-    private Button saveBtn, deleteBtn;
     private int classInChargePos, classId, examId, width, strippedWidth, tag;
     final List<Integer> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
@@ -61,11 +64,55 @@ public class ExamUpdate extends Fragment {
         classSpinner = (Spinner) view.findViewById(R.id.classSpinner);
         examSpinner = (Spinner) view.findViewById(R.id.examSpinner);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
-        saveBtn = (Button) view.findViewById(R.id.save_butt);
 
         init();
 
+        view.findViewById(R.id.delete_butt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDelete();
+            }
+        });
+
+        view.findViewById(R.id.save_butt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSavable()) new CalledSubmit().execute();
+                else
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please enter max / fail mark for all subjects");
+            }
+        });
+
         return view;
+    }
+
+    private void confirmDelete () {
+        AlertDialog.Builder submitBuilder = new AlertDialog.Builder(getActivity());
+        submitBuilder.setCancelable(false);
+        submitBuilder.setTitle("Confirm your action");
+        submitBuilder.setMessage("Do you want to delete exam?");
+        submitBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }
+        });
+        submitBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                String sql = "delete from exams where ExamId = " + examId + " and ClassId = " + classId;
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
+            }
+        });
+        submitBuilder.show();
     }
 
     private void init() {
@@ -135,13 +182,6 @@ public class ExamUpdate extends Fragment {
             }
         });
 
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new CalledSubmit().execute();
-            }
-        });
-
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         width = displayMetrics.widthPixels;
         strippedWidth = (width / 3) - 1;
@@ -174,7 +214,7 @@ public class ExamUpdate extends Fragment {
         c.close();
     }
 
-    private void generateTable () {
+    private void generateTable() {
         table.removeAllViews();
         subjectExams.clear();
         tag = 0;
@@ -197,7 +237,7 @@ public class ExamUpdate extends Fragment {
         }
     }
 
-    private TableRow generateRow (SubExams se) {
+    private TableRow generateRow(SubExams se) {
 
         TableRow tableRowForTable = new TableRow(this.context);
         TableRow.LayoutParams params = new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -247,7 +287,7 @@ public class ExamUpdate extends Fragment {
         ed2.setTag(tag);
         tag++;
         ed2.setLayoutParams(p);
-        ed2.setText(se.getMinMark()+"");
+        ed2.setText(se.getMinMark() + "");
         ed2.setGravity(Gravity.CENTER);
         ed2.setInputType(InputType.TYPE_CLASS_NUMBER);
         ed2.addTextChangedListener(new MarksTextWatcher(ed2));
@@ -301,6 +341,7 @@ public class ExamUpdate extends Fragment {
                     ses.setMinMark(Integer.parseInt(s.toString()));
                 }
                 ses.setNullCheck(true);
+                ses.setUpdatable(true);
             }
             subjectExams.set(index, ses);
         }
@@ -311,12 +352,22 @@ public class ExamUpdate extends Fragment {
         private int maxMark;
         private int minMark;
         private boolean nullCheck;
+        private boolean updatable;
 
         public SubExams(int subjectId, int maxMark, int minMark) {
             this.maxMark = maxMark;
             this.minMark = minMark;
             this.subjectId = subjectId;
-            this.nullCheck = false;
+            this.nullCheck = true;
+            this.updatable = false;
+        }
+
+        public boolean isUpdatable() {
+            return updatable;
+        }
+
+        public void setUpdatable(boolean updatable) {
+            this.updatable = updatable;
         }
 
         public boolean isNullCheck() {
@@ -352,6 +403,15 @@ public class ExamUpdate extends Fragment {
         }
     }
 
+    private boolean isSavable() {
+        for (SubExams xm : subjectExams) {
+            if (!xm.isNullCheck()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     class CalledSubmit extends AsyncTask<Void, Void, Void> {
         ProgressDialog pDialog = new ProgressDialog(getActivity());
 
@@ -372,20 +432,23 @@ public class ExamUpdate extends Fragment {
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
+            ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
         }
     }
 
-    private void updateSubjectExams () {
+    private void updateSubjectExams() {
         for (SubExams se : subjectExams) {
-            String sql = "update subjectexams set MaximumMark = " + se.getMaxMark() +", FailMark = " + se.getMinMark() + " where " +
-                    "SubjectId = " + se.getSubjectId() + " and ClassId = " + classId + " and ExamId = " + examId;
-            try {
-                sqliteDatabase.execSQL(sql);
-                ContentValues cv = new ContentValues();
-                cv.put("Query", sql);
-                sqliteDatabase.insert("uploadsql", null, cv);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (se.isUpdatable()) {
+                String sql = "update subjectexams set MaximumMark = " + se.getMaxMark() + ", FailMark = " + se.getMinMark() + " where " +
+                        "SubjectId = " + se.getSubjectId() + " and ClassId = " + classId + " and ExamId = " + examId;
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

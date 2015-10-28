@@ -13,6 +13,7 @@ import in.teacher.dao.StudentAttendanceDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.attendancefragment.AbsentList;
+import in.teacher.fragment.TeacherInCharge;
 import in.teacher.sectionincharge.CoScholastic;
 import in.teacher.fragment.Dashbord;
 import in.teacher.examfragment.HasPartition;
@@ -447,6 +448,10 @@ public class Dashboard extends BaseActivity {
 
     public void toDashbord(View v) {
         ReplaceFragment.replace(new Dashbord(), getFragmentManager());
+    }
+
+    public void toClassInchargeDash(View v){
+        ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
     }
 
 }

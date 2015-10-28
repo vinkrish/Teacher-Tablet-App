@@ -119,6 +119,8 @@
     <string name="copy_hw">Copy homework to:</string>
     <string name="coscholastic">CoScholastic</string>
     <string name="coscholastic2">Co-scholastic area</string>
+    <string name="cr_ed_act">Create / Edit Activity</string>
+    <string name="cr_ed_subact">Create / Edit SubActivity</string>
     <string name="crash">Something went wrong, will be rectified soon.</string>
     <string name="crash_toast_text">Oops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
     <string name="create_exam">Create Exam</string>
@@ -129,7 +131,7 @@
     <string name="days_attended">Days Attended</string>
     <string name="daysabs">Days Absent</string>
     <string name="decimal">.</string>
-    <string name="delete">Delete</string>
+    <string name="delete_exam">Delete Exam</string>
     <string name="delete_stud">Delete Student</string>
     <string name="dob">Date Of Birth</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -165,6 +167,7 @@
     <string name="hwmessage">Enter Homework</string>
     <string name="hwpt">Tap on the list to view homework assigned</string>
     <string name="idxcolumn"> # </string>
+    <string name="incharge_dash">Dashboard (Class In-Charge)</string>
     <string name="insert">Insert</string>
     <string name="insertA">Insert A for all</string>
     <string name="internet_block_1">Tab is not connected to Internet. Please check internet connection.</string>

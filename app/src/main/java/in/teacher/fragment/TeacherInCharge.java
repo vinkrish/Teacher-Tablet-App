@@ -5,13 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -22,7 +20,6 @@ import java.util.List;
 
 import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
-import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
@@ -39,7 +36,6 @@ public class TeacherInCharge extends Fragment {
     private Switch teacherIncharge;
     private int teacherId, classInchargeId, classInChargePos;
     private String teacherName;
-    private Button createExamBtn, updateExamBtn;
     private Spinner classSpinner;
     private List<Integer> classInchargeList = new ArrayList<>();
     private List<String> classNameIncharge = new ArrayList<>();
@@ -51,12 +47,37 @@ public class TeacherInCharge extends Fragment {
 
         name = (TextView) view.findViewById(R.id.teacherName);
         teacherIncharge = (Switch) view.findViewById(R.id.classIncharge);
-        createExamBtn = (Button) view.findViewById(R.id.create_exam);
-        updateExamBtn = (Button) view.findViewById(R.id.update_exam);
-
         classSpinner = (Spinner) view.findViewById(R.id.classSpinner);
 
         init();
+
+        view.findViewById(R.id.create_exam).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new ExamCreate(), getFragmentManager());
+            }
+        });
+
+        view.findViewById(R.id.update_exam).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new ExamEdit(), getFragmentManager());
+            }
+        });
+
+        view.findViewById(R.id.create_edit_act).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new ActivityCreateEdit(), getFragmentManager());
+            }
+        });
+
+        view.findViewById(R.id.create_edit_subact).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new SubActivityCreateEdit(), getFragmentManager());
+            }
+        });
 
         return view;
 
@@ -114,20 +135,6 @@ public class TeacherInCharge extends Fragment {
                 if (!isChecked) {
                     ReplaceFragment.replace(new Dashbord(), getFragmentManager());
                 }
-            }
-        });
-
-        createExamBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ReplaceFragment.replace(new ExamCreate(), getFragmentManager());
-            }
-        });
-
-        updateExamBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ReplaceFragment.replace(new ExamUpdate(), getFragmentManager());
             }
         });
 

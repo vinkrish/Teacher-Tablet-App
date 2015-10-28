@@ -160,6 +160,34 @@
                 android:background="@color/blue_grey"
                 android:text="@string/update_exam"/>
 
+            <Button
+                android:id="@+id/create_edit_act"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:background="@color/blue_grey"
+                android:text="@string/cr_ed_act"/>
+
+            <Button
+                android:id="@+id/create_edit_subact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:background="@color/blue_grey"
+                android:text="@string/cr_ed_subact"/>
+
         </LinearLayout>
 
     </ScrollView>

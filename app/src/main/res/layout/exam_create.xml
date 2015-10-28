@@ -21,9 +21,9 @@
             android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
-            android:onClick="toDashbord"
+            android:onClick="toClassInchargeDash"
             android:paddingLeft="10dp"
-            android:text="@string/dashboard"
+            android:text="@string/incharge_dash"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
