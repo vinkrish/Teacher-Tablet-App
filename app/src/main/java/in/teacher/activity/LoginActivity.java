@@ -139,9 +139,9 @@ public class LoginActivity extends BaseActivity {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         if ((UploadSqlDao.isUploadSql(sqliteDatabase) || isFile) && hour >= 15) {
-            findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.red));
+            findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.original_red));
         } else if ((UploadSqlDao.isUploadSql(sqliteDatabase) || isFile) && internetStatus != 0) {
-            findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.red));
+            findViewById(R.id.sync_me).setBackgroundColor(getResources().getColor(R.color.original_red));
         } else {
             findViewById(R.id.sync_me).setBackgroundResource(android.R.drawable.btn_default);
             // findViewById(R.id.sync_me).setBackgroundColor(Color.TRANSPARENT);
@@ -373,17 +373,6 @@ public class LoginActivity extends BaseActivity {
         intent.putExtra("sectionid", String.valueOf(sectionId));
         startActivity(intent);
         AnimationUtils.activityEnterVertical(LoginActivity.this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

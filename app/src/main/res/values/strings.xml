@@ -21,29 +21,18 @@
     <string name="query">Query</string>
     <string name="no_internet">no wifi / internet</string>
 
-    <string-array name="nav_drawer_items">
-        <item>Dashboard</item>
-        <item>Attendance</item>
-        <item>Homework</item>
-        <item>Co-Scholastic</item>
-        <item>CCE Student Profile</item>
-        <item>SMS</item>
-        <item>Map Subjects to Students</item>
-        <item>Map Subject Teacher</item>
-        <item>Student Profile</item>
-    </string-array>
+    <string name="closeDrawer">Navigation View</string>
+    <string name="openDrawer">Navigation View Closed</string>
 
-    <array name="nav_drawer_icons">
-        <item>@drawable/dashboard</item>
-        <item>@drawable/attendance</item>
-        <item>@drawable/homework</item>
-        <item>@drawable/homework</item>
-        <item>@drawable/homework</item>
-        <item>@drawable/attendance</item>
-        <item>@drawable/homework</item>
-        <item>@drawable/homework</item>
-        <item>@drawable/user</item>
-    </array>
+    <string name="dashboard">Dashboard</string>
+    <string name="attendance">Attendance</string>
+    <string name="homework">Homework</string>
+    <string name="coscholastic">CoScholastic</string>
+    <string name="cce_student_profile">CCE Student Profile</string>
+    <string name="sms">SMS</string>
+    <string name="map_student_subject">Map Students</string>
+    <string name="map_subject_teacher">Map Subject Teacher</string>
+    <string name="student_profile">Student Profile</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -54,9 +43,6 @@
     <string name="pt">Please tap on the absentees</string>
     <string name="al">Absentees List</string>
     <string name="verify">Verify</string>
-    <string name="attendance">Attendance</string>
-    <string name="homework">Homework</string>
-    <string name="dashboard">Dashboard</string>
     <string name="incharge_dash">Dashboard (Class In-Charge)</string>
     <string name="submit">Submit</string>
     <string name="back">Back</string>
@@ -143,7 +129,6 @@
     <string name="copy_hw">Copy homework to:</string>
     <string name="select_clas">select class</string>
     <string name="select_sec">select section</string>
-    <string name="sms">SMS</string>
     <string name="send_sms">Send SMS to:</string>
     <string name="all_students">All Students</string>
     <string name="sel_student">Select Students</string>
@@ -178,7 +163,7 @@
     <string name="title_activity_syncing">Syncing</string>
     <string name="noatt">Attendance is not taken for this day.</string>
     <string name="nohomework">Homework is not assigned for this day.</string>
-    <string name="coscholastic">CoScholastic</string>
+
     <string name="coscholastic2">Co-scholastic area</string>
     <string name="stoan">Select the options as need</string>
     <string name="remark">Remark</string>
@@ -187,8 +172,6 @@
     <string name="bugs">Touch here to sync</string>
     <string name="server_resolve">Tab is in Sync</string>
     <string name="profile">Profile</string>
-    <string name="cce_student_profile">CCE Student Profile</string>
-    <string name="student_profile">Student Profile</string>
     <string name="height">Height (cm)</string>
     <string name="weight">Weight (kg)</string>
     <string name="days_attended">Days Attended</string>
@@ -212,9 +195,6 @@
     <string name="update_apk">A new version of application is available, please click the update button to confirm and continue.</string>
     <string name="update_apk_wifi">*tab should be in wifi zone.</string>
     <string name="update_apk_button">Update the application</string>
-    <string name="map_student_subject">Map Subjects to Students</string>
-    <string name="map_subject_teacher">Map Subject Teacher</string>
-
     <string name="ed_up_mapped_students">Edit / Update Mapped Students</string>
     <string name="map_students">Map Selected Subjects to Students</string>
     <string name="group_subject">Subject Group / Subjects</string>
@@ -250,7 +230,8 @@
     <string name="save_changes">Save Changes</string>
     <string name="delete_stud">Delete Student</string>
     <string name="delete_exam">Delete Exam</string>
-
+    <string name="create_act">Create New Activity</string>
+    <string name="weightage">Weightage</string>
 
 
 </resources>

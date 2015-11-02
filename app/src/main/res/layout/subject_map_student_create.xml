@@ -23,8 +23,8 @@
             android:onClick="toDashbord"
             android:paddingLeft="10dp"
             android:text="@string/dashboard"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -42,8 +42,8 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
             android:text="@string/map_student_subject"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

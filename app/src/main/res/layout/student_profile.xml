@@ -24,8 +24,8 @@
             android:onClick="toDashbord"
             android:paddingLeft="10dp"
             android:text="@string/dashboard"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -43,8 +43,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="30dp"
             android:text="@string/student_profile"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <View

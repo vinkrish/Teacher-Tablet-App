@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/hwtxt"
-        android:text="@string/hwmessage"
-        android:layout_height="60dp"
         android:layout_width="match_parent"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:layout_height="60dp"
+        android:background="@color/universal"
+        android:contentDescription="@string/app_name"
         android:gravity="center"
-        android:background="#3E97D6"
+        android:text="@string/hwmessage"
         android:textColor="#FFFFFF"
-        android:contentDescription="@string/app_name"/>
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/hwmessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:layout_gravity="center"
-        android:inputType="text|textMultiLine"/>
+        android:inputType="text|textMultiLine" />
 
 </LinearLayout>
 <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/layout/hw_dialog.xml -->

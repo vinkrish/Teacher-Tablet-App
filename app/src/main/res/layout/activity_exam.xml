@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
@@ -24,8 +23,8 @@
             android:onClick="toDashbord"
             android:paddingLeft="10dp"
             android:text="@string/dashboard"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -41,8 +40,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/se"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -60,8 +59,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
             android:text="@string/activity"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <View

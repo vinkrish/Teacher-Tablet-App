@@ -1,5 +1,8 @@
 package in.teacher.sectionincharge;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.database.SQLException;
@@ -10,11 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
@@ -32,8 +41,9 @@ import in.teacher.util.ReplaceFragment;
 public class StudentAdd extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private int schoolId, classId, sectionId, studentId;
+    private static TextView dob;
     private EditText studentName, className, sectionName, rollNo, admissionNo;
-    private EditText fatherName, motherName, dob, gender, mobile1, mobile2, address, pincode;
+    private EditText fatherName, motherName, gender, mobile1, mobile2, address, pincode;
     private Button studentProfile, addStudent;
 
     @Override
@@ -63,7 +73,9 @@ public class StudentAdd extends Fragment {
         ((TextView) view.findViewById(R.id.father_tv)).setText(Html.fromHtml("Father's Name <sup><small> * </small></sup>"));
 
         motherName = (EditText) view.findViewById(R.id.mother_name);
-        dob = (EditText) view.findViewById(R.id.dob);
+
+        dob = (TextView) view.findViewById(R.id.dob);
+        ((TextView) view.findViewById(R.id.dob_tv)).setText(Html.fromHtml("Date Of Birth <sup><small> * </small></sup>"));
 
         gender = (EditText) view.findViewById(R.id.gender);
         ((TextView) view.findViewById(R.id.gender_tv)).setText(Html.fromHtml("Gender <sup><small> * </small></sup>"));
@@ -103,24 +115,34 @@ public class StudentAdd extends Fragment {
                 createStudent();
             }
         });
+
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
     }
 
     private void createStudent() {
         if (studentName.getText().toString().equals("") || fatherName.getText().toString().equals("") ||
                 rollNo.getText().toString().equals("") || gender.getText().toString().equals("") ||
-                mobile1.getText().toString().equals("")) {
+                mobile1.getText().toString().equals("") || dob.getText().toString().equals("")) {
             CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Fields marked * are mandatory");
+        } else if (mobile1.getText().toString().length() > 10) {
+            CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Mobile number should be of 10 digits");
         } else {
             Toast.makeText(getActivity(), "Student created", Toast.LENGTH_SHORT).show();
             try {
                 studentId = PKGenerator.getMD5(schoolId, sectionId, studentName.getText().toString() + fatherName.getText().toString());
-                String sql = "insert into students(StudentId, ClassId, SectionId, AdmissionNo, RollNoInClass, Name, " +
-                        "FatherName, MotherName, DateOfBirth, Gender, Mobile1, Mobile2, Address, Pincode) values ("+studentId+", " +
-                        classId+ ", "+sectionId+", '"+admissionNo.getText().toString()+"', "+rollNo.getText().toString()+", '" +
-                        studentName.getText().toString()+"', '"+fatherName.getText().toString()+"', '"+motherName.getText().toString()+"', '" +
-                        dob.getText().toString()+"', '"+gender.getText().toString()+"', '"+mobile1.getText().toString()+"', '" +
-                        mobile2.getText().toString() + "', \""+address.getText().toString().replaceAll("\n", " ").replace("\"", "'")+"\", '"+
-                        pincode.getText().toString()+"')";
+                String sql = "insert into students(StudentId, SchoolId , ClassId, SectionId, SubjectIds, AdmissionNo, RollNoInClass, Name, " +
+                        "FatherName, MotherName, DateOfBirth, Gender, Mobile1, Mobile2, Address, Pincode) values (" + studentId + ", " +
+                        schoolId + ", " +classId + ", " + sectionId + ", '','" + admissionNo.getText().toString() + "', " + rollNo.getText().toString() + ", '" +
+                        studentName.getText().toString() + "', '" + fatherName.getText().toString() + "', '" + motherName.getText().toString() + "', '" +
+                        dob.getText().toString() + "', '" + gender.getText().toString() + "', '" + mobile1.getText().toString() + "', '" +
+                        mobile2.getText().toString() + "', \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\", '" +
+                        pincode.getText().toString() + "')";
                 try {
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
@@ -133,6 +155,40 @@ public class StudentAdd extends Fragment {
                 e.printStackTrace();
             }
             ReplaceFragment.replace(new StudentProfile(), getFragmentManager());
+        }
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            if (view.isShown()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                Calendar cal = GregorianCalendar.getInstance();
+                cal.set(year, month, day);
+                Date d = cal.getTime();
+
+                if (GregorianCalendar.getInstance().get(Calendar.YEAR) < cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Selected future date !");
+                } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH) &&
+                        GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Selected future date !");
+                } else if (GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH) < cal.get(Calendar.DAY_OF_MONTH) &&
+                        GregorianCalendar.getInstance().get(Calendar.MONTH) <= cal.get(Calendar.MONTH) &&
+                        GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Selected future date !");
+                } else {
+                    dob.setText(dateFormat.format(d));
+                }
+            }
         }
     }
 }

@@ -1,6 +1,9 @@
 package in.teacher.sectionincharge;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -13,9 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
@@ -32,9 +42,9 @@ import in.teacher.util.ReplaceFragment;
  */
 public class StudentProfileEdit extends Fragment {
     private SQLiteDatabase sqliteDatabase;
-    private TextView studentName;
+    private static TextView studentName, dob;
     private EditText className, sectionName, rollNo, admissionNo;
-    private EditText fatherName, motherName, dob, gender, mobile1, mobile2, address, pincode;
+    private EditText fatherName, motherName, gender, mobile1, mobile2, address, pincode;
     private Button studentProfile, saveBtn, deleteBtn;
     private int studentId, classId, sectionId;
 
@@ -51,6 +61,7 @@ public class StudentProfileEdit extends Fragment {
 
     private void initView(View view) {
         studentName = (TextView) view.findViewById(R.id.student_name);
+        dob = (TextView) view.findViewById(R.id.dob);
 
         className = (EditText) view.findViewById(R.id.class_name);
         sectionName = (EditText) view.findViewById(R.id.section_name);
@@ -58,7 +69,6 @@ public class StudentProfileEdit extends Fragment {
         admissionNo = (EditText) view.findViewById(R.id.admission_no);
         fatherName = (EditText) view.findViewById(R.id.father_name);
         motherName = (EditText) view.findViewById(R.id.mother_name);
-        dob = (EditText) view.findViewById(R.id.dob);
         gender = (EditText) view.findViewById(R.id.gender);
         mobile1 = (EditText) view.findViewById(R.id.mobile1);
         mobile2 = (EditText) view.findViewById(R.id.mobile2);
@@ -67,6 +77,7 @@ public class StudentProfileEdit extends Fragment {
 
         ((TextView) view.findViewById(R.id.roll_tv)).setText(Html.fromHtml("Roll No <sup><small> * </small></sup>"));
         ((TextView) view.findViewById(R.id.father_tv)).setText(Html.fromHtml("Father's Name <sup><small> * </small></sup>"));
+        ((TextView) view.findViewById(R.id.dob_tv)).setText(Html.fromHtml("Date Of Birth <sup><small> * </small></sup>"));
         ((TextView) view.findViewById(R.id.gender_tv)).setText(Html.fromHtml("Gender <sup><small> * </small></sup>"));
         ((TextView) view.findViewById(R.id.mobile1_tv)).setText(Html.fromHtml("Mobile <sup><small> * </small></sup>"));
 
@@ -119,8 +130,11 @@ public class StudentProfileEdit extends Fragment {
                 if (fatherName.getText().toString().equals("") ||
                         rollNo.getText().toString().equals("") ||
                         gender.getText().toString().equals("") ||
-                        mobile1.getText().toString().equals("")) {
+                        mobile1.getText().toString().equals("") ||
+                        dob.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Fields marked * are mandatory");
+                } else if (mobile1.getText().toString().length() > 10) {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Mobile number should be of 10 digits");
                 } else {
                     Toast.makeText(getActivity(), "Saved Changes", Toast.LENGTH_SHORT).show();
                     updateStudent();
@@ -135,18 +149,26 @@ public class StudentProfileEdit extends Fragment {
                 deleteStudent();
             }
         });
+
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
     }
 
     private void updateStudent() {
-        String sql = "update students set FatherName = '" + fatherName.getText().toString().replaceAll("\n", " ") + "' and " +
-                "RollNoInClass =  " + rollNo.getText().toString() + " and " +
-                "AdmissionNo = '" + admissionNo.getText().toString().replaceAll("\n", " ") + "' and " +
-                "MotherName = '" + motherName.getText().toString().replaceAll("\n", " ") + "' and " +
-                "DateOfBirth = '" + dob.getText().toString() + "' and " +
-                "gender = '" + gender.getText().toString() + "' and " +
-                "mobile1 = '" + mobile1.getText().toString() + "' and " +
-                "mobile2 = '" + mobile2.getText().toString() + "' and " +
-                "address = \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\" and " +
+        String sql = "update students set FatherName = '" + fatherName.getText().toString().replaceAll("\n", " ") + "', " +
+                "RollNoInClass =  " + rollNo.getText().toString() + ", " +
+                "AdmissionNo = '" + admissionNo.getText().toString().replaceAll("\n", " ") + "', " +
+                "MotherName = '" + motherName.getText().toString().replaceAll("\n", " ") + "', " +
+                "DateOfBirth = '" + dob.getText().toString() + "' , " +
+                "gender = '" + gender.getText().toString() + "', " +
+                "mobile1 = '" + mobile1.getText().toString() + "', " +
+                "mobile2 = '" + mobile2.getText().toString() + "', " +
+                "address = \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\", " +
                 "pincode = '" + pincode.getText().toString() + "' where StudentId = " + studentId;
         try {
             sqliteDatabase.execSQL(sql);
@@ -187,7 +209,40 @@ public class StudentProfileEdit extends Fragment {
             sqliteDatabase.insert("uploadsql", null, cv);
         } catch (SQLException e) {
         }
-
         ReplaceFragment.replace(new StudentProfile(), getFragmentManager());
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            if (view.isShown()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                Calendar cal = GregorianCalendar.getInstance();
+                cal.set(year, month, day);
+                Date d = cal.getTime();
+
+                if (GregorianCalendar.getInstance().get(Calendar.YEAR) < cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Selected future date !");
+                } else if (GregorianCalendar.getInstance().get(Calendar.MONTH) < cal.get(Calendar.MONTH) &&
+                        GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Selected future date !");
+                } else if (GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH) < cal.get(Calendar.DAY_OF_MONTH) &&
+                        GregorianCalendar.getInstance().get(Calendar.MONTH) <= cal.get(Calendar.MONTH) &&
+                        GregorianCalendar.getInstance().get(Calendar.YEAR) == cal.get(Calendar.YEAR)) {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Selected future date !");
+                } else {
+                    dob.setText(dateFormat.format(d));
+                }
+            }
+        }
     }
 }

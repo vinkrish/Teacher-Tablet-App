@@ -24,8 +24,8 @@
             android:onClick="toClassInchargeDash"
             android:paddingLeft="10dp"
             android:text="@string/incharge_dash"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -43,8 +43,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
             android:text="@string/exam_update"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

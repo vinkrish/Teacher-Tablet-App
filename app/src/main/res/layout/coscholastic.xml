@@ -25,8 +25,8 @@
             android:onClick="toDashbord"
             android:paddingLeft="10dp"
             android:text="@string/dashboard"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -44,8 +44,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
             android:text="@string/coscholastic"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

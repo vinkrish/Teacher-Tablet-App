@@ -203,7 +203,8 @@ public class SubjectTeacherMapping extends Fragment {
                 sql = "insert into subjectteacher (ClassId, SubjectId, SchoolId, TeacherId, SectionId) " +
                         "values("+classId+", "+st.getSubjectId()+", "+schoolId+", "+st.getTeacherId()+", "+sectionId+")";
             } else {
-                sql = "update subjectteacher set TeacherId = "+ st.getTeacherId() + " where SubjectId = "+ st.getSubjectId();
+                sql = "update subjectteacher set TeacherId = "+ st.getTeacherId() +
+                        " where SubjectId = "+ st.getSubjectId() + " and SectionId = " + sectionId;
             }
             try {
                 sqliteDatabase.execSQL(sql);

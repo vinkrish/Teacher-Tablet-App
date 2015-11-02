@@ -24,8 +24,8 @@
             android:onClick="toDashbord"
             android:paddingLeft="10dp"
             android:text="@string/dashboard"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -41,8 +41,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/se"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -58,8 +58,8 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/activity"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -77,8 +77,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
             android:text="@string/subact"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <View

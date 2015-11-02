@@ -218,14 +218,4 @@ public class MasterAuthentication extends BaseActivity {
         AnimationUtils.activityExit(MasterAuthentication.this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.master_authentication, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
 }

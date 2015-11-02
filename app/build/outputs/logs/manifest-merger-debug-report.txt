@@ -15,7 +15,15 @@ ADDED from AndroidManifest.xml:2:1
 		INJECTED from AndroidManifest.xml:0:0
 uses-sdk
 ADDED from AndroidManifest.xml:7:5
-MERGED from com.android.support:support-v4:23.0.0:20:5
+MERGED from com.android.support:appcompat-v7:23.1.0:20:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
+MERGED from com.android.support:design:23.1.0:20:5
+MERGED from com.android.support:appcompat-v7:23.1.0:20:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
+MERGED from com.android.support:recyclerview-v7:23.1.0:20:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
 	android:targetSdkVersion
 		ADDED from AndroidManifest.xml:9:9
 		INJECTED from AndroidManifest.xml:0:0
@@ -82,7 +90,14 @@ ADDED from AndroidManifest.xml:24:5
 		ADDED from AndroidManifest.xml:24:22
 application
 ADDED from AndroidManifest.xml:26:5
-MERGED from com.android.support:support-v4:23.0.0:22:5
+MERGED from com.android.support:appcompat-v7:23.1.0:22:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
+MERGED from com.android.support:design:23.1.0:22:5
+MERGED from com.android.support:appcompat-v7:23.1.0:22:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
 	android:label
 		ADDED from AndroidManifest.xml:29:9
 	android:allowBackup
@@ -177,53 +192,55 @@ ADDED from AndroidManifest.xml:73:9
 		ADDED from AndroidManifest.xml:74:13
 activity#in.teacher.activity.BaseActivity
 ADDED from AndroidManifest.xml:80:9
+	android:theme
+		ADDED from AndroidManifest.xml:81:13
 	android:name
 		ADDED from AndroidManifest.xml:80:19
 receiver#in.teacher.adapter.BootSync
-ADDED from AndroidManifest.xml:83:9
+ADDED from AndroidManifest.xml:84:9
 	android:name
-		ADDED from AndroidManifest.xml:83:19
+		ADDED from AndroidManifest.xml:84:19
 intent-filter#android.intent.action.BOOT_COMPLETED
-ADDED from AndroidManifest.xml:84:13
+ADDED from AndroidManifest.xml:85:13
 action#android.intent.action.BOOT_COMPLETED
-ADDED from AndroidManifest.xml:85:17
+ADDED from AndroidManifest.xml:86:17
 	android:name
-		ADDED from AndroidManifest.xml:85:25
+		ADDED from AndroidManifest.xml:86:25
 service#in.teacher.adapter.SyncService
-ADDED from AndroidManifest.xml:89:9
+ADDED from AndroidManifest.xml:90:9
 	android:enabled
+		ADDED from AndroidManifest.xml:92:13
+	android:name
 		ADDED from AndroidManifest.xml:91:13
-	android:name
-		ADDED from AndroidManifest.xml:90:13
 receiver#in.teacher.adapter.SyncServiceReceiver
-ADDED from AndroidManifest.xml:94:9
+ADDED from AndroidManifest.xml:95:9
 	android:name
-		ADDED from AndroidManifest.xml:94:19
+		ADDED from AndroidManifest.xml:95:19
 receiver#in.teacher.adapter.TestInternetReceiver
-ADDED from AndroidManifest.xml:96:9
+ADDED from AndroidManifest.xml:97:9
 	android:exported
-		ADDED from AndroidManifest.xml:99:13
+		ADDED from AndroidManifest.xml:100:13
 	android:enabled
+		ADDED from AndroidManifest.xml:99:13
+	android:name
 		ADDED from AndroidManifest.xml:98:13
-	android:name
-		ADDED from AndroidManifest.xml:97:13
 activity#in.teacher.activity.InternetBlock
-ADDED from AndroidManifest.xml:102:9
+ADDED from AndroidManifest.xml:103:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:105:13
-	android:label
-		ADDED from AndroidManifest.xml:104:13
-	android:theme
 		ADDED from AndroidManifest.xml:106:13
-	android:name
-		ADDED from AndroidManifest.xml:103:13
-activity#in.teacher.activity.UpdateApk
-ADDED from AndroidManifest.xml:108:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:111:13
 	android:label
-		ADDED from AndroidManifest.xml:110:13
+		ADDED from AndroidManifest.xml:105:13
 	android:theme
-		ADDED from AndroidManifest.xml:112:13
+		ADDED from AndroidManifest.xml:107:13
 	android:name
-		ADDED from AndroidManifest.xml:109:13
+		ADDED from AndroidManifest.xml:104:13
+activity#in.teacher.activity.UpdateApk
+ADDED from AndroidManifest.xml:109:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:112:13
+	android:label
+		ADDED from AndroidManifest.xml:111:13
+	android:theme
+		ADDED from AndroidManifest.xml:113:13
+	android:name
+		ADDED from AndroidManifest.xml:110:13

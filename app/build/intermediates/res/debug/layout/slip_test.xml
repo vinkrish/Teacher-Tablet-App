@@ -24,8 +24,8 @@
             android:onClick="toDashbord"
             android:paddingLeft="10dp"
             android:text="@string/dashboard"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -43,8 +43,8 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
             android:text="@string/st"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
@@ -98,7 +98,7 @@
         android:layout_marginTop="15dp"
         android:text="@string/evaluation"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#3E97D6" />
+        android:textColor="@color/universal" />
 
     <RadioGroup
         android:id="@+id/evaluationType"
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/evaluationType"
         android:layout_margin="30dp"
-        android:background="@drawable/blue_border"
+        android:background="@drawable/teal_border"
         android:gravity="center_vertical"
         android:hint="@string/portions"
         android:paddingBottom="10dp"
@@ -155,7 +155,7 @@
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/blue_border"
+        android:background="@drawable/teal_border"
         android:gravity="center_vertical"
         android:hint="@string/stdate"
         android:paddingLeft="10dp"
@@ -174,7 +174,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/blue_border"
+            android:background="@drawable/teal_border"
             android:hint="@string/maxmark"
             android:inputType="number"
             android:paddingLeft="10dp"
@@ -227,7 +227,7 @@
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/blue_border"
+            android:background="@drawable/teal_border"
             android:hint="@string/manualportion"
             android:inputType="textMultiLine"
             android:paddingBottom="10dp"
@@ -242,7 +242,7 @@
             android:layout_below="@id/manualportion"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/blue_border"
+            android:background="@drawable/teal_border"
             android:hint="@string/maxmark"
             android:inputType="number"
             android:paddingLeft="10dp"

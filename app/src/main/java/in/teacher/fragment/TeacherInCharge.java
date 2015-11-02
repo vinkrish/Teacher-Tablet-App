@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ public class TeacherInCharge extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private TextView name;
-    private Switch teacherIncharge;
+    private SwitchCompat teacherIncharge;
     private int teacherId, classInchargeId, classInChargePos;
     private String teacherName;
     private Spinner classSpinner;
@@ -46,7 +47,7 @@ public class TeacherInCharge extends Fragment {
         View view = inflater.inflate(R.layout.teacher_incharge, container, false);
 
         name = (TextView) view.findViewById(R.id.teacherName);
-        teacherIncharge = (Switch) view.findViewById(R.id.classIncharge);
+        teacherIncharge = (SwitchCompat) view.findViewById(R.id.classIncharge);
         classSpinner = (Spinner) view.findViewById(R.id.classSpinner);
 
         init();

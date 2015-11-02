@@ -25,6 +25,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,7 @@ public class Dashbord extends Fragment {
     private CircleAdapter cA;
     private GridView gridView;
     private TextView name;
-    private Switch classIncharge;
+    private SwitchCompat classIncharge;
     private boolean isClassIncharge;
 
     @Override
@@ -69,7 +70,7 @@ public class Dashbord extends Fragment {
 
         gridView = (GridView) view.findViewById(R.id.gridView);
         name = (TextView) view.findViewById(R.id.teacherName);
-        classIncharge = (Switch) view.findViewById(R.id.classIncharge);
+        classIncharge = (SwitchCompat) view.findViewById(R.id.classIncharge);
 
         init();
 

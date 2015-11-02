@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
@@ -22,8 +23,8 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
             android:text="@string/dashboard"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -42,8 +43,8 @@
             android:onClick="callAttendance"
             android:paddingLeft="10dp"
             android:text="@string/attendance"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
 
         <View
             android:layout_width="1dp"
@@ -62,8 +63,8 @@
             android:onClick="callHomework"
             android:paddingLeft="10dp"
             android:text="@string/homework"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <View
@@ -103,15 +104,16 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#79787D" />
 
-                <Switch
+                <android.support.v7.widget.SwitchCompat
                     android:id="@+id/classIncharge"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="right|center"
-                    android:paddingRight="10dp"
+                    android:paddingRight="20dp"
                     android:text="@string/class_incharge"
-                    android:textColor="#79787D" />
+                    android:textColor="#79787D"
+                    app:showText="false" />
 
             </LinearLayout>
 
