@@ -562,12 +562,12 @@ public class ExamCreate extends Fragment {
                     "values(" + schoolId + ", " + classId + ", " + examId + ", " + se.getSubjectId() + ", " + se.getMaxMark() + ", " + se.getMinMark() + ")";
             try {
                 sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 

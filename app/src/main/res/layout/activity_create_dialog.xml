@@ -1,81 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="#FFF"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/create_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/divider"
+        android:fontFamily="sans-serif-condensed"
         android:padding="10dp"
         android:text="Create"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
     <View
-        android:id="@+id/top_border"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/create_tv"
         android:background="@color/divider" />
 
     <TextView
-        android:id="@+id/calculation_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_border"
         android:padding="10dp"
-        android:text="Calculation :"/>
+        android:text="Calculation :"
+        android:textColor="@color/black" />
 
     <RadioGroup
-        android:id="@+id/rg"
+        android:id="@+id/radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/calculation_tv">
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Sum"/>
+            android:checked="true"
+            android:text="Sum"
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Average"/>
+            android:text="Average"
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/best"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Best of :"/>
+            android:text="Best of :"
+            android:textColor="@color/black" />
 
         <Spinner
             android:id="@+id/bestof"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="@drawable/teal_border"
             android:layout_marginLeft="10dp"></Spinner>
     </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rg"
-        android:layout_marginTop="10dp">
+        android:layout_margin="20dp">
 
         <EditText
             android:id="@+id/activity_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/activity_name"
             android:inputType="text"
-            android:hint="" />
+            android:textColor="@color/black" />
 
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
+        <EditText
+            android:id="@+id/max_mark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/maxmark"
+            android:inputType="number"
+            android:textColor="@color/black" />
 
-</RelativeLayout>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/hided"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="20dp">
+
+        <EditText
+            android:id="@+id/weightage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/weightage"
+            android:inputType="number"
+            android:textColor="@color/black" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_delete"
+            android:text="@string/cancel"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/create"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_submit"
+            android:text="@string/create"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+
+</LinearLayout>

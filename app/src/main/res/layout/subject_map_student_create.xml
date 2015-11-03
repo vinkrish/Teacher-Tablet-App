@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/button_activated_light_blue"
+                android:background="@drawable/button_activated_light_teal"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="@string/map_students"

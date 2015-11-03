@@ -75,32 +75,36 @@
                     <Spinner
                         android:id="@+id/classSpinner"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp" />
+                        android:layout_height="45dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/teal_border" />
 
                     <Spinner
                         android:id="@+id/sectionSpinner"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/teal_border" />
 
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/rowId2"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp">
 
                     <Spinner
                         android:id="@+id/examSpinner"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp" />
+                        android:layout_height="45dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/teal_border" />
 
                     <Spinner
                         android:id="@+id/subjectSpinner"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/teal_border" />
 
                 </TableRow>
             </TableLayout>
@@ -109,12 +113,12 @@
                 android:id="@+id/create_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="15dp"
-                android:textColor="#FFF"
-                android:background="@drawable/button_activated_light_blue"
-                android:text="@string/create_act"/>
+                android:background="@drawable/button_activated_light_teal"
+                android:text="@string/create_act"
+                android:textColor="#FFF" />
 
             <View
                 android:layout_width="match_parent"
@@ -192,8 +196,7 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"></ListView>
 
     <View
         android:layout_width="match_parent"

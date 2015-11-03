@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/button_activated_light_blue"
+                android:background="@drawable/button_activated_light_teal"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/sel_sub_group"

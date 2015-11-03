@@ -233,5 +233,8 @@
     <string name="create_act">Create New Activity</string>
     <string name="weightage">Weightage</string>
 
+    <string name="activity_name">Activity Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 
 </resources>
