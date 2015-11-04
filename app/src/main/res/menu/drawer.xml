@@ -5,7 +5,7 @@
 
         <item
             android:id="@+id/dashboard_item"
-            android:checked="false"
+            android:checked="true"
             android:icon="@drawable/dashboard"
             android:title="@string/dashboard" />
 

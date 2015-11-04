@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/layout_black"
         android:orientation="horizontal">
 
@@ -49,149 +48,143 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/dividerup"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#333333" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:stretchColumns="*">
+
+            <TableRow android:id="@+id/rowId1">
+
+                <Spinner
+                    android:id="@+id/classSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/teal_border" />
+
+                <Spinner
+                    android:id="@+id/sectionSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/teal_border" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowId2"
+                android:layout_marginTop="20dp">
+
+                <Spinner
+                    android:id="@+id/examSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/teal_border" />
+
+                <Spinner
+                    android:id="@+id/subjectSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/teal_border" />
+
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/create_act"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button_activated_light_teal"
+            android:text="@string/create_act"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFF" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="vertical">
-
-            <TableLayout
-                android:id="@+id/tableLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:stretchColumns="*">
-
-                <TableRow android:id="@+id/rowId1">
-
-                    <Spinner
-                        android:id="@+id/classSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/teal_border" />
-
-                    <Spinner
-                        android:id="@+id/sectionSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/teal_border" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/rowId2"
-                    android:layout_marginTop="20dp">
-
-                    <Spinner
-                        android:id="@+id/examSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/teal_border" />
-
-                    <Spinner
-                        android:id="@+id/subjectSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/teal_border" />
-
-                </TableRow>
-            </TableLayout>
-
-            <Button
-                android:id="@+id/create_act"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/button_activated_light_teal"
-                android:text="@string/create_act"
-                android:textColor="#FFF" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="@color/layoutbelowBC"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="@string/activity"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/light_black"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/layoutbelowBC"
-                    android:orientation="horizontal">
+                    android:background="@color/divider" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.4"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="15dp"
-                        android:text="@string/activity"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/light_black"
-                        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"
+                    android:text="@string/max_mark"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/light_black"
+                    android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/divider" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.2"
-                        android:gravity="center_horizontal"
-                        android:text="@string/max_mark"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/light_black"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/divider" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.2"
-                        android:gravity="center_horizontal"
-                        android:text="@string/weightage"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/light_black"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2"
+                    android:gravity="center_horizontal"
+                    android:text="@string/weightage"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/light_black"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider" />
-
         </LinearLayout>
 
-    </ScrollView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listView"

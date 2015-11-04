@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 
 import in.teacher.activity.R.animator;
-import in.teacher.adapter.NavDrawerListAdapter;
 import in.teacher.dao.SlipTesttDao;
 import in.teacher.dao.StudentAttendanceDao;
 import in.teacher.dao.StudentsDao;

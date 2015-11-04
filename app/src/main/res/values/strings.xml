@@ -231,6 +231,7 @@
     <string name="delete_stud">Delete Student</string>
     <string name="delete_exam">Delete Exam</string>
     <string name="create_act">Create New Activity</string>
+    <string name="create_subact">Create New SubActivity</string>
     <string name="weightage">Weightage</string>
 
     <string name="activity_name">Activity Name</string>

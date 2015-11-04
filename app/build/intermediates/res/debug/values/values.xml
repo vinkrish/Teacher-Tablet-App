@@ -451,6 +451,7 @@
     <string name="create">Create</string>
     <string name="create_act">Create New Activity</string>
     <string name="create_exam">Create Exam</string>
+    <string name="create_subact">Create New SubActivity</string>
     <string name="dashboard">Dashboard</string>
     <string name="date">Enter Date :</string>
     <string name="date2">Date</string>

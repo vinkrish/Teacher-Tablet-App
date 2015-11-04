@@ -443,12 +443,12 @@ public class ActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
 
-                if (sum.isChecked()){
+                if (sum.isChecked()) {
                     if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
-                                " values ("+generatedId+", "+schoolId+", "+classId+", "+sectionId+", "+examId+
-                                ", "+subjectId+", 0,\""+activityName.getText().toString().replaceAll("\n", " ")+"\","+maxMark.getText().toString()+
+                                " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
+                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
                                 ", 0, -1)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
@@ -459,9 +459,9 @@ public class ActivityCreateEdit extends Fragment {
                             !weightage.getText().toString().equals("")) {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
-                                " values ("+generatedId+", "+schoolId+", "+classId+", "+sectionId+", "+examId+
-                                ", "+subjectId+", 0,\""+activityName.getText().toString().replaceAll("\n", " ")+"\","+maxMark.getText().toString()+
-                                ", "+weightage.getText().toString()+", 0)";
+                                " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
+                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", " + weightage.getText().toString() + ", 0)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
                     }
@@ -469,9 +469,9 @@ public class ActivityCreateEdit extends Fragment {
                     if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
-                                " values ("+generatedId+", "+schoolId+", "+classId+", "+sectionId+", "+examId+
-                                ", "+subjectId+", 0,\""+activityName.getText().toString().replaceAll("\n", " ")+"\","+maxMark.getText().toString()+
-                                ", 0, "+(bestOf.getSelectedItemPosition()+1)+")";
+                                " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
+                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", 0, " + (bestOf.getSelectedItemPosition() + 1) + ")";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
                     }
@@ -536,7 +536,7 @@ public class ActivityCreateEdit extends Fragment {
 
         final ActivityItem ai = activityItemList.get(activityPos);
 
-        if (ai.getCalculation() == -1){
+        if (ai.getCalculation() == -1) {
             activityName.setText(ai.getActName());
             maxMark.setText(ai.getMaxMark() + "");
             sum.setChecked(true);
@@ -594,9 +594,9 @@ public class ActivityCreateEdit extends Fragment {
             public void onClick(View v) {
                 String sql = "";
 
-                if (sum.isChecked()){
+                if (sum.isChecked()) {
                     if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
-                        sql = "update activity set ActivityName = \""+activityName.getText().toString().replaceAll("\n", " ")+
+                        sql = "update activity set ActivityName = \"" + activityName.getText().toString().replaceAll("\n", " ") +
                                 "\", MaximumMark = " + maxMark.getText().toString() + ", Calculation = -1 " +
                                 "where ActivityId = " + ai.getActId();
                     } else {
@@ -606,16 +606,16 @@ public class ActivityCreateEdit extends Fragment {
                     if (!activityName.getText().toString().equals("") &&
                             !maxMark.getText().toString().equals("") &&
                             !weightage.getText().toString().equals("")) {
-                        sql = "update activity set ActivityName = \""+activityName.getText().toString().replaceAll("\n", " ")+
-                                "\", MaximumMark = " + maxMark.getText().toString() + ", Weightage = "+weightage.getText().toString()+" , Calculation = 0 " +
+                        sql = "update activity set ActivityName = \"" + activityName.getText().toString().replaceAll("\n", " ") +
+                                "\", MaximumMark = " + maxMark.getText().toString() + ", Weightage = " + weightage.getText().toString() + " , Calculation = 0 " +
                                 "where ActivityId = " + ai.getActId();
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
                     }
                 } else if (best.isChecked()) {
                     if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
-                        sql = "update activity set ActivityName = \""+activityName.getText().toString().replaceAll("\n", " ")+
-                                "\", MaximumMark = " + maxMark.getText().toString() + ", Calculation = " + (bestOf.getSelectedItemPosition()+1) +
+                        sql = "update activity set ActivityName = \"" + activityName.getText().toString().replaceAll("\n", " ") +
+                                "\", MaximumMark = " + maxMark.getText().toString() + ", Calculation = " + (bestOf.getSelectedItemPosition() + 1) +
                                 " where ActivityId = " + ai.getActId();
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
@@ -650,7 +650,7 @@ public class ActivityCreateEdit extends Fragment {
         return dialog;
     }
 
-    private void confirmDelete (final int activityId) {
+    private void confirmDelete(final int activityId) {
         AlertDialog.Builder submitBuilder = new AlertDialog.Builder(getActivity());
         submitBuilder.setCancelable(false);
         submitBuilder.setTitle("Confirm your action");
