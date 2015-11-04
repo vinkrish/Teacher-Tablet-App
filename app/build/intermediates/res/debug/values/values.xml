@@ -422,9 +422,12 @@
     <string name="attendance">Attendance</string>
     <string name="attendinfo">Attendance information</string>
     <string name="average">Average (%)</string>
+    <string name="avg">Average</string>
     <string name="back">Back</string>
+    <string name="bestof">Best of :</string>
     <string name="buffer_full">Please do the sync.</string>
     <string name="bugs">Touch here to sync</string>
+    <string name="calculation">Calculation :</string>
     <string name="cancel">Cancel</string>
     <string name="cc">content description</string>
     <string name="cce_student_profile">CCE Student Profile</string>
@@ -455,6 +458,7 @@
     <string name="days_attended">Days Attended</string>
     <string name="daysabs">Days Absent</string>
     <string name="decimal">.</string>
+    <string name="delete">Delete</string>
     <string name="delete_exam">Delete Exam</string>
     <string name="delete_stud">Delete Student</string>
     <string name="dob">Date Of Birth</string>
@@ -586,6 +590,7 @@
     <string name="subact">Sub Activity</string>
     <string name="subject">Subject</string>
     <string name="submit">Submit</string>
+    <string name="sum">Sum</string>
     <string name="switch_class">Switch Class</string>
     <string name="syncing">Tab is in sync, please wait.</string>
     <string name="syncme">sync the data</string>
@@ -1608,7 +1613,7 @@
     </style>
     <style name="NavigationDrawerStyle">
         <item name="android:textSize">18sp</item><!-- text size in menu-->
-        <item name="android:listPreferredItemHeightSmall">40dp</item><!-- item size in menu-->
+        <item name="android:listPreferredItemHeightSmall">50dp</item><!-- item size in menu-->
     </style>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->
     <eat-comment/>
@@ -1888,7 +1893,6 @@
 
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight, and colorSwitchThumbNormal. -->
-
     </style>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->
     <eat-comment/>
@@ -1900,8 +1904,8 @@
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="ToolBarStyle" parent="Theme.AppCompat">
-        <item name="android:textColorPrimary">@color/universal</item>
-        <item name="android:textColorSecondary">@color/universal</item>
+        <item name="android:textColorPrimary">@color/teal</item>
+        <item name="android:textColorSecondary">@color/teal_dark</item>
         <item name="actionMenuTextColor">@android:color/black</item>
     </style>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->

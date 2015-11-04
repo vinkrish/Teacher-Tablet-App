@@ -236,5 +236,10 @@
     <string name="activity_name">Activity Name</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="calculation">Calculation :</string>
+    <string name="sum">Sum</string>
+    <string name="avg">Average</string>
+    <string name="bestof">Best of :</string>
+    <string name="delete">Delete</string>
 
 </resources>

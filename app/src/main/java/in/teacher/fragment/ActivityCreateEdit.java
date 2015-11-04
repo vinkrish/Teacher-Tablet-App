@@ -1,9 +1,11 @@
 package in.teacher.fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -50,7 +52,7 @@ public class ActivityCreateEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, sectionSpinner, examSpinner, subjectSpinner;
-    private int teacherId, classId, sectionId, examId, subjectId, activityId, schoolId, generatedId = 1, lastSubjectPos;
+    private int teacherId, classId, sectionId, examId, subjectId, activityPos, schoolId, generatedId, lastSubjectPos;
     final List<Integer> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
     final List<Integer> sectionIdList = new ArrayList<>();
@@ -60,7 +62,7 @@ public class ActivityCreateEdit extends Fragment {
     private Button createActivity;
     private ListView listView;
     private ActivityAdapter activityAdapter;
-    private List<ActivityItem> activiyItemList = new ArrayList<>();
+    private List<ActivityItem> activityItemList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +72,9 @@ public class ActivityCreateEdit extends Fragment {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
         initView(view);
+
+        activityAdapter = new ActivityAdapter(context, activityItemList);
+        listView.setAdapter(activityAdapter);
 
         createActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +86,13 @@ public class ActivityCreateEdit extends Fragment {
             }
         });
 
-        activityAdapter = new ActivityAdapter(context, activiyItemList);
-        listView.setAdapter(activityAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                activityPos = position;
+                activityUpdateDialog();
+            }
+        });
 
         return view;
     }
@@ -164,11 +174,12 @@ public class ActivityCreateEdit extends Fragment {
         examSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-                    examId = examIdList.get(position);
-                    initSubjectSpinner();
-                    subjectAdapter.notifyDataSetChanged();
-                }
+                if (position != 0) examId = examIdList.get(position);
+                else examId = 0;
+
+                initSubjectSpinner();
+                subjectAdapter.notifyDataSetChanged();
+                subjectSpinner.setSelection(0);
             }
 
             @Override
@@ -193,13 +204,16 @@ public class ActivityCreateEdit extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    Log.d("subjectSpinner", "activate " + lastSubjectPos);
                     lastSubjectPos = position;
                     subjectId = subjectIdList.get(position);
                     createActivity.setActivated(true);
                     resetActivityList();
                     activityAdapter.notifyDataSetChanged();
                     //setListViewHeightBasedOnChildren(listView);
+                } else {
+                    createActivity.setActivated(false);
+                    activityItemList.clear();
+                    activityAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -255,7 +269,7 @@ public class ActivityCreateEdit extends Fragment {
 
     private void resetActivityList() {
 
-        activiyItemList.clear();
+        activityItemList.clear();
         Cursor c = sqliteDatabase.rawQuery("select ActivityId, ActivityName, MaximumMark, Weightage, Calculation from activity where " +
                 "SectionId = " + sectionId + " and ExamId = " + examId + " and SubjectId = " + subjectId, null);
         c.moveToFirst();
@@ -271,31 +285,10 @@ public class ActivityCreateEdit extends Fragment {
             } else {
                 ai.setWeightage(" - ");
             }
-            activiyItemList.add(ai);
+            activityItemList.add(ai);
             c.moveToNext();
         }
         c.close();
-    }
-
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
     }
 
     public class ActivityAdapter extends ArrayAdapter<ActivityItem> {
@@ -395,6 +388,7 @@ public class ActivityCreateEdit extends Fragment {
         final Dialog dialog = new Dialog(getActivity(), R.style.DialogSlideAnim);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_create_dialog);
+        dialog.setCancelable(false);
 
         RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
         final TextInputLayout hideLayout = (TextInputLayout) dialog.findViewById(R.id.hided);
@@ -443,13 +437,18 @@ public class ActivityCreateEdit extends Fragment {
             @Override
             public void onClick(View v) {
                 String sql = "";
+                try {
+                    generatedId = PKGenerator.getMD5(schoolId, sectionId, activityName.getText().toString());
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
 
                 if (sum.isChecked()){
                     if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values ("+generatedId+", "+schoolId+", "+classId+", "+sectionId+", "+examId+
-                                ", "+subjectId+", 0,'"+activityName.getText().toString()+"',"+maxMark.getText().toString()+
+                                ", "+subjectId+", 0,\""+activityName.getText().toString().replaceAll("\n", " ")+"\","+maxMark.getText().toString()+
                                 ", 0, -1)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
@@ -461,7 +460,7 @@ public class ActivityCreateEdit extends Fragment {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values ("+generatedId+", "+schoolId+", "+classId+", "+sectionId+", "+examId+
-                                ", "+subjectId+", 0,'"+activityName.getText().toString()+"',"+maxMark.getText().toString()+
+                                ", "+subjectId+", 0,\""+activityName.getText().toString().replaceAll("\n", " ")+"\","+maxMark.getText().toString()+
                                 ", "+weightage.getText().toString()+", 0)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
@@ -471,17 +470,11 @@ public class ActivityCreateEdit extends Fragment {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values ("+generatedId+", "+schoolId+", "+classId+", "+sectionId+", "+examId+
-                                ", "+subjectId+", 0,'"+activityName.getText().toString()+"',"+maxMark.getText().toString()+
+                                ", "+subjectId+", 0,\""+activityName.getText().toString().replaceAll("\n", " ")+"\","+maxMark.getText().toString()+
                                 ", 0, "+(bestOf.getSelectedItemPosition()+1)+")";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
                     }
-                }
-
-                try {
-                    generatedId = PKGenerator.getMD5(schoolId, sectionId, activityName.getText().toString());
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
                 }
 
                 try {
@@ -494,8 +487,7 @@ public class ActivityCreateEdit extends Fragment {
                 }
 
                 dialog.dismiss();
-
-                ReplaceFragment.replace(new ActivityCreateEdit(), getFragmentManager());
+                subjectSpinner.setSelection(0);
             }
         });
 
@@ -517,6 +509,175 @@ public class ActivityCreateEdit extends Fragment {
         window.setAttributes(lp);*/
 
         return dialog;
+    }
+
+    private Dialog activityUpdateDialog() {
+        final Dialog dialog = new Dialog(getActivity(), R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_edit_dialog);
+        dialog.setCancelable(false);
+
+        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
+        final TextInputLayout hideLayout = (TextInputLayout) dialog.findViewById(R.id.hided);
+
+        final EditText activityName = (EditText) dialog.findViewById(R.id.activity_name);
+        final EditText maxMark = (EditText) dialog.findViewById(R.id.max_mark);
+        final EditText weightage = (EditText) dialog.findViewById(R.id.weightage);
+
+        final RadioButton sum = (RadioButton) dialog.findViewById(R.id.sum);
+        final RadioButton avg = (RadioButton) dialog.findViewById(R.id.average);
+        final RadioButton best = (RadioButton) dialog.findViewById(R.id.best);
+
+        final Spinner bestOf = (Spinner) dialog.findViewById(R.id.bestof);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_header,
+                Arrays.asList(new String[]{"1", "2", "3", "4", "5"}));
+        adapter.setDropDownViewResource(R.layout.spinner_droppeddown);
+        bestOf.setAdapter(adapter);
+
+        final ActivityItem ai = activityItemList.get(activityPos);
+
+        if (ai.getCalculation() == -1){
+            activityName.setText(ai.getActName());
+            maxMark.setText(ai.getMaxMark() + "");
+            sum.setChecked(true);
+            hideLayout.setVisibility(View.GONE);
+        } else if (ai.getCalculation() == 0) {
+            activityName.setText(ai.getActName());
+            maxMark.setText(ai.getMaxMark() + "");
+            weightage.setText(ai.getWeightage() + "");
+            avg.setChecked(true);
+            hideLayout.setVisibility(View.VISIBLE);
+        } else {
+            activityName.setText(ai.getActName());
+            maxMark.setText(ai.getMaxMark() + "");
+            best.setChecked(true);
+            bestOf.setSelection(ai.getCalculation() - 1);
+            hideLayout.setVisibility(View.GONE);
+        }
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.sum:
+                        hideLayout.setVisibility(View.GONE);
+                        break;
+                    case R.id.average:
+                        hideLayout.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.best:
+                        hideLayout.setVisibility(View.GONE);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                confirmDelete(ai.actId);
+            }
+        });
+
+        dialog.findViewById(R.id.update).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sql = "";
+
+                if (sum.isChecked()){
+                    if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
+                        sql = "update activity set ActivityName = \""+activityName.getText().toString().replaceAll("\n", " ")+
+                                "\", MaximumMark = " + maxMark.getText().toString() + ", Calculation = -1 " +
+                                "where ActivityId = " + ai.getActId();
+                    } else {
+                        CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
+                    }
+                } else if (avg.isChecked()) {
+                    if (!activityName.getText().toString().equals("") &&
+                            !maxMark.getText().toString().equals("") &&
+                            !weightage.getText().toString().equals("")) {
+                        sql = "update activity set ActivityName = \""+activityName.getText().toString().replaceAll("\n", " ")+
+                                "\", MaximumMark = " + maxMark.getText().toString() + ", Weightage = "+weightage.getText().toString()+" , Calculation = 0 " +
+                                "where ActivityId = " + ai.getActId();
+                    } else {
+                        CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
+                    }
+                } else if (best.isChecked()) {
+                    if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
+                        sql = "update activity set ActivityName = \""+activityName.getText().toString().replaceAll("\n", " ")+
+                                "\", MaximumMark = " + maxMark.getText().toString() + ", Calculation = " + (bestOf.getSelectedItemPosition()+1) +
+                                " where ActivityId = " + ai.getActId();
+                    } else {
+                        CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
+                    }
+                }
+
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                dialog.dismiss();
+
+                subjectSpinner.setSelection(0);
+                //subjectSpinner.setSelection(lastSubjectPos);
+                //ReplaceFragment.replace(new ActivityCreateEdit(), getFragmentManager());
+            }
+        });
+
+        dialog.getWindow().setGravity(Gravity.TOP);
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.y = 80;
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(layoutParams);
+        dialog.show();
+
+        return dialog;
+    }
+
+    private void confirmDelete (final int activityId) {
+        AlertDialog.Builder submitBuilder = new AlertDialog.Builder(getActivity());
+        submitBuilder.setCancelable(false);
+        submitBuilder.setTitle("Confirm your action");
+        submitBuilder.setMessage("Do you want to delete activity ?");
+        submitBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }
+        });
+        submitBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                String sql = "delete from activity where ActivityId = " + activityId;
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                dialog.cancel();
+                subjectSpinner.setSelection(0);
+            }
+        });
+        submitBuilder.show();
     }
 
 }

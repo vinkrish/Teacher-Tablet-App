@@ -149,7 +149,7 @@
         android:id="@+id/switchClass"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:background="@drawable/blue_button_selector"
+        android:background="@drawable/teal_button_selector"
         android:layout_below="@id/dividerbottom"
         android:padding="10dp"
         android:layout_alignParentRight="true"
@@ -182,7 +182,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1.0"
-            android:background="@drawable/blue_button_selector"
+            android:background="@drawable/teal_button_selector"
             android:text="@string/verify"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -197,7 +197,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1.0"
-            android:background="@drawable/blue_button_selector"
+            android:background="@drawable/teal_button_selector"
             android:text="@string/no_absent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />

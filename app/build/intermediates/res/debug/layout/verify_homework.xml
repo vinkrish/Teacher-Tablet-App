@@ -198,7 +198,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1.0"
-            android:background="@drawable/blue_button_selector"
+            android:background="@drawable/teal_button_selector"
             android:text="@string/submit"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -213,7 +213,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1.0"
-            android:background="@drawable/blue_button_selector"
+            android:background="@drawable/teal_button_selector"
             android:text="@string/back"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
