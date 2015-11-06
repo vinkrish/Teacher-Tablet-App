@@ -12,6 +12,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -77,6 +78,14 @@ public class ExamCreate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.exam_create, container, false);
+
+        initView(view);
+        init();
+
+        return view;
+    }
+
+    private void initView(View view) {
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         ll = (LinearLayout) view.findViewById(R.id.ll);
         examName_et = (EditText) view.findViewById(R.id.exam_name);
@@ -85,10 +94,6 @@ public class ExamCreate extends Fragment {
         gradeSwitch = (Switch) view.findViewById(R.id.grade);
         save = (Button) view.findViewById(R.id.save);
         selectSubjectGroup = (Button) view.findViewById(R.id.sel_sub_group);
-
-        init();
-
-        return view;
     }
 
     private void init() {
@@ -247,8 +252,9 @@ public class ExamCreate extends Fragment {
         TextView tv1 = new TextView(activity);
         tv1.setLayoutParams(p);
         tv1.setText(subName);
-        tv1.setPadding(20, 10, 0, 10);
+        tv1.setPadding(15, 10, 0, 10);
         tv1.setTextSize(18);
+        tv1.setTextColor(ContextCompat.getColor(context, R.color.dark_black));
         horizontalLayout.addView(tv1);
 
         View verticalBorder = new View(activity);
@@ -287,12 +293,13 @@ public class ExamCreate extends Fragment {
             TextView tv2 = new TextView(activity);
             tv2.setLayoutParams(p);
             tv2.setText(theoryName);
-            tv2.setPadding(20, 10, 0, 10);
+            tv2.setPadding(15, 10, 0, 10);
             tv2.setTextSize(18);
+            tv2.setTextColor(ContextCompat.getColor(context, R.color.dark_black));
             innerHorizontalLayout1.addView(tv2);
 
             View verticalBorder2 = new View(activity);
-            verticalBorder2.setBackgroundColor(getResources().getColor(R.color.border));
+            verticalBorder2.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
             verticalBorder2.setLayoutParams(vlp);
             innerHorizontalLayout1.addView(verticalBorder2);
 
@@ -306,7 +313,7 @@ public class ExamCreate extends Fragment {
             innerHorizontalLayout1.addView(ed1);
 
             View verticalBorder3 = new View(activity);
-            verticalBorder3.setBackgroundColor(getResources().getColor(R.color.border));
+            verticalBorder3.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
             verticalBorder3.setLayoutParams(vlp);
             innerHorizontalLayout1.addView(verticalBorder3);
 
@@ -323,7 +330,7 @@ public class ExamCreate extends Fragment {
             innerVerticalLayout.addView(innerHorizontalLayout1);
 
             View innerHorizontalBorder = new View(activity);
-            innerHorizontalBorder.setBackgroundColor(getResources().getColor(R.color.border));
+            innerHorizontalBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
             LinearLayout.LayoutParams ihlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
             innerHorizontalBorder.setLayoutParams(ihlp);
             innerVerticalLayout.addView(innerHorizontalBorder);
@@ -335,10 +342,11 @@ public class ExamCreate extends Fragment {
             tv22.setText(practicalName);
             tv22.setPadding(20, 10, 0, 10);
             tv22.setTextSize(18);
+            tv22.setTextColor(ContextCompat.getColor(context, R.color.dark_black));
             innerHorizontalLayout2.addView(tv22);
 
             View verticalBorder22 = new View(activity);
-            verticalBorder22.setBackgroundColor(getResources().getColor(R.color.border));
+            verticalBorder22.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
             verticalBorder22.setLayoutParams(vlp);
             innerHorizontalLayout2.addView(verticalBorder22);
 
@@ -352,7 +360,7 @@ public class ExamCreate extends Fragment {
             innerHorizontalLayout2.addView(ed12);
 
             View verticalBorder32 = new View(activity);
-            verticalBorder32.setBackgroundColor(getResources().getColor(R.color.border));
+            verticalBorder32.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
             verticalBorder32.setLayoutParams(vlp);
             innerHorizontalLayout2.addView(verticalBorder32);
 
@@ -380,10 +388,11 @@ public class ExamCreate extends Fragment {
             tv2.setText(subjName);
             tv2.setPadding(20, 10, 0, 10);
             tv2.setTextSize(18);
+            tv2.setTextColor(ContextCompat.getColor(context, R.color.dark_black));
             horizontalLayout.addView(tv2);
 
             View verticalBorder2 = new View(activity);
-            verticalBorder2.setBackgroundColor(getResources().getColor(R.color.border));
+            verticalBorder2.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
             verticalBorder2.setLayoutParams(vlp);
             horizontalLayout.addView(verticalBorder2);
 
@@ -397,7 +406,7 @@ public class ExamCreate extends Fragment {
             horizontalLayout.addView(ed1);
 
             View verticalBorder3 = new View(activity);
-            verticalBorder3.setBackgroundColor(getResources().getColor(R.color.border));
+            verticalBorder3.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
             verticalBorder3.setLayoutParams(vlp);
             horizontalLayout.addView(verticalBorder3);
 
@@ -415,7 +424,7 @@ public class ExamCreate extends Fragment {
 
         verticalLayout.addView(horizontalLayout);
         View horizontalBorder = new View(activity);
-        horizontalBorder.setBackgroundColor(getResources().getColor(R.color.border));
+        horizontalBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
         horizontalBorder.setLayoutParams(hlp);
         verticalLayout.addView(horizontalBorder);

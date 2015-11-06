@@ -102,8 +102,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
-            android:numeric="integer"
-            android:gravity="center" />
+            android:gravity="center"
+            android:numeric="integer" />
 
         <Button
             android:id="@+id/submit"
@@ -130,6 +130,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/width1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -146,6 +147,7 @@
             android:background="#333333" />
 
         <TextView
+            android:id="@+id/width2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -162,6 +164,7 @@
             android:background="#333333" />
 
         <TextView
+            android:id="@+id/width3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -178,6 +181,7 @@
             android:background="#333333" />
 
         <TextView
+            android:id="@+id/width4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -194,6 +198,7 @@
             android:background="#333333" />
 
         <TextView
+            android:id="@+id/width5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -210,9 +215,15 @@
         android:layout_height="1dp"
         android:background="#333333" />
 
-    <ListView
-        android:id="@+id/list"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>

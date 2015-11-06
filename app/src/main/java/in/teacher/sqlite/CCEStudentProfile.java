@@ -2,6 +2,7 @@ package in.teacher.sqlite;
 
 public class CCEStudentProfile {
     private String schoolId;
+    private int rollNo;
     private String classId;
     private String sectionId;
     private String studentId;
@@ -11,6 +12,14 @@ public class CCEStudentProfile {
     private double daysAttended1;
     private double totalDays1;
     private int term;
+
+    public int getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(int rollNo) {
+        this.rollNo = rollNo;
+    }
 
     public double getTotalDays1() {
         return totalDays1;

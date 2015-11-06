@@ -42,9 +42,9 @@ public class SearchStAdapter extends BaseAdapter {
         } else holder = (RecordHolder) row.getTag();
 
         if (position % 2 == 0)
-            row.setBackgroundColor(Color.rgb(255, 255, 255));
+            row.setBackgroundResource(R.drawable.list_selector1);
         else
-            row.setBackgroundColor(Color.rgb(237, 239, 242));
+            row.setBackgroundResource(R.drawable.list_selector2);
 
         CommonObject listItem = data.get(position);
         holder.int1.setText(listItem.getInt1() + "");

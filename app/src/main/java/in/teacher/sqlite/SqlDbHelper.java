@@ -5,6 +5,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.SQLInput;
+
 /**
  * Created by vinkrish.
  */
@@ -141,6 +143,10 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL(SLIPTEST_TRIGGER);
         sqliteDatabase.execSQL(CCEGRADE_TRIGGER);
         sqliteDatabase.execSQL(CSP_TRIGGER);
+        sqliteDatabase.execSQL(CREATE_STUDENTS_TRIGGER);
+        sqliteDatabase.execSQL(CREATE_EXAMS_TRIGGER);
+        sqliteDatabase.execSQL(CREATE_ACTIVITY_TRIGGER);
+        sqliteDatabase.execSQL(CREATE_SUB_ACTIVITY_TRIGGER);
         sqliteDatabase.execSQL("CREATE TRIGGER insert_stmark BEFORE INSERT ON sliptestmark_" + schoolId +
                 " FOR EACH ROW " +
                 "BEGIN " +
@@ -178,6 +184,10 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_sliptest");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_ccegrade");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_csp");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_exams");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_students");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_activity");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_subactivity");
     }
 
     public void clearTempAttendance(SQLiteDatabase sqliteDatabase) {

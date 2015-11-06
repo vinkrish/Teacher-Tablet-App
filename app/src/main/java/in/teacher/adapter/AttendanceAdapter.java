@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 /**
  * Created by vinkrish.
  */
-
 public class AttendanceAdapter extends BaseAdapter {
     private ArrayList<Students> data = new ArrayList<>();
     private LayoutInflater inflater;

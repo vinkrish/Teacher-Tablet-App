@@ -11,18 +11,17 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -256,15 +255,16 @@ public class ExamEdit extends Fragment {
         verticalBorder.setLayoutParams(vlp);
 
         String subjName = SubjectsDao.getSubjectName(se.getSubjectId(), sqliteDatabase);
-        TextView tv2 = new TextView(getActivity());
-        tv2.setLayoutParams(p);
-        tv2.setText(subjName);
-        tv2.setPadding(20, 10, 0, 10);
-        tv2.setTextSize(18);
-        horizontalLayout.addView(tv2);
+        TextView tv1 = new TextView(getActivity());
+        tv1.setLayoutParams(p);
+        tv1.setText(subjName);
+        tv1.setPadding(15, 10, 0, 10);
+        tv1.setTextSize(18);
+        tv1.setTextColor(ContextCompat.getColor(context, R.color.dark_black));
+        horizontalLayout.addView(tv1);
 
         View verticalBorder2 = new View(getActivity());
-        verticalBorder2.setBackgroundColor(getResources().getColor(R.color.border));
+        verticalBorder2.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
         verticalBorder2.setLayoutParams(vlp);
         horizontalLayout.addView(verticalBorder2);
 
@@ -279,7 +279,7 @@ public class ExamEdit extends Fragment {
         horizontalLayout.addView(ed1);
 
         View verticalBorder3 = new View(getActivity());
-        verticalBorder3.setBackgroundColor(getResources().getColor(R.color.border));
+        verticalBorder3.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
         verticalBorder3.setLayoutParams(vlp);
         horizontalLayout.addView(verticalBorder3);
 
@@ -296,7 +296,7 @@ public class ExamEdit extends Fragment {
 
         verticalLayout.addView(horizontalLayout);
         View horizontalBorder = new View(getActivity());
-        horizontalBorder.setBackgroundColor(getResources().getColor(R.color.border));
+        horizontalBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
         horizontalBorder.setLayoutParams(hlp);
         verticalLayout.addView(horizontalBorder);
