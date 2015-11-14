@@ -4,10 +4,6 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="23" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -77,8 +73,9 @@
             android:theme="@style/Theme.MyActivityTheme"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        <activity android:name=".BaseActivity"
-            android:theme="@style/Theme.MyActivityTheme">
+        <activity
+            android:name=".BaseActivity"
+            android:theme="@style/Theme.MyActivityTheme" >
         </activity>
 
         <receiver android:name="in.teacher.adapter.BootSync" >
@@ -110,8 +107,20 @@
             android:name=".UpdateApk"
             android:label="@string/title_activity_update_apk"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
+
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+        <service
+            android:name="in.teacher.sync.SyncIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name="in.teacher.sync.WakeLockIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

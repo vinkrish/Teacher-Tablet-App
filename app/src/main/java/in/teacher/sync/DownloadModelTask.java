@@ -16,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
@@ -33,7 +32,6 @@ import com.amazonaws.services.s3.model.ProgressListener;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;

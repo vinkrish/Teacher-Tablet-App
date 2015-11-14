@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,8 +17,6 @@ import com.amazonaws.mobileconnectors.s3.transfermanager.TransferManager;
 import com.amazonaws.services.s3.model.ProgressEvent;
 import com.amazonaws.services.s3.model.ProgressListener;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -28,13 +25,9 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import in.teacher.dao.TempDao;
 import in.teacher.model.TransferModel;
-import in.teacher.sqlite.Temp;
 import in.teacher.sync.StringConstant;
-import in.teacher.util.AppGlobal;
 import in.teacher.util.Constants;
-import in.teacher.util.SharedPreferenceUtil;
 import in.teacher.util.Util;
 
 /**

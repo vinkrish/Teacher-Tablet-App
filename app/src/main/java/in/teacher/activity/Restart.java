@@ -7,13 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 /**
  * Created by vinkrish.
  */
-
 public class Restart extends BaseActivity {
 
     @Override

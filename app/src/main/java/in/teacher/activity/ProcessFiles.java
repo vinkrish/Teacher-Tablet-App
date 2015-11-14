@@ -1,8 +1,6 @@
 package in.teacher.activity;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ExmAvgDao;
@@ -11,10 +9,10 @@ import in.teacher.dao.SubActivityDao;
 import in.teacher.dao.TempDao;
 import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Temp;
-import in.teacher.sync.CallFTP;
 import in.teacher.sync.FirstTimeSync;
 import in.teacher.sync.RequestResponseHandler;
 import in.teacher.sync.StringConstant;
+import in.teacher.sync.SyncIntentService;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.PKGenerator;
@@ -399,7 +397,9 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                 editor.apply();
                 new FirstTimeSync().callFirstTimeSync();
             } else if (manualSync == 1) {
-                new CallFTP().syncFTP();
+                //new CallFTP().syncFTP();
+                Intent syncService = new Intent(context, SyncIntentService.class);
+                context.startService(syncService);
             } else {
                 editor.putInt("manual_sync", 0);
                 editor.apply();

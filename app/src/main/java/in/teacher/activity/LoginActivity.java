@@ -15,7 +15,7 @@ import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Section;
 import in.teacher.sqlite.Teacher;
 import in.teacher.sqlite.Temp;
-import in.teacher.sync.CallFTP;
+import in.teacher.sync.SyncIntentService;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -35,9 +35,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings.Secure;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -74,7 +71,9 @@ public class LoginActivity extends BaseActivity {
 
         Intent intent = getIntent();
         if (intent.getIntExtra("create", 0) == 1) {
-            new CallFTP().syncFTP();
+            //new CallFTP().syncFTP();
+            Intent syncService = new Intent(context, SyncIntentService.class);
+            context.startService(syncService);
         }
 
         SharedPreferenceUtil.updateSavedVersion(this);

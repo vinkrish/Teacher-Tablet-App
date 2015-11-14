@@ -4,11 +4,7 @@ import in.teacher.sync.FirstTimeSync;
 import in.teacher.util.NetworkUtils;
 import in.teacher.util.SharedPreferenceUtil;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;

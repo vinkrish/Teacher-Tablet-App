@@ -12,9 +12,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -23,7 +20,6 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class MasterAuthentication extends BaseActivity {
     private TextView adminUser, adminPass, deviceId;
     private boolean tvflag, authflag;
