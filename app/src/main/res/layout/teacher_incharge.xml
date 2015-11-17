@@ -183,6 +183,20 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white" />
 
+        <Button
+            android:id="@+id/copy_exam_structure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/blue_grey"
+            android:padding="20dp"
+            android:text="@string/copy_ex_struc"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white" />
+
+
     </LinearLayout>
 
 </LinearLayout>

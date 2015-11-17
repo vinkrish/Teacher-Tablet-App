@@ -441,6 +441,8 @@
     <string name="clear">Clear</string>
     <string name="closeDrawer">Navigation View</string>
     <string name="colon">:</string>
+    <string name="confirm_cy">Confirm Copy</string>
+    <string name="copy_ex_struc">Copy Exam Structure</string>
     <string name="copy_hw">Copy homework to:</string>
     <string name="coscholastic">CoScholastic</string>
     <string name="coscholastic2">Co-scholastic area</string>
@@ -452,6 +454,12 @@
     <string name="create_act">Create New Activity</string>
     <string name="create_exam">Create Exam</string>
     <string name="create_subact">Create New SubActivity</string>
+    <string name="cy_exam">Copy Exam</string>
+    <string name="cy_exm_text">Copy above exam structure to :</string>
+    <string name="cy_from_rubrix">Copy rubrix structure from :</string>
+    <string name="cy_rubrix">Copy Rubrix</string>
+    <string name="cy_to">copied to :</string>
+    <string name="cy_to_rubrix">Copy rubrix structure to :</string>
     <string name="dashboard">Dashboard</string>
     <string name="date">Enter Date :</string>
     <string name="date2">Date</string>
@@ -560,6 +568,8 @@
     <string name="se">Exam</string>
     <string name="search">Search Student</string>
     <string name="sec">Section</string>
+    <string name="sel_exms">Select Exams</string>
+    <string name="sel_rubrix">Select Rubrix</string>
     <string name="sel_student">Select Students</string>
     <string name="sel_sub_group">Select Subject Group</string>
     <string name="select_clas">select class</string>

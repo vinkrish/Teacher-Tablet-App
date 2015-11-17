@@ -80,6 +80,13 @@ public class TeacherInCharge extends Fragment {
             }
         });
 
+        view.findViewById(R.id.copy_exam_structure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new CopyExamStructure(), getFragmentManager());
+            }
+        });
+
         return view;
 
     }

@@ -380,6 +380,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Log.d("1", "1");
             SharedPreferences sharedPref = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("is_sync", 0);
@@ -388,8 +389,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             if (isException) {
                 editor.putInt("manual_sync", 0);
                 editor.apply();
-                Intent intent = new Intent(context, in.teacher.activity.LockActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(getApplicationContext(), in.teacher.activity.LockActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             } else if (isFirstTimeSync) {
                 editor.putInt("manual_sync", 0);
@@ -397,14 +398,16 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                 editor.apply();
                 new FirstTimeSync().callFirstTimeSync();
             } else if (manualSync == 1) {
+                Log.d("2", "2");
                 //new CallFTP().syncFTP();
-                Intent syncService = new Intent(context, SyncIntentService.class);
+                Intent syncService = new Intent(getApplicationContext(), SyncIntentService.class);
                 context.startService(syncService);
             } else {
+                Log.d("3", "3");
                 editor.putInt("manual_sync", 0);
                 editor.apply();
-                Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(getApplicationContext(), in.teacher.activity.LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         }

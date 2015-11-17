@@ -23,13 +23,10 @@ import com.amazonaws.services.s3.model.ProgressListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -123,7 +120,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
     }
 
     private void uploadFile() {
-
+        Log.d("uploadFile", "uh");
         Cursor c = sqliteDatabase.rawQuery("select filename from uploadedfile where processed=0", null);
         c.moveToFirst();
         String f = c.getString(c.getColumnIndex("filename"));
@@ -132,7 +129,6 @@ public class SyncIntentService extends IntentService implements StringConstant {
         TempDao.updateSyncTimer(sqliteDatabase);
         UploadModel model = new UploadModel(context, f, mTransferManager);
         model.upload();
-
     }
 
     public class UploadModel extends TransferModel {
@@ -220,12 +216,14 @@ public class SyncIntentService extends IntentService implements StringConstant {
     }
 
     private void downloadFile() {
+        Log.d("downloadFile", "uh");
         fileName = "download/" + schoolId + "/zipped_folder/" + zipFile;
         DownloadModel model = new DownloadModel(context, fileName, mTransferManager);
         model.download();
     }
 
     private void exitSync() {
+        Log.d("exitSync", "uh");
         manualSync = sharedPref.getInt("manual_sync", 0);
         int updateApk = sharedPref.getInt("update_apk", 0);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -245,7 +243,6 @@ public class SyncIntentService extends IntentService implements StringConstant {
         } else if (manualSync == 1) {
             editor.putInt("manual_sync", 0);
             editor.apply();
-            // SharedPreferenceUtil.updateManualSync(context, 0);
             Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
@@ -257,6 +254,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
         } else {
             SharedPreferenceUtil.updateSleepSync(context, 1);
         }
+
     }
 
     public class DownloadModel extends TransferModel {
@@ -358,8 +356,8 @@ public class SyncIntentService extends IntentService implements StringConstant {
     }
 
     private void unzipAndAck() {
+        Log.d("unzipAndAck", "uh");
         unZipIt();
-
         StringBuffer sb = new StringBuffer();
         Cursor c2 = sqliteDatabase.rawQuery("select filename from downloadedfile where downloaded=0", null);
         c2.moveToFirst();
@@ -389,6 +387,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
     }
 
     private void finishSync() {
+        Log.d("finishSync", "uh");
         manualSync = SharedPreferenceUtil.getManualSync(context);
         KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         boolean screenLocked = km.inKeyguardRestrictedInputMode();

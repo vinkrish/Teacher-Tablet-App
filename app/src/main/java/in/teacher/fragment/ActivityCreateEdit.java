@@ -226,6 +226,8 @@ public class ActivityCreateEdit extends Fragment {
     }
 
     private void initSectionSpinner() {
+        sectionIdList.clear();
+        sectionNameList.clear();
         Cursor c = sqliteDatabase.rawQuery("select SectionId, SectionName from section where ClassId = " + classId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
@@ -268,7 +270,6 @@ public class ActivityCreateEdit extends Fragment {
     }
 
     private void resetActivityList() {
-
         activityItemList.clear();
         Cursor c = sqliteDatabase.rawQuery("select ActivityId, ActivityName, MaximumMark, Weightage, Calculation from activity where " +
                 "SectionId = " + sectionId + " and ExamId = " + examId + " and SubjectId = " + subjectId, null);
