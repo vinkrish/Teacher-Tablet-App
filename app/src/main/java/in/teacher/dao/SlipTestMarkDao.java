@@ -86,7 +86,7 @@ public class SlipTestMarkDao {
 
 		double avgMark = 0;
 		Cursor c = sqliteDatabase.rawQuery("select AVG(A.Mark) as Average from sliptestmark_"+schoolId+" A, sliptest S where A.SlipTestId="+slipTestId+" and A.SlipTestId=S.SlipTestId "
-				+ "and A.Mark!='0' and A.Mark!='-1'", null);
+				+ "and A.Mark!='-1'", null);
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			avgMark=c.getDouble(c.getColumnIndex("Average"));

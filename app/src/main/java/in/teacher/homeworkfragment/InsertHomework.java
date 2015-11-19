@@ -68,6 +68,8 @@ public class InsertHomework extends Fragment {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         act = AppGlobal.getActivity();
 
+        CommonDialogUtils.hideKeyboard(getActivity());
+
         lv = (ListView) view.findViewById(R.id.list);
         HomeworkViewAdapter homeworkViewAdapter = new HomeworkViewAdapter(context, hwList);
         lv.setAdapter(homeworkViewAdapter);

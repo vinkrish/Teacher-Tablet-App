@@ -66,7 +66,6 @@ public class SyncIntentService extends IntentService implements StringConstant {
     }
 
     private void checkDownloadStatus() {
-        JSONObject jsonReceived;
         sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
 
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -83,7 +82,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
             ack_json.put("school", schoolId);
             ack_json.put("tab_id", deviceId);
             ack_json.put("battery_status", batteryLevel);
-            jsonReceived = new JSONObject(RequestResponseHandler.reachServer(ask_for_download_file, ack_json));
+            JSONObject jsonReceived = new JSONObject(RequestResponseHandler.reachServer(ask_for_download_file, ack_json));
             block = jsonReceived.getInt(TAG_SUCCESS);
             Log.d("block", block + "");
             if (jsonReceived.getInt("update") == 1) {
@@ -148,7 +147,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
                         mStatus = Status.COMPLETED;
                         ackUploadedFile(fileNam);
                     } else if (event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE) {
-                        downloadFile();
+                        exitSync();
                     }
                 }
             };
@@ -196,13 +195,12 @@ public class SyncIntentService extends IntentService implements StringConstant {
         File dir = new File(root.getAbsolutePath() + "/Upload");
         File file = new File(dir, f);
 
-        JSONObject jsonReceived;
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("school", schoolId);
             jsonObject.put("tab_id", deviceId);
             jsonObject.put("file_name", f.substring(0, f.length() - 3) + "sql");
-            jsonReceived = new JSONObject(RequestResponseHandler.reachServer(acknowledge_uploaded_file, jsonObject));
+            JSONObject jsonReceived = new JSONObject(RequestResponseHandler.reachServer(acknowledge_uploaded_file, jsonObject));
             if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
                 TempDao.updateSyncTimer(sqliteDatabase);
                 file.delete();
@@ -367,7 +365,6 @@ public class SyncIntentService extends IntentService implements StringConstant {
         }
         c2.close();
 
-        JSONObject jsonReceived;
         if (sb.length() > 3) {
             sqliteDatabase.execSQL("update downloadedfile set downloaded=1 where filename in('" + sb.substring(0, sb.length() - 3) + "')");
             try {
@@ -375,7 +372,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
                 jsonObject.put("school", schoolId);
                 jsonObject.put("tab_id", deviceId);
                 jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
-                jsonReceived = new JSONObject(RequestResponseHandler.reachServer(update_downloaded_file, jsonObject));
+                JSONObject jsonReceived = new JSONObject(RequestResponseHandler.reachServer(update_downloaded_file, jsonObject));
                 if (jsonReceived.getInt(TAG_SUCCESS) == 1)
                     Log.d("update", "downloaded_file");
             } catch (JSONException e) {

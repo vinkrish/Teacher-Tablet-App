@@ -108,6 +108,8 @@ public class MarkAttendance extends Fragment {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         sqlHandler.clearTempAttendance(sqliteDatabase);
 
+        CommonDialogUtils.hideKeyboard(getActivity());
+
         attendanceAdapter = new AttendanceAdapter(context, studentsArrayGrid);
         gridView.setAdapter(attendanceAdapter);
 

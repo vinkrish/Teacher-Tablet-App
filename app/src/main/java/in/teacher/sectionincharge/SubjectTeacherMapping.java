@@ -35,6 +35,7 @@ import in.teacher.dao.TempDao;
 import in.teacher.sqlite.SubjectTeacher;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 
 /**
  * Created by vinkrish on 15/10/15.
@@ -84,6 +85,7 @@ public class SubjectTeacherMapping extends Fragment {
         schoolId = t.getSchoolId();
         classId = t.getClassId();
         sectionId = t.getSectionId();
+        CommonDialogUtils.hideKeyboard(getActivity());
 
         subjectGroupIdList = ClasDao.getSubjectGroupIds(sqliteDatabase, classId);
         for (Integer groupId: subjectGroupIdList) {

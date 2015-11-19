@@ -73,6 +73,8 @@ public class CoScholastic extends Fragment {
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
+        CommonDialogUtils.hideKeyboard(getActivity());
+
         Temp t = TempDao.selectTemp(sqliteDatabase);
         sectionId = t.getSectionId();
         classId = t.getClassId();

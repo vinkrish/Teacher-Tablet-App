@@ -29,6 +29,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,6 +93,8 @@ public class InsertCCEStudentProfile extends Fragment {
             cceItem.setStudentId(stud.getStudentId() + "");
             cceItem.setRollNo(stud.getRollNoInClass());
             cceItem.setStudentName(stud.getName());
+            cceItem.setHeight("");
+            cceItem.setWeight("");
             profileList.add(cceItem);
         }
 
@@ -249,6 +252,7 @@ public class InsertCCEStudentProfile extends Fragment {
         ed1.setGravity(Gravity.CENTER);
         ed1.setInputType(InputType.TYPE_CLASS_NUMBER);
         ed1.addTextChangedListener(new MarksTextWatcher(ed1));
+        ed1.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
         horizontalLayout.addView(ed1);
 
         View verticalBorder4 = new View(getActivity());
@@ -264,6 +268,7 @@ public class InsertCCEStudentProfile extends Fragment {
         ed2.setGravity(Gravity.CENTER);
         ed2.setInputType(InputType.TYPE_CLASS_NUMBER);
         ed2.addTextChangedListener(new MarksTextWatcher(ed2));
+        ed2.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
         horizontalLayout.addView(ed2);
 
         View verticalBorder5 = new View(getActivity());
@@ -279,6 +284,7 @@ public class InsertCCEStudentProfile extends Fragment {
         ed3.setGravity(Gravity.CENTER);
         ed3.setInputType(InputType.TYPE_CLASS_NUMBER);
         ed3.addTextChangedListener(new MarksTextWatcher(ed3));
+        ed3.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
         horizontalLayout.addView(ed3);
 
         verticalLayout.addView(horizontalLayout);

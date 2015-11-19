@@ -94,13 +94,13 @@ public class VerifyHomework extends Fragment {
         }
         c.close();
 
-        String sql = "select B.SectionId, A.TeacherId, B.SectionName from homeworkmessage A, section B " +
+        String sql = "select B.SectionId, B.ClassTeacherId, B.SectionName from homeworkmessage A, section B " +
                 "where A.SectionId!=" + sectionId + " and B.SectionId!=" + sectionId + " and B.ClassId=" + classId + " group by B.SectionId";
         Cursor c2 = sqliteDatabase.rawQuery(sql, null);
         c2.moveToFirst();
         while (!c2.isAfterLast()) {
             sectionIdList.add(c2.getInt(c2.getColumnIndex("SectionId")));
-            secTeacherIdList.add(c2.getInt(c2.getColumnIndex("TeacherId")));
+            secTeacherIdList.add(c2.getInt(c2.getColumnIndex("ClassTeacherId")));
             sectionNameList.add(c2.getString(c2.getColumnIndex("SectionName")));
             c2.moveToNext();
         }

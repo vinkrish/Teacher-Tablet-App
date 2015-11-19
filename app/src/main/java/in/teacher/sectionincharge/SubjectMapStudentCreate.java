@@ -41,6 +41,7 @@ import in.teacher.fragment.Dashbord;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 /**
@@ -84,6 +85,7 @@ public class SubjectMapStudentCreate extends Fragment {
         Temp t = TempDao.selectTemp(sqliteDatabase);
         classId = t.getClassId();
         sectionId = t.getSectionId();
+        CommonDialogUtils.hideKeyboard(getActivity());
 
         subjectGroupIdList = ClasDao.getSubjectGroupIds(sqliteDatabase, classId);
         StringBuilder sb = new StringBuilder();

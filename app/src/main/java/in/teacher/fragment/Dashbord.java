@@ -84,6 +84,8 @@ public class Dashbord extends Fragment {
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
+        CommonDialogUtils.hideKeyboard(getActivity());
+
         Temp t = TempDao.selectTemp(sqliteDatabase);
         teacherId = t.getTeacherId();
 

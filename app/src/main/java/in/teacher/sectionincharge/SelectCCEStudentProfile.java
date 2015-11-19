@@ -38,6 +38,8 @@ public class SelectCCEStudentProfile extends Fragment {
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
+        CommonDialogUtils.hideKeyboard(getActivity());
+
         Spinner spin = (Spinner) view.findViewById(R.id.spinner);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);

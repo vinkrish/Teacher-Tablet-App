@@ -95,6 +95,7 @@ public class TextSms extends Fragment implements StringConstant {
         appContext = AppGlobal.getContext();
         act = AppGlobal.getActivity();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
+        CommonDialogUtils.hideKeyboard(getActivity());
         initializeList();
 
         studentContext = (TextView) view.findViewById(R.id.student_context);

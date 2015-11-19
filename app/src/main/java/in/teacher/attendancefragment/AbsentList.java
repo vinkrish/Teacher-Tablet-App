@@ -84,6 +84,8 @@ public class AbsentList extends Fragment {
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
+        CommonDialogUtils.hideKeyboard(getActivity());
+
         Temp t = TempDao.selectTemp(sqliteDatabase);
         classId = t.getClassId();
         sectionId = t.getSectionId();

@@ -9,6 +9,7 @@ import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Temp;
 import in.teacher.sqlite.UploadSql;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ import android.widget.TextView;
 /**
  * Created by vinkrish.
  */
-
 public class ViewQueue extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
@@ -42,6 +42,7 @@ public class ViewQueue extends Fragment {
         View view = inflater.inflate(R.layout.queue_view, container, false);
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
+        CommonDialogUtils.hideKeyboard(getActivity());
 
         TextView queryCount = (TextView) view.findViewById(R.id.queue);
 

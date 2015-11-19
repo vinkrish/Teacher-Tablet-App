@@ -21,6 +21,7 @@ import in.teacher.dao.TempDao;
 import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
 
 /**
@@ -54,6 +55,7 @@ public class StudentProfile extends Fragment {
     private void init(){
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
+        CommonDialogUtils.hideKeyboard(getActivity());
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         sectionId = t.getSectionId();

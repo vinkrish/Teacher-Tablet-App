@@ -69,6 +69,7 @@ public class HomeworkView extends Fragment {
 
         View view = inflater.inflate(R.layout.homework_view, container, false);
         sqliteDatabase = AppGlobal.getSqliteDatabase();
+        CommonDialogUtils.hideKeyboard(getActivity());
 
         Bundle b = getArguments();
 

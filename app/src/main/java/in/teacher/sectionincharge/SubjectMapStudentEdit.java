@@ -84,6 +84,7 @@ public class SubjectMapStudentEdit extends Fragment {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         activity = AppGlobal.getActivity();
         context = AppGlobal.getContext();
+        CommonDialogUtils.hideKeyboard(getActivity());
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         classId = t.getClassId();
