@@ -191,7 +191,7 @@ public class ExamCreate extends Fragment {
             }
         }
 
-        examName = examName_et.getText().toString();
+        examName = examName_et.getText().toString().replaceAll("\n"," ");
         percentage = Integer.parseInt(percentage_et.getText().toString());
         term = Integer.parseInt(term_et.getText().toString());
 

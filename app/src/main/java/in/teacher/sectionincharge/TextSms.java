@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transfermanager.Transfer;
 import com.amazonaws.mobileconnectors.s3.transfermanager.TransferManager;
@@ -333,9 +334,13 @@ public class TextSms extends Fragment implements StringConstant {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             progressBar.dismiss();
-            ReplaceFragment.clearBackStack(getFragmentManager());
             ReplaceFragment.replace(new Dashbord(), getFragmentManager());
         }
+    }
+
+    private void exit () {
+        Toast.makeText(appContext, "failed to send sms, try again!", Toast.LENGTH_LONG).show();
+        ReplaceFragment.replace(new Dashbord(), getFragmentManager());
     }
 
     private void prepareIds() {
@@ -430,14 +435,9 @@ public class TextSms extends Fragment implements StringConstant {
                 public void progressChanged(ProgressEvent event) {
                     if (event.getEventCode() == ProgressEvent.COMPLETED_EVENT_CODE) {
                         mStatus = Status.COMPLETED;
-                        Log.d("upload", "complete");
                         uploadComplete = true;
                     } else if (event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE) {
-                        exception = true;
-                        uploadComplete = true;
-                    } else if (event.getEventCode() == ProgressEvent.CANCELED_EVENT_CODE) {
-                        exception = true;
-                        uploadComplete = true;
+                        exit();
                     }
                 }
             };

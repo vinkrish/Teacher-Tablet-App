@@ -253,5 +253,7 @@
     <string name="confirm_cy">Confirm Copy</string>
     <string name="cy_from_rubrix">Copy rubrix structure from :</string>
     <string name="cy_to_rubrix">Copy rubrix structure to :</string>
+    <string name="l_vision">Left Vision</string>
+    <string name="r_vision">Right Vision</string>
 
 </resources>

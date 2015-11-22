@@ -134,7 +134,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.15"
+            android:layout_weight="0.1"
             android:paddingLeft="10dp"
             android:text="@string/slno"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -151,7 +151,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.5"
+            android:layout_weight="0.45"
             android:paddingLeft="10dp"
             android:text="@string/studentname"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -168,8 +168,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:gravity="center_horizontal"
+            android:layout_weight="0.2"
+            android:gravity="center"
             android:text="@string/height"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/light_black"
@@ -185,8 +185,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:gravity="center_horizontal"
+            android:layout_weight="0.2"
+            android:gravity="center"
             android:text="@string/weight"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/light_black"
@@ -201,13 +201,27 @@
             android:id="@+id/width5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.3"
-            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
             android:text="@string/days_attended"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/light_black"
             android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45dp"
+            android:background="#333333" />
+
+        <View
+            android:id="@+id/width6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"/>
+
+
+
     </LinearLayout>
 
     <View

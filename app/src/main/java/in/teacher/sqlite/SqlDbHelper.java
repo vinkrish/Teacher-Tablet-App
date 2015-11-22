@@ -77,6 +77,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL(CREATE_TIMETABLE);
         db.execSQL(CREATE_TIMETABLE_TIMING);
         db.execSQL(CREATE_TEACHER_INCHARGE);
+        db.execSQL(CREATE_TERM_REMARK);
     }
 
     @Override
@@ -123,6 +124,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL("DROP TABLE IF EXISTS timetable");
         db.execSQL("DROP TABLE IF EXISTS timetabletimings");
         db.execSQL("DROP TABLE IF EXISTS classteacher_incharge");
+        db.execSQL("DROP TABLE IF EXISTS term_remark");
         onCreate(db);
     }
 
@@ -147,6 +149,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL(CREATE_EXAMS_TRIGGER);
         sqliteDatabase.execSQL(CREATE_ACTIVITY_TRIGGER);
         sqliteDatabase.execSQL(CREATE_SUB_ACTIVITY_TRIGGER);
+        sqliteDatabase.execSQL(CREATE_TERM_REMARK);
         sqliteDatabase.execSQL("CREATE TRIGGER insert_stmark BEFORE INSERT ON sliptestmark_" + schoolId +
                 " FOR EACH ROW " +
                 "BEGIN " +
@@ -188,6 +191,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_students");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_activity");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_subactivity");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_term_remark");
     }
 
     public void clearTempAttendance(SQLiteDatabase sqliteDatabase) {
@@ -243,5 +247,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.delete("timetable", null, null);
         sqliteDatabase.delete("timetabletimings", null, null);
         sqliteDatabase.delete("classteacher_incharge", null, null);
+        sqliteDatabase.delete("term_remark", null, null);
     }
 }

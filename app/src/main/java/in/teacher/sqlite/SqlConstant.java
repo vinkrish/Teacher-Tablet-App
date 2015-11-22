@@ -280,4 +280,13 @@ public interface SqlConstant {
 
     public static String CREATE_TEACHER_INCHARGE = "CREATE TABLE classteacher_incharge(SchoolId INTEGER, ClassId INTEGER, TeacherId INTEGER)";
 
+    public static String CREATE_TERM_REMARK = "CREATE TABLE term_remark(term_remark_id INTEGER, SchoolId INTEGER, ClassId INTEGER, " +
+            "SectionId INTEGER, StudentId INTEGER, Term INTEGER, Remark TEXT)";
+
+    public static String TERM_REMARK_TRIGGER = "CREATE TRIGGER before_term_remark BEFORE INSERT ON term_remark " +
+            "WHEN ((SELECT count() FROM term_remark WHERE term_remark.StudentId=NEW.StudentId AND term_remark.Term=NEW.Term) > 0) " +
+            "BEGIN " +
+            "DELETE FROM term_remark WHERE term_remark.StudentId=NEW.StudentId AND term_remark.Term=NEW.Term; " +
+            "END";
+
 }

@@ -516,6 +516,7 @@
     <string name="internet_steps_5">Hold the power button until a menu pops up</string>
     <string name="internet_steps_6">Select Reboot</string>
     <string name="internet_steps_7">Select OK</string>
+    <string name="l_vision">Left Vision</string>
     <string name="login">LOGIN</string>
     <string name="male_students">All Male Students</string>
     <string name="manualportion">Enter title of your choice</string>
@@ -558,6 +559,7 @@
     <string name="pv">Please Verify</string>
     <string name="query">Query</string>
     <string name="queue">Sql queries in queue - uploaded in next sync</string>
+    <string name="r_vision">Right Vision</string>
     <string name="remark">Remark</string>
     <string name="reset">Reset</string>
     <string name="resolving">Resolving Errors</string>

@@ -3,9 +3,7 @@ package in.teacher.sectionincharge;
 import in.teacher.activity.R;
 import in.teacher.dao.CCEStudentProfileDao;
 import in.teacher.dao.StudentsDao;
-import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.model.Profile;
 import in.teacher.sqlite.CCEStudentProfile;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
@@ -16,13 +14,12 @@ import in.teacher.util.ReplaceFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -35,11 +32,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -51,11 +49,11 @@ import android.widget.TextView;
 public class InsertCCEStudentProfile extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, classId, schoolId, term, tag;
+    private int sectionId, classId, schoolId, term, tag, imageTag;
     private ArrayList<CCEStudentProfile> profileList = new ArrayList<>();
     private List<Students> studentsArray;
     private EditText totalDays;
-    private int width1, width2, width3, width4, width5;
+    private int width1, width2, width3, width4, width5, width6;
     private RelativeLayout tableLayout;
     private TableLayout table;
 
@@ -95,6 +93,9 @@ public class InsertCCEStudentProfile extends Fragment {
             cceItem.setStudentName(stud.getName());
             cceItem.setHeight("");
             cceItem.setWeight("");
+            cceItem.setVisionL("");
+            cceItem.setVisionR("");
+            cceItem.setTermRemark("");
             profileList.add(cceItem);
         }
 
@@ -127,6 +128,7 @@ public class InsertCCEStudentProfile extends Fragment {
                 width3 = view.findViewById(R.id.width3).getWidth();
                 width4 = view.findViewById(R.id.width4).getWidth();
                 width5 = view.findViewById(R.id.width5).getWidth();
+                width6 = view.findViewById(R.id.width6).getWidth();
                 generateTable();
             }
         });
@@ -211,6 +213,9 @@ public class InsertCCEStudentProfile extends Fragment {
         LinearLayout.LayoutParams p3 = new LinearLayout.LayoutParams(width3, LinearLayout.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams p4 = new LinearLayout.LayoutParams(width4, LinearLayout.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams p5 = new LinearLayout.LayoutParams(width5, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams p6 = new LinearLayout.LayoutParams(width6, LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams ilp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ilp.gravity = Gravity.CENTER;
 
         View verticalBorder = new View(getActivity());
         verticalBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
@@ -220,7 +225,7 @@ public class InsertCCEStudentProfile extends Fragment {
         TextView tv1 = new TextView(getActivity());
         tv1.setLayoutParams(p1);
         tv1.setText(cce.getRollNo() + "");
-        tv1.setPadding(20, 10, 0, 10);
+        tv1.setGravity(Gravity.CENTER);
         tv1.setTextSize(18);
         //tv1.setTextColor(getResources().getColor(R.color.dark_black));
         tv1.setTextColor(ContextCompat.getColor(context, R.color.dark_black));
@@ -234,7 +239,7 @@ public class InsertCCEStudentProfile extends Fragment {
         TextView tv2 = new TextView(getActivity());
         tv2.setLayoutParams(p2);
         tv2.setText(cce.getStudentName());
-        tv2.setPadding(20, 10, 0, 10);
+        tv2.setPadding(10, 10, 0, 10);
         tv2.setTextSize(18);
         tv2.setTextColor(ContextCompat.getColor(context, R.color.dark_black));
         horizontalLayout.addView(tv2);
@@ -287,6 +292,25 @@ public class InsertCCEStudentProfile extends Fragment {
         ed3.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
         horizontalLayout.addView(ed3);
 
+        View verticalBorder6 = new View(getActivity());
+        verticalBorder6.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
+        verticalBorder6.setLayoutParams(vlp);
+        horizontalLayout.addView(verticalBorder6);
+
+        LinearLayout imageView = new LinearLayout(getActivity());
+        imageView.setLayoutParams(p6);
+        imageView.setGravity(Gravity.CENTER);
+        imageView.setOrientation(LinearLayout.HORIZONTAL);
+        ImageView iv = new ImageView(getActivity());
+        iv.setImageResource(R.drawable.add_box);
+        iv.setLayoutParams(ilp);
+        imageView.addView(iv);
+        imageView.setTag(imageTag);
+        imageTag++;
+        imageView.setOnClickListener(plusRemark);
+        horizontalLayout.addView(imageView);
+
+
         verticalLayout.addView(horizontalLayout);
         View horizontalBorder = new View(getActivity());
         horizontalBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
@@ -297,6 +321,60 @@ public class InsertCCEStudentProfile extends Fragment {
         tableRowForTable.addView(verticalLayout, params);
 
         return tableRowForTable;
+    }
+
+    private View.OnClickListener plusRemark = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int pos = (Integer) v.getTag();
+            displayRemark(pos);
+        }
+    };
+
+    public Dialog displayRemark(int position) {
+        int pos = position;
+        final Dialog dialog = new Dialog(getActivity(), R.style.DialogSlideAnim);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.cce_term_remark);
+
+        TextView name = (TextView) dialog.findViewById(R.id.name);
+        final TextView remark = (TextView) dialog.findViewById(R.id.remark);
+        final TextView rightVision = (TextView) dialog.findViewById(R.id.r_vision);
+        final TextView leftVision = (TextView) dialog.findViewById(R.id.l_vision);
+
+        final CCEStudentProfile cp = profileList.get(pos);
+        name.setText(cp.getStudentName());
+        remark.setText(cp.getTermRemark());
+        leftVision.setText(cp.getVisionL());
+        rightVision.setText(cp.getVisionR());
+
+        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cp.setTermRemark(remark.getText().toString().replaceAll("\n", " "));
+                cp.setVisionL(leftVision.getText().toString().replaceAll("\n", " "));
+                cp.setVisionR(rightVision.getText().toString().replaceAll("\n"," "));
+                dialog.dismiss();
+            }
+        });
+
+        dialog.getWindow().setGravity(Gravity.TOP);
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.y = 80;
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(layoutParams);
+        dialog.show();
+
+        return dialog;
     }
 
     private class MarksTextWatcher implements TextWatcher {

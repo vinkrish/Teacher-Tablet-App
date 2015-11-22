@@ -11,6 +11,9 @@ public class CCEStudentProfile {
     private String weight;
     private double daysAttended1;
     private double totalDays1;
+    private String visionL;
+    private String visionR;
+    private String termRemark;
     private int term;
 
     public int getRollNo() {
@@ -101,4 +104,27 @@ public class CCEStudentProfile {
         this.daysAttended1 = daysAttended1;
     }
 
+    public String getVisionL() {
+        return visionL;
+    }
+
+    public void setVisionL(String visionL) {
+        this.visionL = visionL;
+    }
+
+    public String getVisionR() {
+        return visionR;
+    }
+
+    public void setVisionR(String visionR) {
+        this.visionR = visionR;
+    }
+
+    public String getTermRemark() {
+        return termRemark;
+    }
+
+    public void setTermRemark(String termRemark) {
+        this.termRemark = termRemark;
+    }
 }
