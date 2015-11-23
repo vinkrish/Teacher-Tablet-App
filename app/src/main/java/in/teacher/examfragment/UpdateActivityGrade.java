@@ -1,10 +1,14 @@
 package in.teacher.examfragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -163,7 +167,7 @@ public class UpdateActivityGrade extends Fragment {
 
         marksCount = ActivityGradeDao.getActGradeCount(activityId, sqliteDatabase);
 
-        view.findViewById(R.id.enter_marks).setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.enter_marks).setOnClickListener(deleteGrade);
     }
 
     private void initButton() {
@@ -210,6 +214,41 @@ public class UpdateActivityGrade extends Fragment {
                 repopulateListArray();
             }
         });
+    }
+
+    private View.OnClickListener deleteGrade = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            deleteDialog();
+        }
+    };
+
+    private void deleteDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(act);
+        alertBuilder.setCancelable(false);
+        alertBuilder.setTitle("Confirm your action");
+        alertBuilder.setMessage("Do you want to delete existing grades");
+        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }
+        });
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                String sql = "delete from activitygrade where ActivityId = " + activityId;
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                    ReplaceFragment.replace(new InsertActivityMark(), getFragmentManager());
+                } catch (SQLException e) {
+                }
+            }
+        });
+        alertBuilder.show();
     }
 
     class CalledSubmit extends AsyncTask<Void, Void, Void> {

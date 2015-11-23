@@ -149,7 +149,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL(CREATE_EXAMS_TRIGGER);
         sqliteDatabase.execSQL(CREATE_ACTIVITY_TRIGGER);
         sqliteDatabase.execSQL(CREATE_SUB_ACTIVITY_TRIGGER);
-        sqliteDatabase.execSQL(CREATE_TERM_REMARK);
+        sqliteDatabase.execSQL(TERM_REMARK_TRIGGER);
         sqliteDatabase.execSQL("CREATE TRIGGER insert_stmark BEFORE INSERT ON sliptestmark_" + schoolId +
                 " FOR EACH ROW " +
                 "BEGIN " +

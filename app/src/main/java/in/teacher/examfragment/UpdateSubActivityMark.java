@@ -28,10 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -138,8 +140,6 @@ public class UpdateSubActivityMark extends Fragment {
 
         initButton(view);
 
-        view.findViewById(R.id.enter_grade).setBackgroundColor(Color.TRANSPARENT);
-
         return view;
     }
 
@@ -174,6 +174,8 @@ public class UpdateSubActivityMark extends Fragment {
         maxMarkView.setText(maxMark + "");
 
         marksCount = SubActivityMarkDao.getSubActMarksCount(subActivityId, sqliteDatabase);
+
+        view.findViewById(R.id.enter_grade).setOnClickListener(deleteMark);
     }
 
     private void initButton(final View view) {
@@ -276,6 +278,41 @@ public class UpdateSubActivityMark extends Fragment {
                 repopulateListArray();
             }
         });
+    }
+
+    private View.OnClickListener deleteMark = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            deleteDialog();
+        }
+    };
+
+    private void deleteDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(act);
+        alertBuilder.setCancelable(false);
+        alertBuilder.setTitle("Confirm your action");
+        alertBuilder.setMessage("Do you want to delete existing marks");
+        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }
+        });
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                String sql = "delete from subactivitymark where SubActivityId = " + subActivityId;
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                    ReplaceFragment.replace(new InsertSubActivityGrade(), getFragmentManager());
+                } catch (SQLException e) {
+                }
+            }
+        });
+        alertBuilder.show();
     }
 
     class CalledSubmit extends AsyncTask<String, String, String> {

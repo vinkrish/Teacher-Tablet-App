@@ -11,7 +11,6 @@ import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.examfragment.StructuredExam;
 import in.teacher.sqlite.Marks;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
@@ -22,17 +21,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -249,7 +249,7 @@ public class UpdateExamMark extends Fragment {
         maxMarkTv.setText(maxMark + "");
         marksCount = MarksDao.getMarksCount(examId, subjectId, sqliteDatabase);
 
-        view.findViewById(R.id.enter_grade).setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.enter_grade).setOnClickListener(deleteMark);
     }
 
     private void initButton(final View view) {
@@ -355,6 +355,41 @@ public class UpdateExamMark extends Fragment {
                 }
             }
         });
+    }
+
+    private View.OnClickListener deleteMark = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            deleteDialog();
+        }
+    };
+
+    private void deleteDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(act);
+        alertBuilder.setCancelable(false);
+        alertBuilder.setTitle("Confirm your action");
+        alertBuilder.setMessage("Do you want to delete existing marks");
+        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }
+        });
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId;
+                try{
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                    ReplaceFragment.replace(new InsertExamGrade(), getFragmentManager());
+                }catch(SQLException e){
+                }
+            }
+        });
+        alertBuilder.show();
     }
 
     private void updateScoreField(String upScore) {

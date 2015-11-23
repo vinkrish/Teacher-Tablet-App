@@ -449,7 +449,7 @@ public class ActivityCreateEdit extends Fragment {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
                                 ", 0, -1)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
@@ -461,7 +461,7 @@ public class ActivityCreateEdit extends Fragment {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
                                 ", " + weightage.getText().toString() + ", 0)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
@@ -471,7 +471,7 @@ public class ActivityCreateEdit extends Fragment {
                         sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, RubrixId, ActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", " + subjectId + ", 0,\"" + activityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
                                 ", 0, " + (bestOf.getSelectedItemPosition() + 1) + ")";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");

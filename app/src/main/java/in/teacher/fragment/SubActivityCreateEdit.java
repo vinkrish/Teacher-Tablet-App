@@ -430,7 +430,7 @@ public class SubActivityCreateEdit extends Fragment {
         RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
         final TextInputLayout hideLayout = (TextInputLayout) dialog.findViewById(R.id.hided);
 
-        final EditText activityName = (EditText) dialog.findViewById(R.id.activity_name);
+        final EditText subActivityName = (EditText) dialog.findViewById(R.id.activity_name);
         final EditText maxMark = (EditText) dialog.findViewById(R.id.max_mark);
         final EditText weightage = (EditText) dialog.findViewById(R.id.weightage);
 
@@ -475,39 +475,39 @@ public class SubActivityCreateEdit extends Fragment {
             public void onClick(View v) {
                 String sql = "";
                 try {
-                    generatedId = PKGenerator.getMD5(schoolId, sectionId, activityName.getText().toString());
+                    generatedId = PKGenerator.getMD5(schoolId, sectionId, subActivityName.getText().toString());
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
 
                 if (sum.isChecked()) {
-                    if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
+                    if (!subActivityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
                         sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", " + activityId + ",\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", " + subjectId + ", " + activityId + ",\"" + subActivityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
                                 ", 0, -1)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
                     }
                 } else if (avg.isChecked()) {
-                    if (!activityName.getText().toString().equals("") &&
+                    if (!subActivityName.getText().toString().equals("") &&
                             !maxMark.getText().toString().equals("") &&
                             !weightage.getText().toString().equals("")) {
                         sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", " + activityId + ",\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", " + subjectId + ", " + activityId + ",\"" + subActivityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
                                 ", " + weightage.getText().toString() + ", 0)";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
                     }
                 } else if (best.isChecked()) {
-                    if (!activityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
+                    if (!subActivityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
                         sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
                                 "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
                                 " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", " + activityId + ",\"" + activityName.getText().toString().replaceAll("\n", " ") + "\"," + maxMark.getText().toString() +
+                                ", " + subjectId + ", " + activityId + ",\"" + subActivityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
                                 ", 0, " + (bestOf.getSelectedItemPosition() + 1) + ")";
                     } else {
                         CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");

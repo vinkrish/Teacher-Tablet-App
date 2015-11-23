@@ -334,9 +334,9 @@ public class UpdateCCEStudentProfile extends Fragment {
         dialog.findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cp.setTermRemark(remark.getText().toString().replaceAll("\n"," "));
-                cp.setVisionL(leftVision.getText().toString().replaceAll("\n", " "));
-                cp.setVisionR(rightVision.getText().toString().replaceAll("\n"," "));
+                cp.setTermRemark(remark.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'"));
+                cp.setVisionL(leftVision.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'"));
+                cp.setVisionR(rightVision.getText().toString().replaceAll("\n"," ").replaceAll("\"", "'"));
                 dialog.dismiss();
             }
         });

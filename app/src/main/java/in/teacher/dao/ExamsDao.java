@@ -49,7 +49,7 @@ public class ExamsDao {
     public static void insertExam(SQLiteDatabase sqliteDatabase, Exams exams){
         String sql = "insert into exams(SchoolId, ClassId, ExamId, SubjectIDs, SubjectGroupIds, ExamName, OrderId, Percentage, GradeSystem, Term)" +
                 " values ("+ exams.getSchoolId()+", "+ exams.getClassId()+", "+exams.getExamId()+", '"+exams.getSubjectIDs()+"','"+
-                exams.getSubjectGroupIds()+"', '"+exams.getExamName()+"', "+exams.getOrderId()+", "+exams.getPercentage()+", "+
+                exams.getSubjectGroupIds()+"', \""+exams.getExamName()+"\", "+exams.getOrderId()+", "+exams.getPercentage()+", "+
                 exams.getGradeSystem()+", "+exams.getTerm()+")";
         try {
             sqliteDatabase.execSQL(sql);

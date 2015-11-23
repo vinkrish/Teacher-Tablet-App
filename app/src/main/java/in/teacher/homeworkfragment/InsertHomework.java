@@ -185,7 +185,7 @@ public class InsertHomework extends Fragment {
                             Homework hw = new Homework();
                             hw.setClassId(classId + "");
                             hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
-                            hw.setHomework(edListChild.getText().toString());
+                            hw.setHomework(edListChild.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'").replaceAll("#", " "));
                             hw.setSchoolId(schoolId + "");
                             hw.setSectionId(sectionId + "");
                             hw.setSubjectIDs(hwList.get(position).getSubjectId() + "");
@@ -203,7 +203,7 @@ public class InsertHomework extends Fragment {
                                     HomeworkDao.deleteHomework(hwId, sqliteDatabase);
                                     Homework hw = new Homework();
                                     hw.setClassId(classId + "");
-                                    hw.setHomework(edListChild.getText().toString());
+                                    hw.setHomework(edListChild.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'").replaceAll("#", " "));
                                     hw.setSchoolId(schoolId + "");
                                     hw.setSectionId(sectionId + "");
                                     hw.setSubjectIDs(childList1.get(position) + "");
@@ -243,7 +243,7 @@ public class InsertHomework extends Fragment {
                             Homework hw = new Homework();
                             hw.setClassId(classId + "");
                             hw.setHomeworkId(PKGenerator.returnPrimaryKey(schoolId));
-                            hw.setHomework(rawHomework + "#" + edListChild.getText().toString());
+                            hw.setHomework(rawHomework + "#" + edListChild.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'").replaceAll("#", " "));
                             hw.setSchoolId(schoolId + "");
                             hw.setSectionId(sectionId + "");
                             hw.setSubjectIDs(rawSubjectIDs + "," + hwList.get(position).getSubjectId() + "");
