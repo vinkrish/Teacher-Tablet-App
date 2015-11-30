@@ -1,6 +1,7 @@
 package in.teacher.activity;
 
 import in.teacher.sync.UploadError;
+import in.teacher.util.NetworkUtils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,9 +30,13 @@ public class Restart extends BaseActivity {
         editor.putInt("sleep_sync", 0);
         editor.apply();
 
-        new UploadError(this, s).upError();
-        Intent intent = new Intent(this.getApplicationContext(), in.teacher.activity.LoginActivity.class);
-        startActivity(intent);
+        if (NetworkUtils.isNetworkConnected(this)) {
+            new UploadError(this, s).upError();
+        } else {
+            Intent intent = new Intent(this, in.teacher.activity.LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     @Override

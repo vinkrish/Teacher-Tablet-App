@@ -1,5 +1,6 @@
 package in.teacher.adapter;
 
+import in.teacher.activity.ProcessFiles;
 import in.teacher.sync.SyncIntentService;
 import in.teacher.sync.WakeLockIntentService;
 import in.teacher.util.AppGlobal;
@@ -12,6 +13,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 
 /**
  * Created by vinkrish.
@@ -35,14 +37,22 @@ public class SyncServiceReceiver extends BroadcastReceiver {
                 && bootSync == 0
                 && manualSync == 0) {
             if (AppGlobal.isActive()) {
-                //new CallFTP().syncFTP();
-                Intent syncService = new Intent(context, SyncIntentService.class);
-                context.startService(syncService);
-            }
-            else {
+                //Intent syncService = new Intent(context, SyncIntentService.class);
+                //context.startService(syncService);
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                boolean isScreen = pm.isScreenOn();
+                if (!isScreen) {
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("manual_sync", 1);
+                    editor.apply();
+                    Intent processIntent = new Intent(context, ProcessFiles.class);
+                    processIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(processIntent);
+                }
+            } else {
+                SharedPreferenceUtil.updateSleepSync(context, 1);
                 Intent i = new Intent(context, in.teacher.activity.LoginActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra("create", 1);
                 context.startActivity(i);
             }
         } else if (tabletLock == 1 && is_first_sync == 0) {
@@ -61,6 +71,6 @@ public class SyncServiceReceiver extends BroadcastReceiver {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, SyncServiceReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 7, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 10, pi);
     }
 }

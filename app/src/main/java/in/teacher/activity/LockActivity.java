@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
-import in.teacher.sync.FirstTimeSync;
+import in.teacher.sync.FirstTimeDownload;
 import in.teacher.sync.RequestResponseHandler;
 import in.teacher.sync.StringConstant;
 import in.teacher.util.AppGlobal;
@@ -73,7 +73,7 @@ public class LockActivity extends BaseActivity implements StringConstant {
             butSend.setVisibility(View.GONE);
             butRefresh.setVisibility(View.VISIBLE);
             SharedPreferenceUtil.updateFirstSync(this, 1);
-            new FirstTimeSync().callFirstTimeSync();
+            new FirstTimeDownload().callFirstTimeSync();
         }
     }
 
@@ -85,7 +85,7 @@ public class LockActivity extends BaseActivity implements StringConstant {
 
     public void refreshClicked(View view) {
         SharedPreferenceUtil.updateFirstSync(this, 1);
-        new FirstTimeSync().callFirstTimeSync();
+        new FirstTimeDownload().callFirstTimeSync();
     }
 
     class SendLocked extends AsyncTask<String, String, String> {
@@ -133,7 +133,7 @@ public class LockActivity extends BaseActivity implements StringConstant {
                 butRefresh.setVisibility(View.VISIBLE);
                 sqliteDatabase.execSQL("update locked set IsSent=1");
                 SharedPreferenceUtil.updateFirstSync(LockActivity.this, 1);
-                new FirstTimeSync().callFirstTimeSync();
+                new FirstTimeDownload().callFirstTimeSync();
             }
         }
     }

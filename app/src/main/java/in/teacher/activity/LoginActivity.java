@@ -15,7 +15,6 @@ import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Section;
 import in.teacher.sqlite.Teacher;
 import in.teacher.sqlite.Temp;
-import in.teacher.sync.SyncIntentService;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -24,6 +23,7 @@ import in.teacher.util.NetworkUtils;
 import in.teacher.util.SharedPreferenceUtil;
 
 import android.animation.ObjectAnimator;
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -65,16 +65,10 @@ public class LoginActivity extends BaseActivity {
 
         registerReceiver(broadcastReceiver, new IntentFilter("WIFI_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("I_FAILED_ME"));
+        registerBroadcastReceiver();
 
         noWifi = (TextView) findViewById(R.id.no_wifi);
         updateWifiStatus();
-
-        Intent intent = getIntent();
-        if (intent.getIntExtra("create", 0) == 1) {
-            //new CallFTP().syncFTP();
-            Intent syncService = new Intent(context, SyncIntentService.class);
-            context.startService(syncService);
-        }
 
         SharedPreferenceUtil.updateSavedVersion(this);
         sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
@@ -241,7 +235,6 @@ public class LoginActivity extends BaseActivity {
         if (NetworkUtils.isNetworkConnected(context)) {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("manual_sync", 1);
-            editor.putInt("is_sync", 1);
             editor.apply();
             Intent intent = new Intent(this, ProcessFiles.class);
             startActivity(intent);
@@ -280,6 +273,45 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             updateWifiStatus();
+        }
+    };
+
+    BroadcastReceiver screenOnOffReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String strAction = intent.getAction();
+
+            KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+
+            if (strAction.equals(Intent.ACTION_SCREEN_OFF) || strAction.equals(Intent.ACTION_SCREEN_ON))
+            {
+                if( myKM.inKeyguardRestrictedInputMode())
+                {
+                    SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+                    int is_first_sync = pref.getInt("first_sync", 0);
+                    int sleepSync = pref.getInt("sleep_sync", 0);
+                    int tabletLock = pref.getInt("tablet_lock", 0);
+                    int manualSync = pref.getInt("manual_sync", 0);
+
+                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    boolean isScreen = pm.isScreenOn();
+
+                    if (NetworkUtils.isNetworkConnected(context) &&
+                            sleepSync == 1 &&
+                            !isScreen &&
+                            is_first_sync == 0 &&
+                            tabletLock == 0 &&
+                            manualSync ==0) {
+                        Intent intentProcess = new Intent(context, in.teacher.activity.ProcessFiles.class);
+                        intentProcess.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                    //System.out.println("Screen off " + "LOCKED");
+                } else
+                {
+                    //System.out.println("Screen off " + "UNLOCKED");
+                }
+            }
         }
     };
 
@@ -400,7 +432,7 @@ public class LoginActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
+        /*SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
         int is_first_sync = sharedPref.getInt("first_sync", 0);
         int sleepSync = sharedPref.getInt("sleep_sync", 0);
         int tabletLock = sharedPref.getInt("tablet_lock", 0);
@@ -415,7 +447,7 @@ public class LoginActivity extends BaseActivity {
             Intent intent = new Intent(this, in.teacher.activity.ProcessFiles.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }
+        }*/
     }
 
     @Override
@@ -430,12 +462,14 @@ public class LoginActivity extends BaseActivity {
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("INTERNET_STATUS"));
         alertSync();
+        registerBroadcastReceiver();
         super.onResume();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        registerBroadcastReceiver();
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("INTERNET_STATUS"));
     }
@@ -449,9 +483,17 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onStop() {
+        unregisterReceiver(screenOnOffReceiver);
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(internetReceiver);
         super.onStop();
+    }
+
+    private void registerBroadcastReceiver() {
+        final IntentFilter theFilter = new IntentFilter();
+        theFilter.addAction(Intent.ACTION_SCREEN_ON);
+        theFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        this.registerReceiver(screenOnOffReceiver, theFilter);
     }
 
 }

@@ -168,8 +168,8 @@ public class UpdateSubActivityGrade extends Fragment {
         subActivityName = tempSubAct.getSubActivityName();
 
         marksCount = SubActivityGradeDao.getSubActGradeCount(subActivityId, sqliteDatabase);
-        view.findViewById(R.id.enter_grade).setOnClickListener(deleteGrade);
-        //view.findViewById(R.id.enter_marks).setBackgroundColor(Color.TRANSPARENT);
+        view.findViewById(R.id.enter_marks).setOnClickListener(deleteGrade);
+
     }
 
     private void initButton() {

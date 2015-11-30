@@ -201,7 +201,7 @@ public class UpdateCCSGrade extends Fragment {
                 ccsg.setAspectId(AspectId);
                 CoSch coSch = coSchList.get(subLoop);
                 ccsg.setGrade(map.get(inGradList.get(subLoop)));
-                ccsg.setDescription(coSch.getRemark().replaceAll("\n", " "));
+                ccsg.setDescription(coSch.getRemark().replaceAll("\n", " ").replaceAll("\"", "'"));
                 subLoop += 1;
                 cceCoSchGrade.add(ccsg);
             }

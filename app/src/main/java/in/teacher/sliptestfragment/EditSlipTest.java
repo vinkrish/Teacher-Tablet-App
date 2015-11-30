@@ -329,7 +329,7 @@ public class EditSlipTest extends Fragment {
         st.setMaximumMark(Integer.parseInt(maxmark2.getText().toString()));
         st.setPortion(portionId);
         st.setExtraPortion("0");
-        st.setPortionName(manualPortion.getText().toString().replace("\n", " "));
+        st.setPortionName(manualPortion.getText().toString().replace("\n", " ").replaceAll("\"", "'"));
         st.setTestDate(otherdate);
         st.setSlipTestId(slipTestId);
         SlipTesttDao.editSlipTest(st, sqliteDatabase);

@@ -9,7 +9,7 @@ import in.teacher.dao.SubActivityDao;
 import in.teacher.dao.TempDao;
 import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Temp;
-import in.teacher.sync.FirstTimeSync;
+import in.teacher.sync.FirstTimeDownload;
 import in.teacher.sync.RequestResponseHandler;
 import in.teacher.sync.StringConstant;
 import in.teacher.sync.SyncIntentService;
@@ -145,7 +145,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                                 SharedPreferences sp = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editr = sp.edit();
                                 editr.putInt("tablet_lock", 1);
-                                editr.putInt("is_sync", 0);
                                 editr.putInt("sleep_sync", 0);
                                 editr.apply();
                                 String except = e + "";
@@ -396,10 +395,9 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                 editor.putInt("manual_sync", 0);
                 editor.putInt("first_sync", 1);
                 editor.apply();
-                new FirstTimeSync().callFirstTimeSync();
+                new FirstTimeDownload().callFirstTimeSync();
             } else if (manualSync == 1) {
                 Log.d("2", "2");
-                //new CallFTP().syncFTP();
                 Intent syncService = new Intent(getApplicationContext(), SyncIntentService.class);
                 context.startService(syncService);
             } else {

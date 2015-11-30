@@ -1,6 +1,6 @@
 package in.teacher.activity;
 
-import in.teacher.sync.FirstTimeSync;
+import in.teacher.sync.FirstTimeDownload;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -196,7 +196,7 @@ public class MasterAuthentication extends BaseActivity {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("first_sync", 1);
             editor.apply();
-            new FirstTimeSync().callFirstTimeSync();
+            new FirstTimeDownload().callFirstTimeSync();
         } else {
             CommonDialogUtils.displayAlertWhiteDialog(this, "Check Wifi");
         }

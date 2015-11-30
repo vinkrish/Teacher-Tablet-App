@@ -25,10 +25,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.Subject;
+
 import in.teacher.activity.R;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
+import in.teacher.sqlite.Exams;
 import in.teacher.sqlite.SubActivity;
+import in.teacher.sqlite.SubjectExams;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -258,7 +262,11 @@ public class CopyExamStructure extends Fragment {
         @Override
         public void onClick(View v) {
             if (selExamIdList.size() > 0) {
-                copyExam();
+                try {
+                    copyExam();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
             } else {
                 CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please select exam to copy");
             }
@@ -386,7 +394,83 @@ public class CopyExamStructure extends Fragment {
         }
     }
 
-    private void copyExam() {
+    private void copyExam() throws NoSuchAlgorithmException {
+        Exams exm = new Exams();
+        Cursor c = sqliteDatabase.rawQuery("select * from exams where ExamId = " + examId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            exm.setSchoolId(c.getInt(c.getColumnIndex("SchoolId")));
+            exm.setClassId(c.getInt(c.getColumnIndex("ClassId")));
+            exm.setSubjectIDs(c.getString(c.getColumnIndex("SubjectIDs")));
+            exm.setSubjectGroupIds(c.getString(c.getColumnIndex("SubjectGroupIds")));
+            exm.setOrderId(c.getInt(c.getColumnIndex("OrderId")));
+            exm.setPercentage(c.getString(c.getColumnIndex("Percentage")));
+            exm.setTimeTable(c.getString(c.getColumnIndex("TimeTable")));
+            exm.setPortions(c.getString(c.getColumnIndex("Portions")));
+            exm.setFileName(c.getString(c.getColumnIndex("FileName")));
+            exm.setGradeSystem(c.getInt(c.getColumnIndex("GradeSystem")));
+            exm.setTerm(c.getInt(c.getColumnIndex("Term")));
+            exm.setMarkUploaded(0);
+            c.moveToNext();
+        }
+        c.close();
+
+        List<SubjectExams> seList = new ArrayList<>();
+        Cursor c2 = sqliteDatabase.rawQuery("select * from subjectexams where ExamId = " + examId, null);
+        c2.moveToFirst();
+        while (!c2.isAfterLast()) {
+            SubjectExams se = new SubjectExams();
+            se.setSchoolId(c2.getInt(c2.getColumnIndex("SchoolId")));
+            se.setClassId(c2.getInt(c2.getColumnIndex("ClassId")));
+            se.setSubjectId(c2.getInt(c2.getColumnIndex("SubjectId")));
+            se.setMaximumMark(c2.getInt(c2.getColumnIndex("MaxumumMark")));
+            se.setFailMark(c2.getInt(c2.getColumnIndex("FailMark")));
+            seList.add(se);
+            c2.moveToNext();
+        }
+        c2.close();
+
+
+        for (Integer eId : selExamIdList) {
+
+            try {
+                String sql = "update exams set SubjectIDs='" + exm.getSubjectIDs() + "', SubjectGroupIds='" + exm.getSubjectGroupIds() +
+                        "', Percentage='" + exm.getPercentage() + "', GradeSystem=" + exm.getGradeSystem() + ", Term=" + exm.getTerm() + " where ExamId=" + eId;
+                sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                String sql = "delete from subjectexams where ExamId = " + eId;
+                sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            for (SubjectExams se : seList) {
+                String sql = "insert into subjectexams(SchoolId, ClassId, ExamId, SubjectId, MaximumMark, FailMark) " +
+                        "values(" + schoolId + ", " + classId + ", " + eId + ", " + se.getSubjectId() + ", " + se.getMaximumMark() + ", " + se.getFailMark() + ")";
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+
 
     }
 
@@ -430,7 +514,7 @@ public class CopyExamStructure extends Fragment {
 
             for (Activiti act : actList) {
                 int newActivityId = PKGenerator.getMD5(schoolId, sectionId, act.getActivityName());
-                for (Integer secId: selSecIdList) {
+                for (Integer secId : selSecIdList) {
                     createNewActivity(newActivityId, act, secId);
                 }
 
@@ -457,7 +541,7 @@ public class CopyExamStructure extends Fragment {
 
                 for (SubActivity subAct : subActList) {
                     int newSubActivityId = PKGenerator.getMD5(schoolId, sectionId, subAct.getSubActivityName());
-                    for (Integer secId: selSecIdList) {
+                    for (Integer secId : selSecIdList) {
                         createNewSubActivity(newSubActivityId, subAct, secId, newActivityId);
                     }
                 }

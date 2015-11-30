@@ -27,7 +27,9 @@ import java.util.zip.ZipInputStream;
 
 import in.teacher.model.TransferModel;
 import in.teacher.sync.StringConstant;
+import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.Constants;
+import in.teacher.util.NetworkUtils;
 import in.teacher.util.Util;
 
 /**
@@ -48,32 +50,30 @@ public class UpdateApk extends BaseActivity {
         int updateApk = sharedPref.getInt("update_apk", 0);
         apkFolder = sharedPref.getString("apk_folder", "v1.3");
         if (updateApk == 2) {
-            new ApkDownloadTask(this.getApplicationContext(), "teacher.zip").execute();
+            downloadApk();
         }
 
     }
 
     public void updateClicked(View v) {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("update_apk", 1);
-        editor.putInt("manual_sync", 1);
-        editor.putInt("is_sync", 1);
-        editor.apply();
-        Intent intent = new Intent(this, ProcessFiles.class);
-        startActivity(intent);
+
+        if (NetworkUtils.isNetworkConnected(this)){
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("update_apk", 1);
+            editor.putInt("manual_sync", 1);
+            editor.apply();
+            Intent intent = new Intent(this, ProcessFiles.class);
+            startActivity(intent);
+        } else {
+            CommonDialogUtils.displayAlertWhiteDialog(this, "Please check internet connection before proceeding.");
+        }
     }
 
-    @SuppressWarnings("deprecation")
-    public class ApkDownloadTask extends AsyncTask<String, String, String> implements StringConstant {
-        private TransferManager mTransferManager;
-        private String fileName;
-        private Context context;
-        private boolean downloadCompleted, exception;
+    private void downloadApk() {
+        new ApkDownloadTask().execute();
+    }
 
-        public ApkDownloadTask(Context context, String fName) {
-            this.context = context;
-            this.fileName = "download/" + apkFolder + "/" + fName;
-        }
+    private class ApkDownloadTask extends AsyncTask<Void, Void, Void> {
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -84,107 +84,105 @@ public class UpdateApk extends BaseActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            exception = false;
-            downloadCompleted = false;
-            mTransferManager = new TransferManager(Util.getCredProvider(context));
+        protected Void doInBackground(Void... params) {
+            String fileName = "download/" + apkFolder + "/" + "teacher.zip";
+            TransferManager mTransferManager = new TransferManager(Util.getCredProvider(UpdateApk.this));
 
-            DownloadModel model = new DownloadModel(context, fileName, mTransferManager);
+            DownloadModel model = new DownloadModel(UpdateApk.this, fileName, mTransferManager);
             model.download();
-
-            while (!downloadCompleted)
-                Log.d("download", "...");
-
-            if (!exception)
-                unZipIt("teacher.zip");
 
             return null;
         }
 
 
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            pDialog.dismiss();
-
-            if (!exception) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("apk_update", 0);
-                editor.putInt("update_apk", 0);
-                editor.apply();
-
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "teacher.apk")), "application/vnd.android.package-archive");
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-            }
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
         }
 
-        public class DownloadModel extends TransferModel {
-            private Download mDownload;
-            private ProgressListener mListener;
-            private String mKey;
-            private Status mStatus;
+    }
 
-            public DownloadModel(Context context, String key, TransferManager manager) {
-                super(context, Uri.parse(key), manager);
-                mKey = key;
-                mStatus = Status.IN_PROGRESS;
-                mListener = new ProgressListener() {
-                    @Override
-                    public void progressChanged(ProgressEvent event) {
-                        if (event.getEventCode() == ProgressEvent.COMPLETED_EVENT_CODE) {
-                            Log.d("download", "completed");
-                            mStatus = Status.COMPLETED;
-                            downloadCompleted = true;
-                        }
+    private void downloadComplete(){
+        unZipIt("teacher.zip");
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("apk_update", 0);
+        editor.putInt("update_apk", 0);
+        editor.apply();
+
+        pDialog.dismiss();
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "teacher.apk")), "application/vnd.android.package-archive");
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }
+
+    private void exitUpdate () {
+        pDialog.dismiss();
+    }
+
+    public class DownloadModel extends TransferModel {
+        private Download mDownload;
+        private ProgressListener mListener;
+        private String mKey;
+        private Status mStatus;
+
+        public DownloadModel(Context context, String key, TransferManager manager) {
+            super(context, Uri.parse(key), manager);
+            mKey = key;
+            mStatus = Status.IN_PROGRESS;
+            mListener = new ProgressListener() {
+                @Override
+                public void progressChanged(ProgressEvent event) {
+                    if (event.getEventCode() == ProgressEvent.COMPLETED_EVENT_CODE) {
+                        mStatus = Status.COMPLETED;
+                        downloadComplete();
+                    } else if (event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE) {
+                        exitUpdate();
                     }
-                };
-            }
-
-            @Override
-            public Status getStatus() {
-                return mStatus;
-            }
-
-            @Override
-            public Transfer getTransfer() {
-                return mDownload;
-            }
-
-            public void download() {
-                try {
-                    mStatus = Status.IN_PROGRESS;
-                    File file = new File(
-                            Environment.getExternalStoragePublicDirectory(
-                                    Environment.DIRECTORY_DOWNLOADS),
-                            getFileName());
-
-                    mDownload = getTransferManager().download(
-                            Constants.BUCKET_NAME.toLowerCase(Locale.US), mKey, file);
-
-                    if (mListener != null) {
-                        mDownload.addProgressListener(mListener);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    downloadCompleted = true;
-                    exception = true;
                 }
-            }
+            };
+        }
 
-            @Override
-            public void abort() {
-            }
+        @Override
+        public Status getStatus() {
+            return mStatus;
+        }
 
-            @Override
-            public void pause() {
-            }
+        @Override
+        public Transfer getTransfer() {
+            return mDownload;
+        }
 
-            @Override
-            public void resume() {
+        public void download() {
+            try {
+                mStatus = Status.IN_PROGRESS;
+                File file = new File(
+                        Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_DOWNLOADS),
+                        getFileName());
+
+                mDownload = getTransferManager().download(
+                        Constants.BUCKET_NAME.toLowerCase(Locale.US), mKey, file);
+
+                if (mListener != null) {
+                    mDownload.addProgressListener(mListener);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
+        @Override
+        public void abort() {
+        }
+
+        @Override
+        public void pause() {
+        }
+
+        @Override
+        public void resume() {
+        }
     }
 
     public void unZipIt(String zipFile) {

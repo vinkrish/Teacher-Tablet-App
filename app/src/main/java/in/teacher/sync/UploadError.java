@@ -1,10 +1,9 @@
 package in.teacher.sync;
 
 import in.teacher.dao.TempDao;
-import in.teacher.sqlite.SqlDbHelper;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
 
-import java.net.ConnectException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -13,7 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -22,23 +23,30 @@ import android.util.Log;
  * Created by vinkrish.
  */
 public class UploadError implements StringConstant {
-    private SqlDbHelper sqlHandler;
     private SQLiteDatabase sqliteDatabase;
     private Context appContext;
     private String deviceId;
     private int schoolId;
     private String errorReport;
-    private int uploadSuccess;
+    private ProgressDialog pDialog;
 
     public UploadError(Activity context, String error) {
         errorReport = error;
-        appContext = context.getApplicationContext();
-        sqlHandler = SqlDbHelper.getInstance(appContext);
-        sqliteDatabase = sqlHandler.getWritableDatabase();
+        appContext = context;
+        sqliteDatabase = AppGlobal.getSqliteDatabase();
+        pDialog = new ProgressDialog(context);
     }
 
     class CalledUploadError extends AsyncTask<String, String, String> {
         private JSONObject jsonReceived;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Uploading Error...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -55,18 +63,19 @@ public class UploadError implements StringConstant {
                 jsonReceived = new JSONObject(RequestResponseHandler.reachServer(logged, json));
             } catch (JSONException e1) {
                 e1.printStackTrace();
-            }
-            try {
-                uploadSuccess = jsonReceived.getInt(TAG_SUCCESS);
-                Log.d("error_success", uploadSuccess + "");
-            } catch (JSONException e) {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            pDialog.dismiss();
+            Intent intent = new Intent(appContext, in.teacher.activity.LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            appContext.startActivity(intent);
         }
     }
 

@@ -58,7 +58,7 @@ public class HomeworkDao {
         //	String escape = h.getHomework().replaceAll("['\"]", " ");
         String sql = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate) " +
                 "values(" + h.getHomeworkId() + "," + h.getSchoolId() + "," + h.getClassId() + "," + h.getSectionId() + "," + h.getTeacherId() + ",'" +
-                h.getSubjectIDs() + "',\"" + h.getHomework() + "\",'" + h.getHomeworkDate() + "')";
+                h.getSubjectIDs() + "',\"" + h.getHomework().trim() + "\",'" + h.getHomeworkDate() + "')";
         sqliteDatabase.execSQL(sql);
     }
 
@@ -81,7 +81,7 @@ public class HomeworkDao {
         //	String escape = h.getHomework().replaceAll("['\"]", " ");
         String sql = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate,IsNew) " +
                 "values(" + h.getHomeworkId() + "," + h.getSchoolId() + "," + h.getClassId() + "," + h.getSectionId() + "," + h.getTeacherId() + ",'" +
-                h.getSubjectIDs() + "',\"" + h.getHomework() + "\",'" + h.getHomeworkDate() + "',1)";
+                h.getSubjectIDs() + "',\"" + h.getHomework().trim() + "\",'" + h.getHomeworkDate() + "',1)";
         ContentValues cv = new ContentValues();
         cv.put("Query", sql);
         sqliteDatabase.insert("uploadsql", null, cv);
@@ -91,7 +91,7 @@ public class HomeworkDao {
             homeworkId++;
             String sql2 = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate,IsNew) " +
                     "values(" + homeworkId + "," + h.getSchoolId() + "," + h.getClassId() + "," + secIdList.get(i) + "," + teacherIdList.get(i) + ",'" +
-                    h.getSubjectIDs() + "',\"" + h.getHomework() + "\",'" + h.getHomeworkDate() + "',1)";
+                    h.getSubjectIDs() + "',\"" + h.getHomework().trim() + "\",'" + h.getHomeworkDate() + "',1)";
             sqliteDatabase.execSQL(sql2);
             cv.put("Query", sql2);
             sqliteDatabase.insert("uploadsql", null, cv);
