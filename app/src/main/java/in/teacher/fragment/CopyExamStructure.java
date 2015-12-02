@@ -355,7 +355,7 @@ public class CopyExamStructure extends Fragment {
 
     private void showSectionDialog() {
         new AlertDialog.Builder(getActivity())
-                .setTitle("Select Subject Group")
+                .setTitle("Select Sections")
                 .setCancelable(false)
                 .setMultiChoiceItems(othSecNameList.toArray(new CharSequence[othSecIdList.size()]),
                         secGroupSelections, new SecSelectionClickHandler())

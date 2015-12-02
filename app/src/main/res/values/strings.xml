@@ -255,5 +255,16 @@
     <string name="cy_to_rubrix">Copy rubrix structure to :</string>
     <string name="l_vision">Left Vision</string>
     <string name="r_vision">Right Vision</string>
+    <string name="move_student">Move Student</string>
+    <string name="accept_student">Accept Student</string>
+    <string name="switch_text">Want to switch the class you handle ?</string>
+    <string name="confirm_move">Confirm Move</string>
+    <string name="pending_move">Pending student moves :</string>
+    <string name="from_sec">From Section</string>
+    <string name="to_sec">To Section</string>
+    <string name="notification">Notification</string>
+    <string name="req_move">Request for student move&#8230; to know more </string>
+    <string name="click_here">Click Here</string>
+    <string name="respond">Respond</string>
 
 </resources>

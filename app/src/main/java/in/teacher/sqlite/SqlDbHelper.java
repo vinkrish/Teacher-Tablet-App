@@ -78,6 +78,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL(CREATE_TIMETABLE_TIMING);
         db.execSQL(CREATE_TEACHER_INCHARGE);
         db.execSQL(CREATE_TERM_REMARK);
+        db.execSQL(CREATE_MOVE_STUDENT);
     }
 
     @Override
@@ -125,6 +126,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL("DROP TABLE IF EXISTS timetabletimings");
         db.execSQL("DROP TABLE IF EXISTS classteacher_incharge");
         db.execSQL("DROP TABLE IF EXISTS term_remark");
+        db.execSQL("DROP TABLE IF EXISTS movestudent");
         onCreate(db);
     }
 

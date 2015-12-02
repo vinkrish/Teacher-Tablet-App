@@ -5,6 +5,7 @@ import in.teacher.adapter.Capitalize;
 import in.teacher.dao.StAvgDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
+import in.teacher.sectionincharge.AcceptStudent;
 import in.teacher.sqlite.CircleObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
@@ -33,6 +34,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -46,7 +48,7 @@ import android.widget.TextView;
 public class Dashbord extends Fragment {
     private Activity activity;
     private Context context;
-    private int teacherId;
+    private int teacherId, sectionId;
     private ArrayList<Integer> sectionIdList = new ArrayList<>();
     private ArrayList<Integer> classIdList = new ArrayList<>();
     private ArrayList<String> classNameList = new ArrayList<>();
@@ -61,7 +63,9 @@ public class Dashbord extends Fragment {
     private GridView gridView;
     private TextView name;
     private SwitchCompat classIncharge;
-    private boolean isClassIncharge;
+    private boolean isClassIncharge, isMoveNotification;
+    private LinearLayout moveNotification;
+    private Button moveAction;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +75,8 @@ public class Dashbord extends Fragment {
         gridView = (GridView) view.findViewById(R.id.gridView);
         name = (TextView) view.findViewById(R.id.teacherName);
         classIncharge = (SwitchCompat) view.findViewById(R.id.classIncharge);
+        moveNotification = (LinearLayout) view.findViewById(R.id.move_notification);
+        moveAction = (Button) view.findViewById(R.id.move_action);
 
         init();
 
@@ -87,6 +93,7 @@ public class Dashbord extends Fragment {
         CommonDialogUtils.hideKeyboard(getActivity());
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
+        sectionId = t.getSectionId();
         teacherId = t.getTeacherId();
 
         cA = new CircleAdapter(context, R.layout.dashboard_grid, circleArrayGrid);
@@ -98,6 +105,13 @@ public class Dashbord extends Fragment {
                 if (isChecked) {
                     ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
                 }
+            }
+        });
+
+        moveAction.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new AcceptStudent(), getFragmentManager());
             }
         });
     }
@@ -256,6 +270,12 @@ public class Dashbord extends Fragment {
             }
             c.close();
 
+            Cursor c3 = sqliteDatabase.rawQuery("select Status from movestudent where SecIdTo = " + sectionId + " and Status = 0", null);
+            if (c3.getCount() > 0) {
+                isMoveNotification = true;
+            }
+            c.close();
+
             return null;
         }
 
@@ -265,8 +285,10 @@ public class Dashbord extends Fragment {
             if (!isClassIncharge) classIncharge.setVisibility(View.GONE);
 
             teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-            name.setText("[ "+teacherName + " ] Classes");
+            name.setText("[ " + teacherName + " ] Classes");
             cA.notifyDataSetChanged();
+
+            if (isMoveNotification) moveNotification.setVisibility(View.VISIBLE);
         }
     }
 

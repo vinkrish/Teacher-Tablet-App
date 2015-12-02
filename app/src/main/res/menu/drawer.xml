@@ -57,5 +57,11 @@
             android:icon="@drawable/user"
             android:title="@string/student_profile" />
 
+        <item
+            android:id="@+id/move_student_item"
+            android:checked="false"
+            android:icon="@drawable/user"
+            android:title="@string/move_student" />
+
     </group>
 </menu>

@@ -289,4 +289,7 @@ public interface SqlConstant {
             "DELETE FROM term_remark WHERE term_remark.StudentId=NEW.StudentId AND term_remark.Term=NEW.Term; " +
             "END";
 
+    public static String CREATE_MOVE_STUDENT = "CREATE TABLE movestudent(SchoolId INTEGER, Query TEXT, StudentId INTEGER, StudentName TEXT, ClassName TEXT, " +
+            "SecIdFrom INTEGER, SecIdTo INTEGER, SectionFrom TEXT, SectionTo TEXT, Status INTEGER, PRIMARY KEY(StudentId, SecIdFrom, SecIdTo))";
+
 }

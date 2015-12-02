@@ -394,6 +394,7 @@
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="absent">Absent</string>
+    <string name="accept_student">Accept Student</string>
     <string name="action">Action</string>
     <string name="action_logout">Logout</string>
     <string name="action_queue">Queue</string>
@@ -439,9 +440,11 @@
     <string name="clas">Class</string>
     <string name="class_incharge">Class InCharge :</string>
     <string name="clear">Clear</string>
+    <string name="click_here">Click Here</string>
     <string name="closeDrawer">Navigation View</string>
     <string name="colon">:</string>
     <string name="confirm_cy">Confirm Copy</string>
+    <string name="confirm_move">Confirm Move</string>
     <string name="copy_ex_struc">Copy Exam Structure</string>
     <string name="copy_hw">Copy homework to:</string>
     <string name="coscholastic">CoScholastic</string>
@@ -491,6 +494,7 @@
     <string name="five">5</string>
     <string name="fltv">Select  the  below  options</string>
     <string name="four">4</string>
+    <string name="from_sec">From Section</string>
     <string name="gen_log">Generate Log File</string>
     <string name="gender">Gender</string>
     <string name="grade">Grade</string>
@@ -533,6 +537,7 @@
     <string name="mobile2">Alternate Mob</string>
     <string name="month">Month</string>
     <string name="mother">Mother\'s Name</string>
+    <string name="move_student">Move Student</string>
     <string name="name">Name</string>
     <string name="next">Next</string>
     <string name="nine">9</string>
@@ -541,12 +546,14 @@
     <string name="noatt">Attendance is not taken for this day.</string>
     <string name="nohomework">Homework is not assigned for this day.</string>
     <string name="noofdays">Days Present</string>
+    <string name="notification">Notification</string>
     <string name="ok">OK</string>
     <string name="one">1</string>
     <string name="openDrawer">Navigation View Closed</string>
     <string name="otherday">Otherday</string>
     <string name="password">Password</string>
     <string name="pc">Please check if the absentees are listed below</string>
+    <string name="pending_move">Pending student moves :</string>
     <string name="percentage">Percentage</string>
     <string name="pincode">PinCode</string>
     <string name="portion">Portions</string>
@@ -561,8 +568,10 @@
     <string name="queue">Sql queries in queue - uploaded in next sync</string>
     <string name="r_vision">Right Vision</string>
     <string name="remark">Remark</string>
+    <string name="req_move">Request for student move… to know more </string>
     <string name="reset">Reset</string>
     <string name="resolving">Resolving Errors</string>
+    <string name="respond">Respond</string>
     <string name="roll_no">Roll No</string>
     <string name="save">Save</string>
     <string name="save_changes">Save Changes</string>
@@ -605,6 +614,7 @@
     <string name="submit">Submit</string>
     <string name="sum">Sum</string>
     <string name="switch_class">Switch Class</string>
+    <string name="switch_text">Want to switch the class you handle ?</string>
     <string name="syncing">Tab is in sync, please wait.</string>
     <string name="syncme">sync the data</string>
     <string name="table">Table</string>
@@ -626,6 +636,7 @@
     <string name="title_activity_server_block">ServerBlock</string>
     <string name="title_activity_syncing">Syncing</string>
     <string name="title_activity_update_apk">UpdateApk</string>
+    <string name="to_sec">To Section</string>
     <string name="today">Today</string>
     <string name="total">No of Evaluations</string>
     <string name="total_days">Total Days :</string>

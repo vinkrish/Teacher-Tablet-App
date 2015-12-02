@@ -12,6 +12,7 @@ import in.teacher.dao.StudentAttendanceDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.attendancefragment.AbsentList;
+import in.teacher.sectionincharge.MoveStudent;
 import in.teacher.fragment.TeacherInCharge;
 import in.teacher.sectionincharge.CoScholastic;
 import in.teacher.fragment.Dashbord;
@@ -30,7 +31,6 @@ import in.teacher.sectionincharge.SubjectTeacherMapping;
 import in.teacher.sectionincharge.TextSms;
 import in.teacher.fragment.ViewQueue;
 import in.teacher.sliptestfragment.ViewScore;
-import in.teacher.model.NavDrawerItem;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AnimationUtils;
@@ -41,7 +41,6 @@ import in.teacher.util.NetworkUtils;
 import in.teacher.util.ReplaceFragment;
 import in.teacher.util.SharedPreferenceUtil;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -50,14 +49,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -65,10 +60,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 /**
@@ -170,6 +163,12 @@ public class Dashboard extends BaseActivity {
                     case R.id.student_profile_item:
                         if (isClassTeacher())
                             ReplaceFragment.replace(new StudentProfile(), getFragmentManager());
+                        else showNotAClassTeacher();
+                        return true;
+
+                    case R.id.move_student_item:
+                        if (isClassTeacher())
+                            ReplaceFragment.replace(new MoveStudent(), getFragmentManager());
                         else showNotAClassTeacher();
                         return true;
 

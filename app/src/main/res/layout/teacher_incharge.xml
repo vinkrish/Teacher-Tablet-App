@@ -196,7 +196,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white" />
 
-
     </LinearLayout>
 
 </LinearLayout>

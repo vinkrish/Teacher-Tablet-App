@@ -142,6 +142,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                             try {
                                 sqliteDatabase.execSQL(line);
                             } catch (SQLException e) {
+                                e.printStackTrace();
                                 SharedPreferences sp = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editr = sp.edit();
                                 editr.putInt("tablet_lock", 1);
