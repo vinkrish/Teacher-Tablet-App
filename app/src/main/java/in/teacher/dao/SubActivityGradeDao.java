@@ -66,7 +66,7 @@ public class SubActivityGradeDao {
 
     public static void insertUpdateSubActGrade(List<SubActivityGrade> amList, SQLiteDatabase sqliteDatabase){
         for(SubActivityGrade am: amList){
-            Cursor c = sqliteDatabase.rawQuery("select * from subactivitygrade where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId(), null);
+            Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitygrade where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId(), null);
             c.moveToFirst();
             if(c.getCount()>0){
                 String sql = "update subactivitygrade set Grade='"+am.getGrade()+"' where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId()+" and ExamId="+am.getExamId()

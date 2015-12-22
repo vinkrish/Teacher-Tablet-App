@@ -85,6 +85,7 @@ public class UpdateCCEStudentProfile extends Fragment {
 
         studentsRoll = StudentsDao.selectStudentIds("" + sectionId, sqliteDatabase);
 
+        StringBuilder newStudentsSB = new StringBuilder();
         Cursor c = sqliteDatabase.rawQuery("select TotalDays1, Height, Weight, DaysAttended1, StudentId, StudentName, VisionL, VisionR " +
                 "from ccestudentprofile where Term=" + term + " and StudentId in " +
                 "(select StudentId from students where SectionId=" + sectionId + " order by RollNoInClass)", null);
@@ -93,6 +94,7 @@ public class UpdateCCEStudentProfile extends Fragment {
         while (!c.isAfterLast()) {
             totalDay = c.getInt(c.getColumnIndex("TotalDays1"));
             int cid = c.getInt(c.getColumnIndex("StudentId"));
+            newStudentsSB.append(cid + ",");
 
             CCEStudentProfile cceItem = new CCEStudentProfile();
             cceItem.setSchoolId(schoolId + "");
@@ -109,20 +111,53 @@ public class UpdateCCEStudentProfile extends Fragment {
             cceItem.setVisionR(c.getString(c.getColumnIndex("VisionR")));
             profileList.add(cceItem);
 
-            c.moveToNext();
             loop += 1;
+            c.moveToNext();
         }
         c.close();
+
+        Cursor cursor = sqliteDatabase.rawQuery("select StudentId, Name, RollNoInClass from students " +
+                "where SectionId = " + sectionId + " and StudentId not in (" + newStudentsSB.substring(0, newStudentsSB.length() - 1) + ")", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int cid = cursor.getInt(cursor.getColumnIndex("StudentId"));
+
+            CCEStudentProfile cceItem = new CCEStudentProfile();
+            cceItem.setSchoolId(schoolId + "");
+            cceItem.setClassId(classId + "");
+            cceItem.setSectionId(sectionId + "");
+            cceItem.setTerm(term);
+            cceItem.setStudentId(cid + "");
+            cceItem.setRollNo(studentsRoll.get(loop));
+            //cceItem.setRollNo(cursor.getInt(cursor.getColumnIndex("RollNoInClass")));
+            cceItem.setStudentName(cursor.getString(cursor.getColumnIndex("Name")));
+            cceItem.setHeight("");
+            cceItem.setWeight("");
+            cceItem.setDaysAttended1(0);
+            cceItem.setVisionL("");
+            cceItem.setVisionR("");
+            cceItem.setCceExist(false);
+            profileList.add(cceItem);
+
+            loop += 1;
+            cursor.moveToNext();
+        }
+        cursor.close();
 
         for (CCEStudentProfile p: profileList) {
             String remark = "";
             Cursor c2 = sqliteDatabase.rawQuery("select Remark from term_remark where StudentId = " + p.getStudentId() + " and Term = " + term, null);
-            c2.moveToFirst();
-            while (!c2.isAfterLast()) {
-                remark = c2.getString(c2.getColumnIndex("Remark"));
-                c2.moveToNext();
+            if (c2.getCount() > 0) {
+                p.setRemarkExist(true);
+                c2.moveToFirst();
+                while (!c2.isAfterLast()) {
+                    remark = c2.getString(c2.getColumnIndex("Remark"));
+                    c2.moveToNext();
+                }
+                c2.close();
+            } else {
+                p.setRemarkExist(false);
             }
-            c2.close();
             p.setTermRemark(remark);
         }
 

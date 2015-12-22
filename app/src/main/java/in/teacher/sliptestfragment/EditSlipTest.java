@@ -101,6 +101,7 @@ public class EditSlipTest extends Fragment {
         portion.setText(slipTest.getPortionName());
         stdate.setText(slipTest.getTestDate());
         maxmark.setText(slipTest.getMaximumMark() + "");
+        otherdate = stdate.getText().toString();
 
         maxMark = SlipTestMarkDao.getSTMaxMark(slipTestId, schoolId, sqliteDatabase);
         List<Portion> pList = PortionDao.selectPortion(classId, subjectId, sqliteDatabase);
@@ -160,7 +161,7 @@ public class EditSlipTest extends Fragment {
             public void onClick(View v) {
                 if (portion.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Please select portion");
-                } else if (stdate.getText().toString().equals("")) {
+                } else if (otherdate == null || otherdate.equals("") || otherdate.equals("null")) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Please select slip test date");
                 } else if (maxmark.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Please enter maximum mark");
@@ -176,7 +177,7 @@ public class EditSlipTest extends Fragment {
             public void onClick(View v) {
                 if (portion.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Please select portion");
-                } else if (stdate.getText().toString().equals("")) {
+                } else if (otherdate == null || otherdate.equals("") || otherdate.equals("null")) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Please select slip test date");
                 } else if (manualPortion.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(act, "Please Enter Title");

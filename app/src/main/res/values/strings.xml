@@ -280,5 +280,6 @@
     <string name="admin">Admin</string>
     <string name="enter_msg">Enter Message</string>
     <string name="sel_stud">Select Students</string>
+    <string name="enter_st_mark">Enter SlipTest Mark</string>
 
 </resources>

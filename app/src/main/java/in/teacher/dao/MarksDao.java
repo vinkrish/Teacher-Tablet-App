@@ -124,7 +124,7 @@ public class MarksDao {
 
 	public static void insertUpdateMarks(List<Marks> mList, SQLiteDatabase sqliteDatabase){
 		for(Marks m: mList){
-			Cursor c = sqliteDatabase.rawQuery("select * from marks where ExamId="+m.getExamId()+" AND SubjectId="+m.getSubjectId()+" AND StudentId="+m.getStudentId(), null);
+			Cursor c = sqliteDatabase.rawQuery("select Mark from marks where ExamId="+m.getExamId()+" AND SubjectId="+m.getSubjectId()+" AND StudentId="+m.getStudentId(), null);
 			if(c.getCount()>0){
 				String sql = "update marks set Mark='"+m.getMark()+"' where ExamId="+m.getExamId()+" and SubjectId="+m.getSubjectId()+" and StudentId="+m.getStudentId();
 				try{
@@ -164,7 +164,7 @@ public class MarksDao {
 
     public static void insertUpdateGrade(List<Marks> mList, SQLiteDatabase sqliteDatabase){
         for(Marks m: mList){
-            Cursor c = sqliteDatabase.rawQuery("select * from marks where ExamId="+m.getExamId()+" AND SubjectId="+m.getSubjectId()+" AND StudentId="+m.getStudentId(), null);
+            Cursor c = sqliteDatabase.rawQuery("select Mark from marks where ExamId="+m.getExamId()+" AND SubjectId="+m.getSubjectId()+" AND StudentId="+m.getStudentId(), null);
             if(c.getCount()>0){
                 String sql = "update marks set Grade='"+m.getGrade()+"' where ExamId="+m.getExamId()+" and SubjectId="+m.getSubjectId()+" and StudentId="+m.getStudentId();
                 try{

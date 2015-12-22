@@ -15,6 +15,8 @@ public class CCEStudentProfile {
     private String visionR;
     private String termRemark;
     private int term;
+    private boolean cceExist;
+    private boolean remarkExist;
 
     public int getRollNo() {
         return rollNo;
@@ -126,5 +128,21 @@ public class CCEStudentProfile {
 
     public void setTermRemark(String termRemark) {
         this.termRemark = termRemark;
+    }
+
+    public boolean isCceExist() {
+        return cceExist;
+    }
+
+    public void setCceExist(boolean cceExist) {
+        this.cceExist = cceExist;
+    }
+
+    public boolean isRemarkExist() {
+        return remarkExist;
+    }
+
+    public void setRemarkExist(boolean remarkExist) {
+        this.remarkExist = remarkExist;
     }
 }

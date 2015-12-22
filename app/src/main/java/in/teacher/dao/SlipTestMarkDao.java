@@ -108,7 +108,7 @@ public class SlipTestMarkDao {
         for (SlipTestMark stm : stmList) {
             schoolId = stm.getSchoolId();
             slipTestId = stm.getSlipTestId();
-            Cursor c = sqliteDatabase.rawQuery("select * from sliptestmark_" + schoolId + " where StudentId=" + stm.getStudentId() + " and SlipTestId = " + slipTestId, null);
+            Cursor c = sqliteDatabase.rawQuery("select StudentId from sliptestmark_" + schoolId + " where StudentId=" + stm.getStudentId() + " and SlipTestId = " + slipTestId, null);
             if (c.getCount() > 0) {
                 String sql = "update sliptestmark_" + schoolId + " set Mark='" + stm.getMark() + "' where SlipTestId=" + stm.getSlipTestId() + " and StudentId=" + stm.getStudentId();
                 try {

@@ -91,7 +91,7 @@ public class SubActivityMarkDao {
 
 	public static void insertUpdateSubActMark(List<SubActivityMark> amList, SQLiteDatabase sqliteDatabase){
 		for(SubActivityMark am: amList){
-			Cursor c = sqliteDatabase.rawQuery("select * from subactivitymark where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId(), null);	
+			Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitymark where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId(), null);
 			c.moveToFirst();
 			if(c.getCount()>0){
 				String sql = "update subactivitymark set Mark='"+am.getMark()+"' where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId()+" and ExamId="+am.getExamId()

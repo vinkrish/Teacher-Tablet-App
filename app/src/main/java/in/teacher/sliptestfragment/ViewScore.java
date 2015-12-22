@@ -33,7 +33,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by vinkrish.
@@ -128,7 +127,6 @@ public class ViewScore extends Fragment {
                             @Override
                             public void leftSwipe(int position) {
                                 if (SwipeDismissListViewTouchListener.leftSwipeFlag) {
-                                    Toast.makeText(context, "position" + position, Toast.LENGTH_SHORT).show();
                                     slipTestId = stIdList.get(position);
                                     TempDao.updateSlipTestId(slipTestId, sqliteDatabase);
                                     ReplaceFragment.replace(new EditSlipTest(), getFragmentManager());
