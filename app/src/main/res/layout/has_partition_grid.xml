@@ -19,6 +19,5 @@
             android:textColor="#000000"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </FrameLayout>
-    
 
 </LinearLayout>

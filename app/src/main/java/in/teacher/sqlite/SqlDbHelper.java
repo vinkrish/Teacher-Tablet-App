@@ -152,6 +152,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL(CREATE_ACTIVITY_TRIGGER);
         sqliteDatabase.execSQL(CREATE_SUB_ACTIVITY_TRIGGER);
         sqliteDatabase.execSQL(TERM_REMARK_TRIGGER);
+        sqliteDatabase.execSQL(MOVE_STUDENT_TRIGGER);
         sqliteDatabase.execSQL("CREATE TRIGGER insert_stmark BEFORE INSERT ON sliptestmark_" + schoolId +
                 " FOR EACH ROW " +
                 "BEGIN " +
@@ -194,6 +195,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_activity");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_subactivity");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_term_remark");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_move_student");
     }
 
     public void clearTempAttendance(SQLiteDatabase sqliteDatabase) {

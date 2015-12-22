@@ -1,6 +1,7 @@
 package in.teacher.dao;
 
 import in.teacher.sqlite.Homework;
+import in.teacher.util.PKGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class HomeworkDao {
         //	String escape = h.getHomework().replaceAll("['\"]", " ");
         String sql = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate) " +
                 "values(" + h.getHomeworkId() + "," + h.getSchoolId() + "," + h.getClassId() + "," + h.getSectionId() + "," + h.getTeacherId() + ",'" +
-                h.getSubjectIDs() + "',\"" + h.getHomework().trim() + "\",'" + h.getHomeworkDate() + "')";
+                h.getSubjectIDs() + "',\"" + h.getHomework().trim().replaceAll("\n", " ") + "\",'" + h.getHomeworkDate() + "')";
         sqliteDatabase.execSQL(sql);
     }
 
@@ -79,19 +80,22 @@ public class HomeworkDao {
 
     public static void insertHwSql(Homework h, ArrayList<Integer> secIdList, ArrayList<Integer> teacherIdList, SQLiteDatabase sqliteDatabase) {
         //	String escape = h.getHomework().replaceAll("['\"]", " ");
+        if (h.getHomeworkId() == 0) {
+            h.setHomeworkId(PKGenerator.returnPrimaryKey(Integer.parseInt(h.getSchoolId())));
+        }
         String sql = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate,IsNew) " +
                 "values(" + h.getHomeworkId() + "," + h.getSchoolId() + "," + h.getClassId() + "," + h.getSectionId() + "," + h.getTeacherId() + ",'" +
-                h.getSubjectIDs() + "',\"" + h.getHomework().trim() + "\",'" + h.getHomeworkDate() + "',1)";
+                h.getSubjectIDs() + "',\"" + h.getHomework().trim().replaceAll("\n", " ") + "\",'" + h.getHomeworkDate() + "',1)";
         ContentValues cv = new ContentValues();
         cv.put("Query", sql);
         sqliteDatabase.insert("uploadsql", null, cv);
 
-        long homeworkId = h.getHomeworkId();
+        long homeworkId = PKGenerator.returnPrimaryKey(Integer.parseInt(h.getSchoolId()));
         for (int i = 0; i < secIdList.size(); i++) {
             homeworkId++;
             String sql2 = "insert into homeworkmessage(HomeworkId,SchoolId,ClassId,SectionId,TeacherId,SubjectIDs,Homework,HomeworkDate,IsNew) " +
                     "values(" + homeworkId + "," + h.getSchoolId() + "," + h.getClassId() + "," + secIdList.get(i) + "," + teacherIdList.get(i) + ",'" +
-                    h.getSubjectIDs() + "',\"" + h.getHomework().trim() + "\",'" + h.getHomeworkDate() + "',1)";
+                    h.getSubjectIDs() + "',\"" + h.getHomework().trim().replaceAll("\n", " ") + "\",'" + h.getHomeworkDate() + "',1)";
             sqliteDatabase.execSQL(sql2);
             cv.put("Query", sql2);
             sqliteDatabase.insert("uploadsql", null, cv);

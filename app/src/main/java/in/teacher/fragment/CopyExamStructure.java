@@ -2,12 +2,14 @@ package in.teacher.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,17 +20,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.Subject;
-
 import in.teacher.activity.R;
 import in.teacher.dao.TempDao;
+import in.teacher.examfragment.StructuredExam;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.Exams;
 import in.teacher.sqlite.SubActivity;
@@ -37,6 +37,7 @@ import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 16/11/15.
@@ -262,31 +263,81 @@ public class CopyExamStructure extends Fragment {
         @Override
         public void onClick(View v) {
             if (selExamIdList.size() > 0) {
-                try {
-                    copyExam();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
+                new TaskCopyExam().execute();
             } else {
                 CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please select exam to copy");
             }
         }
     };
 
+    class TaskCopyExam extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog = new ProgressDialog(getActivity());
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Submitting ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                copyExam();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            pDialog.dismiss();
+            Toast.makeText(getActivity(), "Exam copied", Toast.LENGTH_SHORT).show();
+            ReplaceFragment.replace(new CopyExamStructure(), getFragmentManager());
+        }
+    }
+
     private View.OnClickListener confirmRbxListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (selSecIdList.size() > 0 && examId != 0) {
-                try {
-                    copyRubrix();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
+                new TaskCopyRubrix().execute();
             } else {
                 CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please select exam and section to copy");
             }
         }
     };
+
+    class TaskCopyRubrix extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog = new ProgressDialog(getActivity());
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Submitting ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                copyRubrix();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            pDialog.dismiss();
+            Toast.makeText(getActivity(), "Rubrix copied", Toast.LENGTH_SHORT).show();
+            ReplaceFragment.replace(new CopyExamStructure(), getFragmentManager());
+        }
+    }
 
     private void resetOtherExam() {
         othExamIdList.clear();
@@ -423,7 +474,7 @@ public class CopyExamStructure extends Fragment {
             se.setSchoolId(c2.getInt(c2.getColumnIndex("SchoolId")));
             se.setClassId(c2.getInt(c2.getColumnIndex("ClassId")));
             se.setSubjectId(c2.getInt(c2.getColumnIndex("SubjectId")));
-            se.setMaximumMark(c2.getInt(c2.getColumnIndex("MaxumumMark")));
+            se.setMaximumMark(c2.getInt(c2.getColumnIndex("MaximumMark")));
             se.setFailMark(c2.getInt(c2.getColumnIndex("FailMark")));
             seList.add(se);
             c2.moveToNext();
@@ -455,6 +506,8 @@ public class CopyExamStructure extends Fragment {
             }
 
 
+            List<Activiti> actList = new ArrayList<>();
+            List<SubActivity> subActList = new ArrayList<>();
             for (SubjectExams se : seList) {
                 String sql = "insert into subjectexams(SchoolId, ClassId, ExamId, SubjectId, MaximumMark, FailMark) " +
                         "values(" + schoolId + ", " + classId + ", " + eId + ", " + se.getSubjectId() + ", " + se.getMaximumMark() + ", " + se.getFailMark() + ")";
@@ -466,11 +519,66 @@ public class CopyExamStructure extends Fragment {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+
+                for (Integer secI : sectionIdList) {
+                    actList.clear();
+                    Cursor c3 = sqliteDatabase.rawQuery("select * from activity where SectionId = " + secI + " and " +
+                            "ExamId = " + examId + " and SubjectId = " + se.getSubjectId(), null);
+                    c3.moveToFirst();
+                    while (!c3.isAfterLast()) {
+                        Activiti act = new Activiti();
+                        act.setActivityId(c3.getInt(c3.getColumnIndex("ActivityId")));
+                        act.setSchoolId(c3.getInt(c3.getColumnIndex("SchoolId")));
+                        act.setClassId(c3.getInt(c3.getColumnIndex("ClassId")));
+                        act.setSectionId(c3.getInt(c3.getColumnIndex("SectionId")));
+                        act.setExamId(eId);
+                        act.setSubjectId(c3.getInt(c3.getColumnIndex("SubjectId")));
+                        act.setRubrixId(c3.getInt(c3.getColumnIndex("RubrixId")));
+                        act.setActivityName(c3.getString(c3.getColumnIndex("ActivityName")));
+                        act.setMaximumMark(c3.getInt(c3.getColumnIndex("MaximumMark")));
+                        act.setWeightage(c3.getInt(c3.getColumnIndex("Weightage")));
+                        act.setSubActivity(c3.getInt(c3.getColumnIndex("SubActivity")));
+                        act.setCalculation(c3.getInt(c3.getColumnIndex("Calculation")));
+                        actList.add(act);
+                        c3.moveToNext();
+                    }
+                    c3.close();
+
+                    for (Activiti act : actList) {
+                        int newActivityId = PKGenerator.getMD5(schoolId, secI, act.getActivityName());
+                        createNewActivity(newActivityId, act, secI);
+
+                        subActList.clear();
+                        Cursor c4 = sqliteDatabase.rawQuery("select * from subactivity where ActivityId = " + act.getActivityId(), null);
+                        c4.moveToFirst();
+                        while (!c4.isAfterLast()) {
+                            SubActivity subAct = new SubActivity();
+                            subAct.setSubActivityId(c4.getInt(c4.getColumnIndex("SubActivityId")));
+                            subAct.setSchoolId(c4.getInt(c4.getColumnIndex("SchoolId")));
+                            subAct.setClassId(c4.getInt(c4.getColumnIndex("ClassId")));
+                            subAct.setSectionId(c4.getInt(c4.getColumnIndex("SectionId")));
+                            subAct.setExamId(eId);
+                            subAct.setSubjectId(c4.getInt(c4.getColumnIndex("SubjectId")));
+                            subAct.setActivityId(c4.getInt(c4.getColumnIndex("ActivityId")));
+                            subAct.setSubActivityName(c4.getString(c4.getColumnIndex("SubActivityName")));
+                            subAct.setMaximumMark(c4.getInt(c4.getColumnIndex("MaximumMark")));
+                            subAct.setWeightage(c4.getInt(c4.getColumnIndex("Weightage")));
+                            subAct.setCalculation(c4.getInt(c4.getColumnIndex("Calculation")));
+                            subActList.add(subAct);
+                            c4.moveToNext();
+                        }
+                        c4.close();
+
+                        for (SubActivity subAct : subActList) {
+                            int newSubActivityId = PKGenerator.getMD5(schoolId, secI, subAct.getSubActivityName());
+                            createNewSubActivity(newSubActivityId, subAct, secI, newActivityId);
+                        }
+                    }
+                }
+
             }
 
-
         }
-
 
     }
 

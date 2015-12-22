@@ -17,11 +17,12 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -36,11 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="20dp"
+            android:paddingStart="10dp"
             android:text="@string/se"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -58,10 +59,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dividerup"
-        android:layout_gravity="left|center_vertical"
+        android:layout_gravity="start|center_vertical"
         android:background="@color/layoutbelowBC"
         android:paddingBottom="15dp"
-        android:paddingLeft="20dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="20dp"
         android:paddingTop="15dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_black"
@@ -83,6 +85,6 @@
         android:gravity="center"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
-        android:verticalSpacing="10dp"></GridView>
+        android:verticalSpacing="10dp" />
 
 </RelativeLayout><!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/layout/se.xml -->

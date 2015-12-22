@@ -96,8 +96,10 @@ public class FirstTimeDownload implements StringConstant {
                 fileName = "first_time_sync/zipped_folder/" + zipFile;
             } catch (JSONException e) {
                 e.printStackTrace();
+                exitSync();
             } catch (NullPointerException e) {
                 e.printStackTrace();
+                exitSync();
             }
 
             if (block == 1) {
@@ -159,16 +161,21 @@ public class FirstTimeDownload implements StringConstant {
         }
 
         public void download() {
-            mStatus = Status.IN_PROGRESS;
-            File file = new File(
-                    Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_DOWNLOADS),
-                    getFileName());
+            try {
+                mStatus = Status.IN_PROGRESS;
+                File file = new File(
+                        Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_DOWNLOADS),
+                        getFileName());
 
-            mDownload = getTransferManager().download(
-                    Constants.BUCKET_NAME.toLowerCase(Locale.US), mKey, file);
-            if (mListener != null) {
-                mDownload.addProgressListener(mListener);
+                mDownload = getTransferManager().download(
+                        Constants.BUCKET_NAME.toLowerCase(Locale.US), mKey, file);
+                if (mListener != null) {
+                    mDownload.addProgressListener(mListener);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                exitSync();
             }
         }
 
@@ -187,6 +194,9 @@ public class FirstTimeDownload implements StringConstant {
 
     private void exitSync(){
         pDialog.dismiss();
+        Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 
     private void continueSync(){

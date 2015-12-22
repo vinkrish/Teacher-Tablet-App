@@ -5,6 +5,7 @@
     android:layout_height="150dp"
     android:layout_margin="3dp"
     android:background="@drawable/dashboard_grid_selector"
+    android:baselineAligned="false"
     android:orientation="horizontal">
 
     <FrameLayout
@@ -12,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="0.45"></FrameLayout>
+        android:layout_weight="0.45" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -26,23 +27,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
-            android:textSize="@dimen/text_medium"
-            android:textColor="@color/light_black" />
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/text_medium" />
 
         <TextView
             android:id="@+id/section_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
-            android:textSize="@dimen/text_medium"
-            android:textColor="@color/light_black" />
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/text_medium" />
 
         <TextView
             android:id="@+id/subject_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_medium"
-            android:textColor="@color/light_black" />
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
 </LinearLayout>

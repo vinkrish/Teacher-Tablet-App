@@ -98,10 +98,11 @@
 
             <EditText
                 android:id="@+id/student_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/name_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/name_colon"
                 android:inputType="textNoSuggestions"
                 android:paddingLeft="30dp"
@@ -186,10 +187,11 @@
 
             <EditText
                 android:id="@+id/roll_no"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/roll_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/roll_colon"
                 android:inputType="number"
                 android:lines="1"
@@ -215,10 +217,11 @@
 
             <EditText
                 android:id="@+id/admission_no"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/admission_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/admission_colon"
                 android:inputType="textNoSuggestions"
                 android:lines="1"
@@ -244,10 +247,11 @@
 
             <EditText
                 android:id="@+id/father_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/father_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/father_colon"
                 android:inputType="textNoSuggestions"
                 android:lines="1"
@@ -273,10 +277,11 @@
 
             <EditText
                 android:id="@+id/mother_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/mother_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/mother_colon"
                 android:inputType="textNoSuggestions"
                 android:lines="1"
@@ -333,7 +338,7 @@
 
             <EditText
                 android:id="@+id/gender"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/gender_tv"
                 android:layout_marginLeft="10dp"
@@ -362,10 +367,11 @@
 
             <EditText
                 android:id="@+id/mobile1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/mobile1_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/mobile1_colon"
                 android:inputType="number"
                 android:lines="1"
@@ -391,10 +397,11 @@
 
             <EditText
                 android:id="@+id/mobile2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/mobile2_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/mobile2_colon"
                 android:inputType="number"
                 android:lines="1"
@@ -450,10 +457,11 @@
 
             <EditText
                 android:id="@+id/pincode"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/pincode_tv"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/pincode_colon"
                 android:inputType="number"
                 android:lines="1"

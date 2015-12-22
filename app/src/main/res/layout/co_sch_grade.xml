@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -11,19 +11,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="@color/layout_black"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dashboardButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="0.1"
-            android:onClick="toDashbord"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/dashboard"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
+            android:onClick="toDashbord"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -39,10 +40,11 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/attendance"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/coscholastic"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -58,10 +60,11 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/attendance"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
     </LinearLayout>
@@ -76,35 +79,35 @@
         android:layout_height="wrap_content"
         android:background="@color/layoutbelowBC"
         android:orientation="horizontal"
-        android:padding="10dp" >
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/classSec"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:gravity="left|center"
+            android:gravity="start|center"
             android:text="@string/coscholastic2"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/dark_black"
             android:textStyle="bold" />
-        
-        <Button 
+
+        <Button
             android:id="@+id/insertA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.35"
-            android:gravity="center"
             android:background="@color/universal"
+            android:gravity="center"
             android:text="@string/insertA"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/submit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_weight="0.2"
-            android:layout_marginLeft="10dp"
             android:background="@color/universal"
             android:gravity="center"
             android:text="@string/submit"
@@ -120,15 +123,16 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/layoutbelowBC"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.1"
-            android:gravity="left|center"
-            android:paddingLeft="10dp"
+            android:gravity="start|center"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/idxcolumn"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black" />
@@ -143,8 +147,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
-            android:gravity="left|center"
-            android:paddingLeft="10dp"
+            android:gravity="start|center"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/studentname"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black" />
@@ -159,8 +164,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.7"
-            android:gravity="left|center"
-            android:paddingLeft="10dp"
+            android:gravity="start|center"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/remark"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black" />
@@ -175,8 +181,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.2"
-            android:gravity="left|center"
-            android:paddingLeft="10dp"
+            android:gravity="start|center"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/grade"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black" />
@@ -190,7 +197,6 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

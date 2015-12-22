@@ -75,12 +75,6 @@ public class StudentProfileEdit extends Fragment {
         address = (EditText) view.findViewById(R.id.address);
         pincode = (EditText) view.findViewById(R.id.pincode);
 
-        ((TextView) view.findViewById(R.id.roll_tv)).setText(Html.fromHtml("Roll No <sup><small> * </small></sup>"));
-        ((TextView) view.findViewById(R.id.father_tv)).setText(Html.fromHtml("Father's Name <sup><small> * </small></sup>"));
-        ((TextView) view.findViewById(R.id.dob_tv)).setText(Html.fromHtml("Date Of Birth <sup><small> * </small></sup>"));
-        ((TextView) view.findViewById(R.id.gender_tv)).setText(Html.fromHtml("Gender <sup><small> * </small></sup>"));
-        ((TextView) view.findViewById(R.id.mobile1_tv)).setText(Html.fromHtml("Mobile <sup><small> * </small></sup>"));
-
         studentProfile = (Button) view.findViewById(R.id.student_profile);
         saveBtn = (Button) view.findViewById(R.id.save_butt);
         deleteBtn = (Button) view.findViewById(R.id.delete_butt);
@@ -95,7 +89,9 @@ public class StudentProfileEdit extends Fragment {
         sectionId = t.getSectionId();
 
         className.setText(ClasDao.getClassName(classId, sqliteDatabase));
+        className.setKeyListener(null);
         sectionName.setText(SectionDao.getSectionName(sectionId, sqliteDatabase));
+        sectionName.setKeyListener(null);
 
         Cursor c = sqliteDatabase.rawQuery("select * from students where StudentId = " + studentId, null);
         c.moveToFirst();

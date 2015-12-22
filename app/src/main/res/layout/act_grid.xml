@@ -23,8 +23,9 @@
         android:id="@+id/tickCross"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_gravity="right"
-        android:paddingRight="10dp"
+        android:layout_gravity="end"
+        android:paddingStart="0dp"
+        android:paddingEnd="10dp"
         android:layout_marginTop="-10dp"
         android:contentDescription="@string/cc" />
     

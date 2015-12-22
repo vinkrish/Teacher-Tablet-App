@@ -19,11 +19,12 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
+            android:drawableStart="@drawable/dashboard"
             android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -39,10 +40,11 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/attendance"
+            android:drawableStart="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:text="@string/profile"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -58,10 +60,11 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
+            android:drawableStart="@drawable/attendance"
             android:drawablePadding="10dp"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
     </LinearLayout>
@@ -83,7 +86,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:gravity="left|center"
+            android:gravity="start|center"
             android:text="@string/cce_student_profile"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/dark_black"
@@ -103,13 +106,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:gravity="center"
-            android:numeric="integer" />
+            android:inputType="number" />
 
         <Button
             android:id="@+id/submit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="0.3"
             android:background="@color/universal"
             android:gravity="center"
@@ -135,7 +138,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.1"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:text="@string/slno"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/light_black"
@@ -152,7 +156,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.45"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:text="@string/studentname"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/light_black"
@@ -236,7 +241,7 @@
         <RelativeLayout
             android:id="@+id/table"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></RelativeLayout>
+            android:layout_height="wrap_content"/>
 
     </ScrollView>
 

@@ -97,7 +97,9 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/save"
-            android:textColor="@color/white" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

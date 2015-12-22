@@ -46,7 +46,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
     private SQLiteDatabase sqliteDatabase;
     private Context context;
     private int schoolId, block, manualSync;
-    private String zipFile, deviceId, fileName;
+    private String zipFile, deviceId;
     private TransferManager mTransferManager;
     private SharedPreferences sharedPref;
 
@@ -148,6 +148,8 @@ public class SyncIntentService extends IntentService implements StringConstant {
                         ackUploadedFile(fileNam);
                     } else if (event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE) {
                         exitSync();
+                    } else if (event.getEventCode() == ProgressEvent.CANCELED_EVENT_CODE) {
+                        exitSync();
                     }
                 }
             };
@@ -174,6 +176,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
                 mUpload.addProgressListener(mListener);
             } catch (Exception e) {
                 e.printStackTrace();
+                exitSync();
             }
         }
 
@@ -206,16 +209,19 @@ public class SyncIntentService extends IntentService implements StringConstant {
                 file.delete();
                 sqliteDatabase.execSQL("update uploadedfile set processed=1 where filename='" + f + "'");
             }
+            decideUploadDownload();
         } catch (JSONException e) {
+            exitSync();
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            exitSync();
         }
-
-        decideUploadDownload();
     }
 
     private void downloadFile() {
         Log.d("downloadFile", "uh");
-        fileName = "download/" + schoolId + "/zipped_folder/" + zipFile;
+        String fileName = "download/" + schoolId + "/zipped_folder/" + zipFile;
         DownloadModel model = new DownloadModel(context, fileName, mTransferManager);
         model.download();
     }
@@ -272,7 +278,9 @@ public class SyncIntentService extends IntentService implements StringConstant {
                         mStatus = Status.COMPLETED;
                         unzipAndAck();
                     } else if (event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE) {
-                        finishSync();
+                        exitSync();
+                    } else if (event.getEventCode() == ProgressEvent.CANCELED_EVENT_CODE) {
+                        exitSync();
                     }
                 }
             };
@@ -304,6 +312,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                exitSync();
             }
         }
 

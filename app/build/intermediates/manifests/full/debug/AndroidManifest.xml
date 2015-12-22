@@ -44,43 +44,36 @@
             android:name="in.teacher.activity.MasterAuthentication"
             android:label="@string/title_activity_master_authentication"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="in.teacher.activity.LockActivity"
             android:label="@string/title_activity_lock"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="in.teacher.activity.Restart"
             android:label="@string/title_activity_restart"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="in.teacher.activity.ServerBlock"
             android:label="@string/title_activity_server_block"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="in.teacher.activity.ProcessFiles"
             android:label="@string/title_activity_process_files"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="in.teacher.activity.Dashboard"
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MyActivityTheme"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="in.teacher.activity.BaseActivity"
-            android:theme="@style/Theme.MyActivityTheme" >
-        </activity>
+            android:theme="@style/Theme.MyActivityTheme" />
 
         <receiver android:name="in.teacher.adapter.BootSync" >
             <intent-filter>
@@ -90,41 +83,43 @@
 
         <service
             android:name="in.teacher.adapter.SyncService"
-            android:enabled="true" >
-        </service>
+            android:enabled="true" />
 
-        <receiver android:name="in.teacher.adapter.SyncServiceReceiver" >
-        </receiver>
+        <receiver android:name="in.teacher.adapter.SyncServiceReceiver" />
         <receiver
             android:name="in.teacher.adapter.TestInternetReceiver"
             android:enabled="true"
-            android:exported="true" >
-        </receiver>
+            android:exported="true" />
 
         <activity
             android:name="in.teacher.activity.InternetBlock"
             android:label="@string/title_activity_internet_block"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="in.teacher.activity.UpdateApk"
             android:label="@string/title_activity_update_apk"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
         <service
             android:name="in.teacher.sync.SyncIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
         <service
             android:name="in.teacher.sync.WakeLockIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
+
+        <receiver
+            android:name="in.teacher.util.UpdateReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

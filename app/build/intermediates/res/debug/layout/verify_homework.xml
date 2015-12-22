@@ -18,11 +18,12 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -38,11 +39,12 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
             android:onClick="callAttendance"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/attendance"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -58,10 +60,11 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/homework"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
+            android:drawableStart="@drawable/homework"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/homework"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -86,8 +89,8 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/button_today"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/button_today"
             android:padding="10dp"
             android:text="@string/today"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -97,7 +100,7 @@
             android:id="@+id/divider1"
             android:layout_width="1dip"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/today"
+            android:layout_toEndOf="@id/today"
             android:background="#d1d3d4" />
 
         <Button
@@ -105,9 +108,9 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/divider1"
-            android:drawableLeft="@drawable/button_yesterday"
+            android:layout_toEndOf="@id/divider1"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/button_yesterday"
             android:padding="10dp"
             android:text="@string/yesterday"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -117,7 +120,7 @@
             android:id="@+id/divider2"
             android:layout_width="1dip"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/yesterday"
+            android:layout_toEndOf="@id/yesterday"
             android:background="#d1d3d4" />
 
         <Button
@@ -125,9 +128,9 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/divider2"
-            android:drawableLeft="@drawable/button_otherday"
+            android:layout_toEndOf="@id/divider2"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/button_otherday"
             android:padding="10dp"
             android:text="@string/otherday"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -147,7 +150,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dividerbottom"
         android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_black" />
@@ -163,14 +167,15 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/copy_hw" />
 
         <EditText
             android:id="@+id/secSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:hint="@string/select_sec"
             android:inputType="textMultiLine" />
     </LinearLayout>

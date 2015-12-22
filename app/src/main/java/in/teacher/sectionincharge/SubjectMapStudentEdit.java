@@ -1,6 +1,5 @@
 package in.teacher.sectionincharge;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -11,26 +10,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +36,7 @@ import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectGroupDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
+import in.teacher.fragment.Dashbord;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
@@ -52,8 +48,6 @@ import in.teacher.util.ReplaceFragment;
  */
 public class SubjectMapStudentEdit extends Fragment {
     private SQLiteDatabase sqliteDatabase;
-    private Activity activity;
-    private Context context;
     private int classId, sectionId, studentId;
     private ListView listView;
     private ScrollView scrollView;
@@ -82,8 +76,6 @@ public class SubjectMapStudentEdit extends Fragment {
 
     public void init() {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
-        activity = AppGlobal.getActivity();
-        context = AppGlobal.getContext();
         CommonDialogUtils.hideKeyboard(getActivity());
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -96,7 +88,7 @@ public class SubjectMapStudentEdit extends Fragment {
             studIdList.add(s.getStudentId());
         }
 
-        studentAdapter = new StudentAdapter(context, studentList);
+        studentAdapter = new StudentAdapter(getActivity(), studentList);
         listView.setAdapter(studentAdapter);
         //listView.setSelector(android.R.color.holo_blue_light);
         listView.setOnItemClickListener(listViewItemClicked);
@@ -109,7 +101,7 @@ public class SubjectMapStudentEdit extends Fragment {
         }
         subjectGroupNameList = SubjectGroupDao.getSubjectGroupNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
-        table = new TableLayout(activity);
+        table = new TableLayout(getActivity());
         //generateTable();
         scrollView.addView(table);
 
@@ -119,7 +111,7 @@ public class SubjectMapStudentEdit extends Fragment {
                 if (selectedSubjectId.size() == subjectGroupIdList.size()) {
                     if (studentId != 0) new CalledSubmit().execute();
                 } else
-                    CommonDialogUtils.displayAlertWhiteDialog(activity, "Please select at least one subject in each subject group");
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please select at least one subject in each subject group");
             }
         });
     }
@@ -161,13 +153,13 @@ public class SubjectMapStudentEdit extends Fragment {
 
     TableRow tableRow(int groupId, String groupName) {
 
-        TableRow taleRowForTableD = new TableRow(this.context);
+        TableRow taleRowForTableD = new TableRow(getActivity());
         TableRow.LayoutParams params = new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
-        LinearLayout ll = new LinearLayout(activity);
+        LinearLayout ll = new LinearLayout(getActivity());
         ll.setOrientation(LinearLayout.VERTICAL);
 
-        TextView tv = new TextView(activity);
+        TextView tv = new TextView(getActivity());
         tv.setText(groupName);
         tv.setPadding(20, 5, 0, 5);
         tv.setTextSize(18);
@@ -185,7 +177,7 @@ public class SubjectMapStudentEdit extends Fragment {
         subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
         final RadioButton[] rb = new RadioButton[subjectIdList.size()];
-        RadioGroup rg = new RadioGroup(activity);
+        RadioGroup rg = new RadioGroup(getActivity());
         rg.setGravity(Gravity.CENTER_VERTICAL);
         //rg.setBackgroundColor(Color.WHITE);
         rg.setPadding(20, 5, 0, 5);
@@ -193,7 +185,7 @@ public class SubjectMapStudentEdit extends Fragment {
         // rg.setBackgroundResource(R.drawable.radio_border);
         rg.setOrientation(RadioGroup.VERTICAL);
         for (int j = 0; j < subjectNameList.size(); j++) {
-            rb[j] = new RadioButton(activity);
+            rb[j] = new RadioButton(getActivity());
             rb[j].setId(View.generateViewId());
             rb[j].setGravity(Gravity.CENTER_VERTICAL);
             rb[j].setPadding(5, 10, 0, 10);
@@ -225,7 +217,7 @@ public class SubjectMapStudentEdit extends Fragment {
         }
         ll.addView(rg);
 
-        View border = new View(activity);
+        View border = new View(getActivity());
         ScrollView.LayoutParams param = new ScrollView.LayoutParams(1000, 1);
         //ScrollView.LayoutParams param = new ScrollView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
         border.setBackgroundColor(Color.LTGRAY);
@@ -303,7 +295,7 @@ public class SubjectMapStudentEdit extends Fragment {
     }
 
     class CalledSubmit extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pDialog = new ProgressDialog(activity);
+        ProgressDialog pDialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -333,6 +325,8 @@ public class SubjectMapStudentEdit extends Fragment {
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
+            Toast.makeText(getActivity(), "Students are mapped to respective subjects.", Toast.LENGTH_LONG).show();
+            ReplaceFragment.replace(new Dashbord(), getFragmentManager());
         }
     }
 

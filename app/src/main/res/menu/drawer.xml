@@ -24,43 +24,43 @@
         <item
             android:id="@+id/co_scholastic_item"
             android:checked="false"
-            android:icon="@drawable/homework"
+            android:icon="@drawable/evaluate"
             android:title="@string/coscholastic" />
 
         <item
             android:id="@+id/cce_student_profile_item"
             android:checked="false"
-            android:icon="@drawable/homework"
+            android:icon="@drawable/evaluate"
             android:title="@string/cce_student_profile" />
 
         <item
             android:id="@+id/sms_item"
             android:checked="false"
-            android:icon="@drawable/homework"
+            android:icon="@drawable/sms"
             android:title="@string/sms" />
 
         <item
             android:id="@+id/map_student_subject_item"
             android:checked="false"
-            android:icon="@drawable/homework"
+            android:icon="@drawable/map"
             android:title="@string/map_student_subject" />
 
         <item
             android:id="@+id/map_subject_teacher_item"
             android:checked="false"
-            android:icon="@drawable/homework"
+            android:icon="@drawable/map"
             android:title="@string/map_subject_teacher" />
 
         <item
             android:id="@+id/student_profile_item"
             android:checked="false"
-            android:icon="@drawable/user"
+            android:icon="@drawable/profile"
             android:title="@string/student_profile" />
 
         <item
             android:id="@+id/move_student_item"
             android:checked="false"
-            android:icon="@drawable/user"
+            android:icon="@drawable/move"
             android:title="@string/move_student" />
 
     </group>

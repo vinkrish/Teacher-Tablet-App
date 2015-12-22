@@ -1,6 +1,5 @@
 package in.teacher.sectionincharge;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -10,7 +9,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +30,17 @@ import in.teacher.dao.SubjectGroupDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TeacherDao;
 import in.teacher.dao.TempDao;
-import in.teacher.sqlite.SubjectTeacher;
+import in.teacher.fragment.Dashbord;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 15/10/15.
  */
 public class SubjectTeacherMapping extends Fragment {
     private SQLiteDatabase sqliteDatabase;
-    private Activity activity;
-    private Context context;
     private int classId, sectionId, schoolId;
     private ListView listView;
     private List<Integer> subjectGroupIdList = new ArrayList<>();
@@ -64,8 +61,6 @@ public class SubjectTeacherMapping extends Fragment {
         save = (Button) view.findViewById(R.id.save);
 
         sqliteDatabase = AppGlobal.getSqliteDatabase();
-        activity = AppGlobal.getActivity();
-        context = AppGlobal.getContext();
 
         new CalledInit().execute();
 
@@ -151,7 +146,7 @@ public class SubjectTeacherMapping extends Fragment {
     }
 
     class CalledInit extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pDialog = new ProgressDialog(activity);
+        ProgressDialog pDialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -170,13 +165,13 @@ public class SubjectTeacherMapping extends Fragment {
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
-            stAdapter = new SubjectTeacherAdapter(context, subjectTeacherList);
+            stAdapter = new SubjectTeacherAdapter(getActivity(), subjectTeacherList);
             listView.setAdapter(stAdapter);
         }
     }
 
     class CalledSubmit extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pDialog = new ProgressDialog(activity);
+        ProgressDialog pDialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -195,6 +190,8 @@ public class SubjectTeacherMapping extends Fragment {
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
+            Toast.makeText(getActivity(), "Teachers have been mapped to respective subjects.", Toast.LENGTH_LONG).show();
+            ReplaceFragment.replace(new Dashbord(), getFragmentManager());
         }
     }
 

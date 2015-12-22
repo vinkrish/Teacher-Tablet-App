@@ -17,11 +17,12 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -36,11 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="30dp"
+            android:paddingStart="10dp"
             android:text="@string/action_queue"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -59,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dividerup"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:text="@string/queue"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -81,8 +82,9 @@
             android:layout_height="45dp"
             android:layout_gravity="center_vertical"
             android:background="@color/layoutbelowBC"
-            android:gravity="left|center"
-            android:paddingLeft="10dp"
+            android:gravity="start|center"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/query"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#79787D" />
@@ -90,7 +92,7 @@
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </RelativeLayout>

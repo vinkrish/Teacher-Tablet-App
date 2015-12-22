@@ -56,6 +56,7 @@ public class InsertCoSchGrade extends Fragment {
     private ArrayList<Integer> valueList = new ArrayList<>();
     private ArrayList<String> inGradList = new ArrayList<>();
     private HashMap<String, Integer> map = new HashMap<>();
+    private Button submit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +67,7 @@ public class InsertCoSchGrade extends Fragment {
         TopicId = b.getInt("TopicId");
         AspectId = b.getInt("AspectId");
 
-        Button submit = (Button) view.findViewById(R.id.submit);
+        submit = (Button) view.findViewById(R.id.submit);
         Button insertA = (Button) view.findViewById(R.id.insertA);
 
         act = AppGlobal.getActivity();
@@ -105,6 +106,7 @@ public class InsertCoSchGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submit.setEnabled(false);
                 new SubmitTask().execute();
             }
         });

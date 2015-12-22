@@ -24,8 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="0.4"
-        android:gravity="left"
-        android:paddingLeft="15dp"
+        android:gravity="start"
+        android:paddingEnd="0dp"
+        android:paddingStart="15dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
 
@@ -40,8 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="0.8"
-        android:gravity="left"
-        android:paddingLeft="15dp"
+        android:gravity="start"
+        android:paddingEnd="0dp"
+        android:paddingStart="15dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
 

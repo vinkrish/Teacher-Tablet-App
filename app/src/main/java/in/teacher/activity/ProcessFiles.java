@@ -57,8 +57,8 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
     private ProgressBar progressBar;
     private TextView txtPercentage, txtSync;
     private SQLiteDatabase sqliteDatabase;
-    private int schoolId, manualSync;
-    private String deviceId, savedVersion;
+    private int manualSync;
+    private String savedVersion;
     private boolean isException = false, isFirstTimeSync = false;
 
     @Override
@@ -102,17 +102,17 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
         @Override
         protected String doInBackground(String... params) {
             Temp t = TempDao.selectTemp(sqliteDatabase);
-            schoolId = t.getSchoolId();
-            deviceId = t.getDeviceId();
+            int schoolId = t.getSchoolId();
+            String deviceId = t.getDeviceId();
 
             isFirstTimeSync = false;
 
             publishProgress(40 + "", 40 + "", "creating file to be uploaded");
             createUploadFile();
-            publishProgress(80 + "", 80 + "", "creating file to be uploaded");
+            publishProgress(70 + "", 70 + "", "creating file to be uploaded");
 
             ArrayList<String> downFileList2 = new ArrayList<>();
-            Cursor c3 = sqliteDatabase.rawQuery("select filename from downloadedfile where processed=0", null);
+            Cursor c3 = sqliteDatabase.rawQuery("select filename from downloadedfile where processed = 0 and downloaded = 1", null);
             c3.moveToFirst();
             while (!c3.isAfterLast()) {
                 downFileList2.add(c3.getString(c3.getColumnIndex("filename")));
@@ -371,7 +371,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             subjectIdList.clear();
             sectionIdList.clear();
 
-            publishProgress("80", 80 + "", "calculating average");
+            publishProgress("90", 90 + "", "calculating average");
 
             UploadSqlDao.deleteTable("avgtrack", sqliteDatabase);
 

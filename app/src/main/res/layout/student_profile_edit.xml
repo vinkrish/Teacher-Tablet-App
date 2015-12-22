@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -62,411 +62,247 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#333333" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/teal_border"
+        android:layout_below="@id/linearLayout"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingBottom="10dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/student_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:text="adsf"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/class_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/student_name"
-                android:layout_marginBottom="20dp"
-                android:text="@string/clas"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/class_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/class_tv"
-                android:layout_toRightOf="@id/class_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/class_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/class_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/class_colon"
-                android:editable="false"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/section_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/class_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/sec"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/section_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/section_tv"
-                android:layout_toRightOf="@id/section_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/section_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/section_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/section_colon"
-                android:editable="false"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/roll_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/section_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/roll_no"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/roll_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/roll_tv"
-                android:layout_toRightOf="@id/roll_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/roll_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/roll_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/roll_colon"
-                android:inputType="number"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/admission_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/roll_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/admission_no"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/admission_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/admission_tv"
-                android:layout_toRightOf="@id/admission_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/admission_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/admission_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/admission_colon"
-                android:inputType="textNoSuggestions"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/father_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/admission_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/father"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/father_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/father_tv"
-                android:layout_toRightOf="@id/father_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/father_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/father_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/father_colon"
-                android:inputType="textNoSuggestions"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/mother_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/father_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/mother"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/mother_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/mother_tv"
-                android:layout_toRightOf="@id/mother_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/mother_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/mother_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/mother_colon"
-                android:inputType="textNoSuggestions"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/dob_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mother_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/dob"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/dob_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/dob_tv"
-                android:layout_toRightOf="@id/dob_tv"
-                android:text="@string/colon" />
-
-            <TextView
-                android:id="@+id/dob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/dob_tv"
-                android:clickable="true"
-                android:background="@drawable/teal_border"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/dob_colon"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/gender_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dob_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/gender"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/gender_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/gender_tv"
-                android:layout_toRightOf="@id/gender_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/gender_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/gender_colon"
-                android:inputType="textNoSuggestions"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/mobile1_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/gender_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/mobile1"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/mobile1_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/mobile1_tv"
-                android:layout_toRightOf="@id/mobile1_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/mobile1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/mobile1_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/mobile1_colon"
-                android:inputType="number"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/mobile2_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mobile1_tv"
-                android:layout_marginBottom="25dp"
-                android:text="@string/mobile2"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/mobile2_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/mobile2_tv"
-                android:layout_toRightOf="@id/mobile2_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/mobile2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/mobile2_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/mobile2_colon"
-                android:inputType="number"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <TextView
-                android:id="@+id/address_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mobile2_tv"
-                android:layout_marginBottom="25dp"
-                android:text="@string/address"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/address_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/address_tv"
-                android:layout_toRightOf="@id/address_tv"
-                android:text="@string/colon" />
-
-            <EditText
-                android:id="@+id/address"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/address_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/address_colon"
-                android:inputType="textNoSuggestions"
-                android:lines="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                android:layout_marginBottom="5dp">
 
-            <TextView
-                android:id="@+id/pincode_tv"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/address_tv"
-                android:layout_marginBottom="20dp"
-                android:text="@string/pincode"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <EditText
+                    android:id="@+id/class_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/clas"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/pincode_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/pincode_tv"
-                android:layout_toRightOf="@id/pincode_tv"
-                android:text="@string/colon" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/pincode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/pincode_tv"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/pincode_colon"
-                android:inputType="number"
-                android:lines="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
-
-            <Button
-                android:id="@+id/save_butt"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/pincode_tv"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/button_submit"
-                android:text="@string/save_changes"
-                android:textColor="#FFF" />
+                android:layout_marginBottom="5dp">
 
-            <Button
-                android:id="@+id/delete_butt"
+                <EditText
+                    android:id="@+id/section_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sec"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/save_butt"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/roll_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/roll_no"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/admission_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/admission_no"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/father_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/father"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/mother_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mother"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/button_delete"
-                android:text="@string/delete_stud"
-                android:textColor="#FFF" />
+                android:clickable="true">
 
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:hint="@string/dob"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/gender"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/mobile1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile1"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/mobile2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile2"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:id="@+id/pincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pincode"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save_butt"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/button_submit"
+            android:text="@string/save_changes"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:background="#FFFFFF" />
+
+        <Button
+            android:id="@+id/delete_butt"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/button_delete"
+            android:text="@string/delete_stud"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</RelativeLayout>

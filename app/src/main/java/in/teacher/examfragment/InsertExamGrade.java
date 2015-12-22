@@ -190,8 +190,10 @@ public class InsertExamGrade extends Fragment {
             if (submitStatus) {
                 Toast.makeText(context, "grade entered has been saved", Toast.LENGTH_LONG).show();
                 ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
-            } else
+            } else {
+                submit.setEnabled(true);
                 CommonDialogUtils.displayAlertWhiteDialog(activity, "Please enter grades to save !");
+            }
         }
     }
 
@@ -222,6 +224,7 @@ public class InsertExamGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submit.setEnabled(false);
                 new CalledSubmit().execute();
             }
         });

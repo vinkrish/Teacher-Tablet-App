@@ -273,7 +273,7 @@ public class UpdateSubActivityGrade extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             pDialog.dismiss();
-            ReplaceFragment.replace(new Dashbord(), getFragmentManager());
+            ReplaceFragment.replace(new SubActivityExam(), getFragmentManager());
         }
 
     }

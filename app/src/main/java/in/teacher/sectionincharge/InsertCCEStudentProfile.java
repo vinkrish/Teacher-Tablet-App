@@ -56,6 +56,7 @@ public class InsertCCEStudentProfile extends Fragment {
     private int width1, width2, width3, width4, width5, width6;
     private RelativeLayout tableLayout;
     private TableLayout table;
+    private Button submit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +75,7 @@ public class InsertCCEStudentProfile extends Fragment {
         insert.setText("Insert");
 
         totalDays = (EditText) view.findViewById(R.id.today_days);
-        Button submit = (Button) view.findViewById(R.id.submit);
+        submit = (Button) view.findViewById(R.id.submit);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         sectionId = t.getSectionId();
@@ -102,9 +103,11 @@ public class InsertCCEStudentProfile extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submit.setEnabled(false);
                 if (!totalDays.getText().toString().equals("")) {
                     new SubmitTask().execute();
                 } else {
+                    submit.setEnabled(true);
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please enter total number of days");
                 }
             }
@@ -169,6 +172,7 @@ public class InsertCCEStudentProfile extends Fragment {
             if (validate) {
                 ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
             }else {
+                submit.setEnabled(true);
                 CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Days attended for one or more students is more than Total Days!");
             }
 

@@ -175,6 +175,7 @@ public class InsertSubActivityGrade extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                submit.setEnabled(false);
                 new CalledSubmit().execute();
             }
         });
@@ -248,8 +249,10 @@ public class InsertSubActivityGrade extends Fragment {
             if (submitStatus) {
                 Toast.makeText(context, "grade entered has been saved", Toast.LENGTH_LONG).show();
                 ReplaceFragment.replace(new SubActivityExam(), getFragmentManager());
-            } else
+            } else {
+                submit.setEnabled(true);
                 CommonDialogUtils.displayAlertWhiteDialog(activity, "Please enter grades to save !");
+            }
         }
 
     }
@@ -303,7 +306,7 @@ public class InsertSubActivityGrade extends Fragment {
             } else {
                 studentsArrayList.add(new Students(s.getRollNoInClass(), Capitalize.capitalThis(s.getName()), s.getScore(), empty));
             }
-            studentScore.add(s.getScore());
+            studentScore.add("");
             idx++;
         }
         marksAdapter.notifyDataSetChanged();

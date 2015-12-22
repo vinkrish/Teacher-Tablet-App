@@ -347,7 +347,13 @@ public class InsertHomework extends Fragment {
                 noOfHw += 1;
                 childList1.add(Integer.parseInt(subjectId));
             }
-            rawHomework = hw.getHomework();
+            rawHomework = hw.getHomework() + " ";
+
+            while (rawHomework.contains("##")) {
+                String s = rawHomework.replaceAll("##","# # ");
+                rawHomework = s;
+            }
+
             String splitBy2 = "#";
             String[] message = rawHomework.split(splitBy2);
             hwMessage.addAll(Arrays.asList(message));

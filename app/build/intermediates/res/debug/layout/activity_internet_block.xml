@@ -2,64 +2,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/homework_background"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin"
-    android:background="@color/homework_background"
     tools:context="in.teacher.activity.InternetBlock">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
         android:text="@string/internet_block_1"
         android:textSize="@dimen/text_large"
-        android:textStyle="italic|bold"
-        android:fontFamily="sans-serif"
-        android:gravity="center" />
+        android:textStyle="italic|bold" />
 
     <Button
         android:id="@+id/steps_but"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:paddingRight="5dp"
         android:background="@color/universal"
-        android:text="@string/internet_block_2"
+        android:drawableEnd="@drawable/navigation_expand"
         android:gravity="center"
-        android:textColor="@color/white"
         android:onClick="stepsClicked"
-        android:drawableRight="@drawable/navigation_expand"/>
+        android:text="@string/internet_block_2"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/ignore_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_margin="15dp">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.1"
                 android:fontFamily="sans-serif"
-                android:text="1."/>
+                android:gravity="center"
+                android:text="@string/one_"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
             <TextView
-                android:layout_weight="0.9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.9"
                 android:fontFamily="sans-serif"
-                android:text="@string/internet_steps_1"/>
+                android:text="@string/internet_steps_1"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
         </LinearLayout>
 
@@ -68,23 +67,23 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.1"
                 android:fontFamily="sans-serif"
-                android:text="2."/>
+                android:gravity="center"
+                android:text="@string/two_"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
             <TextView
-                android:layout_weight="0.9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.9"
                 android:fontFamily="sans-serif"
-                android:text="@string/internet_steps_2"/>
+                android:text="@string/internet_steps_2"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
         </LinearLayout>
 
@@ -93,23 +92,23 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.1"
                 android:fontFamily="sans-serif"
-                android:text="3."/>
+                android:gravity="center"
+                android:text="@string/three_"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
             <TextView
-                android:layout_weight="0.9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.9"
                 android:fontFamily="sans-serif"
-                android:text="@string/internet_steps_3"/>
+                android:text="@string/internet_steps_3"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
         </LinearLayout>
 
@@ -117,34 +116,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:gravity="center"
-            android:textColor="@color/universal"
-            android:textSize="@dimen/text_large"
             android:fontFamily="sans-serif"
-            android:text="@string/internet_steps_4"/>
+            android:gravity="center"
+            android:text="@string/internet_steps_4"
+            android:textColor="@color/universal"
+            android:textSize="@dimen/text_large" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.1"
                 android:fontFamily="sans-serif"
-                android:text="a)"/>
+                android:gravity="center"
+                android:text="@string/a"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
             <TextView
-                android:layout_weight="0.9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.9"
                 android:fontFamily="sans-serif"
-                android:text="@string/internet_steps_5"/>
+                android:text="@string/internet_steps_5"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
         </LinearLayout>
 
@@ -153,23 +152,23 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.1"
                 android:fontFamily="sans-serif"
-                android:text="b)"/>
+                android:gravity="center"
+                android:text="@string/b"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
             <TextView
-                android:layout_weight="0.9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.9"
                 android:fontFamily="sans-serif"
-                android:text="@string/internet_steps_6"/>
+                android:text="@string/internet_steps_6"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
         </LinearLayout>
 
@@ -178,23 +177,23 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="0.1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.1"
                 android:fontFamily="sans-serif"
-                android:text="c)"/>
+                android:gravity="center"
+                android:text="@string/c"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
             <TextView
-                android:layout_weight="0.9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_black"
-                android:textSize="@dimen/text_large"
+                android:layout_weight="0.9"
                 android:fontFamily="sans-serif"
-                android:text="@string/internet_steps_7"/>
+                android:text="@string/internet_steps_7"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/text_large" />
 
         </LinearLayout>
 
@@ -207,8 +206,8 @@
         android:layout_marginTop="15dp"
         android:background="@color/universal"
         android:onClick="ignoreClicked"
-        android:textColor="@color/white"
-        android:text="Ignore for now"/>
+        android:text="@string/ignore"
+        android:textColor="@color/white" />
 
 </LinearLayout>
 <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/layout/activity_internet_block.xml -->

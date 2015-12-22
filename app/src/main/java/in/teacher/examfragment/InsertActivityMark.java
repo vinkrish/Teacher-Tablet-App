@@ -208,6 +208,7 @@ public class InsertActivityMark extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                submit.setEnabled(false);
                 if (studentScore.get(index) != null
                         && !studentScore.get(index).equals("")
                         && !studentScore.get(index).equals(".")
@@ -216,6 +217,7 @@ public class InsertActivityMark extends Fragment {
                     studentScore.set(index, s);
                     Toast.makeText(context, "Marks Entered is Greater than Max Mark", Toast.LENGTH_SHORT).show();
                     repopulateListArray();
+                    submit.setEnabled(true);
                 } else new CalledSubmit().execute();
             }
         });
@@ -312,8 +314,10 @@ public class InsertActivityMark extends Fragment {
             if (submitStatus) {
                 Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
                 ReplaceFragment.replace(new ActivityExam(), getFragmentManager());
-            } else
+            } else {
+                submit.setEnabled(true);
                 CommonDialogUtils.displayAlertWhiteDialog(activity, "Please enter marks to save !");
+            }
         }
 
     }
@@ -450,7 +454,7 @@ public class InsertActivityMark extends Fragment {
             } else {
                 studentsArrayList.add(new Students(s.getRollNoInClass(), Capitalize.capitalThis(s.getName()), s.getScore(), empty));
             }
-            studentScore.add(s.getScore());
+            studentScore.add("");
             idx++;
         }
         marksAdapter.notifyDataSetChanged();

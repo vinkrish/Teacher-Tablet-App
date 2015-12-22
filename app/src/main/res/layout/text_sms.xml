@@ -17,11 +17,12 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -35,12 +36,12 @@
             android:id="@+id/attendanceButton"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:paddingRight="30dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="30dp"
+            android:paddingStart="10dp"
             android:text="@string/sms"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -61,17 +62,17 @@
 
     <EditText
         android:id="@+id/textSms"
-        android:layout_below="@id/dividerup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/dividerup"
         android:layout_margin="15dp"
-        android:hint="Enter message"
+        android:hint="@string/enter_msg"
         android:inputType="textMultiLine" />
 
     <LinearLayout
-        android:layout_below="@id/textSms"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/textSms"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -85,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:gravity="left"
+                android:gravity="start"
                 android:text="@string/send_sms"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="italic" />
@@ -178,7 +179,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="70dp"
                     android:gravity="center"
-                    android:hint="select students"
+                    android:hint="@string/sel_stud"
                     android:inputType="textMultiLine" />
 
             </LinearLayout>

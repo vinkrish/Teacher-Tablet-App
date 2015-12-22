@@ -72,6 +72,7 @@ public class EnterSlipTestMark extends Fragment {
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
     private SlipTestt st;
+    private Button submit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +93,7 @@ public class EnterSlipTestMark extends Fragment {
 
         Button previous = (Button) view.findViewById(R.id.previous);
         Button next = (Button) view.findViewById(R.id.next);
-        Button submit = (Button) view.findViewById(R.id.submit);
+        submit = (Button) view.findViewById(R.id.submit);
         Button clear = (Button) view.findViewById(R.id.clear);
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
@@ -177,6 +178,7 @@ public class EnterSlipTestMark extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                submit.setEnabled(false);
                 if (studentScore.get(index) != null
                         && !studentScore.get(index).equals("")
                         && !studentScore.get(index).equals(".")
@@ -185,6 +187,7 @@ public class EnterSlipTestMark extends Fragment {
                     studentScore.set(index, s);
                     Toast.makeText(context, "Marks Entered is Greater than Max Mark", Toast.LENGTH_SHORT).show();
                     repopulateListArray();
+                    submit.setEnabled(true);
                 } else {
                     Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
                     new CalledSubmit().execute();

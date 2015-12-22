@@ -1,6 +1,5 @@
 package in.teacher.sectionincharge;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -27,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,6 @@ import in.teacher.util.ReplaceFragment;
  */
 public class SubjectMapStudentCreate extends Fragment {
     private SQLiteDatabase sqliteDatabase;
-    private Activity activity;
     private int classId, sectionId;
     private List<Integer> subjectGroupIdList = new ArrayList<>();
     private List<String> subjectGroupNameList = new ArrayList<>();
@@ -71,7 +70,6 @@ public class SubjectMapStudentCreate extends Fragment {
         mapSubjectBtn = (Button)view.findViewById(R.id.map_subject);
 
         sqliteDatabase = AppGlobal.getSqliteDatabase();
-        activity = AppGlobal.getActivity();
         init();
 
         RelativeLayout table = (RelativeLayout) view.findViewById(R.id.table);
@@ -165,7 +163,7 @@ public class SubjectMapStudentCreate extends Fragment {
     }
 
     class CalledSubmit extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pDialog = new ProgressDialog(activity);
+        ProgressDialog pDialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -197,8 +195,10 @@ public class SubjectMapStudentCreate extends Fragment {
             super.onPostExecute(v);
             pDialog.dismiss();
             if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId)) {
+                Toast.makeText(getActivity(), "All students are mapped to respective subjects.", Toast.LENGTH_LONG).show();
                 ReplaceFragment.replace(new Dashbord(), getFragmentManager());
             } else {
+                Toast.makeText(getActivity(), "Selected students are mapped to respective subjects.", Toast.LENGTH_LONG).show();
                 ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
             }
         }

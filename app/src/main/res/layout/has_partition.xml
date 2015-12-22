@@ -18,11 +18,12 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -38,10 +39,11 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/se"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -57,10 +59,11 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/user"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
+            android:drawableStart="@drawable/user"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
     </LinearLayout>
@@ -77,10 +80,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dividerup"
-        android:layout_gravity="left|center_vertical"
+        android:layout_gravity="start|center_vertical"
         android:background="@color/layoutbelowBC"
         android:paddingBottom="15dp"
-        android:paddingLeft="20dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="20dp"
         android:paddingTop="15dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_black"
@@ -101,6 +105,6 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
         android:gravity="center"
-        android:numColumns="2"></GridView>
+        android:numColumns="2" />
 
 </RelativeLayout>

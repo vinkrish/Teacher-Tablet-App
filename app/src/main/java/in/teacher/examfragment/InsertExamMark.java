@@ -137,6 +137,7 @@ public class InsertExamMark extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submit.setEnabled(false);
                 if (studentScore.get(index) != null
                         && !studentScore.get(index).equals("")
                         && !studentScore.get(index).equals(".")
@@ -145,6 +146,7 @@ public class InsertExamMark extends Fragment {
                     studentScore.set(index, s);
                     Toast.makeText(context, "Marks Entered is Greater than Max Mark", Toast.LENGTH_SHORT).show();
                     repopulateListArray();
+                    submit.setEnabled(true);
                 } else new CalledSubmit().execute();
             }
         });
@@ -214,8 +216,10 @@ public class InsertExamMark extends Fragment {
             if (submitStatus) {
                 Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
                 ReplaceFragment.replace(new StructuredExam(), getFragmentManager());
-            } else
+            } else {
+                submit.setEnabled(true);
                 CommonDialogUtils.displayAlertWhiteDialog(activity, "Please enter marks to save !");
+            }
         }
     }
 

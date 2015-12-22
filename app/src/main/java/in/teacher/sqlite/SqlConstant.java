@@ -292,4 +292,10 @@ public interface SqlConstant {
     public static String CREATE_MOVE_STUDENT = "CREATE TABLE movestudent(SchoolId INTEGER, Query TEXT, StudentId INTEGER, StudentName TEXT, ClassName TEXT, " +
             "SecIdFrom INTEGER, SecIdTo INTEGER, SectionFrom TEXT, SectionTo TEXT, Status INTEGER, PRIMARY KEY(StudentId, SecIdFrom, SecIdTo))";
 
+    public static String MOVE_STUDENT_TRIGGER = "CREATE TRIGGER before_move_student BEFORE INSERT ON movestudent " +
+            "WHEN ((SELECT count() FROM movestudent WHERE movestudent.StudentId=NEW.StudentId) > 0) " +
+            "BEGIN " +
+            "DELETE FROM movestudent WHERE movestudent.StudentId=NEW.StudentId; " +
+            "END";
+
 }

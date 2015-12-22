@@ -53,8 +53,8 @@
     <string name="otherday">Otherday</string>
     <string name="yourclasses">Your Classes</string>
     <string name="fltv">Select  the  below  options</string>
-    <string name="es">Enter Score</string>
-    <string name="vs">View Score</string>
+    <string name="es">Create SlipTest</string>
+    <string name="vs">View SlipTest</string>
     <string name="view_students">View Students</string>
     <string name="se">Exam</string>
     <string name="setag">Tap  on  the  exam  to  view  detailed  info</string>
@@ -134,9 +134,9 @@
     <string name="sel_student">Select Students</string>
     <string name="male_students">All Male Students</string>
     <string name="female_students">All Female Students</string>
-    <string name="all_students_mes">Recorded message will be sent to all students.</string>
-    <string name="all_male_stud_mes">Recorded message will be sent to all male students.</string>
-    <string name="all_female_stud_mes">Recorded message will be sent to all female students.</string>
+    <string name="all_students_mes">Text sms will be sent to all students.</string>
+    <string name="all_male_stud_mes">Text sms will be sent to all male students.</string>
+    <string name="all_female_stud_mes">Text sms will be sent to all female students.</string>
 
     <string name="search">Search Student</string>
     <string name="students">Students</string>
@@ -169,7 +169,7 @@
     <string name="remark">Remark</string>
     <string name="insertA">Insert A for all</string>
     <string name="resolving">Resolving Errors</string>
-    <string name="bugs">Touch here to sync</string>
+    <string name="bugs">Touch here to sync and have internet accesible</string>
     <string name="server_resolve">Tab is in Sync</string>
     <string name="profile">Profile</string>
     <string name="height">Height (cm)</string>
@@ -219,12 +219,12 @@
     <string name="colon">:</string>
     <string name="clas">Class</string>
     <string name="sec">Section</string>
-    <string name="roll_no">Roll No</string>
-    <string name="father">Father\'s Name</string>
+    <string name="roll_no">Roll No *</string>
+    <string name="father">Father\'s Name *</string>
     <string name="mother">Mother\'s Name</string>
-    <string name="dob">Date Of Birth</string>
-    <string name="gender">Gender</string>
-    <string name="mobile1">Mobile</string>
+    <string name="dob">Date Of Birth *</string>
+    <string name="gender">Gender *</string>
+    <string name="mobile1">Mobile *</string>
     <string name="mobile2">Alternate Mob</string>
     <string name="address">Address</string>
     <string name="pincode">PinCode</string>
@@ -266,5 +266,19 @@
     <string name="req_move">Request for student move&#8230; to know more </string>
     <string name="click_here">Click Here</string>
     <string name="respond">Respond</string>
+
+    <string name="logout">logout</string>
+    <string name="dummy">.</string>
+
+    <string name="one_">1.</string>
+    <string name="two_">2.</string>
+    <string name="three_">3.</string>
+    <string name="a">a)</string>
+    <string name="b">b)</string>
+    <string name="c">c)</string>
+    <string name="ignore">Ignore for now</string>
+    <string name="admin">Admin</string>
+    <string name="enter_msg">Enter Message</string>
+    <string name="sel_stud">Select Students</string>
 
 </resources>

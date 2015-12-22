@@ -19,7 +19,6 @@
             android:textColor="#000000"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </FrameLayout>
-    
 
 </LinearLayout>
 <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/layout/has_partition_grid.xml -->

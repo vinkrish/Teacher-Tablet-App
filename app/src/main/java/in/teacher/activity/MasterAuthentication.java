@@ -198,7 +198,7 @@ public class MasterAuthentication extends BaseActivity {
             editor.apply();
             new FirstTimeDownload().callFirstTimeSync();
         } else {
-            CommonDialogUtils.displayAlertWhiteDialog(this, "Check Wifi");
+            CommonDialogUtils.displayAlertWhiteDialog(this, "Check Internet Connection");
         }
     }
 

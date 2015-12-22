@@ -18,11 +18,12 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -37,11 +38,11 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/attendance"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
+            android:paddingEnd="30dp"
+            android:paddingStart="10dp"
             android:text="@string/student_profile"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -80,7 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.4"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/admission_no"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black"
@@ -96,7 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/studentname"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black"
@@ -128,7 +131,7 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
