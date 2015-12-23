@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.amazonaws.mobileconnectors.s3.transfermanager.Download;
 import com.amazonaws.mobileconnectors.s3.transfermanager.Transfer;
@@ -81,6 +82,7 @@ public class FirstTimeDownload implements StringConstant {
             try {
                 ack_json.put("tab_id", deviceId);
                 JSONObject jsonReceived = new JSONObject(RequestResponseHandler.reachServer(request_first_time_sync, ack_json));
+                //Log.d("received", jsonReceived+"");
                 block = jsonReceived.getInt(TAG_SUCCESS);
 
                 publishProgress("25");
@@ -144,6 +146,8 @@ public class FirstTimeDownload implements StringConstant {
                         mStatus = Status.COMPLETED;
                         continueSync();
                     } else if (event.getEventCode() == ProgressEvent.FAILED_EVENT_CODE) {
+                        exitSync();
+                    } else if (event.getEventCode() == ProgressEvent.CANCELED_EVENT_CODE) {
                         exitSync();
                     }
                 }

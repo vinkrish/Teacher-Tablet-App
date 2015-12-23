@@ -16,8 +16,9 @@
             android:layout_gravity="center"
             android:layout_weight="0.1"
             android:gravity="center_vertical"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/subject"
-            android:paddingLeft="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black"
             android:textStyle="bold" />

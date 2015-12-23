@@ -9,7 +9,6 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/layout_black"
         android:orientation="horizontal">
 
@@ -19,11 +18,12 @@
             android:layout_height="60dp"
             android:layout_weight="11"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -38,11 +38,11 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="15dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="15dp"
+            android:paddingStart="10dp"
             android:text="@string/map_student_subject"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -65,8 +65,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/students"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black"
@@ -81,8 +82,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/group_subject"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black"
@@ -117,7 +119,7 @@
             android:id="@+id/listView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"></ListView>
+            android:layout_weight="0.5" />
 
         <View
             android:layout_width="1dp"
@@ -128,7 +130,7 @@
             android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"></ScrollView>
+            android:layout_weight="0.7" />
 
     </LinearLayout>
 

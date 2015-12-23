@@ -17,11 +17,12 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -35,11 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="15dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="15dp"
+            android:paddingStart="10dp"
             android:text="@string/map_student_subject"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -66,7 +67,7 @@
             <RelativeLayout
                 android:id="@+id/table"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></RelativeLayout>
+                android:layout_height="wrap_content" />
 
             <View
                 android:id="@+id/dividerDown"

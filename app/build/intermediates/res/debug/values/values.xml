@@ -504,6 +504,7 @@
     <string name="enter_grade">Enter Grade</string>
     <string name="enter_marks">Enter Marks</string>
     <string name="enter_msg">Enter Message</string>
+    <string name="enter_st_mark">Enter SlipTest Mark</string>
     <string name="entersliptest">Enter Sliptest Name</string>
     <string name="enterst">Enter marks for selected slipTest</string>
     <string name="es">Create SlipTest</string>

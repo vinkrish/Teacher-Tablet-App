@@ -17,11 +17,12 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toClassInchargeDash"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/incharge_dash"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -36,11 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="20dp"
+            android:paddingStart="10dp"
             android:text="@string/copy_ex_struc"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -66,14 +67,14 @@
                 android:id="@+id/classSpinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/teal_border" />
 
             <Button
                 android:id="@+id/cpy_exm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/button_activated_light_teal"
                 android:text="@string/cy_exam"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -89,14 +90,14 @@
                 android:id="@+id/examSpinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/teal_border" />
 
             <Button
                 android:id="@+id/cpy_rubrix"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/button_activated_light_teal"
                 android:text="@string/cy_rubrix"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -181,7 +182,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/teal_border"
                 android:paddingBottom="12dp"
-                android:paddingTop="12dp"></Spinner>
+                android:paddingTop="12dp" />
 
             <TextView
                 android:layout_width="match_parent"

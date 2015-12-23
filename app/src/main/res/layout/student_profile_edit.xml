@@ -18,11 +18,12 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -38,8 +39,8 @@
             android:layout_height="60dp"
             android:background="@color/layout_black"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
             android:text="@string/student_profile"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -73,7 +74,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -82,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:text="adsf"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
 

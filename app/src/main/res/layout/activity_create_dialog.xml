@@ -23,7 +23,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/top_border"
         android:padding="10dp"
         android:text="@string/calculation"
         android:textColor="@color/black" />
@@ -38,7 +37,7 @@
             android:id="@+id/sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:checked="true"
             android:text="@string/sum"
             android:textColor="@color/black" />
@@ -47,7 +46,7 @@
             android:id="@+id/average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/avg"
             android:textColor="@color/black" />
 
@@ -55,7 +54,7 @@
             android:id="@+id/best"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/bestof"
             android:textColor="@color/black" />
 
@@ -63,8 +62,8 @@
             android:id="@+id/bestof"
             android:layout_width="80dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/teal_border"></Spinner>
+            android:layout_marginStart="10dp"
+            android:background="@drawable/teal_border" />
     </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
@@ -123,6 +122,7 @@
 
         <Button
             android:id="@+id/cancel"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -134,6 +134,7 @@
 
         <Button
             android:id="@+id/create"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

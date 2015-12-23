@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/layout_black"
         android:orientation="horizontal">
 
@@ -18,11 +17,12 @@
             android:layout_height="60dp"
             android:layout_weight="0.1"
             android:background="@color/layout_black"
-            android:drawableLeft="@drawable/dashboard"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
+            android:drawableStart="@drawable/dashboard"
+            android:gravity="start|center_vertical"
             android:onClick="toClassInchargeDash"
-            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingStart="10dp"
             android:text="@string/incharge_dash"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -37,11 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@color/universal"
-            android:drawableLeft="@drawable/attendance"
             android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
+            android:drawableStart="@drawable/attendance"
+            android:gravity="start|center_vertical"
+            android:paddingEnd="20dp"
+            android:paddingStart="10dp"
             android:text="@string/exam_create"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Enter Exam Name" />
+                android:hint="@string/enter_exm_name" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,7 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:checked="false"
-                android:paddingLeft="10dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="10dp"
                 android:text="@string/grade_system" />
 
             <Button
