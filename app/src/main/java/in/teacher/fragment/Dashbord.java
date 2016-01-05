@@ -1,20 +1,5 @@
 package in.teacher.fragment;
 
-import in.teacher.activity.R;
-import in.teacher.adapter.Capitalize;
-import in.teacher.dao.StAvgDao;
-import in.teacher.dao.TeacherDao;
-import in.teacher.dao.TempDao;
-import in.teacher.sectionincharge.AcceptStudent;
-import in.teacher.sqlite.CircleObject;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.CommonDialogUtils;
-import in.teacher.util.ReplaceFragment;
-import in.teacher.util.SharedPreferenceUtil;
-
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -30,8 +15,8 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,8 +24,24 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import in.teacher.activity.R;
+import in.teacher.adapter.Capitalize;
+import in.teacher.dao.ClasDao;
+import in.teacher.dao.SectionDao;
+import in.teacher.dao.StAvgDao;
+import in.teacher.dao.TeacherDao;
+import in.teacher.dao.TempDao;
+import in.teacher.sectionincharge.AcceptStudent;
+import in.teacher.sqlite.CircleObject;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
+import in.teacher.util.ReplaceFragment;
+import in.teacher.util.SharedPreferenceUtil;
 
 /**
  * Created by vinkrish.
@@ -48,7 +49,7 @@ import android.widget.TextView;
 public class Dashbord extends Fragment {
     private Activity activity;
     private Context context;
-    private int teacherId, sectionId;
+    private int teacherId, sectionId, classId;
     private ArrayList<Integer> sectionIdList = new ArrayList<>();
     private ArrayList<Integer> classIdList = new ArrayList<>();
     private ArrayList<String> classNameList = new ArrayList<>();
@@ -80,6 +81,12 @@ public class Dashbord extends Fragment {
 
         init();
 
+        if (ClasDao.isSwitchClass(teacherId, sqliteDatabase)) {
+            view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
+        } else {
+            view.findViewById(R.id.switchClass).setVisibility(View.GONE);
+        }
+
         new CalledBackLoad().execute();
 
         return view;
@@ -93,6 +100,7 @@ public class Dashbord extends Fragment {
         CommonDialogUtils.hideKeyboard(getActivity());
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
+        classId = t.getClassId();
         sectionId = t.getSectionId();
         teacherId = t.getTeacherId();
 
@@ -114,7 +122,15 @@ public class Dashbord extends Fragment {
                 ReplaceFragment.replace(new AcceptStudent(), getFragmentManager());
             }
         });
+
     }
+
+    private View.OnClickListener switchClass = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CommonDialogUtils.displaySwitchClass(getActivity(), sqliteDatabase, new Dashbord());
+        }
+    };
 
     public void callUpdateTemp(int pos) {
         Temp t = new Temp();
@@ -285,7 +301,12 @@ public class Dashbord extends Fragment {
             if (!isClassIncharge) classIncharge.setVisibility(View.GONE);
 
             teacherName = Capitalize.capitalThis((TeacherDao.selectTeacherName(teacherId, sqliteDatabase)));
-            name.setText("[ " + teacherName + " ] Classes");
+            String clasName = ClasDao.getClassName(classId, sqliteDatabase);
+            String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
+            if (classId == 0) {
+                name.setText("[ "+teacherName + " ] " + "Classes");
+            } else
+                name.setText(teacherName + "  [ " + clasName + " - " + secName + " ]");
             cA.notifyDataSetChanged();
 
             if (isMoveNotification) moveNotification.setVisibility(View.VISIBLE);

@@ -65,35 +65,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_black" />
 
-    <LinearLayout
-        android:id="@+id/switchLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/switch_text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/light_black" />
-
-        <Button
-            android:id="@+id/switchClass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/teal_button_selector"
-            android:padding="10dp"
-            android:text="@string/switch_class"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#FFF" />
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/student_sel"
         android:layout_width="match_parent"

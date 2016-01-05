@@ -96,7 +96,6 @@ public class MarkAttendance extends Fragment {
         view.findViewById(R.id.noAbsentees).setOnClickListener(noAbsentees);
         view.findViewById(R.id.yesterday).setOnClickListener(yesterdayAbsentees);
         view.findViewById(R.id.otherday).setOnClickListener(otherdayAbsentees);
-        view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
 
         return view;
     }
@@ -205,13 +204,6 @@ public class MarkAttendance extends Fragment {
                     .beginTransaction()
                     .setCustomAnimations(animator.fade_in, animator.fade_out)
                     .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
-        }
-    };
-
-    private View.OnClickListener switchClass = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            CommonDialogUtils.displaySwitchClass(act, sqliteDatabase, new MarkAttendance());
         }
     };
 

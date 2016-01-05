@@ -50,6 +50,7 @@ import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 12/10/15.
@@ -524,7 +525,7 @@ public class ExamCreate extends Fragment {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog.setMessage("Submitting marks...");
+            pDialog.setMessage("Creating exam...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -540,6 +541,7 @@ public class ExamCreate extends Fragment {
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
+            ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
         }
     }
 

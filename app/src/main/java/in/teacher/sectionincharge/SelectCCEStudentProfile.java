@@ -2,7 +2,10 @@ package in.teacher.sectionincharge;
 
 import in.teacher.activity.R;
 import in.teacher.activity.R.animator;
+import in.teacher.dao.ClasDao;
+import in.teacher.dao.SectionDao;
 import in.teacher.dao.TempDao;
+import in.teacher.sqlite.Clas;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -21,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * Created by vinkrish.
@@ -45,6 +49,10 @@ public class SelectCCEStudentProfile extends Fragment {
         Temp t = TempDao.selectTemp(sqliteDatabase);
         sectionId = t.getSectionId();
         int classId = t.getClassId();
+
+        String className = ClasDao.getClassName(classId, sqliteDatabase);
+        String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
+        ((TextView)view.findViewById(R.id.cce_class_sec)).setText("CCE Student Profile  (" + className + " - " + secName + ")");
 
         Cursor c1 = sqliteDatabase.rawQuery("select distinct Term from exams where ClassId=" + classId, null);
         c1.moveToFirst();
@@ -92,15 +100,6 @@ public class SelectCCEStudentProfile extends Fragment {
             }
         });
 
-        view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
-
         return view;
     }
-
-    private View.OnClickListener switchClass = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            CommonDialogUtils.displaySwitchClass(getActivity(), sqliteDatabase, new SelectCCEStudentProfile());
-        }
-    };
 }

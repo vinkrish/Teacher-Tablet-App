@@ -149,18 +149,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_black" />
 
-    <Button
-        android:id="@+id/switchClass"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/dividerbottom"
-        android:background="@drawable/teal_button_selector"
-        android:padding="10dp"
-        android:text="@string/switch_class"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#FFF" />
-
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"

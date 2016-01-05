@@ -3,6 +3,8 @@ package in.teacher.sectionincharge;
 import in.teacher.activity.R;
 import in.teacher.activity.R.animator;
 import in.teacher.dao.CceCoScholasticGradeDao;
+import in.teacher.dao.ClasDao;
+import in.teacher.dao.SectionDao;
 import in.teacher.dao.TempDao;
 import in.teacher.model.ExpChild;
 import in.teacher.model.ExpGroup;
@@ -78,6 +80,10 @@ public class CoScholastic extends Fragment {
         Temp t = TempDao.selectTemp(sqliteDatabase);
         sectionId = t.getSectionId();
         classId = t.getClassId();
+
+        String className = ClasDao.getClassName(classId, sqliteDatabase);
+        String secName = SectionDao.getSectionName(sectionId, sqliteDatabase);
+        ((TextView)view.findViewById(R.id.cosch_class_sec)).setText("Co-Scholastic Area  (" + className + " - " + secName + ")");
 
         setCoScholasticId();
         Cursor c1 = sqliteDatabase.rawQuery("select distinct Term from exams where ClassId=" + classId, null);
@@ -157,17 +163,8 @@ public class CoScholastic extends Fragment {
             }
         });
 
-        view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
-
         return view;
     }
-
-    private View.OnClickListener switchClass = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            CommonDialogUtils.displaySwitchClass(getActivity(), sqliteDatabase, new CoScholastic());
-        }
-    };
 
     private void groupFirst() {
         child[0] = childPosArr[0];

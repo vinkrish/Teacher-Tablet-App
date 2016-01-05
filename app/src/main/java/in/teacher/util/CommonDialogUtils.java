@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -20,11 +19,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import in.teacher.activity.R;
-import in.teacher.attendancefragment.MarkAttendance;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.SlipTesttDao;
@@ -32,9 +33,9 @@ import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.examfragment.HasPartition;
-import in.teacher.sliptestfragment.SlipTest;
 import in.teacher.examfragment.StructuredExam;
 import in.teacher.fragment.StudentClassSec;
+import in.teacher.sliptestfragment.SlipTest;
 import in.teacher.sliptestfragment.ViewScore;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
@@ -43,7 +44,6 @@ import in.teacher.sqlite.Temp;
  * Created by vinkrish.
  */
 public class CommonDialogUtils {
-    private static boolean allowSelection;
 
     public static Dialog displayAlertWhiteDialog(Activity activity, String dialogBody) {
         final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
@@ -73,7 +73,7 @@ public class CommonDialogUtils {
     public static Dialog displayDashbordSelector(final Activity activity, final SQLiteDatabase sqliteDatabase) {
         final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-       // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(R.color.half_transparent)));
+        // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(R.color.half_transparent)));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dashbord_selector);
 
@@ -135,7 +135,7 @@ public class CommonDialogUtils {
         return dialog;
     }
 
-    public static Dialog displaySwitchClass (final Activity activity, final SQLiteDatabase sqliteDatabase, final Fragment frag) {
+    public static Dialog displaySwitchClass(final Activity activity, final SQLiteDatabase sqliteDatabase, final Fragment frag) {
         final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -177,21 +177,19 @@ public class CommonDialogUtils {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 classId[0] = classIdList.get(position);
-                if (allowSelection) {
-                    sectionIdList.clear();
-                    sectionNameList.clear();
-                    sectionNameList.add("select section");
-                    Cursor c2 = sqliteDatabase.rawQuery("select SectionId, SectionName from section where ClassId = " + classIdList.get(position) +
-                            " and ClassTeacherId = " + teacherId, null);
-                    c2.moveToFirst();
-                    while (!c2.isAfterLast()) {
-                        sectionIdList.add(c2.getInt(c2.getColumnIndex("SectionId")));
-                        sectionNameList.add(c2.getString(c2.getColumnIndex("SectionName")));
-                        c2.moveToNext();
-                    }
-                    c2.close();
-                    sectionAdapter.notifyDataSetChanged();
-                } else allowSelection = true;
+                sectionIdList.clear();
+                sectionNameList.clear();
+                sectionNameList.add("select section");
+                Cursor c2 = sqliteDatabase.rawQuery("select SectionId, SectionName from section where ClassId = " + classIdList.get(position) +
+                        " and ClassTeacherId = " + teacherId, null);
+                c2.moveToFirst();
+                while (!c2.isAfterLast()) {
+                    sectionIdList.add(c2.getInt(c2.getColumnIndex("SectionId")));
+                    sectionNameList.add(c2.getString(c2.getColumnIndex("SectionName")));
+                    c2.moveToNext();
+                }
+                c2.close();
+                sectionAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -206,11 +204,11 @@ public class CommonDialogUtils {
                 if (position != 0) {
                     Temp t = new Temp();
                     t.setClassId(classId[0]);
-                    t.setSectionId(sectionIdList.get(position-1));
+                    t.setSectionId(sectionIdList.get(position - 1));
                     t.setTeacherId(teacherId);
                     TempDao.updateTemp(t, sqliteDatabase);
                     dialog.dismiss();
-                    ReplaceFragment.replace(frag , activity.getFragmentManager());
+                    ReplaceFragment.replace(frag, activity.getFragmentManager());
                 }
             }
 
@@ -229,6 +227,12 @@ public class CommonDialogUtils {
         window.setAttributes(lp);
 
         return dialog;
+    }
+
+    private static String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
     public static void hideKeyboard(Activity act) {

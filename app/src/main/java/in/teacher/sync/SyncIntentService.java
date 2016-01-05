@@ -2,8 +2,8 @@ package in.teacher.sync;
 
 import android.app.IntentService;
 import android.app.KeyguardManager;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -37,6 +37,7 @@ import in.teacher.sqlite.SqlDbHelper;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.Constants;
+import in.teacher.util.NetworkUtils;
 import in.teacher.util.SharedPreferenceUtil;
 import in.teacher.util.Util;
 
@@ -97,7 +98,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
                 TempDao.updateSyncTimer(sqliteDatabase);
                 sqlHandler.insertDownloadedFile(split, sqliteDatabase);
             }
-        } catch (JSONException e) {
+        } catch (JSONException | NullPointerException e) {
             zipFile = "";
             e.printStackTrace();
         }
@@ -211,8 +212,8 @@ public class SyncIntentService extends IntentService implements StringConstant {
             }
             decideUploadDownload();
         } catch (JSONException e) {
-            exitSync();
             e.printStackTrace();
+            exitSync();
         } catch (NullPointerException e) {
             e.printStackTrace();
             exitSync();
@@ -248,7 +249,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
             editor.putInt("manual_sync", 0);
             editor.apply();
             Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
         } else if (screenLocked) {
             SharedPreferenceUtil.updateIsSync(context, 1);
@@ -381,9 +382,13 @@ public class SyncIntentService extends IntentService implements StringConstant {
                 jsonObject.put("school", schoolId);
                 jsonObject.put("tab_id", deviceId);
                 jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
-                JSONObject jsonReceived = new JSONObject(RequestResponseHandler.reachServer(update_downloaded_file, jsonObject));
-                if (jsonReceived.getInt(TAG_SUCCESS) == 1)
-                    Log.d("update", "downloaded_file");
+                if (NetworkUtils.isNetworkConnected(context)) {
+                    JSONObject jsonReceived = new JSONObject(RequestResponseHandler.reachServer(update_downloaded_file, jsonObject));
+                    if (jsonReceived.getInt(TAG_SUCCESS) == 1)
+                        Log.d("update", "downloaded_file");
+                } else {
+                    finishSync();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -22,6 +22,18 @@ public class ClasDao {
         return s;
     }
 
+    public static boolean isSwitchClass(int teacherId, SQLiteDatabase sqliteDatabase){
+        Cursor c = sqliteDatabase.rawQuery("select A.SectionId, B.ClassName from section A, class B where A.ClassTeacherId  = " + teacherId
+                + " and A.ClassId = B.ClassId group by A.SectionId", null);
+        if (c.getCount()>1) {
+            c.close();
+            return true;
+        } else {
+            c.close();
+            return false;
+        }
+    }
+
     public static List<Clas> selectClas(SQLiteDatabase sqliteDatabase) {
         Cursor c = sqliteDatabase.rawQuery("select * from class", null);
         List<Clas> cList = new ArrayList<>();

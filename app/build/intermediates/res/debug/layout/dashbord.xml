@@ -92,10 +92,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:gravity="start|center"
                 android:paddingEnd="0dp"
-                android:paddingStart="15dp"
+                android:paddingStart="10dp"
                 android:text="@string/yourclasses"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#79787D" />
@@ -104,13 +104,23 @@
                 android:id="@+id/classIncharge"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:gravity="end|center"
-                android:paddingEnd="20dp"
+                android:paddingEnd="10dp"
                 android:paddingStart="0dp"
                 android:text="@string/class_incharge"
                 android:textColor="#79787D"
                 app:showText="false" />
+
+            <Button
+                android:id="@+id/switchClass"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/teal_button_selector"
+                android:padding="10dp"
+                android:text="@string/switch_class"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#FFF" />
 
         </LinearLayout>
 

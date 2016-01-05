@@ -501,6 +501,7 @@
     <string name="edit">Edit</string>
     <string name="eight">8</string>
     <string name="enter">Enter marks for created sliptest</string>
+    <string name="enter_exm_name">Enter Exam Name</string>
     <string name="enter_grade">Enter Grade</string>
     <string name="enter_marks">Enter Marks</string>
     <string name="enter_msg">Enter Message</string>

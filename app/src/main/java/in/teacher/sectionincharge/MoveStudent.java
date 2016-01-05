@@ -79,7 +79,6 @@ public class MoveStudent extends Fragment {
         sectionSpinner = (Spinner) view.findViewById(R.id.secSpinner);
 
         listView = (ListView) view.findViewById(R.id.listView);
-        view.findViewById(R.id.switchClass).setOnClickListener(switchClass);
     }
 
     private void init() {
@@ -144,13 +143,6 @@ public class MoveStudent extends Fragment {
 
         confirmMoveBtn.setOnClickListener(confirmClick);
     }
-
-    private View.OnClickListener switchClass = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            CommonDialogUtils.displaySwitchClass(getActivity(), sqliteDatabase, new MoveStudent());
-        }
-    };
 
     private void initSectionSpinner() {
         Cursor c = sqliteDatabase.rawQuery("select SectionId, SectionName from section where ClassId = " + classId + " and SectionId!=" + sectionId, null);
