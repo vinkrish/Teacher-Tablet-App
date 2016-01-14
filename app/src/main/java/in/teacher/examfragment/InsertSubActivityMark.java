@@ -1,36 +1,5 @@
 package in.teacher.examfragment;
 
-import in.teacher.activity.R;
-import in.teacher.adapter.Capitalize;
-import in.teacher.adapter.MarksAdapter;
-import in.teacher.adapter.StudentsSort;
-import in.teacher.dao.ActivitiDao;
-import in.teacher.dao.ActivityMarkDao;
-import in.teacher.dao.ClasDao;
-import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
-import in.teacher.dao.SectionDao;
-import in.teacher.dao.StudentsDao;
-import in.teacher.dao.SubActivityDao;
-import in.teacher.dao.SubActivityMarkDao;
-import in.teacher.dao.SubjectExamsDao;
-import in.teacher.dao.TempDao;
-import in.teacher.examfragment.InsertSubActivityGrade;
-import in.teacher.examfragment.SubActivityExam;
-import in.teacher.sqlite.Activiti;
-import in.teacher.sqlite.Students;
-import in.teacher.sqlite.SubActivity;
-import in.teacher.sqlite.SubActivityMark;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.CommonDialogUtils;
-import in.teacher.util.PKGenerator;
-import in.teacher.util.ReplaceFragment;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -48,13 +17,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import in.teacher.activity.R;
+import in.teacher.adapter.Capitalize;
+import in.teacher.adapter.MarksAdapter;
+import in.teacher.adapter.StudentsSort;
+import in.teacher.dao.ActivitiDao;
+import in.teacher.dao.ActivityMarkDao;
+import in.teacher.dao.ClasDao;
+import in.teacher.dao.ExamsDao;
+import in.teacher.dao.ExmAvgDao;
+import in.teacher.dao.SectionDao;
+import in.teacher.dao.StudentsDao;
+import in.teacher.dao.SubActivityDao;
+import in.teacher.dao.SubActivityMarkDao;
+import in.teacher.dao.SubjectExamsDao;
+import in.teacher.dao.TempDao;
+import in.teacher.sqlite.Activiti;
+import in.teacher.sqlite.Students;
+import in.teacher.sqlite.SubActivity;
+import in.teacher.sqlite.SubActivityMark;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
+import in.teacher.util.PKGenerator;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
@@ -190,17 +188,17 @@ public class InsertSubActivityMark extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (v.getId() == R.id.one) updateScoreField("1");
-                    if (v.getId() == R.id.two) updateScoreField("2");
-                    if (v.getId() == R.id.three) updateScoreField("3");
-                    if (v.getId() == R.id.four) updateScoreField("4");
-                    if (v.getId() == R.id.five) updateScoreField("5");
-                    if (v.getId() == R.id.six) updateScoreField("6");
-                    if (v.getId() == R.id.seven) updateScoreField("7");
-                    if (v.getId() == R.id.eight) updateScoreField("8");
-                    if (v.getId() == R.id.nine) updateScoreField("9");
-                    if (v.getId() == R.id.zero) updateScoreField("0");
-                    if (v.getId() == R.id.decimal) updateScoreField(".");
-                    if (v.getId() == R.id.minus) {
+                    else if (v.getId() == R.id.two) updateScoreField("2");
+                    else if (v.getId() == R.id.three) updateScoreField("3");
+                    else if (v.getId() == R.id.four) updateScoreField("4");
+                    else if (v.getId() == R.id.five) updateScoreField("5");
+                    else if (v.getId() == R.id.six) updateScoreField("6");
+                    else if (v.getId() == R.id.seven) updateScoreField("7");
+                    else if (v.getId() == R.id.eight) updateScoreField("8");
+                    else if (v.getId() == R.id.nine) updateScoreField("9");
+                    else if (v.getId() == R.id.zero) updateScoreField("0");
+                    else if (v.getId() == R.id.decimal) updateScoreField(".");
+                    else if (v.getId() == R.id.minus) {
                         studentScore.set(index, "-1");
                         repopulateListArray();
                     }
@@ -375,7 +373,12 @@ public class InsertSubActivityMark extends Fragment {
             List<Float> weightMarkList = new ArrayList<>();
             if (calculation == 0) {
                 for (int i = 0; i < subActList.size(); i++) {
-                    weightMarkList.add((float) (weightageList.get(i) / 100.0) * activityMaxMark);
+                    if (weightageList.get(i) == 0) {
+                        float dynamicWeightage = (float) (100.0 / subActIdList.size());
+                        weightMarkList.add((float) (dynamicWeightage / 100.0) * activityMaxMark);
+                    } else {
+                        weightMarkList.add((float) (weightageList.get(i) / 100.0) * activityMaxMark);
+                    }
                 }
                 List<Float> markList = new ArrayList<>();
                 for (Students st : studentsArray) {
@@ -389,7 +392,13 @@ public class InsertSubActivityMark extends Fragment {
                             c.moveToNext();
                         }
                         c.close();
-                        markList.add((float) (mark / subActMaxMarkList.get(j)) * weightMarkList.get(j));
+
+                        if (mark == -1) {
+                            markList.add((float) 0);
+                        } else {
+                            markList.add((float) (mark / subActMaxMarkList.get(j)) * weightMarkList.get(j));
+                        }
+
                     }
                     float finalMark = 0;
                     for (Float flo : markList)
@@ -414,7 +423,7 @@ public class InsertSubActivityMark extends Fragment {
                 for (Students st : studentsArray) {
                     String sql = "insert into activitymark(SchoolId, ExamId, SubjectId, StudentId, ActivityId, Mark) " +
                             "values(" + schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," + activityId + "," +
-                            "((select SUM(Mark) from subactivitymark where SubActivityId in (" + sb.substring(0, sb.length() - 1) + ") and " +
+                            "((select SUM(Mark) from subactivitymark where Mark!=-1 and SubActivityId in (" + sb.substring(0, sb.length() - 1) + ") and " +
                             "StudentId=" + st.getStudentId() + ")/" + subActMaxMark + ")*" + activityMaxMark + ")";
                     try {
                         sqliteDatabase.execSQL(sql);
@@ -448,7 +457,12 @@ public class InsertSubActivityMark extends Fragment {
             List<Float> weightMarkList = new ArrayList<>();
             if (calculation == 0) {
                 for (int i = 0; i < actList.size(); i++) {
-                    weightMarkList.add((float) (weightageList.get(i) / 100.0) * exmMaxMark);
+                    if (weightageList.get(i) == 0) {
+                        float dynamicWeightage = (float) (100.0 / actIdList.size());
+                        weightMarkList.add((float) (dynamicWeightage / 100.0) * exmMaxMark);
+                    } else {
+                        weightMarkList.add((float) (weightageList.get(i) / 100.0) * exmMaxMark);
+                    }
                 }
                 List<Float> markList = new ArrayList<>();
                 for (Students st : studentsArray) {
@@ -462,7 +476,12 @@ public class InsertSubActivityMark extends Fragment {
                             c.moveToNext();
                         }
                         c.close();
-                        markList.add((float) (mark / actMaxMarkList.get(j)) * weightMarkList.get(j));
+
+                        if (mark == -1) {
+                            markList.add((float) 0);
+                        } else {
+                            markList.add((float) (mark / actMaxMarkList.get(j)) * weightMarkList.get(j));
+                        }
                     }
                     float finalMark = 0;
                     for (Float flo : markList)
@@ -489,7 +508,7 @@ public class InsertSubActivityMark extends Fragment {
                     //				"(select SUM(Mark) from activitymark where ActivityId in ("+sb.substring(0, sb.length()-1)+") and StudentId="+st.getStudentId()+"))";
                     String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
                             schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," +
-                            "((select SUM(Mark) from activitymark where ActivityId in (" + sb.substring(0, sb.length() - 1) + ") and " +
+                            "((select SUM(Mark) from activitymark where Mark!=-1 and ActivityId in (" + sb.substring(0, sb.length() - 1) + ") and " +
                             "StudentId=" + st.getStudentId() + ")/" + actMaxMark + ")*" + exmMaxMark + ")";
                     try {
                         sqliteDatabase.execSQL(sql);

@@ -54,6 +54,7 @@ public class ExamEdit extends Fragment {
     private List<SubExams> subjectExams = new ArrayList<>();
     private TableLayout table;
     private ScrollView scrollView;
+    private ArrayAdapter<String> examAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,14 +79,15 @@ public class ExamEdit extends Fragment {
             public void onClick(View v) {
                 if (isSavable()) new CalledSubmit().execute();
                 else
-                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please enter max / fail mark for all subjects");
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(),
+                            "please enter max / fail mark for all subjects & fail mark should be less than max mark.");
             }
         });
 
         return view;
     }
 
-    private void confirmDelete () {
+    private void confirmDelete() {
         AlertDialog.Builder submitBuilder = new AlertDialog.Builder(getActivity());
         submitBuilder.setCancelable(false);
         submitBuilder.setTitle("Confirm your action");
@@ -108,7 +110,11 @@ public class ExamEdit extends Fragment {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
+                table.removeAllViews();
+                updateExamSpinner();
+                examAdapter.notifyDataSetChanged();
+                examSpinner.setSelection(0);
+                //ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
             }
         });
         submitBuilder.show();
@@ -146,9 +152,9 @@ public class ExamEdit extends Fragment {
         adapter.setDropDownViewResource(R.layout.spinner_droppeddown);
         classSpinner.setAdapter(adapter);
 
-        final ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, R.layout.spinner_header, examNameList);
-        adapter2.setDropDownViewResource(R.layout.spinner_droppeddown);
-        examSpinner.setAdapter(adapter2);
+        examAdapter = new ArrayAdapter<>(context, R.layout.spinner_header, examNameList);
+        examAdapter.setDropDownViewResource(R.layout.spinner_droppeddown);
+        examSpinner.setAdapter(examAdapter);
 
         classSpinner.setSelection(classInChargePos);
 
@@ -157,7 +163,7 @@ public class ExamEdit extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 classId = classInchargeList.get(position);
                 updateExamSpinner();
-                adapter2.notifyDataSetChanged();
+                examAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -342,6 +348,9 @@ public class ExamEdit extends Fragment {
                 }
                 ses.setNullCheck(true);
                 ses.setUpdatable(true);
+                if (ses.getMinMark() > ses.getMaxMark()) {
+                    ses.setNullCheck(false);
+                }
             }
             subjectExams.set(index, ses);
         }
@@ -431,8 +440,11 @@ public class ExamEdit extends Fragment {
 
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
+            table.removeAllViews();
+            updateExamSpinner();
+            examAdapter.notifyDataSetChanged();
+            generateTable();
             pDialog.dismiss();
-            ReplaceFragment.replace(new TeacherInCharge(), getFragmentManager());
         }
     }
 

@@ -107,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/button_activated_light_teal"
+                android:background="@drawable/teal_button_selector"
                 android:text="@string/confirm_move"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#FFF" />

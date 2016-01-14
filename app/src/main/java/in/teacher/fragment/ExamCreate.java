@@ -36,8 +36,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.Subject;
-
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
@@ -45,7 +43,6 @@ import in.teacher.dao.SubjectGroupDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Exams;
-import in.teacher.sqlite.SubjectExams;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -123,7 +120,8 @@ public class ExamCreate extends Fragment {
         public void onClick(View v) {
             if (isSavable()) new CalledSubmit().execute();
             else
-                CommonDialogUtils.displayAlertWhiteDialog(activity, "please enter max / fail mark for all subjects");
+                CommonDialogUtils.displayAlertWhiteDialog(activity,
+                        "please enter max / fail mark for all subjects & fail mark should be less than max mark.");
         }
     };
 
@@ -192,32 +190,37 @@ public class ExamCreate extends Fragment {
             }
         }
 
-        examName = examName_et.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'");
-        percentage = Integer.parseInt(percentage_et.getText().toString());
-        term = Integer.parseInt(term_et.getText().toString());
+        if (selectedSubGroupId.size() == 0)
+            CommonDialogUtils.displayAlertWhiteDialog(activity, "No subjects are selected");
+        else {
+            examName = examName_et.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'");
+            percentage = Integer.parseInt(percentage_et.getText().toString());
+            term = Integer.parseInt(term_et.getText().toString());
 
-        if (gradeSwitch.isChecked()) grade = 1;
-        else grade = 0;
+            if (gradeSwitch.isChecked()) grade = 1;
+            else grade = 0;
 
-        try {
-            examId = PKGenerator.getMD5(schoolId, classId, examName);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            try {
+                examId = PKGenerator.getMD5(schoolId, classId, examName);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+
+            ll.setVisibility(View.GONE);
+            scrollView.setVisibility(View.VISIBLE);
+            save.setVisibility(View.VISIBLE);
+            table = new TableLayout(activity);
+            LayoutInflater inflater =
+                    (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = inflater.inflate(R.layout.exam_create_header, null);
+            LinearLayout linearLayout = new LinearLayout(activity);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.addView(v);
+            linearLayout.addView(table);
+            scrollView.addView(linearLayout);
+            generateTable();
         }
 
-        ll.setVisibility(View.GONE);
-        scrollView.setVisibility(View.VISIBLE);
-        save.setVisibility(View.VISIBLE);
-        table = new TableLayout(activity);
-        LayoutInflater inflater =
-                (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.exam_create_header, null);
-        LinearLayout linearLayout = new LinearLayout(activity);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.addView(v);
-        linearLayout.addView(table);
-        scrollView.addView(linearLayout);
-        generateTable();
     }
 
     private void generateTable() {
@@ -469,6 +472,9 @@ public class ExamCreate extends Fragment {
                     ses.setMinMark(Integer.parseInt(s.toString()));
                 }
                 ses.setNullCheck(true);
+                if (ses.getMinMark() > ses.getMaxMark()) {
+                    ses.setNullCheck(false);
+                }
             }
             subjectExams.set(index, ses);
         }

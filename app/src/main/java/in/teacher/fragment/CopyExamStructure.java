@@ -28,7 +28,6 @@ import java.util.List;
 
 import in.teacher.activity.R;
 import in.teacher.dao.TempDao;
-import in.teacher.examfragment.StructuredExam;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.Exams;
 import in.teacher.sqlite.SubActivity;
@@ -340,6 +339,9 @@ public class CopyExamStructure extends Fragment {
     }
 
     private void resetOtherExam() {
+        selExamIdList.clear();
+        selExamNameList.clear();
+        cpyExmTo.setText("copied to :");
         othExamIdList.clear();
         othExamNameList.clear();
         for (int i = 1; i < examIdList.size(); i++) {
@@ -349,11 +351,15 @@ public class CopyExamStructure extends Fragment {
             }
         }
         exmGroupSelections = new boolean[othExamIdList.size()];
+
+        selSecIdList.clear();
+        selSecNameList.clear();
+        cpyRbxTo.setText("copied to :");
     }
 
     private void showExamDialog() {
         new AlertDialog.Builder(getActivity())
-                .setTitle("Select Subject Group")
+                .setTitle("Select Exams")
                 .setCancelable(false)
                 .setMultiChoiceItems(othExamNameList.toArray(new CharSequence[othExamIdList.size()]),
                         exmGroupSelections, new ExamSelectionClickHandler())
@@ -393,6 +399,9 @@ public class CopyExamStructure extends Fragment {
     }
 
     private void resetOtherSec() {
+        selSecIdList.clear();
+        selSecNameList.clear();
+        cpyRbxTo.setText("copied to :");
         othSecIdList.clear();
         othSecNameList.clear();
         for (int i = 0; i < sectionIdList.size(); i++) {

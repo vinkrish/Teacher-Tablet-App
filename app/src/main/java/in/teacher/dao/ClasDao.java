@@ -1,13 +1,12 @@
 package in.teacher.dao;
 
-import in.teacher.sqlite.Clas;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import in.teacher.sqlite.Clas;
 
 public class ClasDao {
 
@@ -22,10 +21,10 @@ public class ClasDao {
         return s;
     }
 
-    public static boolean isSwitchClass(int teacherId, SQLiteDatabase sqliteDatabase){
+    public static boolean isSwitchClass(int teacherId, SQLiteDatabase sqliteDatabase) {
         Cursor c = sqliteDatabase.rawQuery("select A.SectionId, B.ClassName from section A, class B where A.ClassTeacherId  = " + teacherId
                 + " and A.ClassId = B.ClassId group by A.SectionId", null);
-        if (c.getCount()>1) {
+        if (c.getCount() > 1) {
             c.close();
             return true;
         } else {
@@ -60,8 +59,12 @@ public class ClasDao {
         }
         c.close();
         String[] idArray = ids.split("#");
-        for(String id: idArray){
-            idList.add(Integer.parseInt(id));
+        try {
+            for (String id : idArray) {
+                idList.add(Integer.parseInt(id));
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
         return idList;
     }

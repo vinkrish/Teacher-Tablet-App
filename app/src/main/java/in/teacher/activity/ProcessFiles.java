@@ -1,6 +1,36 @@
 package in.teacher.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ExmAvgDao;
@@ -18,42 +48,10 @@ import in.teacher.util.ExceptionHandler;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.PercentageSlipTest;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.util.Log;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 /**
  * Created by vinkrish.
  */
 public class ProcessFiles extends BaseActivity implements StringConstant {
-    private Context context;
     private ProgressBar progressBar;
     private TextView txtPercentage, txtSync;
     private SQLiteDatabase sqliteDatabase;
@@ -84,7 +82,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
         txtSync = (TextView) findViewById(R.id.syncing);
 
         sqliteDatabase = AppGlobal.getSqliteDatabase();
-        context = AppGlobal.getContext();
 
         new ProcessedFiles().execute();
     }
@@ -146,7 +143,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                                 SharedPreferences sp = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editr = sp.edit();
                                 editr.putInt("tablet_lock", 1);
-                                editr.putInt("sleep_sync", 0);
                                 editr.apply();
                                 String except = e + "";
                                 try {
@@ -384,27 +380,20 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             SharedPreferences sharedPref = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("is_sync", 0);
-            editor.putInt("sleep_sync", 0);
             editor.apply();
             if (isException) {
-                editor.putInt("manual_sync", 0);
-                editor.apply();
                 Intent intent = new Intent(getApplicationContext(), in.teacher.activity.LockActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             } else if (isFirstTimeSync) {
-                editor.putInt("manual_sync", 0);
                 editor.putInt("first_sync", 1);
                 editor.apply();
                 new FirstTimeDownload().callFirstTimeSync();
-            } else if (manualSync == 1) {
-                Log.d("2", "2");
-                Intent syncService = new Intent(getApplicationContext(), SyncIntentService.class);
-                context.startService(syncService);
+            } else if (sharedPref.getInt("update_apk", 0) == 1) {
+                Intent syncService = new Intent(ProcessFiles.this, SyncIntentService.class);
+                startService(syncService);
             } else {
                 Log.d("3", "3");
-                editor.putInt("manual_sync", 0);
-                editor.apply();
                 Intent intent = new Intent(getApplicationContext(), in.teacher.activity.LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

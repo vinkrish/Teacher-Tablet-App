@@ -1,18 +1,5 @@
 package in.teacher.sectionincharge;
 
-import in.teacher.activity.R;
-import in.teacher.dao.CCEStudentProfileDao;
-import in.teacher.dao.StudentsDao;
-import in.teacher.dao.TempDao;
-import in.teacher.sqlite.CCEStudentProfile;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.CommonDialogUtils;
-import in.teacher.util.ReplaceFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -23,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -31,8 +20,8 @@ import android.text.method.DigitsKeyListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -43,6 +32,19 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.teacher.activity.R;
+import in.teacher.dao.CCEStudentProfileDao;
+import in.teacher.dao.StudentsDao;
+import in.teacher.dao.TempDao;
+import in.teacher.sqlite.CCEStudentProfile;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
@@ -58,16 +60,19 @@ public class UpdateCCEStudentProfile extends Fragment {
     private int width1, width2, width3, width4, width5, width6;
     private RelativeLayout tableLayout;
     private TableLayout table;
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.enter_cce_student_profile, container, false);
+        progressDialog = new ProgressDialog(getActivity());
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         tag = 0;
         imageTag = 0;
         tableLayout = (RelativeLayout) view.findViewById(R.id.table);
+        Button cceProfile = (Button) view.findViewById(R.id.cce_profile);
 
         Bundle b = getArguments();
         term = b.getInt("Term");
@@ -77,6 +82,44 @@ public class UpdateCCEStudentProfile extends Fragment {
 
         totalDays = (EditText) view.findViewById(R.id.today_days);
         Button submit = (Button) view.findViewById(R.id.submit);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!totalDays.getText().toString().equals("")) {
+                    new SubmitTask().execute();
+                } else {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please enter valid total number of days");
+                }
+            }
+        });
+
+        cceProfile.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
+            }
+        });
+
+        table = new TableLayout(getActivity());
+
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                width1 = view.findViewById(R.id.width1).getWidth();
+                width2 = view.findViewById(R.id.width2).getWidth();
+                width3 = view.findViewById(R.id.width3).getWidth();
+                width4 = view.findViewById(R.id.width4).getWidth();
+                width5 = view.findViewById(R.id.width5).getWidth();
+                width6 = view.findViewById(R.id.width6).getWidth();
+                new OffLoadTask().execute();
+            }
+        });
+
+        return view;
+    }
+
+    private void init(){
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         sectionId = t.getSectionId();
@@ -109,6 +152,7 @@ public class UpdateCCEStudentProfile extends Fragment {
             cceItem.setDaysAttended1(c.getDouble(c.getColumnIndex("DaysAttended1")));
             cceItem.setVisionL(c.getString(c.getColumnIndex("VisionL")));
             cceItem.setVisionR(c.getString(c.getColumnIndex("VisionR")));
+            cceItem.setCceExist(true);
             profileList.add(cceItem);
 
             loop += 1;
@@ -144,7 +188,7 @@ public class UpdateCCEStudentProfile extends Fragment {
         }
         cursor.close();
 
-        for (CCEStudentProfile p: profileList) {
+        for (CCEStudentProfile p : profileList) {
             String remark = "";
             Cursor c2 = sqliteDatabase.rawQuery("select Remark from term_remark where StudentId = " + p.getStudentId() + " and Term = " + term, null);
             if (c2.getCount() > 0) {
@@ -161,43 +205,6 @@ public class UpdateCCEStudentProfile extends Fragment {
             p.setTermRemark(remark);
         }
 
-        totalDays.setText(totalDay + "");
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!totalDays.getText().toString().equals("")) {
-                    new SubmitTask().execute();
-                } else {
-                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please enter valid total number of days");
-                }
-            }
-        });
-
-        Button cceProfile = (Button) view.findViewById(R.id.cce_profile);
-        cceProfile.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ReplaceFragment.replace(new SelectCCEStudentProfile(), getFragmentManager());
-            }
-        });
-
-        table = new TableLayout(getActivity());
-
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                width1 = view.findViewById(R.id.width1).getWidth();
-                width2 = view.findViewById(R.id.width2).getWidth();
-                width3 = view.findViewById(R.id.width3).getWidth();
-                width4 = view.findViewById(R.id.width4).getWidth();
-                width5 = view.findViewById(R.id.width5).getWidth();
-                width6 = view.findViewById(R.id.width6).getWidth();
-                generateTable();
-            }
-        });
-
-        return view;
     }
 
     private void generateTable() {
@@ -207,6 +214,8 @@ public class UpdateCCEStudentProfile extends Fragment {
             table.addView(tableRow);
         }
         tableLayout.addView(table);
+
+        progressDialog.dismiss();
     }
 
     private TableRow generateRow(CCEStudentProfile cce) {
@@ -371,7 +380,7 @@ public class UpdateCCEStudentProfile extends Fragment {
             public void onClick(View v) {
                 cp.setTermRemark(remark.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'"));
                 cp.setVisionL(leftVision.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'"));
-                cp.setVisionR(rightVision.getText().toString().replaceAll("\n"," ").replaceAll("\"", "'"));
+                cp.setVisionR(rightVision.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'"));
                 dialog.dismiss();
             }
         });
@@ -435,6 +444,7 @@ public class UpdateCCEStudentProfile extends Fragment {
                 try {
                     d = Double.parseDouble(s.toString());
                 } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
                 c.setDaysAttended1(d);
             }
@@ -478,6 +488,29 @@ public class UpdateCCEStudentProfile extends Fragment {
                 CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Days attended for one or more students is more than Total Days!");
             }
 
+        }
+    }
+
+    class OffLoadTask extends AsyncTask<Void, Void, Void> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("Loading Data...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            init();
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            totalDays.setText(totalDay + "");
+            generateTable();
         }
     }
 

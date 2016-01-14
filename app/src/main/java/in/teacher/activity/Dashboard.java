@@ -1,54 +1,11 @@
 package in.teacher.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import in.teacher.activity.R.animator;
-import in.teacher.dao.SlipTesttDao;
-import in.teacher.dao.StudentAttendanceDao;
-import in.teacher.dao.StudentsDao;
-import in.teacher.dao.TempDao;
-import in.teacher.attendancefragment.AbsentList;
-import in.teacher.sectionincharge.MoveStudent;
-import in.teacher.fragment.TeacherInCharge;
-import in.teacher.sectionincharge.CoScholastic;
-import in.teacher.fragment.Dashbord;
-import in.teacher.examfragment.HasPartition;
-import in.teacher.sectionincharge.StudentProfile;
-import in.teacher.homeworkfragment.InsertHomework;
-import in.teacher.attendancefragment.MarkAttendance;
-import in.teacher.searchfragment.SearchStudST;
-import in.teacher.sectionincharge.SelectCCEStudentProfile;
-import in.teacher.sliptestfragment.SlipTest;
-import in.teacher.examfragment.StructuredExam;
-import in.teacher.fragment.StudentClassSec;
-import in.teacher.sectionincharge.SubjectMapStudentCreate;
-import in.teacher.sectionincharge.SubjectMapStudentEdit;
-import in.teacher.sectionincharge.SubjectTeacherMapping;
-import in.teacher.sectionincharge.TextSms;
-import in.teacher.fragment.ViewQueue;
-import in.teacher.sliptestfragment.ViewScore;
-import in.teacher.sqlite.Students;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AnimationUtils;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.CommonDialogUtils;
-import in.teacher.util.ExceptionHandler;
-import in.teacher.util.NetworkUtils;
-import in.teacher.util.ReplaceFragment;
-import in.teacher.util.SharedPreferenceUtil;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -63,6 +20,47 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import in.teacher.activity.R.animator;
+import in.teacher.attendancefragment.AbsentList;
+import in.teacher.attendancefragment.MarkAttendance;
+import in.teacher.dao.SlipTesttDao;
+import in.teacher.dao.StudentAttendanceDao;
+import in.teacher.dao.StudentsDao;
+import in.teacher.dao.TempDao;
+import in.teacher.examfragment.HasPartition;
+import in.teacher.examfragment.StructuredExam;
+import in.teacher.fragment.Dashbord;
+import in.teacher.fragment.StudentClassSec;
+import in.teacher.fragment.TeacherInCharge;
+import in.teacher.fragment.ViewQueue;
+import in.teacher.homeworkfragment.InsertHomework;
+import in.teacher.searchfragment.SearchStudST;
+import in.teacher.sectionincharge.CoScholastic;
+import in.teacher.sectionincharge.MoveStudent;
+import in.teacher.sectionincharge.SelectCCEStudentProfile;
+import in.teacher.sectionincharge.StudentProfile;
+import in.teacher.sectionincharge.SubjectMapStudentCreate;
+import in.teacher.sectionincharge.SubjectMapStudentEdit;
+import in.teacher.sectionincharge.SubjectTeacherMapping;
+import in.teacher.sectionincharge.TextSms;
+import in.teacher.sliptestfragment.SlipTest;
+import in.teacher.sliptestfragment.ViewScore;
+import in.teacher.sqlite.Students;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AnimationUtils;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.CommonDialogUtils;
+import in.teacher.util.ExceptionHandler;
+import in.teacher.util.NetworkUtils;
+import in.teacher.util.ReplaceFragment;
+import in.teacher.util.SharedPreferenceUtil;
 
 /**
  * Created by vinkrish.
@@ -146,11 +144,14 @@ public class Dashboard extends BaseActivity {
                         if (isClassTeacher()) {
                             Temp t = TempDao.selectTemp(sqliteDatabase);
                             int sectionId = t.getSectionId();
-                            if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId)) {
-                                ReplaceFragment.replace(new SubjectMapStudentEdit(), getFragmentManager());
-                            } else {
-                                ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
-                            }
+                            if (StudentsDao.isStudentPresent(sqliteDatabase, sectionId)) {
+                                if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId)) {
+                                    ReplaceFragment.replace(new SubjectMapStudentEdit(), getFragmentManager());
+                                } else {
+                                    ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
+                                }
+                            } else
+                                CommonDialogUtils.displayAlertWhiteDialog(activity, "No students present for this class");
                         } else showNotAClassTeacher();
                         return true;
 
@@ -209,52 +210,10 @@ public class Dashboard extends BaseActivity {
             selectDefaultFragment();
         }
 
-        registerReceiver(broadcastReceiver, new IntentFilter("WIFI_STATUS"));
     }
 
     private void selectDefaultFragment() {
         ReplaceFragment.replace(new Dashbord(), getFragmentManager());
-    }
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            invalidateOptionsMenu();
-        }
-    };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
-    }
-
-    @Override
-    protected void onStop() {
-        unregisterReceiver(broadcastReceiver);
-        super.onStop();
     }
 
     @Override

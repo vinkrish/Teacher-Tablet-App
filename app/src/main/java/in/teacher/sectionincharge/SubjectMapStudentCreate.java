@@ -66,8 +66,8 @@ public class SubjectMapStudentCreate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subject_map_student_create, container, false);
-        editUpdateBtn = (Button)view.findViewById(R.id.edit_update);
-        mapSubjectBtn = (Button)view.findViewById(R.id.map_subject);
+        editUpdateBtn = (Button) view.findViewById(R.id.edit_update);
+        mapSubjectBtn = (Button) view.findViewById(R.id.map_subject);
 
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         init();
@@ -86,19 +86,25 @@ public class SubjectMapStudentCreate extends Fragment {
         CommonDialogUtils.hideKeyboard(getActivity());
 
         subjectGroupIdList = ClasDao.getSubjectGroupIds(sqliteDatabase, classId);
-        StringBuilder sb = new StringBuilder();
-        for (Integer ids : subjectGroupIdList) {
-            sb.append(ids + ",");
-        }
-        subjectGroupNameList = SubjectGroupDao.getSubjectGroupNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
-        mapSubjectBtn.setActivated(false);
-        mapSubjectBtn.setOnClickListener(mapSubjectListener);
+        if (subjectGroupIdList.size() == 0) {
+            CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Class has no subjects assigned, please contact the admin");
+            ReplaceFragment.replace(new Dashbord(), getFragmentManager());
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (Integer ids : subjectGroupIdList) {
+                sb.append(ids + ",");
+            }
+            subjectGroupNameList = SubjectGroupDao.getSubjectGroupNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
-        editUpdateBtn.setOnClickListener(editListener);
+            mapSubjectBtn.setActivated(false);
+            mapSubjectBtn.setOnClickListener(mapSubjectListener);
 
-        if (StudentsDao.isFewStudentMapped(sqliteDatabase, sectionId)) {
-            editUpdateBtn.setVisibility(View.VISIBLE);
+            editUpdateBtn.setOnClickListener(editListener);
+
+            if (StudentsDao.isFewStudentMapped(sqliteDatabase, sectionId)) {
+                editUpdateBtn.setVisibility(View.VISIBLE);
+            }
         }
 
     }
@@ -176,17 +182,18 @@ public class SubjectMapStudentCreate extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             StringBuilder sb = new StringBuilder();
-            for (Integer sbi: selectedSubjectId) {
+            for (Integer sbi : selectedSubjectId) {
                 sb.append(sbi).append("#");
             }
-            for (Integer ssi: selectedStudentsId) {
-                String sql = "update students set SubjectIds = '" + sb.substring(0, sb.length()-1) + "' where StudentId = " + ssi;
-                try{
+            for (Integer ssi : selectedStudentsId) {
+                String sql = "update students set SubjectIds = '" + sb.substring(0, sb.length() - 1) + "' where StudentId = " + ssi;
+                try {
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
-                }catch(SQLException e){}
+                } catch (SQLException e) {
+                }
             }
             return null;
         }
@@ -415,15 +422,15 @@ public class SubjectMapStudentCreate extends Fragment {
                 rb[j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int id = (Integer)v.getTag();
+                        int id = (Integer) v.getTag();
                         if (!selectedSubjectId.contains(id)) {
-                            if (((RadioGroup)v.getParent()).getChildCount() == 1) {
+                            if (((RadioGroup) v.getParent()).getChildCount() == 1) {
                                 selectedSubjectId.add(id);
                             } else {
                                 //List<Integer> idList  = subjectGroupMap.get((Integer)((RadioGroup) v.getParent()).getTag());
-                               // printMap(subjectGroupMap);
-                                List<Integer> idList = SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, (Integer)((RadioGroup) v.getParent()).getTag());
-                                for (Integer ids: idList) {
+                                // printMap(subjectGroupMap);
+                                List<Integer> idList = SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, (Integer) ((RadioGroup) v.getParent()).getTag());
+                                for (Integer ids : idList) {
                                     selectedSubjectId.remove(ids);
                                 }
                                 selectedSubjectId.add(id);

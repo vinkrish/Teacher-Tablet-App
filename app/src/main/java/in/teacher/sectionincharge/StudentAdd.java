@@ -28,6 +28,7 @@ import java.util.Locale;
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
+import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
@@ -130,15 +131,18 @@ public class StudentAdd extends Fragment {
                 rollNo.getText().toString().equals("") || gender.getText().toString().equals("") ||
                 mobile1.getText().toString().equals("") || dob.getText().toString().equals("")) {
             CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Fields marked * are mandatory");
+        } else if (StudentsDao.isRollNoExist(sqliteDatabase, sectionId, Integer.parseInt(rollNo.getText().toString()))) {
+            CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Roll number is not unique");
         } else if (mobile1.getText().toString().length() > 10) {
             CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Mobile number should be of 10 digits");
         } else {
             Toast.makeText(getActivity(), "Student created", Toast.LENGTH_SHORT).show();
             try {
                 studentId = PKGenerator.getMD5(schoolId, sectionId, studentName.getText().toString() + fatherName.getText().toString());
-                String sql = "insert into students(StudentId, SchoolId , ClassId, SectionId, SubjectIds, AdmissionNo, RollNoInClass, Name, " +
+                String sql = "insert into students(StudentId, SchoolId , ClassId, SectionId, SubjectIds, AdmissionNo, RollNoInClass, Username, Password, Name, " +
                         "FatherName, MotherName, DateOfBirth, Gender, Mobile1, Mobile2, Address, Pincode) values (" + studentId + ", " +
-                        schoolId + ", " +classId + ", " + sectionId + ", '','" + admissionNo.getText().toString() + "', " + rollNo.getText().toString() + ", '" +
+                        schoolId + ", " + classId + ", " + sectionId + ", '','" + admissionNo.getText().toString() + "', " + rollNo.getText().toString() + ", 'S" +
+                        mobile1.getText().toString() + "','S" + mobile1.getText().toString() + "','" +
                         studentName.getText().toString() + "', '" + fatherName.getText().toString() + "', '" + motherName.getText().toString() + "', '" +
                         dob.getText().toString() + "', '" + gender.getText().toString() + "', '" + mobile1.getText().toString() + "', '" +
                         mobile2.getText().toString() + "', \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\", '" +

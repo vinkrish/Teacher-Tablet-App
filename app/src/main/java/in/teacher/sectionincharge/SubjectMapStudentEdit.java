@@ -130,7 +130,7 @@ public class SubjectMapStudentEdit extends Fragment {
 
     private void getSelectedSubjects(int studentId) {
         selectedSubjectId.clear();
-        String ids = null;
+        String ids = "";
         Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where StudentId = " + studentId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
@@ -138,9 +138,17 @@ public class SubjectMapStudentEdit extends Fragment {
             c.moveToNext();
         }
         c.close();
-        String[] idArray = ids.split("#");
-        for (String id : idArray) {
-            if (!id.equals("")) selectedSubjectId.add(Integer.parseInt(id));
+        try{
+            String[] idArray = ids.split("#");
+            for (String id : idArray) {
+                if (!id.equals("")) selectedSubjectId.add(Integer.parseInt(id));
+            }
+        } catch (NullPointerException e){
+            ids = "";
+            String[] idArray = ids.split("#");
+            for (String id : idArray) {
+                if (!id.equals("")) selectedSubjectId.add(Integer.parseInt(id));
+            }
         }
     }
 

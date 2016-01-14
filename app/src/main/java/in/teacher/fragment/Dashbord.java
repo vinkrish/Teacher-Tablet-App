@@ -259,6 +259,13 @@ public class Dashbord extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
+
+            Cursor c2 = sqliteDatabase.rawQuery("select * from classteacher_incharge where TeacherId = " + teacherId, null);
+            if (c2.getCount() > 0) {
+                isClassIncharge = true;
+            }
+            c2.close();
+
             Cursor c = sqliteDatabase.rawQuery("select A.ClassId, A.SectionId, A.SubjectId, B.ClassName, C.SectionName, D.SubjectName, D.has_partition " +
                     "from subjectteacher A, class B, section C, subjects D " +
                     "where A.TeacherId=" + teacherId + " and A.ClassId=B.ClassId and A.SectionId=C.SectionId and A.SubjectId=D.SubjectId", null);
@@ -280,17 +287,11 @@ public class Dashbord extends Fragment {
                 circleArrayGrid.add(new CircleObject(avg, classNameList.get(i), sectionNameList.get(i), subjectNameList.get(i)));
             }
 
-            Cursor c2 = sqliteDatabase.rawQuery("select ClassId from classteacher_incharge where TeacherId = " + teacherId, null);
-            if (c2.getCount() > 0) {
-                isClassIncharge = true;
-            }
-            c.close();
-
             Cursor c3 = sqliteDatabase.rawQuery("select Status from movestudent where SecIdTo = " + sectionId + " and Status = 0", null);
             if (c3.getCount() > 0) {
                 isMoveNotification = true;
             }
-            c.close();
+            c3.close();
 
             return null;
         }

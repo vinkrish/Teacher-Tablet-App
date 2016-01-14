@@ -97,7 +97,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/clas"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>
@@ -112,7 +111,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/sec"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>
@@ -142,7 +140,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/admission_no"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>
@@ -157,7 +154,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/father"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>
@@ -172,7 +168,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/mother"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>
@@ -189,7 +184,6 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:hint="@string/dob"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>
@@ -204,7 +198,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/gender"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>
@@ -249,7 +242,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/address"
-                    android:inputType="number"
                     android:textColor="@color/black" />
 
             </android.support.design.widget.TextInputLayout>

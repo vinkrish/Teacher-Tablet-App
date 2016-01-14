@@ -1,5 +1,6 @@
 package in.teacher.sync;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Environment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.amazonaws.mobileconnectors.s3.transfermanager.Download;
@@ -46,7 +48,8 @@ public class SyncIntentService extends IntentService implements StringConstant {
     private SqlDbHelper sqlHandler;
     private SQLiteDatabase sqliteDatabase;
     private Context context;
-    private int schoolId, block, manualSync;
+    private Activity activity;
+    private int schoolId, block;
     private String zipFile, deviceId;
     private TransferManager mTransferManager;
     private SharedPreferences sharedPref;
@@ -54,6 +57,7 @@ public class SyncIntentService extends IntentService implements StringConstant {
     public SyncIntentService() {
         super("SyncIntentService");
         context = AppGlobal.getContext();
+        activity = AppGlobal.getActivity();
         sqlHandler = AppGlobal.getSqlDbHelper();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
     }
@@ -210,11 +214,10 @@ public class SyncIntentService extends IntentService implements StringConstant {
                 file.delete();
                 sqliteDatabase.execSQL("update uploadedfile set processed=1 where filename='" + f + "'");
             }
+            Intent intentBC = new Intent("FILE_UPLOADED");
+            LocalBroadcastManager.getInstance(activity).sendBroadcast(intentBC);
             decideUploadDownload();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            exitSync();
-        } catch (NullPointerException e) {
+        } catch (JSONException | NullPointerException e) {
             e.printStackTrace();
             exitSync();
         }
@@ -229,27 +232,18 @@ public class SyncIntentService extends IntentService implements StringConstant {
 
     private void exitSync() {
         Log.d("exitSync", "uh");
-        manualSync = sharedPref.getInt("manual_sync", 0);
         int updateApk = sharedPref.getInt("update_apk", 0);
         SharedPreferences.Editor editor = sharedPref.edit();
         KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         boolean screenLocked = km.inKeyguardRestrictedInputMode();
         if (block == 2) {
-            editor.putInt("manual_sync", 0);
             editor.putInt("tablet_lock", 2);
             editor.apply();
         } else if (updateApk == 1) {
-            editor.putInt("manual_sync", 0);
             editor.putInt("update_apk", 2);
             editor.apply();
             Intent intent = new Intent(context, in.teacher.activity.UpdateApk.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        } else if (manualSync == 1) {
-            editor.putInt("manual_sync", 0);
-            editor.apply();
-            Intent intent = new Intent(context, in.teacher.activity.LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
         } else if (screenLocked) {
             SharedPreferenceUtil.updateIsSync(context, 1);
@@ -399,16 +393,10 @@ public class SyncIntentService extends IntentService implements StringConstant {
 
     private void finishSync() {
         Log.d("finishSync", "uh");
-        manualSync = SharedPreferenceUtil.getManualSync(context);
         KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         boolean screenLocked = km.inKeyguardRestrictedInputMode();
 
-        if (manualSync == 1) {
-            SharedPreferenceUtil.updateManualSync(context, 2);
-            Intent i = new Intent(context, in.teacher.activity.ProcessFiles.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(i);
-        } else if (screenLocked) {
+        if (screenLocked) {
             SharedPreferenceUtil.updateIsSync(context, 1);
             Intent i = new Intent(context, in.teacher.activity.ProcessFiles.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

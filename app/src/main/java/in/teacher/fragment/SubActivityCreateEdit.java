@@ -11,6 +11,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +26,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.security.NoSuchAlgorithmException;
@@ -45,8 +54,8 @@ import in.teacher.util.PKGenerator;
 public class SubActivityCreateEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private Spinner classSpinner, sectionSpinner, examSpinner, subjectSpinner, activitySpinner;
-    private int teacherId, classId, sectionId, examId, subjectId, subActivityPos, schoolId, generatedId, activityId;
+    private Spinner classSpinner, sectionSpinner, examSpinner, subjectSpinner, activitySpinner, bestOf;
+    private int teacherId, classId, sectionId, examId, subjectId, subActivityPos, schoolId, generatedId, activityId, subActCounter, width1, width2, calculationGlobal, tag;
     final List<Integer> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
     final List<Integer> sectionIdList = new ArrayList<>();
@@ -55,10 +64,17 @@ public class SubActivityCreateEdit extends Fragment {
     List<String> subjectNameList = new ArrayList<>();
     final List<Integer> activityIdList = new ArrayList<>();
     List<String> activityNameList = new ArrayList<>();
-    private Button createSubActivity;
+    private Button createSubActivity, cancelSubActCreation;
     private ListView listView;
     private SubActivityAdapter subActivityAdapter;
     private List<SubActivityItem> subactivityItemList = new ArrayList<>();
+    private List<SubActivityItem> subActCreateList = new ArrayList<>();
+    private RadioGroup radioGroup;
+    private RadioButton sum, avg, best;
+    private LinearLayout createLayout;
+    private TextView countTV;
+    private ScrollView scrollView;
+    private TableLayout table;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,25 +85,57 @@ public class SubActivityCreateEdit extends Fragment {
         sqliteDatabase = AppGlobal.getSqliteDatabase();
 
         initView(view);
+        init();
 
-        subActivityAdapter = new SubActivityAdapter(context, subactivityItemList);
-        listView.setAdapter(subActivityAdapter);
-
-        createSubActivity.setOnClickListener(new View.OnClickListener() {
+        cancelSubActCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (createSubActivity.isActivated())
-                    activityCreateDialog();
-                else
-                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please select exam, subject and activity");
+                subActCreateList.clear();
+                table.removeAllViews();
+                subActCounter = 1;
+                countTV.setText(subActCounter + "");
+                createSubActivity.setVisibility(View.VISIBLE);
+                createLayout.setVisibility(View.GONE);
+                scrollView.setVisibility(View.GONE);
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        view.findViewById(R.id.create).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                subActivityPos = position;
-                subActivityUpdateDialog();
+            public void onClick(View v) {
+                createSubActivityAction();
+            }
+        });
+
+        view.findViewById(R.id.minus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (subActCounter != 1) {
+                    subActCounter--;
+                    countTV.setText(subActCounter + "");
+                    subActCreateList.remove(subActCounter);
+                    table.removeAllViews();
+                    generateTable();
+                }
+            }
+        });
+
+        view.findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subActCounter++;
+                countTV.setText(subActCounter + "");
+
+                SubActivityItem ai = new SubActivityItem();
+                ai.setSubactId(0);
+                ai.setSubactName("");
+                ai.setCalculation(calculationGlobal);
+                ai.setWeightage(0 + "");
+                ai.setNullCheck(false);
+
+                subActCreateList.add(ai);
+                table.removeAllViews();
+                generateTable();
             }
         });
 
@@ -104,7 +152,237 @@ public class SubActivityCreateEdit extends Fragment {
         subjectSpinner = (Spinner) view.findViewById(R.id.subjectSpinner);
         activitySpinner = (Spinner) view.findViewById(R.id.activitySpinner);
 
+        radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
+
+        sum = (RadioButton) view.findViewById(R.id.sum);
+        avg = (RadioButton) view.findViewById(R.id.average);
+        best = (RadioButton) view.findViewById(R.id.best);
+
+        bestOf = (Spinner) view.findViewById(R.id.bestof);
+
+        createLayout = (LinearLayout) view.findViewById(R.id.create_layout);
+
+        countTV = (TextView) view.findViewById(R.id.activity_count);
+        cancelSubActCreation = (Button) view.findViewById(R.id.cancel);
+
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+
+        subActCounter = 1;
+
         initClassSpinner();
+    }
+
+    private void init() {
+        tag = 0;
+        table = new TableLayout(getActivity());
+        scrollView.addView(table);
+        subActivityAdapter = new SubActivityAdapter(context, subactivityItemList);
+        listView.setAdapter(subActivityAdapter);
+
+        createSubActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (createSubActivity.isActivated()) {
+                    createSubActivity.setVisibility(View.GONE);
+                    createLayout.setVisibility(View.VISIBLE);
+
+                    SubActivityItem ai = new SubActivityItem();
+                    ai.setSubactId(0);
+                    ai.setSubactName("");
+                    ai.setCalculation(calculationGlobal);
+                    ai.setWeightage(0 + "");
+                    ai.setNullCheck(false);
+
+                    subActCreateList.add(ai);
+
+                    scrollView.setVisibility(View.VISIBLE);
+
+                    generateTable();
+                    //activityCreateDialog();
+                } else
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please select exam, subject and activity");
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                subActivityPos = position;
+                subActivityUpdateDialog();
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.sum:
+                        calculationGlobal = -1;
+                        updateSubActCalculation();
+                        break;
+                    case R.id.average:
+                        calculationGlobal = 0;
+                        updateSubActCalculation();
+                        break;
+                    case R.id.best:
+                        calculationGlobal = bestOf.getSelectedItemPosition() + 1;
+                        updateSubActCalculation();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+        width1 = (width / 2) - 2;
+        width2 = width / 4;
+    }
+
+    private void generateTable() {
+        tag = 0;
+        for (SubActivityItem item : subActCreateList) {
+            TableRow tableRow = tableRow();
+            table.addView(tableRow);
+        }
+    }
+
+    private TableRow tableRow() {
+
+        TableRow tableRowForTable = new TableRow(this.context);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        LinearLayout verticalLayout = new LinearLayout(getActivity());
+        verticalLayout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout horizontalLayout = new LinearLayout(getActivity());
+        horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        LinearLayout.LayoutParams p1 = new LinearLayout.LayoutParams(width1, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(width2, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        View verticalBorder = new View(getActivity());
+        verticalBorder.setBackgroundColor(getResources().getColor(R.color.border));
+        LinearLayout.LayoutParams vlp = new LinearLayout.LayoutParams(1, LinearLayout.LayoutParams.MATCH_PARENT);
+        verticalBorder.setLayoutParams(vlp);
+        horizontalLayout.addView(verticalBorder);
+
+        EditText ed = new EditText(getActivity());
+        ed.setTag(tag);
+        tag++;
+        ed.setLayoutParams(p1);
+        ed.setGravity(Gravity.CENTER);
+        ed.setHint("SubActivity Name");
+        ed.setInputType(InputType.TYPE_CLASS_TEXT);
+        ed.addTextChangedListener(new SubActTextWatcher(ed));
+        horizontalLayout.addView(ed);
+
+        View verticalBorder2 = new View(getActivity());
+        verticalBorder2.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
+        verticalBorder2.setLayoutParams(vlp);
+        horizontalLayout.addView(verticalBorder2);
+
+        EditText ed1 = new EditText(getActivity());
+        ed1.setTag(tag);
+        tag++;
+        ed1.setLayoutParams(p2);
+        ed1.setGravity(Gravity.CENTER);
+        ed1.setHint("Maximum Marks");
+        ed1.setInputType(InputType.TYPE_CLASS_NUMBER);
+        ed1.addTextChangedListener(new SubActTextWatcher(ed1));
+        horizontalLayout.addView(ed1);
+
+        View verticalBorder3 = new View(getActivity());
+        verticalBorder3.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
+        verticalBorder3.setLayoutParams(vlp);
+        horizontalLayout.addView(verticalBorder3);
+
+        EditText ed2 = new EditText(getActivity());
+        ed2.setTag(tag);
+        tag++;
+        ed2.setLayoutParams(p2);
+        ed2.setHint("Weightage");
+        ed2.setGravity(Gravity.CENTER);
+        ed2.setInputType(InputType.TYPE_CLASS_NUMBER);
+        ed2.addTextChangedListener(new SubActTextWatcher(ed2));
+        horizontalLayout.addView(ed2);
+
+        verticalLayout.addView(horizontalLayout);
+        View horizontalBorder = new View(getActivity());
+        horizontalBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.border));
+        LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        horizontalBorder.setLayoutParams(hlp);
+        verticalLayout.addView(horizontalBorder);
+        tableRowForTable.addView(verticalLayout, params);
+
+        return tableRowForTable;
+    }
+
+    private class SubActTextWatcher implements TextWatcher {
+
+        private int pos;
+        private int index;
+        private View view;
+
+        private SubActTextWatcher(View view) {
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            pos = (Integer) view.getTag();
+            index = pos / 3;
+            SubActivityItem ses = subActCreateList.get(index);
+
+            if (s.toString().equals("")) {
+                ses.setNullCheck(false);
+            } else {
+                if (pos % 3 == 0) {
+                    ses.setSubactName(s.toString());
+                } else if (pos % 3 == 1) {
+                    ses.setMaxMark(Integer.parseInt(s.toString()));
+                } else {
+                    ses.setWeightage(s.toString());
+                }
+                ses.setNullCheck(true);
+            }
+            subActCreateList.set(index, ses);
+        }
+    }
+
+    private void updateSubActCalculation() {
+        if (subActCreateList.size() > 0) {
+            for (SubActivityItem actItem : subActCreateList) {
+                actItem.setCalculation(calculationGlobal);
+            }
+        }
+        if (subactivityItemList.size() > 0) {
+            for (SubActivityItem subActItem : subactivityItemList) {
+                String sql = "update subactivity set Calculation = " + calculationGlobal + " where SubActivityId = " + subActItem.getSubactId();
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        resetSubActivityList();
+        subActivityAdapter.notifyDataSetChanged();
     }
 
     private void initClassSpinner() {
@@ -155,16 +433,32 @@ public class SubActivityCreateEdit extends Fragment {
         activityAdapter.setDropDownViewResource(R.layout.spinner_droppeddown);
         activitySpinner.setAdapter(activityAdapter);
 
+        ArrayAdapter<String> bestOfAdapter = new ArrayAdapter<>(context, R.layout.spinner_header,
+                Arrays.asList(new String[]{"1", "2", "3", "4", "5"}));
+        bestOfAdapter.setDropDownViewResource(R.layout.spinner_droppeddown);
+        bestOf.setAdapter(bestOfAdapter);
+
         classSpinner.setSelection(classInChargePos);
 
         classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 classId = classInchargeList.get(position);
+
                 initExamSpinner();
-                initSectionSpinner();
                 examAdapter.notifyDataSetChanged();
+                examSpinner.setSelection(0);
+
+                initSectionSpinner();
                 sectionAdapter.notifyDataSetChanged();
+
+                initSubjectSpinner();
+                subjectAdapter.notifyDataSetChanged();
+                subjectSpinner.setSelection(0);
+
+                initActivitySpinner();
+                activityAdapter.notifyDataSetChanged();
+                activitySpinner.setSelection(0);
             }
 
             @Override
@@ -177,6 +471,18 @@ public class SubActivityCreateEdit extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sectionId = sectionIdList.get(position);
+
+                initExamSpinner();
+                examAdapter.notifyDataSetChanged();
+                examSpinner.setSelection(0);
+
+                initSubjectSpinner();
+                subjectAdapter.notifyDataSetChanged();
+                subjectSpinner.setSelection(0);
+
+                initActivitySpinner();
+                activityAdapter.notifyDataSetChanged();
+                activitySpinner.setSelection(0);
             }
 
             @Override
@@ -236,6 +542,19 @@ public class SubActivityCreateEdit extends Fragment {
                     subactivityItemList.clear();
                     subActivityAdapter.notifyDataSetChanged();
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        bestOf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                calculationGlobal = bestOf.getSelectedItemPosition() + 1;
+                updateSubActCalculation();
             }
 
             @Override
@@ -316,6 +635,7 @@ public class SubActivityCreateEdit extends Fragment {
             ai.setSubactName(c.getString(c.getColumnIndex("SubActivityName")));
             ai.setMaxMark(c.getInt(c.getColumnIndex("MaximumMark")));
             int calculation = c.getInt(c.getColumnIndex("Calculation"));
+            calculationGlobal = calculation;
             ai.setCalculation(calculation);
             if (calculation == 0) {
                 ai.setWeightage(c.getInt(c.getColumnIndex("Weightage")) + "");
@@ -326,6 +646,14 @@ public class SubActivityCreateEdit extends Fragment {
             c.moveToNext();
         }
         c.close();
+
+        if (calculationGlobal == -1) {
+            sum.setChecked(true);
+        } else if (calculationGlobal == 0) {
+            avg.setChecked(true);
+        } else {
+            best.setChecked(true);
+        }
     }
 
     public class SubActivityAdapter extends ArrayAdapter<SubActivityItem> {
@@ -379,6 +707,15 @@ public class SubActivityCreateEdit extends Fragment {
         private int maxMark;
         private String weightage;
         private int calculation;
+        private boolean nullCheck;
+
+        public boolean isNullCheck() {
+            return nullCheck;
+        }
+
+        public void setNullCheck(boolean nullCheck) {
+            this.nullCheck = nullCheck;
+        }
 
         public int getSubactId() {
             return subactId;
@@ -421,97 +758,44 @@ public class SubActivityCreateEdit extends Fragment {
         }
     }
 
-    private Dialog activityCreateDialog() {
-        final Dialog dialog = new Dialog(getActivity(), R.style.DialogSlideAnim);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.activity_create_dialog);
-        dialog.setCancelable(false);
+    private void createSubActivityAction() {
+        boolean canSave = true;
 
-        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
-        final TextInputLayout hideLayout = (TextInputLayout) dialog.findViewById(R.id.hided);
-
-        final EditText subActivityName = (EditText) dialog.findViewById(R.id.activity_name);
-        final EditText maxMark = (EditText) dialog.findViewById(R.id.max_mark);
-        final EditText weightage = (EditText) dialog.findViewById(R.id.weightage);
-
-        final RadioButton sum = (RadioButton) dialog.findViewById(R.id.sum);
-        final RadioButton avg = (RadioButton) dialog.findViewById(R.id.average);
-        final RadioButton best = (RadioButton) dialog.findViewById(R.id.best);
-
-        final Spinner bestOf = (Spinner) dialog.findViewById(R.id.bestof);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_header,
-                Arrays.asList(new String[]{"1", "2", "3", "4", "5"}));
-        adapter.setDropDownViewResource(R.layout.spinner_droppeddown);
-        bestOf.setAdapter(adapter);
-
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.sum:
-                        hideLayout.setVisibility(View.GONE);
-                        break;
-                    case R.id.average:
-                        hideLayout.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.best:
-                        hideLayout.setVisibility(View.GONE);
-                        break;
-                    default:
-                        break;
-                }
+        for (SubActivityItem subActItem : subActCreateList) {
+            if (!subActItem.isNullCheck()) {
+                canSave = false;
+                break;
             }
-        });
+        }
 
-        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        if (canSave) {
 
-        dialog.findViewById(R.id.create).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            for (SubActivityItem subActItem : subActCreateList) {
                 String sql = "";
                 try {
-                    generatedId = PKGenerator.getMD5(schoolId, sectionId, subActivityName.getText().toString());
+                    generatedId = PKGenerator.getMD5(schoolId, sectionId, subActItem.getSubactName().toString());
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
 
-                if (sum.isChecked()) {
-                    if (!subActivityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
-                        sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
-                                "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
-                                " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", " + activityId + ",\"" + subActivityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
-                                ", 0, -1)";
-                    } else {
-                        CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
-                    }
-                } else if (avg.isChecked()) {
-                    if (!subActivityName.getText().toString().equals("") &&
-                            !maxMark.getText().toString().equals("") &&
-                            !weightage.getText().toString().equals("")) {
-                        sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
-                                "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
-                                " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", " + activityId + ",\"" + subActivityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
-                                ", " + weightage.getText().toString() + ", 0)";
-                    } else {
-                        CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
-                    }
-                } else if (best.isChecked()) {
-                    if (!subActivityName.getText().toString().equals("") && !maxMark.getText().toString().equals("")) {
-                        sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
-                                "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
-                                " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
-                                ", " + subjectId + ", " + activityId + ",\"" + subActivityName.getText().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + maxMark.getText().toString() +
-                                ", 0, " + (bestOf.getSelectedItemPosition() + 1) + ")";
-                    } else {
-                        CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
-                    }
+                if (subActItem.getCalculation() == -1) {
+                    sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
+                            "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
+                            " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
+                            ", " + subjectId + ", " + activityId + ",\"" + subActItem.getSubactName().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + subActItem.getMaxMark() +
+                            ", 0, -1)";
+                } else if (subActItem.getCalculation() == 0) {
+                    sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
+                            "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
+                            " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
+                            ", " + subjectId + ", " + activityId + ",\"" + subActItem.getSubactName().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + subActItem.getMaxMark() +
+                            ", " + subActItem.getWeightage().toString() + ", 0)";
+                } else {
+                    sql = "insert into subactivity (SubActivityId, SchoolId, ClassId, SectionId, ExamId, " +
+                            "SubjectId, ActivityId, SubActivityName, MaximumMark, Weightage, Calculation) " +
+                            " values (" + generatedId + ", " + schoolId + ", " + classId + ", " + sectionId + ", " + examId +
+                            ", " + subjectId + ", " + activityId + ",\"" + subActItem.getSubactName().toString().replaceAll("\n", " ").replaceAll("\"", "'") + "\"," + subActItem.getMaxMark() +
+                            ", 0, " + (bestOf.getSelectedItemPosition() + 1) + ")";
                 }
 
                 try {
@@ -522,30 +806,12 @@ public class SubActivityCreateEdit extends Fragment {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-                dialog.dismiss();
-                activitySpinner.setSelection(0);
             }
-        });
-
-        dialog.getWindow().setGravity(Gravity.TOP);
-        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
-        layoutParams.y = 80;
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setAttributes(layoutParams);
-
-        dialog.show();
-
-        /*WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.y = 80;
-        Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);*/
-
-        return dialog;
+            resetSubActivityList();
+            subActivityAdapter.notifyDataSetChanged();
+            cancelSubActCreation.performClick();
+        } else
+            CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "subactivity name and maximum marks are compulsory");
     }
 
     private Dialog subActivityUpdateDialog() {
@@ -554,62 +820,28 @@ public class SubActivityCreateEdit extends Fragment {
         dialog.setContentView(R.layout.activity_edit_dialog);
         dialog.setCancelable(false);
 
-        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
         final TextInputLayout hideLayout = (TextInputLayout) dialog.findViewById(R.id.hided);
 
         final EditText activityName = (EditText) dialog.findViewById(R.id.activity_name);
         final EditText maxMark = (EditText) dialog.findViewById(R.id.max_mark);
         final EditText weightage = (EditText) dialog.findViewById(R.id.weightage);
 
-        final RadioButton sum = (RadioButton) dialog.findViewById(R.id.sum);
-        final RadioButton avg = (RadioButton) dialog.findViewById(R.id.average);
-        final RadioButton best = (RadioButton) dialog.findViewById(R.id.best);
-
-        final Spinner bestOf = (Spinner) dialog.findViewById(R.id.bestof);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_header,
-                Arrays.asList(new String[]{"1", "2", "3", "4", "5"}));
-        adapter.setDropDownViewResource(R.layout.spinner_droppeddown);
-        bestOf.setAdapter(adapter);
-
         final SubActivityItem ai = subactivityItemList.get(subActivityPos);
 
         if (ai.getCalculation() == -1) {
             activityName.setText(ai.getSubactName());
             maxMark.setText(ai.getMaxMark() + "");
-            sum.setChecked(true);
             hideLayout.setVisibility(View.GONE);
         } else if (ai.getCalculation() == 0) {
             activityName.setText(ai.getSubactName());
             maxMark.setText(ai.getMaxMark() + "");
             weightage.setText(ai.getWeightage() + "");
-            avg.setChecked(true);
             hideLayout.setVisibility(View.VISIBLE);
         } else {
             activityName.setText(ai.getSubactName());
             maxMark.setText(ai.getMaxMark() + "");
-            best.setChecked(true);
-            bestOf.setSelection(ai.getCalculation() - 1);
             hideLayout.setVisibility(View.GONE);
         }
-
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.sum:
-                        hideLayout.setVisibility(View.GONE);
-                        break;
-                    case R.id.average:
-                        hideLayout.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.best:
-                        hideLayout.setVisibility(View.GONE);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
 
         dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -669,10 +901,9 @@ public class SubActivityCreateEdit extends Fragment {
                 }
 
                 dialog.dismiss();
-
-                activitySpinner.setSelection(0);
-                //subjectSpinner.setSelection(lastSubjectPos);
-                //ReplaceFragment.replace(new ActivityCreateEdit(), getFragmentManager());
+                resetSubActivityList();
+                subActivityAdapter.notifyDataSetChanged();
+                //activitySpinner.setSelection(0);
             }
         });
 
@@ -711,7 +942,9 @@ public class SubActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
                 dialog.cancel();
-                activitySpinner.setSelection(0);
+                resetSubActivityList();
+                subActivityAdapter.notifyDataSetChanged();
+                //activitySpinner.setSelection(0);
             }
         });
         submitBuilder.show();

@@ -1,12 +1,37 @@
 package in.teacher.activity;
 
+import android.animation.ObjectAnimator;
+import android.app.KeyguardManager;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.PowerManager;
+import android.provider.Settings.Secure;
+import android.support.v4.content.LocalBroadcastManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.TeacherDao;
@@ -15,30 +40,14 @@ import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Section;
 import in.teacher.sqlite.Teacher;
 import in.teacher.sqlite.Temp;
+import in.teacher.sync.SyncIntentService;
 import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ExceptionHandler;
 import in.teacher.util.NetworkUtils;
+import in.teacher.util.PKGenerator;
 import in.teacher.util.SharedPreferenceUtil;
-
-import android.animation.ObjectAnimator;
-import android.app.KeyguardManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.PowerManager;
-import android.provider.Settings.Secure;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by vinkrish.
@@ -62,10 +71,6 @@ public class LoginActivity extends BaseActivity {
 
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
-
-        registerReceiver(broadcastReceiver, new IntentFilter("WIFI_STATUS"));
-        registerReceiver(internetReceiver, new IntentFilter("I_FAILED_ME"));
-        registerBroadcastReceiver();
 
         noWifi = (TextView) findViewById(R.id.no_wifi);
         updateWifiStatus();
@@ -232,15 +237,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void syncClicked(View v) {
-        if (NetworkUtils.isNetworkConnected(context)) {
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("manual_sync", 1);
-            editor.apply();
-            Intent intent = new Intent(this, ProcessFiles.class);
-            startActivity(intent);
-        } else {
+        if (NetworkUtils.isNetworkConnected(context))
+            new FileCreation().execute();
+        else
             CommonDialogUtils.displayAlertWhiteDialog(this, "Please be in WiFi zone or check the status of WiFi");
-        }
+
     }
 
     public void usernameClicked(View v) {
@@ -260,6 +261,13 @@ public class LoginActivity extends BaseActivity {
         password.setText("|");
         tvflag = true;
     }
+
+    BroadcastReceiver fileUploadBCReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            alertSync();
+        }
+    };
 
     BroadcastReceiver internetReceiver = new BroadcastReceiver() {
         @Override
@@ -283,32 +291,25 @@ public class LoginActivity extends BaseActivity {
 
             KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 
-            if (strAction.equals(Intent.ACTION_SCREEN_OFF) || strAction.equals(Intent.ACTION_SCREEN_ON))
-            {
-                if( myKM.inKeyguardRestrictedInputMode())
-                {
+            if (strAction.equals(Intent.ACTION_SCREEN_OFF) || strAction.equals(Intent.ACTION_SCREEN_ON)) {
+                if (myKM.inKeyguardRestrictedInputMode()) {
                     SharedPreferences pref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
                     int is_first_sync = pref.getInt("first_sync", 0);
-                    int sleepSync = pref.getInt("sleep_sync", 0);
                     int tabletLock = pref.getInt("tablet_lock", 0);
-                    int manualSync = pref.getInt("manual_sync", 0);
 
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     boolean isScreen = pm.isScreenOn();
 
                     if (NetworkUtils.isNetworkConnected(context) &&
-                            sleepSync == 1 &&
                             !isScreen &&
                             is_first_sync == 0 &&
-                            tabletLock == 0 &&
-                            manualSync ==0) {
+                            tabletLock == 0) {
                         Intent intentProcess = new Intent(context, in.teacher.activity.ProcessFiles.class);
                         intentProcess.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intentProcess);
                     }
                     //System.out.println("Screen off " + "LOCKED");
-                } else
-                {
+                } else {
                     //System.out.println("Screen off " + "UNLOCKED");
                 }
             }
@@ -429,40 +430,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        /*SharedPreferences sharedPref = context.getSharedPreferences("db_access", Context.MODE_PRIVATE);
-        int is_first_sync = sharedPref.getInt("first_sync", 0);
-        int sleepSync = sharedPref.getInt("sleep_sync", 0);
-        int tabletLock = sharedPref.getInt("tablet_lock", 0);
-
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        boolean isScreen = pm.isScreenOn();
-
-        if (NetworkUtils.isNetworkConnected(context) && sleepSync == 1 && !isScreen && is_first_sync == 0 && tabletLock == 0) {
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("is_sync", 1);
-            editor.apply();
-            Intent intent = new Intent(this, in.teacher.activity.ProcessFiles.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }*/
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     protected void onResume() {
         checkSyncUpdate();
         updateWifiStatus();
+        registerBroadcastReceiver();
+        registerReceiver(fileUploadBCReceiver, new IntentFilter("FILE_UPLOADED"));
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("INTERNET_STATUS"));
         alertSync();
-        registerBroadcastReceiver();
         super.onResume();
     }
 
@@ -470,13 +445,9 @@ public class LoginActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         registerBroadcastReceiver();
-        registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
-        registerReceiver(internetReceiver, new IntentFilter("INTERNET_STATUS"));
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
+        LocalBroadcastManager.getInstance(this).registerReceiver(fileUploadBCReceiver,
+                new IntentFilter("FILE_UPLOADED"));
+        //registerReceiver(fileUploadBCReceiver, new IntentFilter("in.teacher.FILE_UPLOADED"));
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_STATUS"));
         registerReceiver(internetReceiver, new IntentFilter("INTERNET_STATUS"));
     }
@@ -486,6 +457,8 @@ public class LoginActivity extends BaseActivity {
         unregisterReceiver(screenOnOffReceiver);
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(internetReceiver);
+        unregisterReceiver(fileUploadBCReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(fileUploadBCReceiver);
         super.onStop();
     }
 
@@ -494,6 +467,88 @@ public class LoginActivity extends BaseActivity {
         theFilter.addAction(Intent.ACTION_SCREEN_ON);
         theFilter.addAction(Intent.ACTION_SCREEN_OFF);
         this.registerReceiver(screenOnOffReceiver, theFilter);
+    }
+
+    class FileCreation extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pDialog = new ProgressDialog(LoginActivity.this);
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Submitting marks...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            createUploadFile();
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            pDialog.dismiss();
+            Intent syncService = new Intent(context, SyncIntentService.class);
+            context.startService(syncService);
+        }
+    }
+
+    private void createUploadFile() {
+        Cursor c = sqliteDatabase.rawQuery("select * from temp where id = 1", null);
+        String deviceId = "";
+        int schoolId = 0;
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            deviceId = c.getString(c.getColumnIndex("DeviceId"));
+            schoolId = c.getInt(c.getColumnIndex("SchoolId"));
+            c.moveToNext();
+        }
+        c.close();
+
+        long timeStamp = PKGenerator.getPrimaryKey();
+
+        Cursor c1 = sqliteDatabase.rawQuery("select Query from uploadsql", null);
+        if (c1.getCount() > 0) {
+            File root = android.os.Environment.getExternalStorageDirectory();
+            File dir = new File(root.getAbsolutePath() + "/Upload");
+            dir.mkdirs();
+            File file = new File(dir, timeStamp + "_" + deviceId + "_" + schoolId + ".sql");
+            file.delete();
+            try {
+                file.createNewFile();
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+                c1.moveToFirst();
+                while (!c1.isAfterLast()) {
+                    writer.write(c1.getString(c1.getColumnIndex("Query")) + ";");
+                    writer.newLine();
+                    c1.moveToNext();
+                }
+                c1.close();
+                writer.close();
+
+                FileOutputStream fileOutputStream = new FileOutputStream(new File(dir, timeStamp + "_" + deviceId + "_" + schoolId + ".zip"));
+                ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
+                ZipEntry zipEntry = new ZipEntry(file.getName());
+                zipOutputStream.putNextEntry(zipEntry);
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] buf = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = fileInputStream.read(buf)) > 0) {
+                    zipOutputStream.write(buf, 0, bytesRead);
+                }
+                fileInputStream.close();
+                zipOutputStream.closeEntry();
+                zipOutputStream.close();
+                fileOutputStream.close();
+                sqliteDatabase.execSQL("insert into uploadedfile(filename) values('" + timeStamp + "_" + deviceId + "_" + schoolId + ".zip" + "')");
+
+                file.delete();
+
+            } catch (IOException e) {
+            }
+            sqliteDatabase.execSQL("delete from uploadsql");
+        }
     }
 
 }

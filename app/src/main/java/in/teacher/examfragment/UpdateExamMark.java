@@ -261,17 +261,17 @@ public class UpdateExamMark extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (v.getId() == R.id.one) updateScoreField("1");
-                    if (v.getId() == R.id.two) updateScoreField("2");
-                    if (v.getId() == R.id.three) updateScoreField("3");
-                    if (v.getId() == R.id.four) updateScoreField("4");
-                    if (v.getId() == R.id.five) updateScoreField("5");
-                    if (v.getId() == R.id.six) updateScoreField("6");
-                    if (v.getId() == R.id.seven) updateScoreField("7");
-                    if (v.getId() == R.id.eight) updateScoreField("8");
-                    if (v.getId() == R.id.nine) updateScoreField("9");
-                    if (v.getId() == R.id.zero) updateScoreField("0");
-                    if (v.getId() == R.id.decimal) updateScoreField(".");
-                    if (v.getId() == R.id.minus) {
+                    else if (v.getId() == R.id.two) updateScoreField("2");
+                    else if (v.getId() == R.id.three) updateScoreField("3");
+                    else if (v.getId() == R.id.four) updateScoreField("4");
+                    else if (v.getId() == R.id.five) updateScoreField("5");
+                    else if (v.getId() == R.id.six) updateScoreField("6");
+                    else if (v.getId() == R.id.seven) updateScoreField("7");
+                    else if (v.getId() == R.id.eight) updateScoreField("8");
+                    else if (v.getId() == R.id.nine) updateScoreField("9");
+                    else if (v.getId() == R.id.zero) updateScoreField("0");
+                    else if (v.getId() == R.id.decimal) updateScoreField(".");
+                    else if (v.getId() == R.id.minus) {
                         studentScore.set(index, "-1");
                         repopulateListArray();
                     }

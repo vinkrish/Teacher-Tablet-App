@@ -52,7 +52,6 @@ public class UpdateApk extends BaseActivity {
         if (updateApk == 2) {
             downloadApk();
         }
-
     }
 
     public void updateClicked(View v) {
@@ -93,7 +92,6 @@ public class UpdateApk extends BaseActivity {
 
             return null;
         }
-
 
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);

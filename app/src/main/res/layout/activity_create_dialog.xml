@@ -20,52 +20,6 @@
         android:layout_height="1dp"
         android:background="@color/divider" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/calculation"
-        android:textColor="@color/black" />
-
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/sum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:checked="true"
-            android:text="@string/sum"
-            android:textColor="@color/black" />
-
-        <RadioButton
-            android:id="@+id/average"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="@string/avg"
-            android:textColor="@color/black" />
-
-        <RadioButton
-            android:id="@+id/best"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="@string/bestof"
-            android:textColor="@color/black" />
-
-        <Spinner
-            android:id="@+id/bestof"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/teal_border" />
-    </RadioGroup>
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

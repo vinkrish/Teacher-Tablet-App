@@ -57,11 +57,13 @@ public class InsertCCEStudentProfile extends Fragment {
     private RelativeLayout tableLayout;
     private TableLayout table;
     private Button submit;
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.enter_cce_student_profile, container, false);
+        progressDialog = new ProgressDialog(getActivity());
         context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         tag = 0;
@@ -76,29 +78,6 @@ public class InsertCCEStudentProfile extends Fragment {
 
         totalDays = (EditText) view.findViewById(R.id.today_days);
         submit = (Button) view.findViewById(R.id.submit);
-
-        Temp t = TempDao.selectTemp(sqliteDatabase);
-        sectionId = t.getSectionId();
-        classId = t.getClassId();
-        schoolId = t.getSchoolId();
-
-        studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
-        for (Students stud : studentsArray) {
-            CCEStudentProfile cceItem = new CCEStudentProfile();
-            cceItem.setSchoolId(schoolId+"");
-            cceItem.setClassId(classId + "");
-            cceItem.setSectionId(sectionId + "");
-            cceItem.setTerm(term);
-            cceItem.setStudentId(stud.getStudentId() + "");
-            cceItem.setRollNo(stud.getRollNoInClass());
-            cceItem.setStudentName(stud.getName());
-            cceItem.setHeight("");
-            cceItem.setWeight("");
-            cceItem.setVisionL("");
-            cceItem.setVisionR("");
-            cceItem.setTermRemark("");
-            profileList.add(cceItem);
-        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,11 +111,36 @@ public class InsertCCEStudentProfile extends Fragment {
                 width4 = view.findViewById(R.id.width4).getWidth();
                 width5 = view.findViewById(R.id.width5).getWidth();
                 width6 = view.findViewById(R.id.width6).getWidth();
-                generateTable();
+                new OffLoadTask().execute();
             }
         });
 
         return view;
+    }
+
+    private void init(){
+        Temp t = TempDao.selectTemp(sqliteDatabase);
+        sectionId = t.getSectionId();
+        classId = t.getClassId();
+        schoolId = t.getSchoolId();
+
+        studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
+        for (Students stud : studentsArray) {
+            CCEStudentProfile cceItem = new CCEStudentProfile();
+            cceItem.setSchoolId(schoolId+"");
+            cceItem.setClassId(classId + "");
+            cceItem.setSectionId(sectionId + "");
+            cceItem.setTerm(term);
+            cceItem.setStudentId(stud.getStudentId() + "");
+            cceItem.setRollNo(stud.getRollNoInClass());
+            cceItem.setStudentName(stud.getName());
+            cceItem.setHeight("");
+            cceItem.setWeight("");
+            cceItem.setVisionL("");
+            cceItem.setVisionR("");
+            cceItem.setTermRemark("");
+            profileList.add(cceItem);
+        }
     }
 
     class SubmitTask extends AsyncTask<Void, Void, Void> {
@@ -199,6 +203,8 @@ public class InsertCCEStudentProfile extends Fragment {
             table.addView(tableRow);
         }
         tableLayout.addView(table);
+
+        progressDialog.dismiss();
     }
 
     private TableRow generateRow(CCEStudentProfile cce) {
@@ -416,10 +422,33 @@ public class InsertCCEStudentProfile extends Fragment {
                 try {
                     d = Double.parseDouble(s.toString());
                 } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
                 c.setDaysAttended1(d);
             }
             profileList.set(index, c);
+        }
+    }
+
+    class OffLoadTask extends AsyncTask<Void, Void, Void> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("Loading Data...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            init();
+            return null;
+        }
+
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            generateTable();
         }
     }
 

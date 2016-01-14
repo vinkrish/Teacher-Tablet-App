@@ -24,14 +24,11 @@ import java.util.List;
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
-import in.teacher.dao.SlipTesttDao;
-import in.teacher.dao.StAvgDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.MovStudent;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
-import in.teacher.util.PercentageSlipTest;
 import in.teacher.util.ReplaceFragment;
 
 /**
@@ -160,7 +157,7 @@ public class AcceptStudent extends Fragment {
             AlertDialog.Builder submitBuilder = new AlertDialog.Builder(getActivity());
             submitBuilder.setCancelable(false);
             submitBuilder.setTitle("Confirm your action");
-            submitBuilder.setMessage("Do you want to accept " + ms.getStudentName() + " to " + ms.getClassName() +" - " + ms.getSectionTo());
+            submitBuilder.setMessage("Do you want to accept " + ms.getStudentName() + " to " + ms.getClassName() + " - " + ms.getSectionTo());
             submitBuilder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int arg1) {
@@ -195,6 +192,27 @@ public class AcceptStudent extends Fragment {
                         sqliteDatabase.insert("uploadsql", null, cv);
                     } catch (SQLException e) {
                     }
+                    String[] tables = {"studentattendance", "marks", "activitymark", "subactivitymark", "ccestudentprofile", "ccecoscholasticgrade"};
+                    for (String table : tables) {
+                        try {
+                            String sqlDelete = "delete from " + table + " where StudentId = " + ms.getStudentId();
+                            sqliteDatabase.execSQL(sqlDelete);
+                            ContentValues cv = new ContentValues();
+                            cv.put("Query", sqlDelete);
+                            sqliteDatabase.insert("uploadsql", null, cv);
+                        } catch (SQLException e) {
+                        }
+                    }
+
+                    try {
+                        String sqlUpdate = "update students set SubjectIds = '' where StudentId = " + ms.getStudentId();
+                        sqliteDatabase.execSQL(sqlUpdate);
+                        ContentValues cv = new ContentValues();
+                        cv.put("Query", sqlUpdate);
+                        sqliteDatabase.insert("uploadsql", null, cv);
+                    } catch (SQLException e) {
+                    }
+
                     ReplaceFragment.replace(new AcceptStudent(), getFragmentManager());
                 }
             });

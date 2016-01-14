@@ -74,7 +74,7 @@ public class SubjectTeacherMapping extends Fragment {
         return view;
     }
 
-    private void init(){
+    private void init() {
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         schoolId = t.getSchoolId();
@@ -83,64 +83,67 @@ public class SubjectTeacherMapping extends Fragment {
         CommonDialogUtils.hideKeyboard(getActivity());
 
         subjectGroupIdList = ClasDao.getSubjectGroupIds(sqliteDatabase, classId);
-        for (Integer groupId: subjectGroupIdList) {
-            subjectIdList.addAll(SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, groupId));
-        }
-        StringBuilder sb = new StringBuilder();
-        for (Integer ids : subjectIdList) {
-            sb.append(ids + ",");
-        }
-        subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
-        Cursor c = sqliteDatabase.rawQuery("select TeacherId, Name from teacher", null);
-        c.moveToFirst();
-        while (!c.isAfterLast()) {
-            teacherIdList.add((c.getInt(c.getColumnIndex("TeacherId"))));
-            teacherNameList.add((c.getString(c.getColumnIndex("Name"))));
-            c.moveToNext();
-        }
-        c.close();
+        if (subjectGroupIdList.size() != 0) {
+            for (Integer groupId : subjectGroupIdList) {
+                subjectIdList.addAll(SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, groupId));
+            }
+            StringBuilder sb = new StringBuilder();
+            for (Integer ids : subjectIdList) {
+                sb.append(ids + ",");
+            }
+            subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
-        List<Integer> mappedSubjectId = new ArrayList<>();
-        List<Integer> mappedTeacherId = new ArrayList<>();
-        Cursor c2 = sqliteDatabase.rawQuery("select SubjectId,TeacherId from subjectteacher where SectionId="+sectionId, null);
-        c2.moveToNext();
-        while (!c2.isAfterLast()) {
-            mappedSubjectId.add(c2.getInt(c2.getColumnIndex("SubjectId")));
-            mappedTeacherId.add(c2.getInt(c2.getColumnIndex("TeacherId")));
+            Cursor c = sqliteDatabase.rawQuery("select TeacherId, Name from teacher", null);
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                teacherIdList.add((c.getInt(c.getColumnIndex("TeacherId"))));
+                teacherNameList.add((c.getString(c.getColumnIndex("Name"))));
+                c.moveToNext();
+            }
+            c.close();
+
+            List<Integer> mappedSubjectId = new ArrayList<>();
+            List<Integer> mappedTeacherId = new ArrayList<>();
+            Cursor c2 = sqliteDatabase.rawQuery("select SubjectId,TeacherId from subjectteacher where SectionId=" + sectionId, null);
             c2.moveToNext();
-        }
-        c2.close();
+            while (!c2.isAfterLast()) {
+                mappedSubjectId.add(c2.getInt(c2.getColumnIndex("SubjectId")));
+                mappedTeacherId.add(c2.getInt(c2.getColumnIndex("TeacherId")));
+                c2.moveToNext();
+            }
+            c2.close();
 
-        List<String> mappedSubjectName = new ArrayList<>();
-        for (Integer id: mappedSubjectId){
-            mappedSubjectName.add(SubjectsDao.getSubjectName(id, sqliteDatabase));
-        }
+            List<String> mappedSubjectName = new ArrayList<>();
+            for (Integer id : mappedSubjectId) {
+                mappedSubjectName.add(SubjectsDao.getSubjectName(id, sqliteDatabase));
+            }
 
-        List<String> mappedTeacherName = new ArrayList<>();
-        for (Integer id: mappedTeacherId){
-            mappedTeacherName.add(TeacherDao.selectTeacherName(id, sqliteDatabase));
-        }
+            List<String> mappedTeacherName = new ArrayList<>();
+            for (Integer id : mappedTeacherId) {
+                mappedTeacherName.add(TeacherDao.selectTeacherName(id, sqliteDatabase));
+            }
 
-        for (int i = 0; i < mappedSubjectId.size(); i++) {
-            SubjectTeacherItem st = new SubjectTeacherItem();
-            st.setSubjectId(mappedSubjectId.get(i));
-            st.setSubjectName(mappedSubjectName.get(i));
-            st.setTeacherId(mappedTeacherId.get(i));
-            st.setTeacherName(mappedTeacherName.get(i));
-            st.setInsert(false);
-            subjectTeacherList.add(st);
-        }
-
-        for (int j = 0; j<subjectIdList.size(); j++) {
-            if (!mappedSubjectId.contains(subjectIdList.get(j))) {
+            for (int i = 0; i < mappedSubjectId.size(); i++) {
                 SubjectTeacherItem st = new SubjectTeacherItem();
-                st.setSubjectId(subjectIdList.get(j));
-                st.setSubjectName(subjectNameList.get(j));
-                st.setTeacherId(0);
-                st.setTeacherName("");
-                st.setInsert(true);
+                st.setSubjectId(mappedSubjectId.get(i));
+                st.setSubjectName(mappedSubjectName.get(i));
+                st.setTeacherId(mappedTeacherId.get(i));
+                st.setTeacherName(mappedTeacherName.get(i));
+                st.setInsert(false);
                 subjectTeacherList.add(st);
+            }
+
+            for (int j = 0; j < subjectIdList.size(); j++) {
+                if (!mappedSubjectId.contains(subjectIdList.get(j))) {
+                    SubjectTeacherItem st = new SubjectTeacherItem();
+                    st.setSubjectId(subjectIdList.get(j));
+                    st.setSubjectName(subjectNameList.get(j));
+                    st.setTeacherId(0);
+                    st.setTeacherName("");
+                    st.setInsert(true);
+                    subjectTeacherList.add(st);
+                }
             }
         }
     }
@@ -165,8 +168,13 @@ public class SubjectTeacherMapping extends Fragment {
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
             pDialog.dismiss();
-            stAdapter = new SubjectTeacherAdapter(getActivity(), subjectTeacherList);
-            listView.setAdapter(stAdapter);
+            if (subjectGroupIdList.size() == 0) {
+                CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Class has no subjects assigned, please contact the admin");
+                ReplaceFragment.replace(new Dashbord(), getFragmentManager());
+            } else {
+                stAdapter = new SubjectTeacherAdapter(getActivity(), subjectTeacherList);
+                listView.setAdapter(stAdapter);
+            }
         }
     }
 
@@ -195,28 +203,30 @@ public class SubjectTeacherMapping extends Fragment {
         }
     }
 
-    private void saveChanges () {
+    private void saveChanges() {
         String sql = "";
-        for (SubjectTeacherItem st: subjectTeacherList) {
-            if (st.isInsert()) {
-                sql = "insert into subjectteacher (ClassId, SubjectId, SchoolId, TeacherId, SectionId) " +
-                        "values("+classId+", "+st.getSubjectId()+", "+schoolId+", "+st.getTeacherId()+", "+sectionId+")";
-            } else {
-                sql = "update subjectteacher set TeacherId = "+ st.getTeacherId() +
-                        " where SubjectId = "+ st.getSubjectId() + " and SectionId = " + sectionId;
-            }
-            try {
-                sqliteDatabase.execSQL(sql);
-                ContentValues cv = new ContentValues();
-                cv.put("Query", sql);
-                sqliteDatabase.insert("uploadsql", null, cv);
-            }catch (SQLException e) {
-                e.printStackTrace();
+        for (SubjectTeacherItem st : subjectTeacherList) {
+            if (st.getTeacherId() != 0) {
+                if (st.isInsert()) {
+                    sql = "insert into subjectteacher (ClassId, SubjectId, SchoolId, TeacherId, SectionId) " +
+                            "values(" + classId + ", " + st.getSubjectId() + ", " + schoolId + ", " + st.getTeacherId() + ", " + sectionId + ")";
+                } else {
+                    sql = "update subjectteacher set TeacherId = " + st.getTeacherId() +
+                            " where SubjectId = " + st.getSubjectId() + " and SectionId = " + sectionId;
+                }
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
-    public void showTeacherDialog(){
+    public void showTeacherDialog() {
         new AlertDialog.Builder(getActivity())
                 .setTitle("Teachers")
                 .setCancelable(true)

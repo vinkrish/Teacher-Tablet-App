@@ -1,13 +1,12 @@
 package in.teacher.dao;
 
-import in.teacher.sqlite.Students;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import in.teacher.sqlite.Students;
 
 public class StudentsDao {
 
@@ -63,7 +62,7 @@ public class StudentsDao {
     }
 
     public static List<Students> selectStudentsUnmapped(int sectionId, SQLiteDatabase sqliteDatabase) {
-        Cursor c = sqliteDatabase.rawQuery("select StudentId, RollNoInClass, Name from students where SectionId=" + sectionId + " and SubjectIds = '' order by RollNoInClass", null);
+        Cursor c = sqliteDatabase.rawQuery("select StudentId, RollNoInClass, Name from students where (SubjectIds='' or SubjectIds is null) and SectionId=" + sectionId + " order by RollNoInClass", null);
         List<Students> sList = new ArrayList<>();
         c.moveToFirst();
         while (!c.isAfterLast()) {
@@ -117,23 +116,29 @@ public class StudentsDao {
     }
 
     public static boolean isStudentMapped(SQLiteDatabase sqliteDatabase, int sectionId) {
-        Cursor c = sqliteDatabase.rawQuery("select StudentId from students where SubjectIds='' and SectionId="+sectionId, null);
+        Cursor c = sqliteDatabase.rawQuery("select StudentId from students where (SubjectIds='' or SubjectIds is null) and SectionId=" + sectionId, null);
         if (c.getCount() > 0) {
-            Log.d("null exist", "false");
             c.close();
             return false;
         }
-        Log.d("null doesn't exist", "true");
         c.close();
         return true;
     }
 
-    public static boolean isStudentMapped2 (SQLiteDatabase sqliteDatabase, int sectionId) {
-        Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where SubjectIds!='' and SectionId="+sectionId, null);
+    public static boolean isStudentPresent(SQLiteDatabase sqliteDatabase, int sectionId){
+        Cursor c = sqliteDatabase.rawQuery("select StudentId from students where SectionId=" + sectionId, null);
         if (c.getCount() > 0) {
-            Log.d("c count", c.getCount()+"");
-            Cursor c2 = sqliteDatabase.rawQuery("select count(*) as count from students where SectionId="+sectionId, null);
-            Log.d("c2 count", c2.getCount()+"");
+            c.close();
+            return false;
+        }
+        c.close();
+        return true;
+    }
+
+    public static boolean isStudentMapped2(SQLiteDatabase sqliteDatabase, int sectionId) {
+        Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where SubjectIds!='' and SectionId=" + sectionId, null);
+        if (c.getCount() > 0) {
+            Cursor c2 = sqliteDatabase.rawQuery("select count(*) as count from students where SectionId=" + sectionId, null);
             if (c.getCount() == c2.getCount()) {
                 c.close();
                 c2.close();
@@ -141,15 +146,34 @@ public class StudentsDao {
             }
             c2.close();
         }
-        Log.d("doesn't exist", "false");
         c.close();
         return false;
     }
 
-    public static boolean isFewStudentMapped (SQLiteDatabase sqliteDatabase, int sectionId) {
-        Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where SubjectIds!='' and SectionId="+sectionId, null);
+    public static boolean isFewStudentMapped(SQLiteDatabase sqliteDatabase, int sectionId) {
+        Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where SubjectIds!='' and SectionId=" + sectionId, null);
         if (c.getCount() > 0) {
-           c.close();
+            c.close();
+            return true;
+        }
+        c.close();
+        return false;
+    }
+
+    public static boolean isRollNoExist(SQLiteDatabase sqliteDatabase, int sectionId, int rollNo) {
+        Cursor c = sqliteDatabase.rawQuery("select StudentId from students where RollNoInClass=" + rollNo + " and SectionId=" + sectionId, null);
+        if (c.getCount() > 0) {
+            c.close();
+            return true;
+        }
+        c.close();
+        return false;
+    }
+
+    public static boolean isRollNoAvailable(SQLiteDatabase sqliteDatabase, int sectionId, int rollNo, int studentId) {
+        Cursor c = sqliteDatabase.rawQuery("select StudentId from students where RollNoInClass=" + rollNo + " and SectionId=" + sectionId + " and StudentId!=" + studentId, null);
+        if (c.getCount() > 0) {
+            c.close();
             return true;
         }
         c.close();

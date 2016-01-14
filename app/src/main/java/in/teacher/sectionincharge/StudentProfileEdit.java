@@ -30,6 +30,7 @@ import java.util.Locale;
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
+import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sectionincharge.StudentProfile;
 import in.teacher.sqlite.Temp;
@@ -129,6 +130,8 @@ public class StudentProfileEdit extends Fragment {
                         mobile1.getText().toString().equals("") ||
                         dob.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Fields marked * are mandatory");
+                } else if (StudentsDao.isRollNoAvailable(sqliteDatabase, sectionId, Integer.parseInt(rollNo.getText().toString()), studentId)){
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Roll number is not unique");
                 } else if (mobile1.getText().toString().length() > 10) {
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Mobile number should be of 10 digits");
                 } else {
