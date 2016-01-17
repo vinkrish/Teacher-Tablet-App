@@ -453,6 +453,51 @@ public class UpdateSubActivityMark extends Fragment {
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
                 }
+            } else {
+                Float subActMaxMark = 0f;
+                for (Float f : subActMaxMarkList)
+                    subActMaxMark += f;
+                List<Float> markList = new ArrayList<>();
+                for (Students st : studentsArray) {
+                    markList.clear();
+                    for (int j = 0; j < subActList.size(); j++) {
+                        float mark = 0;
+                        Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitymark where StudentId=" + st.getStudentId() + " and SubActivityId=" + subActIdList.get(j), null);
+                        c.moveToFirst();
+                        while (!c.isAfterLast()) {
+                            mark = c.getFloat(c.getColumnIndex("Mark"));
+                            c.moveToNext();
+                        }
+                        c.close();
+
+                        if (mark == -1) {
+                            markList.add((float) 0);
+                        } else {
+                            markList.add(mark);
+                        }
+
+                    }
+
+                    float bestOfMarks = 0;
+                    QuickSort quickSort = new QuickSort();
+                    List<Float> sortedMarkList = quickSort.sort(markList);
+                    for (int cal = 0; cal < calculation; cal++) {
+                        bestOfMarks += sortedMarkList.get(cal);
+                    }
+
+                    String sql = "update activitymark set Mark = (" + bestOfMarks + "/" + subActMaxMark + ")*" + activityMaxMark + " where ActivityId=" + activityId + " and" +
+                            " StudentId=" + st.getStudentId() + " and SubjectId=" + subjectId + " and ExamId=" + examId;
+
+                    try {
+                        sqliteDatabase.execSQL(sql);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+
+                }
             }
         }
         examWeightage();
@@ -533,6 +578,50 @@ public class UpdateSubActivityMark extends Fragment {
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+                }
+            } else {
+                Float actMaxMark = 0f;
+                for (Float f : actMaxMarkList)
+                    actMaxMark += f;
+                List<Float> markList = new ArrayList<>();
+                for (Students st : studentsArray) {
+                    markList.clear();
+                    for (int j = 0; j < actList.size(); j++) {
+                        float mark = 0;
+                        Cursor c = sqliteDatabase.rawQuery("select Mark from activitymark where StudentId=" + st.getStudentId() + " and ActivityId=" + actIdList.get(j), null);
+                        c.moveToFirst();
+                        while (!c.isAfterLast()) {
+                            mark = c.getFloat(c.getColumnIndex("Mark"));
+                            c.moveToNext();
+                        }
+                        c.close();
+
+                        if (mark == -1) {
+                            markList.add((float) 0);
+                        } else {
+                            markList.add(mark);
+                        }
+
+                        float bestOfMarks = 0;
+                        QuickSort quickSort = new QuickSort();
+                        List<Float> sortedMarkList = quickSort.sort(markList);
+                        for (int cal = 0; cal < calculation; cal++) {
+                            bestOfMarks += sortedMarkList.get(cal);
+                        }
+
+                        String sql = "update marks set Mark=(" + bestOfMarks + "/" + actMaxMark + ")*" + exmMaxMark + " where " +
+                                "ExamId=" + examId + " and SubjectId=" + subjectId + " and StudentId=" + st.getStudentId();
+
+                        try {
+                            sqliteDatabase.execSQL(sql);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        ContentValues cv = new ContentValues();
+                        cv.put("Query", sql);
+                        sqliteDatabase.insert("uploadsql", null, cv);
+
+                    }
                 }
             }
         }

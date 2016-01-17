@@ -1,29 +1,5 @@
 package in.teacher.examfragment;
 
-import in.teacher.activity.R;
-import in.teacher.adapter.Capitalize;
-import in.teacher.adapter.MarksAdapter;
-import in.teacher.dao.ActivitiDao;
-import in.teacher.dao.ActivityMarkDao;
-import in.teacher.dao.ClasDao;
-import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
-import in.teacher.dao.SectionDao;
-import in.teacher.dao.StudentsDao;
-import in.teacher.dao.SubjectExamsDao;
-import in.teacher.dao.TempDao;
-import in.teacher.examfragment.ActivityExam;
-import in.teacher.sqlite.Activiti;
-import in.teacher.sqlite.ActivityMark;
-import in.teacher.sqlite.Students;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.PKGenerator;
-import in.teacher.util.ReplaceFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -37,20 +13,42 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.teacher.activity.R;
+import in.teacher.adapter.Capitalize;
+import in.teacher.adapter.MarksAdapter;
+import in.teacher.dao.ActivitiDao;
+import in.teacher.dao.ActivityMarkDao;
+import in.teacher.dao.ClasDao;
+import in.teacher.dao.ExamsDao;
+import in.teacher.dao.ExmAvgDao;
+import in.teacher.dao.SectionDao;
+import in.teacher.dao.StudentsDao;
+import in.teacher.dao.SubjectExamsDao;
+import in.teacher.dao.TempDao;
+import in.teacher.sqlite.Activiti;
+import in.teacher.sqlite.ActivityMark;
+import in.teacher.sqlite.Students;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.PKGenerator;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
@@ -289,7 +287,7 @@ public class UpdateActivityMark extends Fragment {
         }
     };
 
-    private void deleteDialog(){
+    private void deleteDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(act);
         alertBuilder.setCancelable(false);
         alertBuilder.setTitle("Confirm your action");
@@ -450,6 +448,50 @@ public class UpdateActivityMark extends Fragment {
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+                }
+            } else {
+                Float actMaxMark = 0f;
+                for (Float f : actMaxMarkList)
+                    actMaxMark += f;
+                List<Float> markList = new ArrayList<>();
+                for (Students st : studentsArray) {
+                    markList.clear();
+                    for (int j = 0; j < actList.size(); j++) {
+                        float mark = 0;
+                        Cursor c = sqliteDatabase.rawQuery("select Mark from activitymark where StudentId=" + st.getStudentId() + " and ActivityId=" + actIdList.get(j), null);
+                        c.moveToFirst();
+                        while (!c.isAfterLast()) {
+                            mark = c.getFloat(c.getColumnIndex("Mark"));
+                            c.moveToNext();
+                        }
+                        c.close();
+
+                        if (mark == -1) {
+                            markList.add((float) 0);
+                        } else {
+                            markList.add(mark);
+                        }
+
+                        float bestOfMarks = 0;
+                        QuickSort quickSort = new QuickSort();
+                        List<Float> sortedMarkList = quickSort.sort(markList);
+                        for (int cal = 0; cal < calculation; cal++) {
+                            bestOfMarks += sortedMarkList.get(cal);
+                        }
+
+                        String sql = "update marks set Mark=(" + bestOfMarks + "/" + actMaxMark + ")*" + exmMaxMark + " where " +
+                                "ExamId=" + examId + " and SubjectId=" + subjectId + " and StudentId=" + st.getStudentId();
+
+                        try {
+                            sqliteDatabase.execSQL(sql);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        ContentValues cv = new ContentValues();
+                        cv.put("Query", sql);
+                        sqliteDatabase.insert("uploadsql", null, cv);
+
+                    }
                 }
             }
         }
