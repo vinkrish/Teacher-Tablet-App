@@ -2,12 +2,12 @@ package in.teacher.sqlite;
 
 public class SubActivity {
     private int schoolId;
-    private int subActivityId;
+    private long subActivityId;
     private int classId;
     private int sectionId;
     private int examId;
     private int subjectId;
-    private int activityId;
+    private long activityId;
     private String subActivityName;
     private float maximumMark;
     private int weightage;
@@ -15,6 +15,22 @@ public class SubActivity {
     private float subActivityAvg;
     private int completeEntry;
     private String uniqueKey;
+
+    public long getSubActivityId() {
+        return subActivityId;
+    }
+
+    public void setSubActivityId(long subActivityId) {
+        this.subActivityId = subActivityId;
+    }
+
+    public long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
+    }
 
     public int getWeightage() {
         return weightage;
@@ -38,14 +54,6 @@ public class SubActivity {
 
     public void setUniqueKey(String uniqueKey) {
         this.uniqueKey = uniqueKey;
-    }
-
-    public int getSubActivityId() {
-        return subActivityId;
-    }
-
-    public void setSubActivityId(int subActivityId) {
-        this.subActivityId = subActivityId;
     }
 
     public int getClassId() {
@@ -86,14 +94,6 @@ public class SubActivity {
 
     public void setSubActivityName(String subActivityName) {
         this.subActivityName = subActivityName;
-    }
-
-    public int getActivityId() {
-        return activityId;
-    }
-
-    public void setActivityId(int activityId) {
-        this.activityId = activityId;
     }
 
     public float getMaximumMark() {

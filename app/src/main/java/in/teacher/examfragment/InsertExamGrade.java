@@ -29,7 +29,7 @@ import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.GradeAdapter;
 import in.teacher.adapter.MarksAdapter;
-import in.teacher.adapter.StudentsSort;
+import in.teacher.util.StudentsSort;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.GradesClassWiseDao;

@@ -32,7 +32,7 @@ import java.util.List;
 import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
-import in.teacher.adapter.StudentsSort;
+import in.teacher.util.StudentsSort;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
@@ -70,7 +70,8 @@ public class InsertSubActivityMark extends Fragment {
     private ListView lv;
     private MarksAdapter marksAdapter;
     private int index = 0, indexBound, top, lastVisible, firstVisible, totalVisible;
-    private int schoolId, examId, subjectId, subId, classId, activityId, subActivityId, calculation;
+    private int schoolId, examId, subjectId, subId, classId, calculation;
+    private long activityId, subActivityId;
     private float maxMark;
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
@@ -346,18 +347,18 @@ public class InsertSubActivityMark extends Fragment {
         int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
         if (entry == 0)
             ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
-        SubActivityDao.updateSubActivityAvg(subActivityId, schoolId, sqliteDatabase);
-        ActivitiDao.updateSubactActAvg(activityId, schoolId, sqliteDatabase);
-        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, schoolId, sqliteDatabase);
-        SubActivityDao.checkSubActMarkEmpty(subActivityId, schoolId, sqliteDatabase);
-        ActivitiDao.checkActSubActMarkEmpty(activityId, schoolId, sqliteDatabase);
-        ExmAvgDao.checkExmSubActMarkEmpty(examId, sectionId, subjectId, schoolId, sqliteDatabase);
+        SubActivityDao.updateSubActivityAvg(subActivityId, sqliteDatabase);
+        ActivitiDao.updateSubactActAvg(activityId, sqliteDatabase);
+        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);
+        SubActivityDao.checkSubActMarkEmpty(subActivityId, sqliteDatabase);
+        ActivitiDao.checkActSubActMarkEmpty(activityId, sqliteDatabase);
+        ExmAvgDao.checkExmSubActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
         activityWeightage();
     }
 
     private void activityWeightage() {
         List<SubActivity> subActList = SubActivityDao.selectSubActivity(activityId, sqliteDatabase);
-        List<Integer> subActIdList = new ArrayList<>();
+        List<Long> subActIdList = new ArrayList<>();
         List<Integer> weightageList = new ArrayList<>();
         List<Float> subActMaxMarkList = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -406,14 +407,8 @@ public class InsertSubActivityMark extends Fragment {
 
                     String sql = "insert into activitymark(SchoolId, ExamId, SubjectId, StudentId, ActivityId, Mark) " +
                             "values(" + schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," + activityId + ",'" + finalMark + "')";
-                    try {
-                        sqliteDatabase.execSQL(sql);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
+
+                    executeNsave(sql);
                 }
             } else if (calculation == -1) {
                 Float subActMaxMark = 0f;
@@ -425,19 +420,14 @@ public class InsertSubActivityMark extends Fragment {
                             "values(" + schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," + activityId + "," +
                             "((select SUM(Mark) from subactivitymark where Mark!=-1 and SubActivityId in (" + sb.substring(0, sb.length() - 1) + ") and " +
                             "StudentId=" + st.getStudentId() + ")/" + subActMaxMark + ")*" + activityMaxMark + ")";
-                    try {
-                        sqliteDatabase.execSQL(sql);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
+
+                    executeNsave(sql);
                 }
             } else {
-                Float subActMaxMark = 0f;
+                Float subActMaxMark = 1000f;
                 for (Float f : subActMaxMarkList)
-                    subActMaxMark += f;
+                    if (f < subActMaxMark) subActMaxMark = f;
+
                 List<Float> markList = new ArrayList<>();
                 for (Students st : studentsArray) {
                     markList.clear();
@@ -451,46 +441,41 @@ public class InsertSubActivityMark extends Fragment {
                         }
                         c.close();
 
-                        if (mark == -1) {
-                            markList.add((float) 0);
-                        } else {
-                            markList.add(mark);
-                        }
+                        float subActMax = subActList.get(j).getMaximumMark();
+                        if (subActMax != subActMaxMark) mark = (mark / subActMax) * subActMaxMark;
+
+                        if (mark == -1) markList.add((float) 0);
+                        else markList.add(mark);
 
                     }
 
                     float bestOfMarks = 0;
                     QuickSort quickSort = new QuickSort();
                     List<Float> sortedMarkList = quickSort.sort(markList);
-                    for (int cal = 0; cal < calculation; cal++) {
+                    for (int cal = 0; cal < calculation; cal++)
                         bestOfMarks += sortedMarkList.get(cal);
-                    }
+
+                    subActMaxMark = subActMaxMark * calculation;
 
                     String sql = "insert into activitymark(SchoolId, ExamId, SubjectId, StudentId, ActivityId, Mark) " +
                             "values(" + schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," + activityId + "," +
                             "(" + bestOfMarks + "/" + subActMaxMark + ")*" + activityMaxMark + ")";
-                    try {
-                        sqliteDatabase.execSQL(sql);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
 
+                    executeNsave(sql);
                 }
             }
+            examWeightage();
         }
-        examWeightage();
     }
 
     private void examWeightage() {
         List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
-        List<Integer> actIdList = new ArrayList<>();
+        List<Long> actIdList = new ArrayList<>();
         List<Integer> weightageList = new ArrayList<>();
         List<Float> actMaxMarkList = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (Activiti Act : actList) {
+            calculation = Act.getCalculation();
             sb.append(+Act.getActivityId() + ",");
             actIdList.add(Act.getActivityId());
             weightageList.add(Act.getWeightage());
@@ -534,14 +519,8 @@ public class InsertSubActivityMark extends Fragment {
 
                     String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
                             schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalMark + "')";
-                    try {
-                        sqliteDatabase.execSQL(sql);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
+
+                    executeNsave(sql);
                 }
             } else if (calculation == -1) {
                 Float actMaxMark = 0f;
@@ -555,19 +534,14 @@ public class InsertSubActivityMark extends Fragment {
                             schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," +
                             "((select SUM(Mark) from activitymark where Mark!=-1 and ActivityId in (" + sb.substring(0, sb.length() - 1) + ") and " +
                             "StudentId=" + st.getStudentId() + ")/" + actMaxMark + ")*" + exmMaxMark + ")";
-                    try {
-                        sqliteDatabase.execSQL(sql);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
+
+                    executeNsave(sql);
                 }
             } else {
-                Float actMaxMark = 0f;
+                Float actMaxMark = 1000f;
                 for (Float f : actMaxMarkList)
-                    actMaxMark += f;
+                    if (f < actMaxMark) actMaxMark = f;
+
                 List<Float> markList = new ArrayList<>();
                 for (Students st : studentsArray) {
                     markList.clear();
@@ -581,34 +555,38 @@ public class InsertSubActivityMark extends Fragment {
                         }
                         c.close();
 
-                        if (mark == -1) {
-                            markList.add((float) 0);
-                        } else {
-                            markList.add(mark);
-                        }
+                        float actMax = actList.get(j).getMaximumMark();
+                        if (actMax != actMaxMark) mark = (mark / actMax) * actMaxMark;
 
-                        float bestOfMarks = 0;
-                        QuickSort quickSort = new QuickSort();
-                        List<Float> sortedMarkList = quickSort.sort(markList);
-                        for (int cal = 0; cal < calculation; cal++) {
-                            bestOfMarks += sortedMarkList.get(cal);
-                        }
-
-                        String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
-                                schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," +
-                                "(" + bestOfMarks + "/" + actMaxMark + ")*" + exmMaxMark + ")";
-                        try {
-                            sqliteDatabase.execSQL(sql);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        ContentValues cv = new ContentValues();
-                        cv.put("Query", sql);
-                        sqliteDatabase.insert("uploadsql", null, cv);
-
+                        if (mark == -1) markList.add((float) 0);
+                        else markList.add(mark);
                     }
+                    float bestOfMarks = 0;
+                    QuickSort quickSort = new QuickSort();
+                    List<Float> sortedMarkList = quickSort.sort(markList);
+                    for (int cal = 0; cal < calculation; cal++)
+                        bestOfMarks += sortedMarkList.get(cal);
+
+                    actMaxMark = actMaxMark * calculation;
+
+                    String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
+                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," +
+                            "(" + bestOfMarks + "/" + actMaxMark + ")*" + exmMaxMark + ")";
+
+                    executeNsave(sql);
                 }
             }
+        }
+    }
+
+    private void executeNsave(String sql){
+        try {
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

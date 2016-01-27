@@ -3,8 +3,10 @@ package in.teacher.examfragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,9 +31,9 @@ import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.GradeAdapter;
 import in.teacher.adapter.MarksAdapter;
-import in.teacher.adapter.StudentsSort;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityGradeDao;
+import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.GradesClassWiseDao;
@@ -46,8 +48,10 @@ import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
+import in.teacher.util.GradeClassWiseSort;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
+import in.teacher.util.StudentsSort;
 
 /**
  * Created by vinkrish.
@@ -56,7 +60,6 @@ public class InsertActivityGrade extends Fragment {
     private Activity activity;
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId;
     private String activityName;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
@@ -67,8 +70,10 @@ public class InsertActivityGrade extends Fragment {
     private MarksAdapter marksAdapter;
     private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, firstVisible, lastVisible, top, totalVisible;
-    private int schoolId, examId, subjectId, subId, classId, activityId;
+    private int schoolId, examId, subjectId, subId, classId, sectionId, calculation;
+    private long activityId;
     private StringBuffer sf = new StringBuffer();
+    private List<GradesClassWise> gradesClassWiseList = new ArrayList<>();
     private TextView clasSecSub;
     private Bitmap empty, entered;
     private SharedPreferences sharedPref;
@@ -160,6 +165,7 @@ public class InsertActivityGrade extends Fragment {
 
         Activiti a = ActivitiDao.getActiviti(activityId, sqliteDatabase);
         activityName = Capitalize.capitalThis(a.getActivityName());
+        calculation = a.getCalculation();
 
         view.findViewById(R.id.enter_marks).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,7 +260,6 @@ public class InsertActivityGrade extends Fragment {
     }
 
     private void pushSubmit() {
-        Toast.makeText(context, "marks entered has been saved", Toast.LENGTH_LONG).show();
         int i = 0;
         for (String ss : studentScore) {
             if (ss == null) studentScore.set(i, "");
@@ -274,6 +279,123 @@ public class InsertActivityGrade extends Fragment {
             j++;
         }
         ActivityGradeDao.insertActivityGrade(mList, sqliteDatabase);
+        weightageCalculation();
+    }
+
+    private void weightageCalculation() {
+        boolean isDynamicWeightage = true;
+        List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
+        List<Long> actIdList = new ArrayList<>();
+        List<Integer> weightageList = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for (Activiti Act : actList) {
+            sb.append(+Act.getActivityId() + ",");
+            actIdList.add(Act.getActivityId());
+            weightageList.add(Act.getWeightage());
+            if (Act.getWeightage() == 0) isDynamicWeightage = false;
+        }
+        boolean exist = ActivityMarkDao.isAllActGradeExist(actIdList, sqliteDatabase);
+        if (exist) {
+            if (calculation == 0) {
+                float totalGradeMark = 0f;
+                for (Students st : studentsArray) {
+                    totalGradeMark = 0f;
+                    for (Activiti act : actList) {
+                        float gradePoint = 0f;
+                        float gradeWeightPoint;
+                        String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
+
+                        if (!grade.equals("")) gradePoint = getGradePoint(grade);
+
+                        if (isDynamicWeightage) gradeWeightPoint = (float) act.getWeightage() / 10;
+                        else gradeWeightPoint = (float) (100 / actIdList.size()) / 10;
+
+                        totalGradeMark += (gradePoint * gradeWeightPoint);
+                    }
+
+                    String finalGrade = getGrade(totalGradeMark);
+
+                    String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Grade) values(" +
+                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalGrade + "')";
+
+                    executeNsave(sql);
+                }
+            } else if (calculation == -1) {
+                int totalGradePoint = 0;
+                for (Students st : studentsArray) {
+                    for (Activiti act : actList) {
+                        String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
+                        if (!grade.equals("")) totalGradePoint += getGradePoint(grade);
+                    }
+
+                    float finalMark = (totalGradePoint / actList.size()) * 10;
+                    String finalGrade = getGrade(finalMark);
+
+                    String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Grade) values(" +
+                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalGrade + "')";
+
+                    executeNsave(sql);
+                }
+            } else {
+                List<Float> gradePointList = new ArrayList<>();
+                for (Students st : studentsArray) {
+                    gradePointList.clear();
+
+                    for (Activiti act : actList) {
+                        String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
+                        if (!grade.equals("")) gradePointList.add(getGradePoint(grade));
+                        else gradePointList.add(0f);
+                    }
+
+                    float bestOfPoints = 0;
+                    QuickSort quickSort = new QuickSort();
+                    List<Float> sortedMarkList = quickSort.sort(gradePointList);
+                    for (int cal = 0; cal < calculation; cal++)
+                        bestOfPoints += sortedMarkList.get(cal);
+
+                    float finalMark = (bestOfPoints / calculation) * 10;
+                    String finalGrade = getGrade(finalMark);
+
+                    String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Grade) values(" +
+                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalGrade + "')";
+
+                    executeNsave(sql);
+                }
+            }
+        }
+    }
+
+    private float getGradePoint(String grade) {
+        int gradePoint = 0;
+        for (GradesClassWise gcw : gradesClassWiseList) {
+            if (grade.equals(gcw.getGrade())) {
+                gradePoint = gcw.getGradePoint();
+                break;
+            }
+        }
+        return gradePoint;
+    }
+
+    private String getGrade(float mark) {
+        String grade = "";
+        for (GradesClassWise gcw : gradesClassWiseList) {
+            if (mark <= gcw.getMarkTo()) {
+                grade = gcw.getGrade();
+                break;
+            }
+        }
+        return grade;
+    }
+
+    private void executeNsave(String sql){
+        try {
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateScoreField(String upScore) {
@@ -350,8 +472,9 @@ public class InsertActivityGrade extends Fragment {
             for (int idx = 0; idx < studentsArray.size(); idx++)
                 studentIndicate.add(false);
 
-            List<GradesClassWise> gcwList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
-            for (GradesClassWise gcw : gcwList)
+            gradesClassWiseList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
+            Collections.sort(gradesClassWiseList, new GradeClassWiseSort());
+            for (GradesClassWise gcw : gradesClassWiseList)
                 gradeList.add(gcw.getGrade());
 
             return null;

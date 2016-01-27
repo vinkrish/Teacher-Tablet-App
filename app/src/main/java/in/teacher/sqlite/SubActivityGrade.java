@@ -5,10 +5,26 @@ public class SubActivityGrade {
     private int examId;
     private int subjectId;
     private int studentId;
-    private int activityId;
-    private int subActivityId;
+    private long activityId;
+    private long subActivityId;
     private String grade;
     private String description;
+
+    public long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
+    }
+
+    public long getSubActivityId() {
+        return subActivityId;
+    }
+
+    public void setSubActivityId(long subActivityId) {
+        this.subActivityId = subActivityId;
+    }
 
     public int getSchoolId() {
         return schoolId;
@@ -40,22 +56,6 @@ public class SubActivityGrade {
 
     public void setStudentId(int studentId) {
         this.studentId = studentId;
-    }
-
-    public int getActivityId() {
-        return activityId;
-    }
-
-    public void setActivityId(int activityId) {
-        this.activityId = activityId;
-    }
-
-    public int getSubActivityId() {
-        return subActivityId;
-    }
-
-    public void setSubActivityId(int subActivityId) {
-        this.subActivityId = subActivityId;
     }
 
     public String getGrade() {

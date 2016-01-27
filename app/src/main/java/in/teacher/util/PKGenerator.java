@@ -28,8 +28,8 @@ public class PKGenerator {
         }
     }
 
-    public static int getMD5(int schoolId, int classId, String plaintext) throws NoSuchAlgorithmException {
-        StringBuilder sb = new StringBuilder(""+schoolId+classId);
+    public static int generateExamId(int schoolId, int classSecId, String plaintext) throws NoSuchAlgorithmException {
+        StringBuilder sb = new StringBuilder(""+schoolId+classSecId);
 
         MessageDigest m = MessageDigest.getInstance("MD5");
         m.reset();

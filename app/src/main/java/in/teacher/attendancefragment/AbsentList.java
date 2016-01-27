@@ -3,7 +3,7 @@ package in.teacher.attendancefragment;
 import in.teacher.activity.R;
 import in.teacher.adapter.AttendanceAdapter;
 import in.teacher.adapter.Capitalize;
-import in.teacher.adapter.StudentsSort;
+import in.teacher.util.StudentsSort;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentAttendanceDao;

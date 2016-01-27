@@ -36,7 +36,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +54,9 @@ public class ActivityCreateEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, sectionSpinner, examSpinner, subjectSpinner, bestOf;
-    private int teacherId, classId, sectionId, examId, subjectId, activityPos, schoolId, generatedId, activityCounter, width1, width2, calculationGlobal, tag;
+    private int teacherId, classId, sectionId, examId, subjectId, activityPos, schoolId, activityCounter, width1, width2, calculationGlobal, tag;
+    private long generatedId;
+    private boolean bestOfSelection, rgSelection;
     final List<Integer> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
     final List<Integer> sectionIdList = new ArrayList<>();
@@ -73,6 +74,7 @@ public class ActivityCreateEdit extends Fragment {
     private TextView countTV;
     private ScrollView scrollView;
     private TableLayout table;
+    private ArrayAdapter<String> bestOfAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -170,6 +172,8 @@ public class ActivityCreateEdit extends Fragment {
     }
 
     private void init() {
+        bestOfSelection = false;
+        rgSelection = false;
         tag = 0;
         table = new TableLayout(getActivity());
         scrollView.addView(table);
@@ -215,17 +219,26 @@ public class ActivityCreateEdit extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.sum:
-                        calculationGlobal = -1;
-                        updateActCalculation();
+                        if (rgSelection) {
+                            calculationGlobal = -1;
+                            updateActCalculation();
+                        } else rgSelection = true;
                         break;
+
                     case R.id.average:
-                        calculationGlobal = 0;
-                        updateActCalculation();
+                        if (rgSelection) {
+                            calculationGlobal = 0;
+                            updateActCalculation();
+                        } else rgSelection = true;
                         break;
+
                     case R.id.best:
-                        calculationGlobal = bestOf.getSelectedItemPosition() + 1;
-                        updateActCalculation();
+                        if (rgSelection) {
+                            calculationGlobal = bestOf.getSelectedItemPosition() + 1;
+                            updateActCalculation();
+                        } else rgSelection = true;
                         break;
+
                     default:
                         break;
                 }
@@ -374,11 +387,7 @@ public class ActivityCreateEdit extends Fragment {
 
             for (ActivityItem actItem : activityCreateList) {
                 String sql = "";
-                try {
-                    generatedId = PKGenerator.getMD5(schoolId, sectionId, actItem.getActName().toString());
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
+                generatedId = PKGenerator.returnPrimaryKey(schoolId);
 
                 if (actItem.getCalculation() == -1) {
                     sql = "insert into activity (ActivityId, SchoolId, ClassId, SectionId, ExamId, " +
@@ -409,6 +418,8 @@ public class ActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
             }
+            rgSelection = false;
+            bestOfSelection = false;
             resetActivityList();
             activityAdapter.notifyDataSetChanged();
             cancelActCreation.performClick();
@@ -436,6 +447,8 @@ public class ActivityCreateEdit extends Fragment {
             }
         }
 
+        bestOfSelection = false;
+        rgSelection = false;
         resetActivityList();
         activityAdapter.notifyDataSetChanged();
     }
@@ -484,7 +497,7 @@ public class ActivityCreateEdit extends Fragment {
         subjectAdapter.setDropDownViewResource(R.layout.spinner_droppeddown);
         subjectSpinner.setAdapter(subjectAdapter);
 
-        ArrayAdapter<String> bestOfAdapter = new ArrayAdapter<>(context, R.layout.spinner_header,
+        bestOfAdapter = new ArrayAdapter<>(context, R.layout.spinner_header,
                 Arrays.asList(new String[]{"1", "2", "3", "4", "5"}));
         bestOfAdapter.setDropDownViewResource(R.layout.spinner_droppeddown);
         bestOf.setAdapter(bestOfAdapter);
@@ -555,12 +568,13 @@ public class ActivityCreateEdit extends Fragment {
         subjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                bestOfSelection = false;
+                rgSelection = false;
                 if (position != 0) {
                     subjectId = subjectIdList.get(position);
                     createActivity.setActivated(true);
                     resetActivityList();
                     activityAdapter.notifyDataSetChanged();
-                    //setListViewHeightBasedOnChildren(listView);
                 } else {
                     createActivity.setActivated(false);
                     activityItemList.clear();
@@ -577,8 +591,13 @@ public class ActivityCreateEdit extends Fragment {
         bestOf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                calculationGlobal = bestOf.getSelectedItemPosition() + 1;
-                updateActCalculation();
+
+                if (bestOfSelection && calculationGlobal != 0 && calculationGlobal != -1) {
+                    calculationGlobal = bestOf.getSelectedItemPosition() + 1;
+                    updateActCalculation();
+                } else {
+                    bestOfSelection = true;
+                }
             }
 
             @Override
@@ -634,13 +653,15 @@ public class ActivityCreateEdit extends Fragment {
     }
 
     private void resetActivityList() {
+        bestOfAdapter.notifyDataSetChanged();
+
         activityItemList.clear();
         Cursor c = sqliteDatabase.rawQuery("select ActivityId, ActivityName, MaximumMark, Weightage, Calculation from activity where " +
                 "SectionId = " + sectionId + " and ExamId = " + examId + " and SubjectId = " + subjectId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             ActivityItem ai = new ActivityItem();
-            ai.setActId(c.getInt(c.getColumnIndex("ActivityId")));
+            ai.setActId(c.getLong(c.getColumnIndex("ActivityId")));
             ai.setActName(c.getString(c.getColumnIndex("ActivityName")));
             ai.setMaxMark(c.getInt(c.getColumnIndex("MaximumMark")));
             int calculation = c.getInt(c.getColumnIndex("Calculation"));
@@ -662,8 +683,8 @@ public class ActivityCreateEdit extends Fragment {
             avg.setChecked(true);
         } else {
             best.setChecked(true);
+            bestOf.setSelection(calculationGlobal - 1);
         }
-
     }
 
     public class ActivityAdapter extends ArrayAdapter<ActivityItem> {
@@ -712,12 +733,20 @@ public class ActivityCreateEdit extends Fragment {
     }
 
     class ActivityItem {
-        private int actId;
+        private long actId;
         private String actName;
         private int maxMark;
         private String weightage;
         private int calculation;
         private boolean nullCheck;
+
+        public long getActId() {
+            return actId;
+        }
+
+        public void setActId(long actId) {
+            this.actId = actId;
+        }
 
         public boolean isNullCheck() {
             return nullCheck;
@@ -733,14 +762,6 @@ public class ActivityCreateEdit extends Fragment {
 
         public void setCalculation(int calculation) {
             this.calculation = calculation;
-        }
-
-        public int getActId() {
-            return actId;
-        }
-
-        public void setActId(int actId) {
-            this.actId = actId;
         }
 
         public String getActName() {
@@ -855,6 +876,8 @@ public class ActivityCreateEdit extends Fragment {
                 }
 
                 dialog.dismiss();
+                bestOfSelection = false;
+                rgSelection = false;
                 resetActivityList();
                 activityAdapter.notifyDataSetChanged();
             }
@@ -871,7 +894,7 @@ public class ActivityCreateEdit extends Fragment {
         return dialog;
     }
 
-    private void confirmDelete(final int activityId) {
+    private void confirmDelete(final long activityId) {
         AlertDialog.Builder submitBuilder = new AlertDialog.Builder(getActivity());
         submitBuilder.setCancelable(false);
         submitBuilder.setTitle("Confirm your action");
@@ -895,6 +918,8 @@ public class ActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
                 dialog.cancel();
+                bestOfSelection = false;
+                rgSelection = false;
                 resetActivityList();
                 activityAdapter.notifyDataSetChanged();
             }

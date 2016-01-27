@@ -3,7 +3,7 @@ package in.teacher.examfragment;
 import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
-import in.teacher.adapter.StudentsSort;
+import in.teacher.util.StudentsSort;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.ExmAvgDao;
@@ -12,8 +12,6 @@ import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.examfragment.InsertExamGrade;
-import in.teacher.examfragment.StructuredExam;
 import in.teacher.sqlite.Marks;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
@@ -249,7 +247,7 @@ public class InsertExamMark extends Fragment {
             ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
         }
         ExmAvgDao.insertAvgIntoExmAvg(sectionId, subjectId, examId, schoolId, sqliteDatabase);
-        ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, schoolId, sqliteDatabase);
+        ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
         if (partition == 1) {
             insertPartitionMarks();
         }

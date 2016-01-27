@@ -32,7 +32,7 @@ import java.util.List;
 import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
-import in.teacher.adapter.StudentsSort;
+import in.teacher.util.StudentsSort;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
@@ -67,7 +67,8 @@ public class InsertActivityMark extends Fragment {
     private ListView lv;
     private MarksAdapter marksAdapter;
     private int index = 0, indexBound, firstVisible, lastVisible, top, totalVisible;
-    private int schoolId, examId, subjectId, subId, classId, activityId, calculation;
+    private int schoolId, examId, subjectId, subId, classId, calculation;
+    private long activityId;
     private float maxMark;
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
@@ -344,16 +345,16 @@ public class InsertActivityMark extends Fragment {
         if (entry == 0) {
             ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
         }
-        ActivitiDao.updateActivityAvg(activityId, schoolId, sqliteDatabase);
-        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, schoolId, sqliteDatabase);
-        ActivitiDao.checkActMarkEmpty(activityId, schoolId, sqliteDatabase);
-        ExmAvgDao.checkExmActMarkEmpty(examId, sectionId, subjectId, schoolId, sqliteDatabase);
+        ActivitiDao.updateActivityAvg(activityId, sqliteDatabase);
+        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);
+        ActivitiDao.checkActMarkEmpty(activityId, sqliteDatabase);
+        ExmAvgDao.checkExmActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
         weightageCalculation();
     }
 
     private void weightageCalculation() {
         List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
-        List<Integer> actIdList = new ArrayList<>();
+        List<Long> actIdList = new ArrayList<>();
         List<Integer> weightageList = new ArrayList<>();
         List<Float> actMaxMarkList = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -402,14 +403,8 @@ public class InsertActivityMark extends Fragment {
 
                     String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
                             schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalMark + "')";
-                    try {
-                        sqliteDatabase.execSQL(sql);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
+
+                    executeNsave(sql);
                 }
             } else if (calculation == -1) {
                 Float actMaxMark = 0f;
@@ -421,19 +416,14 @@ public class InsertActivityMark extends Fragment {
                             schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," +
                             "((select SUM(Mark) from activitymark where Mark != -1 and ActivityId in (" + sb.substring(0, sb.length() - 1) + ") and " +
                             "StudentId=" + st.getStudentId() + ")/" + actMaxMark + ")*" + exmMaxMark + ")";
-                    try {
-                        sqliteDatabase.execSQL(sql);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
+
+                    executeNsave(sql);
                 }
             } else {
-                Float actMaxMark = 0f;
+                Float actMaxMark = 1000f;
                 for (Float f : actMaxMarkList)
-                    actMaxMark += f;
+                    if (f < actMaxMark) actMaxMark = f;
+
                 List<Float> markList = new ArrayList<>();
                 for (Students st : studentsArray) {
                     markList.clear();
@@ -447,34 +437,38 @@ public class InsertActivityMark extends Fragment {
                         }
                         c.close();
 
-                        if (mark == -1) {
-                            markList.add((float) 0);
-                        } else {
-                            markList.add(mark);
-                        }
+                        float actMax = actList.get(j).getMaximumMark();
+                        if (actMax != actMaxMark) mark = (mark / actMax) * actMaxMark;
 
-                        float bestOfMarks = 0;
-                        QuickSort quickSort = new QuickSort();
-                        List<Float> sortedMarkList = quickSort.sort(markList);
-                        for (int cal = 0; cal < calculation; cal++) {
-                            bestOfMarks += sortedMarkList.get(cal);
-                        }
-
-                        String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
-                                schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," +
-                                "(" + bestOfMarks + "/" + actMaxMark + ")*" + exmMaxMark + ")";
-                        try {
-                            sqliteDatabase.execSQL(sql);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        ContentValues cv = new ContentValues();
-                        cv.put("Query", sql);
-                        sqliteDatabase.insert("uploadsql", null, cv);
-
+                        if (mark == -1) markList.add((float) 0);
+                        else markList.add(mark);
                     }
+                    float bestOfMarks = 0;
+                    QuickSort quickSort = new QuickSort();
+                    List<Float> sortedMarkList = quickSort.sort(markList);
+                    for (int cal = 0; cal < calculation; cal++)
+                        bestOfMarks += sortedMarkList.get(cal);
+
+                    actMaxMark = actMaxMark * calculation;
+
+                    String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Mark) values(" +
+                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + "," +
+                            "(" + bestOfMarks + "/" + actMaxMark + ")*" + exmMaxMark + ")";
+
+                    executeNsave(sql);
                 }
             }
+        }
+    }
+
+    private void executeNsave(String sql){
+        try {
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

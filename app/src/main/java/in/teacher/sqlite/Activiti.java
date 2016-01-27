@@ -2,7 +2,7 @@ package in.teacher.sqlite;
 
 public class Activiti {
     private int schoolId;
-    private int activityId;
+    private long activityId;
     private int classId;
     private int sectionId;
     private int examId;
@@ -16,6 +16,14 @@ public class Activiti {
     private float activityAvg;
     private int completeEntry;
     private String uniqueKey;
+
+    public long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
+    }
 
     public int getWeightage() {
         return weightage;
@@ -47,14 +55,6 @@ public class Activiti {
 
     public void setUniqueKey(String uniqueKey) {
         this.uniqueKey = uniqueKey;
-    }
-
-    public int getActivityId() {
-        return activityId;
-    }
-
-    public void setActivityId(int activityId) {
-        this.activityId = activityId;
     }
 
     public int getClassId() {

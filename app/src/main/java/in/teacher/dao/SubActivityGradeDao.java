@@ -13,7 +13,33 @@ import in.teacher.sqlite.SubActivityMark;
 
 public class SubActivityGradeDao {
 
-    public static int isThereSubActGrade(int subActId, int subjectId, SQLiteDatabase sqliteDatabase){
+    public static String getSubActivityGrade(long subActId, int studentId, int subjectId, SQLiteDatabase sqLiteDatabase) {
+        String grade = "";
+        Cursor c = sqLiteDatabase.rawQuery("select Grade from subactivitygrade " +
+                "where StudentId = " + studentId + " and ActivityId = " + subActId + " and SubjectId = " + subjectId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            grade = c.getString(c.getColumnIndex("Grade"));
+            c.moveToNext();
+        }
+        c.close();
+        return grade;
+    }
+
+    public static boolean isAllSubActGradeExist(List<Long> subActIdList, SQLiteDatabase sqliteDatabase) {
+        int i;
+        boolean exist = true;
+        for (Long subActId : subActIdList) {
+            Cursor c = sqliteDatabase.rawQuery("select count(*) as count from subactivitygrade where SubActivityId=" + subActId, null);
+            c.moveToFirst();
+            i = c.getInt(c.getColumnIndex("count"));
+            if (i == 0) exist = false;
+            c.close();
+        }
+        return exist;
+    }
+
+    public static int isThereSubActGrade(long subActId, int subjectId, SQLiteDatabase sqliteDatabase){
         int isThere = 0;
         Cursor c = sqliteDatabase.rawQuery("select * from subactivitygrade where SubActivityId="+subActId+" and SubjectId="+subjectId+" LIMIT 1", null);
         if(c.getCount()>0){
@@ -49,7 +75,7 @@ public class SubActivityGradeDao {
         }
     }
 
-    public static List<String> selectSubActivityGrade(int subActivityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
+    public static List<String> selectSubActivityGrade(long subActivityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
         List<String> aList = new ArrayList<>();
         for(Integer i: studentId){
             Cursor c = sqliteDatabase.rawQuery("select Grade from subactivitygrade where SubActivityId="+subActivityId+" and StudentId="+i, null);
@@ -107,7 +133,7 @@ public class SubActivityGradeDao {
         }
     }
 
-    public static int getSubActGradeCount(int subActivityId, SQLiteDatabase sqliteDatabase){
+    public static int getSubActGradeCount(long subActivityId, SQLiteDatabase sqliteDatabase){
         int count = 0;
         Cursor c = sqliteDatabase.rawQuery("select count(*) as count from subactivitygrade where SubActivityId="+subActivityId, null);
         c.moveToFirst();

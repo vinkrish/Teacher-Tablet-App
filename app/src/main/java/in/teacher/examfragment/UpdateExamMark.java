@@ -187,7 +187,7 @@ public class UpdateExamMark extends Fragment {
             ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
         }
         ExmAvgDao.insertAvgIntoExmAvg(sectionId, subjectId, examId, schoolId, sqliteDatabase);
-        ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, schoolId, sqliteDatabase);
+        ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
         if (partition == 1) {
             updatePartitionMarks();
         }

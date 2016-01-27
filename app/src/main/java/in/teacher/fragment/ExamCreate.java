@@ -17,7 +17,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -201,7 +200,7 @@ public class ExamCreate extends Fragment {
             else grade = 0;
 
             try {
-                examId = PKGenerator.getMD5(schoolId, classId, examName);
+                examId = PKGenerator.generateExamId(schoolId, classId, examName);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }

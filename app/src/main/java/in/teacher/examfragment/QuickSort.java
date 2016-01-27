@@ -12,7 +12,6 @@ public class QuickSort {
 
     public List<Float> sort(List<Float> marksList) {
         this.numbers = convertIntegers(marksList);
-
         number = numbers.length;
         quicksort(0, number - 1);
 
@@ -32,12 +31,12 @@ public class QuickSort {
         while (i <= j) {
             // If the current value from the left list is smaller then the pivot
             // element then get the next element from the left list
-            while (numbers[i] < pivot) {
+            while (numbers[i] > pivot) {
                 i++;
             }
             // If the current value from the right list is larger then the pivot
             // element then get the next element from the right list
-            while (numbers[j] > pivot) {
+            while (numbers[j] < pivot) {
                 j--;
             }
 
@@ -65,10 +64,10 @@ public class QuickSort {
         numbers[j] = temp;
     }
 
-    public float[] convertIntegers(List<Float> integers) {
-        float[] ret = new float[integers.size()];
+    public float[] convertIntegers(List<Float> floats) {
+        float[] ret = new float[floats.size()];
         for (int i = 0; i < ret.length; i++) {
-            ret[i] = integers.get(i).intValue();
+            ret[i] = floats.get(i).floatValue();
         }
         return ret;
     }

@@ -129,10 +129,10 @@ public class StudentsDao {
         Cursor c = sqliteDatabase.rawQuery("select StudentId from students where SectionId=" + sectionId, null);
         if (c.getCount() > 0) {
             c.close();
-            return false;
+            return true;
         }
         c.close();
-        return true;
+        return false;
     }
 
     public static boolean isStudentMapped2(SQLiteDatabase sqliteDatabase, int sectionId) {

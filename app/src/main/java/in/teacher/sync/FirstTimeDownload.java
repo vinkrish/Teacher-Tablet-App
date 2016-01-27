@@ -82,7 +82,7 @@ public class FirstTimeDownload implements StringConstant {
             try {
                 ack_json.put("tab_id", deviceId);
                 JSONObject jsonReceived = new JSONObject(RequestResponseHandler.reachServer(request_first_time_sync, ack_json));
-                //Log.d("received", jsonReceived+"");
+
                 block = jsonReceived.getInt(TAG_SUCCESS);
 
                 publishProgress("25");

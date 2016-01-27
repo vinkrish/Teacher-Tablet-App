@@ -51,7 +51,7 @@ public class ActivityExam extends Fragment {
     private int sectionId, classId, subjectId, examId;
     private String className, sectionName, subjectName;
     private static boolean isSubActivity;
-    private List<Integer> actIdList = new ArrayList<>();
+    private List<Long> actIdList = new ArrayList<>();
     private ArrayList<SeObject> circleArrayGrid = new ArrayList<>();
     private CircleAdapter cA;
     private final Map<Object, Object> mi1 = new HashMap<>();
@@ -99,7 +99,7 @@ public class ActivityExam extends Fragment {
     }
 
     public void viewClickListener(int position) {
-        int i = actIdList.get(position);
+        long i = actIdList.get(position);
         ActivityMarkDao.updateActivityId(i, sqliteDatabase);
         isSubActivity = ActivityMarkDao.selectSubActivity(i, sqliteDatabase);
         if (isSubActivity) {

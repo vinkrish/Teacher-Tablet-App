@@ -554,7 +554,7 @@ public class CopyExamStructure extends Fragment {
                     c3.close();
 
                     for (Activiti act : actList) {
-                        int newActivityId = PKGenerator.getMD5(schoolId, secI, act.getActivityName());
+                        int newActivityId = PKGenerator.generateExamId(schoolId, secI, act.getActivityName());
                         createNewActivity(newActivityId, act, secI);
 
                         subActList.clear();
@@ -579,7 +579,7 @@ public class CopyExamStructure extends Fragment {
                         c4.close();
 
                         for (SubActivity subAct : subActList) {
-                            int newSubActivityId = PKGenerator.getMD5(schoolId, secI, subAct.getSubActivityName());
+                            int newSubActivityId = PKGenerator.generateExamId(schoolId, secI, subAct.getSubActivityName());
                             createNewSubActivity(newSubActivityId, subAct, secI, newActivityId);
                         }
                     }
@@ -630,7 +630,7 @@ public class CopyExamStructure extends Fragment {
             c2.close();
 
             for (Activiti act : actList) {
-                int newActivityId = PKGenerator.getMD5(schoolId, sectionId, act.getActivityName());
+                int newActivityId = PKGenerator.generateExamId(schoolId, sectionId, act.getActivityName());
                 for (Integer secId : selSecIdList) {
                     createNewActivity(newActivityId, act, secId);
                 }
@@ -657,7 +657,7 @@ public class CopyExamStructure extends Fragment {
                 c3.close();
 
                 for (SubActivity subAct : subActList) {
-                    int newSubActivityId = PKGenerator.getMD5(schoolId, sectionId, subAct.getSubActivityName());
+                    int newSubActivityId = PKGenerator.generateExamId(schoolId, sectionId, subAct.getSubActivityName());
                     for (Integer secId : selSecIdList) {
                         createNewSubActivity(newSubActivityId, subAct, secId, newActivityId);
                     }

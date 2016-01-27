@@ -41,7 +41,7 @@ public class SearchStudAct extends Fragment {
     private int studentId, sectionId, examId, subjectId;
     private String studentName, className, secName, examName, subjectName;
     private SQLiteDatabase sqliteDatabase;
-    private List<Integer> actIdList = new ArrayList<>();
+    private List<Long> actIdList = new ArrayList<>();
     private List<String> actNameList = new ArrayList<>();
     private List<Integer> avgList1 = new ArrayList<>();
     private List<Integer> avgList2 = new ArrayList<>();

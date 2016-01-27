@@ -138,7 +138,7 @@ public class StudentAdd extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Student created", Toast.LENGTH_SHORT).show();
             try {
-                studentId = PKGenerator.getMD5(schoolId, sectionId, studentName.getText().toString() + fatherName.getText().toString());
+                studentId = PKGenerator.generateExamId(schoolId, sectionId, studentName.getText().toString() + fatherName.getText().toString());
                 String sql = "insert into students(StudentId, SchoolId , ClassId, SectionId, SubjectIds, AdmissionNo, RollNoInClass, Username, Password, Name, " +
                         "FatherName, MotherName, DateOfBirth, Gender, Mobile1, Mobile2, Address, Pincode) values (" + studentId + ", " +
                         schoolId + ", " + classId + ", " + sectionId + ", '','" + admissionNo.getText().toString() + "', " + rollNo.getText().toString() + ", 'S" +

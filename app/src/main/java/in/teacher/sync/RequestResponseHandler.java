@@ -26,7 +26,7 @@ public class RequestResponseHandler {
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setConnectTimeout(8000);
-            urlConnection.setReadTimeout(20000);
+            urlConnection.setReadTimeout(30000);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestMethod("POST");

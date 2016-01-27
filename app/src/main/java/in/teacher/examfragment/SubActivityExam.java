@@ -51,9 +51,10 @@ import android.widget.TextView;
 public class SubActivityExam extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, classId, subjectId, activityId, examId;
+    private int sectionId, classId, subjectId, examId;
+    private long activityId;
     private String className, sectionName, subjectName;
-    private List<Integer> subActIdList = new ArrayList<>();
+    private List<Long> subActIdList = new ArrayList<>();
     private ArrayList<SeObject> circleArrayGrid = new ArrayList<>();
     private CircleAdapter cA;
     final Map<Object, Object> mi1 = new HashMap<>();
@@ -109,7 +110,7 @@ public class SubActivityExam extends Fragment {
     }
 
     public void viewClickListener(int position) {
-        int i = subActIdList.get(position);
+        long i = subActIdList.get(position);
         TempDao.updateSubActivityId(i, sqliteDatabase);
         Boolean b1 = (Boolean) mi1.get(i);
         Boolean b2 = (Boolean) mi2.get(i);

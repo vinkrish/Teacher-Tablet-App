@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteStatement;
 
  public class ActivitiDao {
 	 
-	 public static float getActivityMaxMark(int activityId, SQLiteDatabase sqliteDatabase){
+	 public static float getActivityMaxMark(long activityId, SQLiteDatabase sqliteDatabase){
 		 float maxMark = 0;
 		 Cursor c = sqliteDatabase.rawQuery("select MaximumMark from activity where ActivityId="+activityId, null);
 		 c.moveToFirst();
@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteStatement;
 		 return maxMark;
 	 }
 	 
-	 public static String selectActivityName(int activityId, SQLiteDatabase sqliteDatabase){
+	 public static String selectActivityName(long activityId, SQLiteDatabase sqliteDatabase){
 			String s = null;
 			Cursor c = sqliteDatabase.rawQuery("select ActivityName from activity where ActivityId="+activityId, null);
 			c.moveToFirst();
@@ -41,7 +41,7 @@ import android.database.sqlite.SQLiteStatement;
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			Activiti a = new Activiti();
-			a.setActivityId(c.getInt(c.getColumnIndex("ActivityId")));
+			a.setActivityId(c.getLong(c.getColumnIndex("ActivityId")));
 			a.setActivityName(c.getString(c.getColumnIndex("ActivityName")));
 			a.setCalculation(c.getInt(c.getColumnIndex("Calculation")));
 			a.setClassId(c.getInt(c.getColumnIndex("ClassId")));
@@ -60,12 +60,12 @@ import android.database.sqlite.SQLiteStatement;
 		return aList;
 	}
 	
-	public static Activiti getActiviti(int activityId, SQLiteDatabase sqliteDatabase){
+	public static Activiti getActiviti(long activityId, SQLiteDatabase sqliteDatabase){
 		Activiti a = new Activiti();
 		Cursor c = sqliteDatabase.rawQuery("select * from activity where ActivityId="+activityId, null);
 		c.moveToFirst();
 		while(!c.isAfterLast()){
-			a.setActivityId(c.getInt(c.getColumnIndex("ActivityId")));
+			a.setActivityId(c.getLong(c.getColumnIndex("ActivityId")));
 			a.setActivityName(c.getString(c.getColumnIndex("ActivityName")));
 			a.setCalculation(c.getInt(c.getColumnIndex("Calculation")));
 			a.setClassId(c.getInt(c.getColumnIndex("ClassId")));
@@ -93,7 +93,7 @@ import android.database.sqlite.SQLiteStatement;
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			stmt.bindDouble(1, c.getDouble(c.getColumnIndex("Average")));
-			stmt.bindLong(2, c.getInt(c.getColumnIndex("ActivityId")));
+			stmt.bindLong(2, c.getLong(c.getColumnIndex("ActivityId")));
 			stmt.execute();
 			stmt.clearBindings();
 			c.moveToNext();
@@ -103,12 +103,12 @@ import android.database.sqlite.SQLiteStatement;
 		sqliteDatabase.endTransaction();
 	}
 
-	public static void updateActivityAvg(List<Integer> actList, SQLiteDatabase sqliteDatabase){
+	public static void updateActivityAvg(List<Long> actList, SQLiteDatabase sqliteDatabase){
 		String sql = "Update activity set CompleteEntry=1,ActivityAvg= (SELECT (AVG(Mark)/A.MaximumMark)*360 as Average FROM activity A, activitymark B WHERE A.ActivityId = "+
 				"B.ActivityId and A.ActivityId=? and B.Mark!='0' and B.Mark!='-1') where ActivityId=?";
 		sqliteDatabase.beginTransaction();
 		SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
-		for(Integer act: actList){
+		for(Long act: actList){
 			stmt.bindLong(1, act);
 			stmt.bindLong(2, act);
 			stmt.execute();
@@ -127,7 +127,7 @@ import android.database.sqlite.SQLiteStatement;
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			stmt.bindDouble(1, c.getDouble(c.getColumnIndex("Average")));
-			stmt.bindLong(2, c.getInt(c.getColumnIndex("ActivityId")));
+			stmt.bindLong(2, c.getLong(c.getColumnIndex("ActivityId")));
 			stmt.execute();
 			stmt.clearBindings();
 			c.moveToNext();
@@ -137,14 +137,14 @@ import android.database.sqlite.SQLiteStatement;
 		sqliteDatabase.endTransaction();
 	}
 
-	public static void updateActSubActAvg(List<Integer> actList, SQLiteDatabase sqliteDatabase){
-		for(Integer act: actList){
+	public static void updateActSubActAvg(List<Long> actList, SQLiteDatabase sqliteDatabase){
+		for(Long act: actList){
 			String sql = "SELECT A.SectionId, A.ExamId, A.SubjectId, A.ActivityId, AVG(SubActivityAvg) as Average FROM subactivity A where A.ActivityId="+act+
 					" and A.SubActivityAvg!=0 group by A.SectionId, A.ExamId, A.SubjectId, A.ActivityId";
 			Cursor c = sqliteDatabase.rawQuery(sql, null);
 			c.moveToFirst();
 			while(!c.isAfterLast()){
-				String sql2 = "update activity set ActivityAvg="+c.getInt(c.getColumnIndex("Average"))+" where ActivityId="+c.getInt(c.getColumnIndex("ActivityId"));
+				String sql2 = "update activity set ActivityAvg="+c.getInt(c.getColumnIndex("Average"))+" where ActivityId="+c.getLong(c.getColumnIndex("ActivityId"));
 				sqliteDatabase.execSQL(sql2);
 				c.moveToNext();
 			}
@@ -152,7 +152,7 @@ import android.database.sqlite.SQLiteStatement;
 		}
 	}
 
-	public static void updateSubactActAvg(int actId, int schoolId, SQLiteDatabase sqliteDatabase){
+	public static void updateSubactActAvg(long actId, SQLiteDatabase sqliteDatabase){
 		String sql = "SELECT A.SectionId, A.ExamId, A.SubjectId, A.ActivityId, AVG(SubActivityAvg) as Average FROM subactivity A WHERE A.ActivityId="+actId+" and A.SubActivityAvg!=0";
 		Cursor c = sqliteDatabase.rawQuery(sql,null);
 		c.moveToFirst();
@@ -166,7 +166,7 @@ import android.database.sqlite.SQLiteStatement;
 		c.close();
 	}
 	
-	public static void updateActivityAvg(int activityId,int schoolId, SQLiteDatabase sqliteDatabase){
+	public static void updateActivityAvg(long activityId, SQLiteDatabase sqliteDatabase){
 		String sql = "SELECT A.ActivityId, (AVG(Mark)/A.MaximumMark)*360 as Average FROM activity A, activitymark B WHERE A.ActivityId = B.ActivityId and A.ActivityId = "+activityId+
 				" and B.Mark!='0' and B.Mark!='-1' GROUP BY A.ActivityId";
 		Cursor c = sqliteDatabase.rawQuery(sql,null);
@@ -181,7 +181,7 @@ import android.database.sqlite.SQLiteStatement;
 		c.close();
 	}
 	
-	public static float selectActMaxMark(int activityId, SQLiteDatabase sqliteDatabase){
+	public static float selectActMaxMark(long activityId, SQLiteDatabase sqliteDatabase){
 		float maxMark = 0;
 		Cursor c = sqliteDatabase.rawQuery("select MaximumMark from activity where ActivityId="+activityId, null);
 		c.moveToFirst();
@@ -203,7 +203,7 @@ import android.database.sqlite.SQLiteStatement;
 		return count;
 	}
 	
-	public static void checkActMarkEmpty(int actId, int schoolId, SQLiteDatabase sqliteDatabase){
+	public static void checkActMarkEmpty(long actId, SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery( "SELECT A.ActivityId, COUNT(*) FROM activity A, activitymark B WHERE A.ActivityId=B.ActivityId AND A.ActivityId="+actId+
 				" AND B.Mark='0' GROUP BY A.ActivityId HAVING COUNT(*)>0",null);
 		if(c.getCount()>0){
@@ -224,7 +224,7 @@ import android.database.sqlite.SQLiteStatement;
 		SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
 		c.moveToFirst();
 		while(!c.isAfterLast()){
-			stmt.bindLong(1, c.getInt(c.getColumnIndex("ActivityId")));
+			stmt.bindLong(1, c.getLong(c.getColumnIndex("ActivityId")));
 			stmt.execute();
 			stmt.clearBindings();
 			c.moveToNext();
@@ -242,7 +242,7 @@ import android.database.sqlite.SQLiteStatement;
 		SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
 		c.moveToFirst();
 		while(!c.isAfterLast()){
-			stmt.bindLong(1, c.getInt(c.getColumnIndex("ActivityId")));
+			stmt.bindLong(1, c.getLong(c.getColumnIndex("ActivityId")));
 			stmt.execute();
 			stmt.clearBindings();
 			c.moveToNext();
@@ -252,7 +252,7 @@ import android.database.sqlite.SQLiteStatement;
 		sqliteDatabase.endTransaction();
 	}
 	
-	public static void checkActSubActMarkEmpty(int activityId, int schoolId, SQLiteDatabase sqliteDatabase){
+	public static void checkActSubActMarkEmpty(long activityId, SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery( "SELECT A.ActivityId, COUNT(*) FROM subactivity A, subactivitymark B WHERE A.ActivityId=B.ActivityId"+
 				" and B.Mark='0' and A.ActivityId="+activityId+" GROUP BY A.ActivityId HAVING COUNT(*)>0",null);
 		if(c.getCount()>0){
@@ -273,7 +273,7 @@ import android.database.sqlite.SQLiteStatement;
 		SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
 		c.moveToFirst();
 		while(!c.isAfterLast()){
-			stmt.bindLong(1, c.getInt(c.getColumnIndex("ActivityId")));
+			stmt.bindLong(1, c.getLong(c.getColumnIndex("ActivityId")));
 			stmt.execute();
 			stmt.clearBindings();
 			c.moveToNext();
@@ -283,9 +283,9 @@ import android.database.sqlite.SQLiteStatement;
 		sqliteDatabase.endTransaction();
 	}
 	
-	public static void checkActivityMarkEmpty(List<Integer> actList, SQLiteDatabase sqliteDatabase){
+	public static void checkActivityMarkEmpty(List<Long> actList, SQLiteDatabase sqliteDatabase){
 		StringBuilder sb = new StringBuilder();
-		for(Integer act: actList){
+		for(Long act: actList){
 			sb.append(",").append(act+"");
 		}
 		String s = sb.substring(1, sb.length());
@@ -301,7 +301,7 @@ import android.database.sqlite.SQLiteStatement;
 		SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
 		c.moveToFirst();
 		while(!c.isAfterLast()){
-			stmt.bindLong(1, c.getInt(c.getColumnIndex("ActivityId")));
+			stmt.bindLong(1, c.getLong(c.getColumnIndex("ActivityId")));
 			stmt.execute();
 			stmt.clearBindings();
 			c.moveToNext();

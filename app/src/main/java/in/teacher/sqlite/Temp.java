@@ -13,13 +13,29 @@ public class Temp {
     private int currentSubject;
     private int currentClass;
     private int examId;
-    private int activityId;
-    private int subActivityId;
+    private long activityId;
+    private long subActivityId;
     private long slipTestId;
     private String syncTime;
     private int isSync;
     private int studentId;
     private int subjectId;
+
+    public long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
+    }
+
+    public long getSubActivityId() {
+        return subActivityId;
+    }
+
+    public void setSubActivityId(long subActivityId) {
+        this.subActivityId = subActivityId;
+    }
 
     public int getClassInchargeId() {
         return classInchargeId;
@@ -115,22 +131,6 @@ public class Temp {
 
     public void setExamId(int examId) {
         this.examId = examId;
-    }
-
-    public int getActivityId() {
-        return activityId;
-    }
-
-    public void setActivityId(int activityId) {
-        this.activityId = activityId;
-    }
-
-    public int getSubActivityId() {
-        return subActivityId;
-    }
-
-    public void setSubActivityId(int subActivityId) {
-        this.subActivityId = subActivityId;
     }
 
     public long getSlipTestId() {
