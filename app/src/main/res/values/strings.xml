@@ -171,6 +171,7 @@
     <string name="resolving">Resolving Errors</string>
     <string name="bugs">Touch here to sync and have internet accesible</string>
     <string name="server_resolve">Tab is in Sync</string>
+    <string name="cce_profile">CCE Profile</string>
     <string name="profile">Profile</string>
     <string name="height">Height (cm)</string>
     <string name="weight">Weight (kg)</string>

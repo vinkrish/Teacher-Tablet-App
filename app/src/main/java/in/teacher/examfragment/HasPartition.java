@@ -37,6 +37,7 @@ import android.widget.TextView;
 
 /**
  * Created by vinkrish.
+ * (Help: loaded when subject has practical and theory).
  */
 public class HasPartition extends Fragment {
     private SQLiteDatabase sqliteDatabase;

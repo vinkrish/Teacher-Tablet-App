@@ -6,61 +6,61 @@
         <item
             android:id="@+id/dashboard_item"
             android:checked="true"
-            android:icon="@drawable/dashboard"
+            android:icon="@drawable/dashboard_black"
             android:title="@string/dashboard" />
 
         <item
             android:id="@+id/attendance_item"
             android:checked="false"
-            android:icon="@drawable/attendance"
+            android:icon="@drawable/attendance_black"
             android:title="@string/attendance" />
 
         <item
             android:id="@+id/homework_item"
             android:checked="false"
-            android:icon="@drawable/homework"
+            android:icon="@drawable/homework_black"
             android:title="@string/homework" />
 
         <item
             android:id="@+id/co_scholastic_item"
             android:checked="false"
-            android:icon="@drawable/evaluate"
+            android:icon="@drawable/evaluate_black"
             android:title="@string/coscholastic" />
 
         <item
             android:id="@+id/cce_student_profile_item"
             android:checked="false"
-            android:icon="@drawable/evaluate"
+            android:icon="@drawable/evaluate_black"
             android:title="@string/cce_student_profile" />
 
         <item
             android:id="@+id/sms_item"
             android:checked="false"
-            android:icon="@drawable/sms"
+            android:icon="@drawable/sms_black"
             android:title="@string/sms" />
 
         <item
             android:id="@+id/map_student_subject_item"
             android:checked="false"
-            android:icon="@drawable/map"
+            android:icon="@drawable/map_black"
             android:title="@string/map_student_subject" />
 
         <item
             android:id="@+id/map_subject_teacher_item"
             android:checked="false"
-            android:icon="@drawable/map"
+            android:icon="@drawable/map_black"
             android:title="@string/map_subject_teacher" />
 
         <item
             android:id="@+id/student_profile_item"
             android:checked="false"
-            android:icon="@drawable/profile"
+            android:icon="@drawable/profile_black"
             android:title="@string/student_profile" />
 
         <item
             android:id="@+id/move_student_item"
             android:checked="false"
-            android:icon="@drawable/move"
+            android:icon="@drawable/move_black"
             android:title="@string/move_student" />
 
     </group>

@@ -50,7 +50,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="60dp"
-            android:background="#333333" />
+            android:background="@color/dash_seperator" />
 
         <Button
             android:id="@+id/homeworkButton"

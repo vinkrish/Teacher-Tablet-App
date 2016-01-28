@@ -1,6 +1,8 @@
-package in.teacher.model;
+package in.teacher.sqlite;
 
 import java.util.ArrayList;
+
+import in.teacher.sqlite.ExpChild;
 
 public class ExpGroup {
     private int image1;

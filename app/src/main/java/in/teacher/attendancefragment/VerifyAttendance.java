@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class VerifyAttendance extends Fragment {
     private List<Students> studentsArray = new ArrayList<>();

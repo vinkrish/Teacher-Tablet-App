@@ -55,6 +55,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class UpdateSubActivityMark extends Fragment {
     private Activity act;
@@ -377,6 +378,9 @@ public class UpdateSubActivityMark extends Fragment {
         activityWeightage();
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void activityWeightage() {
         List<SubActivity> subActList = SubActivityDao.selectSubActivity(activityId, sqliteDatabase);
         List<Long> subActIdList = new ArrayList<>();
@@ -427,7 +431,7 @@ public class UpdateSubActivityMark extends Fragment {
                         finalMark += flo;
 
                     String sql = "update activitymark set Mark='" + finalMark + "' where ActivityId=" + activityId + " and " +
-                            "StudentId=" + st.getStudentId() + " and SubjectId=" + subjectId + " and ExamId=" + examId;
+                            "StudentId=" + st.getStudentId() + " and SubjectId=" + subjectId;
 
                     executeNsave(sql);
                 }
@@ -438,7 +442,7 @@ public class UpdateSubActivityMark extends Fragment {
                 for (Students st : studentsArray) {
                     String sql = "update activitymark set Mark = ((select SUM(Mark) from subactivitymark where Mark!=-1 and SubActivityId in" +
                             " (" + sb.substring(0, sb.length() - 1) + ") and StudentId=" + st.getStudentId() + ")/" + subActMaxMark + ")*" + activityMaxMark + " where ActivityId=" + activityId + " and" +
-                            " StudentId=" + st.getStudentId() + " and SubjectId=" + subjectId + " and ExamId=" + examId;
+                            " StudentId=" + st.getStudentId() + " and SubjectId=" + subjectId;
 
                     executeNsave(sql);
                 }
@@ -476,7 +480,7 @@ public class UpdateSubActivityMark extends Fragment {
                     subActMaxMark = subActMaxMark * calculation;
 
                     String sql = "update activitymark set Mark = (" + bestOfMarks + "/" + subActMaxMark + ")*" + activityMaxMark + " where ActivityId=" + activityId + " and" +
-                            " StudentId=" + st.getStudentId() + " and SubjectId=" + subjectId + " and ExamId=" + examId;
+                            " StudentId=" + st.getStudentId() + " and SubjectId=" + subjectId;
 
                     executeNsave(sql);
                 }
@@ -485,6 +489,9 @@ public class UpdateSubActivityMark extends Fragment {
         }
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void examWeightage() {
         List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
         List<Long> actIdList = new ArrayList<>();
@@ -591,7 +598,7 @@ public class UpdateSubActivityMark extends Fragment {
         }
     }
 
-    private void executeNsave(String sql){
+    private void executeNsave(String sql) {
         try {
             sqliteDatabase.execSQL(sql);
             ContentValues cv = new ContentValues();

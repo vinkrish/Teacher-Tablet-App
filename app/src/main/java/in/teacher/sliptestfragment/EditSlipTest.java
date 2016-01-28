@@ -45,6 +45,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 /**
  * Created by vinkrish.
+ * I would write this class a better way if i've to start over again, optimize it if you can.
  */
 public class EditSlipTest extends Fragment {
     private Context context;

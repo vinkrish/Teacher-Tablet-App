@@ -50,6 +50,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 12/10/15.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class ExamCreate extends Fragment {
     private SQLiteDatabase sqliteDatabase;

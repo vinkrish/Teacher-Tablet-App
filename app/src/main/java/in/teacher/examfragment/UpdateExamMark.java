@@ -1,25 +1,5 @@
 package in.teacher.examfragment;
 
-import in.teacher.activity.R;
-import in.teacher.adapter.Capitalize;
-import in.teacher.adapter.MarksAdapter;
-import in.teacher.dao.ClasDao;
-import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
-import in.teacher.dao.MarksDao;
-import in.teacher.dao.SectionDao;
-import in.teacher.dao.StudentsDao;
-import in.teacher.dao.SubjectExamsDao;
-import in.teacher.dao.TempDao;
-import in.teacher.sqlite.Marks;
-import in.teacher.sqlite.Students;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.ReplaceFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -39,16 +19,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.teacher.activity.R;
+import in.teacher.adapter.Capitalize;
+import in.teacher.adapter.MarksAdapter;
+import in.teacher.dao.ClasDao;
+import in.teacher.dao.ExamsDao;
+import in.teacher.dao.ExmAvgDao;
+import in.teacher.dao.MarksDao;
+import in.teacher.dao.SectionDao;
+import in.teacher.dao.StudentsDao;
+import in.teacher.dao.SubjectExamsDao;
+import in.teacher.dao.TempDao;
+import in.teacher.sqlite.Marks;
+import in.teacher.sqlite.Students;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class UpdateExamMark extends Fragment {
     private Context context;
@@ -364,7 +365,7 @@ public class UpdateExamMark extends Fragment {
         }
     };
 
-    private void deleteDialog(){
+    private void deleteDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(act);
         alertBuilder.setCancelable(false);
         alertBuilder.setTitle("Confirm your action");
@@ -379,13 +380,13 @@ public class UpdateExamMark extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
                 String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId;
-                try{
+                try {
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
                     ReplaceFragment.replace(new InsertExamGrade(), getFragmentManager());
-                }catch(SQLException e){
+                } catch (SQLException e) {
                 }
             }
         });

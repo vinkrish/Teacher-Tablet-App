@@ -38,7 +38,7 @@
             android:layout_height="60dp"
             android:background="@color/universal"
             android:drawablePadding="10dp"
-            android:drawableStart="@drawable/attendance"
+            android:drawableStart="@drawable/sms"
             android:gravity="start|center_vertical"
             android:paddingEnd="30dp"
             android:paddingStart="10dp"

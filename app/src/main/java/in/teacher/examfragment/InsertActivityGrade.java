@@ -33,7 +33,6 @@ import in.teacher.adapter.GradeAdapter;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityGradeDao;
-import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.GradesClassWiseDao;
@@ -55,6 +54,7 @@ import in.teacher.util.StudentsSort;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class InsertActivityGrade extends Fragment {
     private Activity activity;
@@ -282,6 +282,9 @@ public class InsertActivityGrade extends Fragment {
         weightageCalculation();
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void weightageCalculation() {
         boolean isDynamicWeightage = true;
         List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
@@ -294,7 +297,7 @@ public class InsertActivityGrade extends Fragment {
             weightageList.add(Act.getWeightage());
             if (Act.getWeightage() == 0) isDynamicWeightage = false;
         }
-        boolean exist = ActivityMarkDao.isAllActGradeExist(actIdList, sqliteDatabase);
+        boolean exist = ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase);
         if (exist) {
             if (calculation == 0) {
                 float totalGradeMark = 0f;
@@ -321,8 +324,9 @@ public class InsertActivityGrade extends Fragment {
                     executeNsave(sql);
                 }
             } else if (calculation == -1) {
-                int totalGradePoint = 0;
+                int totalGradePoint;
                 for (Students st : studentsArray) {
+                    totalGradePoint = 0;
                     for (Activiti act : actList) {
                         String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
                         if (!grade.equals("")) totalGradePoint += getGradePoint(grade);

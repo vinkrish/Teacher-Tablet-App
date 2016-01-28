@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 @SuppressLint("InflateParams")
 public class VerifyHomework extends Fragment {

@@ -1,4 +1,4 @@
-package in.teacher.model;
+package in.teacher.sqlite;
 
 public class ExpChild {
 	private String text;

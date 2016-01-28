@@ -39,6 +39,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 30/11/15.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class MoveStudent extends Fragment {
     private SQLiteDatabase sqliteDatabase;

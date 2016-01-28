@@ -6,8 +6,8 @@ import in.teacher.dao.CceCoScholasticGradeDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.TempDao;
-import in.teacher.model.ExpChild;
-import in.teacher.model.ExpGroup;
+import in.teacher.sqlite.ExpChild;
+import in.teacher.sqlite.ExpGroup;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -33,6 +33,9 @@ import android.widget.TextView;
 
 /**
  * Created by vinkrish.
+ * I know this code is repulsive and stupid.
+ * I would write this class a better way if i've to start over again, optimize it if you can.
+ * If you are reading this, you have hard time ahead.
  */
 public class CoScholastic extends Fragment {
     private Context context;

@@ -45,6 +45,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 @SuppressLint("InflateParams")
 public class UpdateCCSGrade extends Fragment {

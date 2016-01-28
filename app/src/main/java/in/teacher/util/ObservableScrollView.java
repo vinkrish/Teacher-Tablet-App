@@ -9,8 +9,8 @@ import in.teacher.model.ScrollViewListener;
 
 /**
  * Created by vinkrish.
+ * I don't understand how the following code works but i made it work by referring other code.
  */
-
 public class ObservableScrollView extends ScrollView {
     private ScrollViewListener scrollViewListener = null;
     private boolean mScrollable = true;

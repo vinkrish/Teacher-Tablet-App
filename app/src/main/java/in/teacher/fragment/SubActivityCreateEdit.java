@@ -50,6 +50,7 @@ import in.teacher.util.PKGenerator;
 
 /**
  * Created by vinkrish on 28/10/15.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class SubActivityCreateEdit extends Fragment {
     private Context context;
@@ -395,7 +396,7 @@ public class SubActivityCreateEdit extends Fragment {
             }
         }
 
-        bestOfSelection = false;
+        //bestOfSelection = false;
         rgSelection = false;
         resetSubActivityList();
         subActivityAdapter.notifyDataSetChanged();
@@ -548,7 +549,7 @@ public class SubActivityCreateEdit extends Fragment {
         activitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                bestOfSelection = false;
+                //bestOfSelection = false;
                 rgSelection = false;
                 if (position != 0) {
                     activityId = activityIdList.get(position);
@@ -829,7 +830,7 @@ public class SubActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
             }
-            bestOfSelection = false;
+            //bestOfSelection = false;
             rgSelection = false;
             resetSubActivityList();
             subActivityAdapter.notifyDataSetChanged();
@@ -925,7 +926,7 @@ public class SubActivityCreateEdit extends Fragment {
                 }
 
                 dialog.dismiss();
-                bestOfSelection = false;
+                //bestOfSelection = false;
                 rgSelection = false;
                 resetSubActivityList();
                 subActivityAdapter.notifyDataSetChanged();
@@ -968,7 +969,7 @@ public class SubActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
                 dialog.cancel();
-                bestOfSelection = false;
+                //bestOfSelection = false;
                 rgSelection = false;
                 resetSubActivityList();
                 subActivityAdapter.notifyDataSetChanged();

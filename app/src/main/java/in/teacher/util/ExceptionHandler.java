@@ -1,24 +1,20 @@
 package in.teacher.util;
 
-import in.teacher.activity.Restart;
-
-import java.lang.Thread.UncaughtExceptionHandler;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.Settings.Secure;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.Thread.UncaughtExceptionHandler;
 
-import android.provider.Settings.Secure;
-import android.util.Log;
+import in.teacher.activity.Restart;
 
 /**
  * Created by vinkrish.
  */
-
 public class ExceptionHandler implements UncaughtExceptionHandler {
     private final Activity myContext;
     private final String LINE_SEPARATOR = "\n";
@@ -29,6 +25,7 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+
         StringWriter stackTrace = new StringWriter();
         ex.printStackTrace(new PrintWriter(stackTrace));
         StringBuilder errorReport = new StringBuilder();
@@ -37,16 +34,11 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
         String android_id = Secure.getString(myContext.getBaseContext().getContentResolver(), Secure.ANDROID_ID);
         errorReport.append(android_id);
 
-        Log.d("error", errorReport + "");
-
         SharedPreferences sharedPref = myContext.getApplicationContext().getSharedPreferences("db_access", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("is_sync", 0);
         editor.putInt("first_sync", 0);
         editor.apply();
-
-        int isSync = sharedPref.getInt("is_sync", 0);
-        Log.d("ExceptionHandling", isSync + "");
 
         Intent intent = new Intent(myContext, Restart.class);
         intent.putExtra("error", errorReport.toString());

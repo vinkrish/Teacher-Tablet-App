@@ -29,6 +29,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 19/10/15.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class TeacherInCharge extends Fragment {
     private Context context;

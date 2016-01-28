@@ -53,6 +53,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class InsertActivityMark extends Fragment {
     private Activity activity;
@@ -352,6 +353,9 @@ public class InsertActivityMark extends Fragment {
         weightageCalculation();
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void weightageCalculation() {
         List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
         List<Long> actIdList = new ArrayList<>();

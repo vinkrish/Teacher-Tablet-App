@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -33,8 +32,6 @@ import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.GradeAdapter;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ActivityGradeDao;
-import in.teacher.dao.ActivityMarkDao;
-import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.util.GradeClassWiseSort;
 import in.teacher.util.StudentsSort;
@@ -60,6 +57,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class InsertSubActivityGrade extends Fragment {
     private Activity activity;
@@ -291,6 +289,9 @@ public class InsertSubActivityGrade extends Fragment {
         activityWeightage();
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void activityWeightage() {
         boolean isDynamicWeightage = true;
         List<SubActivity> subActList = SubActivityDao.selectSubActivity(activityId, sqliteDatabase);
@@ -309,7 +310,6 @@ public class InsertSubActivityGrade extends Fragment {
                 float totalGradeMark = 0f;
                 for (Students st : studentsArray) {
                     totalGradeMark = 0f;
-
                     for (SubActivity subAct: subActList) {
                         float gradePoint = 0f;
                         float gradeWeightPoint;
@@ -331,10 +331,9 @@ public class InsertSubActivityGrade extends Fragment {
                     executeNsave(sql);
                 }
             } else if (calculation == -1) {
-                int totalGradePoint = 0;
-
+                int totalGradePoint;
                 for (Students st : studentsArray) {
-
+                    totalGradePoint = 0;
                     for (SubActivity subAct : subActList) {
                         String grade = SubActivityGradeDao.getSubActivityGrade(subAct.getSubActivityId(), st.getStudentId(), subAct.getSubjectId(), sqliteDatabase);
                         if (!grade.equals("")) totalGradePoint += getGradePoint(grade);
@@ -354,7 +353,7 @@ public class InsertSubActivityGrade extends Fragment {
                     gradePointList.clear();
 
                     for (SubActivity subAct : subActList) {
-                        String grade = SubActivityGradeDao.getSubActivityGrade(subAct.getActivityId(), st.getStudentId(), subAct.getSubjectId(), sqliteDatabase);
+                        String grade = SubActivityGradeDao.getSubActivityGrade(subAct.getSubActivityId(), st.getStudentId(), subAct.getSubjectId(), sqliteDatabase);
                         if (!grade.equals("")) gradePointList.add(getGradePoint(grade));
                         else gradePointList.add(0f);
                     }
@@ -378,6 +377,9 @@ public class InsertSubActivityGrade extends Fragment {
         }
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void examWeightage() {
         boolean isDynamicWeightage = true;
         List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
@@ -391,7 +393,7 @@ public class InsertSubActivityGrade extends Fragment {
             weightageList.add(Act.getWeightage());
             if (Act.getWeightage() == 0) isDynamicWeightage = false;
         }
-        boolean exist = ActivityMarkDao.isAllActGradeExist(actIdList, sqliteDatabase);
+        boolean exist = ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase);
         if (exist) {
             if (calculation == 0) {
                 float totalGradeMark = 0f;
@@ -418,8 +420,9 @@ public class InsertSubActivityGrade extends Fragment {
                     executeNsave(sql);
                 }
             } else if (calculation == -1) {
-                int totalGradePoint = 0;
+                int totalGradePoint;
                 for (Students st : studentsArray) {
+                    totalGradePoint = 0;
                     for (Activiti act : actList) {
                         String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
                         if (!grade.equals("")) totalGradePoint += getGradePoint(grade);
@@ -429,8 +432,7 @@ public class InsertSubActivityGrade extends Fragment {
                     String finalGrade = getGrade(finalMark);
 
                     String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Grade) values(" +
-                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" +
-                            finalGrade + "')";
+                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalGrade + "')";
 
                     executeNsave(sql);
                 }
@@ -455,8 +457,7 @@ public class InsertSubActivityGrade extends Fragment {
                     String finalGrade = getGrade(finalMark);
 
                     String sql = "insert into marks(SchoolId, ExamId, SubjectId, StudentId, Grade) values(" +
-                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" +
-                            finalGrade + "')";
+                            schoolId + "," + examId + "," + subjectId + "," + st.getStudentId() + ",'" + finalGrade + "')";
 
                     executeNsave(sql);
                 }

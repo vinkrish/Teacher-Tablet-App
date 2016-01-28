@@ -20,8 +20,8 @@ import java.util.List;
 
 /**
  * Created by vinkrish.
+ * I don't understand how the following code works but i made it work by referring other code.
  */
-
 public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     // Cached ViewConfiguration and system-wide constant values
     private int mSlop;

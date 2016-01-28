@@ -39,7 +39,7 @@
             android:layout_height="60dp"
             android:background="@color/universal"
             android:drawablePadding="10dp"
-            android:drawableStart="@drawable/attendance"
+            android:drawableStart="@drawable/map"
             android:gravity="start|center_vertical"
             android:paddingEnd="15dp"
             android:paddingStart="10dp"

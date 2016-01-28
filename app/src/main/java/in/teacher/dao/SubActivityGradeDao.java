@@ -16,7 +16,7 @@ public class SubActivityGradeDao {
     public static String getSubActivityGrade(long subActId, int studentId, int subjectId, SQLiteDatabase sqLiteDatabase) {
         String grade = "";
         Cursor c = sqLiteDatabase.rawQuery("select Grade from subactivitygrade " +
-                "where StudentId = " + studentId + " and ActivityId = " + subActId + " and SubjectId = " + subjectId, null);
+                "where StudentId = " + studentId + " and SubActivityId = " + subActId + " and SubjectId = " + subjectId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             grade = c.getString(c.getColumnIndex("Grade"));

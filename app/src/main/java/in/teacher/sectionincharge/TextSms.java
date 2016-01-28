@@ -65,6 +65,7 @@ import in.teacher.util.Util;
 
 /**
  * Created by vinkrish on 03/09/15.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class TextSms extends Fragment implements StringConstant {
     private Activity act;

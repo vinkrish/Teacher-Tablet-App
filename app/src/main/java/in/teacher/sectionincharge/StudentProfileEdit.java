@@ -40,6 +40,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 21/10/15.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class StudentProfileEdit extends Fragment {
     private SQLiteDatabase sqliteDatabase;

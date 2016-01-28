@@ -49,6 +49,7 @@ import in.teacher.util.PKGenerator;
 
 /**
  * Created by vinkrish on 28/10/15.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class ActivityCreateEdit extends Fragment {
     private Context context;
@@ -199,8 +200,6 @@ public class ActivityCreateEdit extends Fragment {
                     scrollView.setVisibility(View.VISIBLE);
 
                     generateTable();
-
-                    //activityCreateDialog();
                 } else
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please select exam and subject");
             }
@@ -419,7 +418,7 @@ public class ActivityCreateEdit extends Fragment {
                 }
             }
             rgSelection = false;
-            bestOfSelection = false;
+            //bestOfSelection = false;
             resetActivityList();
             activityAdapter.notifyDataSetChanged();
             cancelActCreation.performClick();
@@ -447,7 +446,7 @@ public class ActivityCreateEdit extends Fragment {
             }
         }
 
-        bestOfSelection = false;
+        //bestOfSelection = false;
         rgSelection = false;
         resetActivityList();
         activityAdapter.notifyDataSetChanged();
@@ -568,7 +567,7 @@ public class ActivityCreateEdit extends Fragment {
         subjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                bestOfSelection = false;
+                //bestOfSelection = false;
                 rgSelection = false;
                 if (position != 0) {
                     subjectId = subjectIdList.get(position);
@@ -876,7 +875,7 @@ public class ActivityCreateEdit extends Fragment {
                 }
 
                 dialog.dismiss();
-                bestOfSelection = false;
+                //bestOfSelection = false;
                 rgSelection = false;
                 resetActivityList();
                 activityAdapter.notifyDataSetChanged();
@@ -918,7 +917,7 @@ public class ActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
                 dialog.cancel();
-                bestOfSelection = false;
+                //bestOfSelection = false;
                 rgSelection = false;
                 resetActivityList();
                 activityAdapter.notifyDataSetChanged();

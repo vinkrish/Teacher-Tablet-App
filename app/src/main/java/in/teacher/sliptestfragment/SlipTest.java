@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 /**
  * Created by vinkrish.
+ * I would write this class a better way if i've to start over again, optimize it if you can.
  */
 public class SlipTest extends Fragment {
     private Context context;

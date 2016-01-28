@@ -12,7 +12,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,7 +40,6 @@ import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.examfragment.StructuredExam;
 import in.teacher.sqlite.GradesClassWise;
 import in.teacher.sqlite.Marks;
 import in.teacher.sqlite.Students;
@@ -51,6 +49,7 @@ import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class UpdateExamGrade extends Fragment {
     private Context context;
@@ -166,7 +165,7 @@ public class UpdateExamGrade extends Fragment {
         }
     };
 
-    private void deleteDialog(){
+    private void deleteDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(act);
         alertBuilder.setCancelable(false);
         alertBuilder.setTitle("Confirm your action");
@@ -181,13 +180,13 @@ public class UpdateExamGrade extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
                 String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId;
-                try{
+                try {
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
                     ReplaceFragment.replace(new InsertExamMark(), getFragmentManager());
-                }catch(SQLException e){
+                } catch (SQLException e) {
                 }
             }
         });

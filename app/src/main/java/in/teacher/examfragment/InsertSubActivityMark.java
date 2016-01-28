@@ -32,7 +32,6 @@ import java.util.List;
 import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
-import in.teacher.util.StudentsSort;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
@@ -53,9 +52,11 @@ import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
+import in.teacher.util.StudentsSort;
 
 /**
  * Created by vinkrish.
+ * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class InsertSubActivityMark extends Fragment {
     private Activity activity;
@@ -356,6 +357,9 @@ public class InsertSubActivityMark extends Fragment {
         activityWeightage();
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void activityWeightage() {
         List<SubActivity> subActList = SubActivityDao.selectSubActivity(activityId, sqliteDatabase);
         List<Long> subActIdList = new ArrayList<>();
@@ -468,6 +472,9 @@ public class InsertSubActivityMark extends Fragment {
         }
     }
 
+    /*
+    * This logic is right, work out the math yourself if you don't believe.
+    */
     private void examWeightage() {
         List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
         List<Long> actIdList = new ArrayList<>();
@@ -579,7 +586,7 @@ public class InsertSubActivityMark extends Fragment {
         }
     }
 
-    private void executeNsave(String sql){
+    private void executeNsave(String sql) {
         try {
             sqliteDatabase.execSQL(sql);
             ContentValues cv = new ContentValues();

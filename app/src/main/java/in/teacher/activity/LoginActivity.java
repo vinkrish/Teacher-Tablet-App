@@ -51,6 +51,7 @@ import in.teacher.util.SharedPreferenceUtil;
 
 /**
  * Created by vinkrish.
+ * I would write this class a better way if i've to start over again, optimize it if you can.
  */
 public class LoginActivity extends BaseActivity {
     private Context context;
