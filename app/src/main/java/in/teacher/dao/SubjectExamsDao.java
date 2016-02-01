@@ -11,7 +11,7 @@ import in.teacher.sqlite.SubjectExams;
 
 public class SubjectExamsDao {
 
-    public static float getExmMaxMark(int classId, int examId, int subjectId, SQLiteDatabase sqliteDatabase) {
+    public static float getExmMaxMark(int classId, long examId, int subjectId, SQLiteDatabase sqliteDatabase) {
         float maxMark = 100;
         Cursor c = sqliteDatabase.rawQuery("select MaximumMark from subjectexams where ClassId=" + classId + " and ExamId=" + examId +
                 " and SubjectId=" + subjectId, null);
@@ -36,7 +36,7 @@ public class SubjectExamsDao {
         return subjectName;
     }
 
-    public static int isExmMaxMarkDefined(int classId, int examId, int subjectId, SQLiteDatabase sqliteDatabase) {
+    public static int isExmMaxMarkDefined(int classId, long examId, int subjectId, SQLiteDatabase sqliteDatabase) {
         int isDefined = 0;
         Cursor c = sqliteDatabase.rawQuery("select MaximumMark from subjectexams where ClassId=" + classId + " and ExamId=" + examId +
                 " and SubjectId=" + subjectId, null);

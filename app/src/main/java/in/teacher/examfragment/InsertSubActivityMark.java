@@ -62,7 +62,6 @@ public class InsertSubActivityMark extends Fragment {
     private Activity activity;
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId;
     private String activityName, subActivityName;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
@@ -71,8 +70,8 @@ public class InsertSubActivityMark extends Fragment {
     private ListView lv;
     private MarksAdapter marksAdapter;
     private int index = 0, indexBound, top, lastVisible, firstVisible, totalVisible;
-    private int schoolId, examId, subjectId, subId, classId, calculation;
-    private long activityId, subActivityId;
+    private int schoolId, subjectId, subId, classId, calculation, sectionId;
+    private long examId, activityId, subActivityId;
     private float maxMark;
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
@@ -347,7 +346,7 @@ public class InsertSubActivityMark extends Fragment {
         SubActivityMarkDao.insertSubActivityMark(mList, sqliteDatabase);
         int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
         if (entry == 0)
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
+            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
         SubActivityDao.updateSubActivityAvg(subActivityId, sqliteDatabase);
         ActivitiDao.updateSubactActAvg(activityId, sqliteDatabase);
         ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);

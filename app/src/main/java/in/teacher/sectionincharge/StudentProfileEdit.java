@@ -11,17 +11,20 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -32,7 +35,6 @@ import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.sectionincharge.StudentProfile;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
@@ -45,10 +47,12 @@ import in.teacher.util.ReplaceFragment;
 public class StudentProfileEdit extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private static TextView studentName, dob;
+    private String gender;
     private EditText className, sectionName, rollNo, admissionNo;
-    private EditText fatherName, motherName, gender, mobile1, mobile2, address, pincode;
+    private EditText fatherName, motherName, mobile1, mobile2, address, pincode;
     private Button studentProfile, saveBtn, deleteBtn;
     private int studentId, classId, sectionId;
+    private Spinner genderSpinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,7 +75,7 @@ public class StudentProfileEdit extends Fragment {
         admissionNo = (EditText) view.findViewById(R.id.admission_no);
         fatherName = (EditText) view.findViewById(R.id.father_name);
         motherName = (EditText) view.findViewById(R.id.mother_name);
-        gender = (EditText) view.findViewById(R.id.gender);
+        genderSpinner = (Spinner) view.findViewById(R.id.gender);
         mobile1 = (EditText) view.findViewById(R.id.mobile1);
         mobile2 = (EditText) view.findViewById(R.id.mobile2);
         address = (EditText) view.findViewById(R.id.address);
@@ -95,6 +99,10 @@ public class StudentProfileEdit extends Fragment {
         sectionName.setText(SectionDao.getSectionName(sectionId, sqliteDatabase));
         sectionName.setKeyListener(null);
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_header, Arrays.asList(new String[]{"Gender *", "Male", "Female"}));
+        adapter.setDropDownViewResource(R.layout.spinner_droppeddown);
+        genderSpinner.setAdapter(adapter);
+
         Cursor c = sqliteDatabase.rawQuery("select * from students where StudentId = " + studentId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
@@ -104,7 +112,7 @@ public class StudentProfileEdit extends Fragment {
             fatherName.setText(c.getString(c.getColumnIndex("FatherName")));
             motherName.setText(c.getString(c.getColumnIndex("MotherName")));
             dob.setText(c.getString(c.getColumnIndex("DateOfBirth")));
-            gender.setText(c.getString(c.getColumnIndex("Gender")));
+            gender = c.getString(c.getColumnIndex("Gender"));
             mobile1.setText(c.getString(c.getColumnIndex("Mobile1")));
             mobile2.setText(c.getString(c.getColumnIndex("Mobile2")));
             address.setText(c.getString(c.getColumnIndex("Address")));
@@ -127,11 +135,11 @@ public class StudentProfileEdit extends Fragment {
 
                 if (fatherName.getText().toString().equals("") ||
                         rollNo.getText().toString().equals("") ||
-                        gender.getText().toString().equals("") ||
+                        gender.equals("") ||
                         mobile1.getText().toString().equals("") ||
                         dob.getText().toString().equals("")) {
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Fields marked * are mandatory");
-                } else if (StudentsDao.isRollNoAvailable(sqliteDatabase, sectionId, Integer.parseInt(rollNo.getText().toString()), studentId)){
+                } else if (StudentsDao.isRollNoAvailable(sqliteDatabase, sectionId, Integer.parseInt(rollNo.getText().toString()), studentId)) {
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Roll number is not unique");
                 } else if (mobile1.getText().toString().length() > 10) {
                     CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Mobile number should be of 10 digits");
@@ -157,6 +165,24 @@ public class StudentProfileEdit extends Fragment {
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
+
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 1) gender = "Male";
+                else if (position == 2) gender = "Female";
+                else gender = "";
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        if (gender.equals("")) genderSpinner.setSelection(0);
+        else if (gender.equals("Male")) genderSpinner.setSelection(1);
+        else if (gender.equals("Female")) genderSpinner.setSelection(2);
     }
 
     private void updateStudent() {
@@ -165,7 +191,7 @@ public class StudentProfileEdit extends Fragment {
                 "AdmissionNo = '" + admissionNo.getText().toString().replaceAll("\n", " ") + "', " +
                 "MotherName = '" + motherName.getText().toString().replaceAll("\n", " ") + "', " +
                 "DateOfBirth = '" + dob.getText().toString() + "' , " +
-                "gender = '" + gender.getText().toString() + "', " +
+                "gender = '" + gender + "', " +
                 "mobile1 = '" + mobile1.getText().toString() + "', " +
                 "mobile2 = '" + mobile2.getText().toString() + "', " +
                 "address = \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\", " +

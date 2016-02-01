@@ -55,7 +55,8 @@ public class UpdateExamMark extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Activity act;
-    private int sectionId, schoolId, subjectId, subId, classId, examId, partition;
+    private int sectionId, schoolId, subjectId, subId, classId, partition;
+    private long examId;
     private float maxMark;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Integer> studentsArrayId = new ArrayList<>();
@@ -185,9 +186,9 @@ public class UpdateExamMark extends Fragment {
         }
         int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
         if (entry == 0) {
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
+            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
         }
-        ExmAvgDao.insertAvgIntoExmAvg(sectionId, subjectId, examId, schoolId, sqliteDatabase);
+        ExmAvgDao.insertAvgIntoExmAvg(sectionId, subjectId, examId, sqliteDatabase);
         ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
         if (partition == 1) {
             updatePartitionMarks();

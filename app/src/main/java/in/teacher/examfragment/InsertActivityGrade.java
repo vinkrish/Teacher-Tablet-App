@@ -70,8 +70,8 @@ public class InsertActivityGrade extends Fragment {
     private MarksAdapter marksAdapter;
     private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, firstVisible, lastVisible, top, totalVisible;
-    private int schoolId, examId, subjectId, subId, classId, sectionId, calculation;
-    private long activityId;
+    private int schoolId, subjectId, subId, classId, sectionId, calculation;
+    private long examId, activityId;
     private StringBuffer sf = new StringBuffer();
     private List<GradesClassWise> gradesClassWiseList = new ArrayList<>();
     private TextView clasSecSub;

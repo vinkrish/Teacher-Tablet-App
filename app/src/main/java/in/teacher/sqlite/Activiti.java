@@ -5,7 +5,7 @@ public class Activiti {
     private long activityId;
     private int classId;
     private int sectionId;
-    private int examId;
+    private long examId;
     private int subjectId;
     private String activityName;
     private float maximumMark;
@@ -16,6 +16,14 @@ public class Activiti {
     private float activityAvg;
     private int completeEntry;
     private String uniqueKey;
+
+    public long getExamId() {
+        return examId;
+    }
+
+    public void setExamId(long examId) {
+        this.examId = examId;
+    }
 
     public long getActivityId() {
         return activityId;
@@ -71,14 +79,6 @@ public class Activiti {
 
     public void setSectionId(int sectionId) {
         this.sectionId = sectionId;
-    }
-
-    public int getExamId() {
-        return examId;
-    }
-
-    public void setExamId(int examId) {
-        this.examId = examId;
     }
 
     public int getSubjectId() {

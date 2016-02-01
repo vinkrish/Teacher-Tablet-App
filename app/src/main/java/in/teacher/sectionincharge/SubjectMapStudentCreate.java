@@ -98,7 +98,7 @@ public class SubjectMapStudentCreate extends Fragment {
             }
             subjectGroupNameList = SubjectGroupDao.getSubjectGroupNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
-            mapSubjectBtn.setActivated(false);
+            mapSubjectBtn.setActivated(true);
             mapSubjectBtn.setOnClickListener(mapSubjectListener);
 
             editUpdateBtn.setOnClickListener(editListener);
@@ -123,6 +123,8 @@ public class SubjectMapStudentCreate extends Fragment {
             if (mapSubjectBtn.isActivated()) {
                 studIdList.clear();
                 studNameList.clear();
+                studIdList.add(0);
+                studNameList.add("Select All Students");
                 List<Students> studentList = StudentsDao.selectStudentsUnmapped(sectionId, sqliteDatabase);
                 for (Students s : studentList) {
                     studIdList.add(s.getStudentId());
@@ -145,8 +147,22 @@ public class SubjectMapStudentCreate extends Fragment {
 
     public class StudentSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener {
         public void onClick(DialogInterface dialog, int clicked, boolean selected) {
-            if (selected) studentSelections[clicked] = true;
-            else studentSelections[clicked] = false;
+
+            if (clicked == 0) {
+                if (selected)
+                    for (int boo = 0; boo < studentSelections.length; boo++) {
+                        studentSelections[boo] = true;
+                    }
+                else
+                    for (int boo = 0; boo < studentSelections.length; boo++) {
+                        studentSelections[boo] = false;
+                    }
+                dialog.dismiss();
+                showStudentDialog();
+            } else {
+                if (selected) studentSelections[clicked] = true;
+                else studentSelections[clicked] = false;
+            }
         }
     }
 

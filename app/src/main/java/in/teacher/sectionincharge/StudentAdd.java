@@ -12,14 +12,18 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -43,10 +47,12 @@ import in.teacher.util.ReplaceFragment;
 public class StudentAdd extends Fragment {
     private SQLiteDatabase sqliteDatabase;
     private int schoolId, classId, sectionId, studentId;
+    private String gender;
     private static TextView dob;
     private EditText studentName, className, sectionName, rollNo, admissionNo;
-    private EditText fatherName, motherName, gender, mobile1, mobile2, address, pincode;
+    private EditText fatherName, motherName, mobile1, mobile2, address, pincode;
     private Button studentProfile, addStudent;
+    private Spinner genderSpinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,7 +85,7 @@ public class StudentAdd extends Fragment {
         dob = (TextView) view.findViewById(R.id.dob);
         ((TextView) view.findViewById(R.id.dob_tv)).setText(Html.fromHtml("Date Of Birth <sup><small> * </small></sup>"));
 
-        gender = (EditText) view.findViewById(R.id.gender);
+        genderSpinner = (Spinner) view.findViewById(R.id.gender);
         ((TextView) view.findViewById(R.id.gender_tv)).setText(Html.fromHtml("Gender <sup><small> * </small></sup>"));
 
         mobile1 = (EditText) view.findViewById(R.id.mobile1);
@@ -125,11 +131,29 @@ public class StudentAdd extends Fragment {
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_header, Arrays.asList(new String[]{"", "Male", "Female"}));
+        adapter.setDropDownViewResource(R.layout.spinner_droppeddown);
+        genderSpinner.setAdapter(adapter);
+
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) gender = "";
+                else if (position == 1) gender = "Male";
+                else gender = "Female";
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void createStudent() {
         if (studentName.getText().toString().equals("") || fatherName.getText().toString().equals("") ||
-                rollNo.getText().toString().equals("") || gender.getText().toString().equals("") ||
+                rollNo.getText().toString().equals("") || gender.equals("") ||
                 mobile1.getText().toString().equals("") || dob.getText().toString().equals("")) {
             CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Fields marked * are mandatory");
         } else if (StudentsDao.isRollNoExist(sqliteDatabase, sectionId, Integer.parseInt(rollNo.getText().toString()))) {
@@ -145,7 +169,7 @@ public class StudentAdd extends Fragment {
                         schoolId + ", " + classId + ", " + sectionId + ", '','" + admissionNo.getText().toString() + "', " + rollNo.getText().toString() + ", 'S" +
                         mobile1.getText().toString() + "','S" + mobile1.getText().toString() + "','" +
                         studentName.getText().toString() + "', '" + fatherName.getText().toString() + "', '" + motherName.getText().toString() + "', '" +
-                        dob.getText().toString() + "', '" + gender.getText().toString() + "', '" + mobile1.getText().toString() + "', '" +
+                        dob.getText().toString() + "', '" + gender + "', '" + mobile1.getText().toString() + "', '" +
                         mobile2.getText().toString() + "', \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\", '" +
                         pincode.getText().toString() + "')";
                 try {

@@ -58,11 +58,12 @@ public class ActivityMarkDao {
                     " and SubjectId=" + am.getSubjectId();
             try {
                 sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 
@@ -168,11 +169,13 @@ public class ActivityMarkDao {
                     m.getSchoolId() + "," + m.getExamId() + "," + m.getSubjectId() + "," + m.getStudentId() + "," + m.getActivityId() + ",'" + m.getMark() + "')";
             try {
                 sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
+
         }
     }
 

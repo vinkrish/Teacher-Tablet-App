@@ -55,11 +55,12 @@ public class ActivityGradeDao {
                     " and SubjectId=" + am.getSubjectId();
             try {
                 sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 

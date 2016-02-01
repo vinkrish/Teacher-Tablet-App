@@ -2,13 +2,21 @@ package in.teacher.sqlite;
 
 public class SubActivityGrade {
     private int schoolId;
-    private int examId;
+    private long examId;
     private int subjectId;
     private int studentId;
     private long activityId;
     private long subActivityId;
     private String grade;
     private String description;
+
+    public long getExamId() {
+        return examId;
+    }
+
+    public void setExamId(long examId) {
+        this.examId = examId;
+    }
 
     public long getActivityId() {
         return activityId;
@@ -32,14 +40,6 @@ public class SubActivityGrade {
 
     public void setSchoolId(int schoolId) {
         this.schoolId = schoolId;
-    }
-
-    public int getExamId() {
-        return examId;
-    }
-
-    public void setExamId(int examId) {
-        this.examId = examId;
     }
 
     public int getSubjectId() {

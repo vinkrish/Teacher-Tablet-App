@@ -10,6 +10,19 @@ import in.teacher.sqlite.Students;
 
 public class StudentsDao {
 
+    public static int getNewRollNumber (int sectionId, SQLiteDatabase sqLiteDatabase) {
+        int rollNo = 0;
+        String sql = "SELECT RollNoInClass FROM students where SectionId="+sectionId+" order by RollNoInClass desc limit 1";
+        Cursor c = sqLiteDatabase.rawQuery(sql, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            rollNo = c.getInt(c.getColumnIndex("RollNoInClass"));
+            c.moveToNext();
+        }
+        c.close();
+        return rollNo++;
+    }
+
     public static int clasTotalStrength(int classId, SQLiteDatabase sqliteDatabase) {
         int i = 0;
         String sql = "select Count(*) as count from students where ClassId=" + classId;

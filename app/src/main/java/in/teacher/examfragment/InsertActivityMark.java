@@ -32,7 +32,6 @@ import java.util.List;
 import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
-import in.teacher.util.StudentsSort;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
@@ -50,6 +49,7 @@ import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
 import in.teacher.util.ReplaceFragment;
+import in.teacher.util.StudentsSort;
 
 /**
  * Created by vinkrish.
@@ -68,8 +68,8 @@ public class InsertActivityMark extends Fragment {
     private ListView lv;
     private MarksAdapter marksAdapter;
     private int index = 0, indexBound, firstVisible, lastVisible, top, totalVisible;
-    private int schoolId, examId, subjectId, subId, classId, calculation;
-    private long activityId;
+    private int schoolId, subjectId, subId, classId, calculation;
+    private long examId, activityId;
     private float maxMark;
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
@@ -344,7 +344,7 @@ public class InsertActivityMark extends Fragment {
         ActivityMarkDao.insertActivityMark(mList, sqliteDatabase);
         int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
         if (entry == 0) {
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
+            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
         }
         ActivitiDao.updateActivityAvg(activityId, sqliteDatabase);
         ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);
@@ -465,7 +465,7 @@ public class InsertActivityMark extends Fragment {
         }
     }
 
-    private void executeNsave(String sql){
+    private void executeNsave(String sql) {
         try {
             sqliteDatabase.execSQL(sql);
             ContentValues cv = new ContentValues();

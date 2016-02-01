@@ -61,8 +61,8 @@ public class UpdateSubActivityMark extends Fragment {
     private Activity act;
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, schoolId, examId, subjectId, subId, classId, calculation;
-    private long activityId, subActivityId;
+    private int sectionId, schoolId, subjectId, subId, classId, calculation;
+    private long examId, activityId, subActivityId;
     private float maxMark;
     private String activityName, subActivityName;
     private List<Students> studentsArray = new ArrayList<>();
@@ -367,7 +367,7 @@ public class UpdateSubActivityMark extends Fragment {
 
         int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
         if (entry == 0)
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
+            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
 
         SubActivityDao.updateSubActivityAvg(subActivityId, sqliteDatabase);
         ActivitiDao.updateSubactActAvg(activityId, sqliteDatabase);

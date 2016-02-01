@@ -34,7 +34,7 @@ public class SubActivityDao {
 			a.setSubActivityName(c.getString(c.getColumnIndex("SubActivityName")));
 			a.setCalculation(c.getInt(c.getColumnIndex("Calculation")));
 			a.setClassId(c.getInt(c.getColumnIndex("ClassId")));
-			a.setExamId(c.getInt(c.getColumnIndex("ExamId")));
+			a.setExamId(c.getLong(c.getColumnIndex("ExamId")));
 			a.setMaximumMark(c.getFloat(c.getColumnIndex("MaximumMark")));
 			a.setSectionId(c.getInt(c.getColumnIndex("SectionId")));
 			a.setSubjectId(c.getInt(c.getColumnIndex("SubjectId")));
@@ -58,7 +58,7 @@ public class SubActivityDao {
 			a.setSubActivityName(c.getString(c.getColumnIndex("SubActivityName")));
 			a.setCalculation(c.getInt(c.getColumnIndex("Calculation")));
 			a.setClassId(c.getInt(c.getColumnIndex("ClassId")));
-			a.setExamId(c.getInt(c.getColumnIndex("ExamId")));
+			a.setExamId(c.getLong(c.getColumnIndex("ExamId")));
 			a.setMaximumMark(c.getFloat(c.getColumnIndex("MaximumMark")));
 			a.setSectionId(c.getInt(c.getColumnIndex("SectionId")));
 			a.setSubjectId(c.getInt(c.getColumnIndex("SubjectId")));
@@ -134,42 +134,6 @@ public class SubActivityDao {
 		}
 		c.close();
 		return count;
-	}
-	
-	public static void checkSubActivityMarkEmpty(SQLiteDatabase sqliteDatabase){
-		Cursor c = sqliteDatabase.rawQuery( "SELECT A.SubActivityId, COUNT(*) FROM subactivity A, subactivitymark B WHERE A.SubActivityId=B.SubActivityId"+
-				" GROUP BY A.SubActivityId HAVING COUNT(*)>0",null);
-		String sql = "update subactivity set CompleteEntry=0 where SubActivityId=?";
-		sqliteDatabase.beginTransaction();
-		SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
-		c.moveToFirst();
-		while(!c.isAfterLast()){
-			stmt.bindLong(1, c.getLong(c.getColumnIndex("SubActivityId")));
-			stmt.execute();
-			stmt.clearBindings();
-			c.moveToNext();
-		}
-		c.close();
-		sqliteDatabase.setTransactionSuccessful();
-		sqliteDatabase.endTransaction();
-	}
-	
-	public static void checkSubActivityIsMark(SQLiteDatabase sqliteDatabase){
-		Cursor c = sqliteDatabase.rawQuery( "SELECT A.SubActivityId, COUNT(*) FROM subactivity A, subactivitymark B WHERE A.SubActivityId=B.SubActivityId"+
-				" GROUP BY A.SubActivityId HAVING COUNT(*)>0",null);
-		String sql = "update subactivity set CompleteEntry=1 where SubActivityId=?";
-		sqliteDatabase.beginTransaction();
-		SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
-		c.moveToFirst();
-		while(!c.isAfterLast()){
-			stmt.bindLong(1, c.getLong(c.getColumnIndex("SubActivityId")));
-			stmt.execute();
-			stmt.clearBindings();
-			c.moveToNext();
-		}
-		c.close();
-		sqliteDatabase.setTransactionSuccessful();
-		sqliteDatabase.endTransaction();
 	}
 	
 	public static void checkSubActivityMarkEmpty(List<Long> subactList, SQLiteDatabase sqliteDatabase){

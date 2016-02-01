@@ -6,7 +6,7 @@ package in.teacher.sqlite;
 public interface SqlConstant {
 
     String DATABASE_NAME = "teacher.db";
-    int DATABASE_VERSION = 6;
+    int DATABASE_VERSION = 7;
 
     String CREATE_CLASS = "CREATE TABLE class(SchoolId INTEGER, ClassId INT DEFAULT 0, " +
             "ClassName TEXT, ClassType TEXT, DateTimeRecordInserted DATETIME, SubjectGroupIds TEXT)";
@@ -254,9 +254,9 @@ public interface SqlConstant {
             "AspectId INTEGER, Grade INTEGER, Description TEXT, DateTimeRecordInserted DATETIME)";
 
     String CCEGRADE_TRIGGER = "CREATE TRIGGER before_ccegrade BEFORE INSERT ON ccecoscholasticgrade " +
-            "WHEN ((SELECT count() FROM ccecoscholasticgrade WHERE ccecoscholasticgrade.Term=New.Term AND ccecoscholasticgrade.AspectId=NEW.AspectId AND ccecoscholasticgrade.StudentId=NEW.StudentId) > 0) " +
+            "WHEN ((SELECT count() FROM ccecoscholasticgrade WHERE ccecoscholasticgrade.Term=New.Term AND ccecoscholasticgrade.AspectId=NEW.AspectId AND ccecoscholasticgrade.StudentId=NEW.StudentId AND ccecoscholasticgrade.Term=NEW.Term) > 0) " +
             "BEGIN " +
-            "DELETE FROM ccecoscholasticgrade WHERE ccecoscholasticgrade.Term=New.Term AND ccecoscholasticgrade.AspectId=NEW.AspectId AND ccecoscholasticgrade.StudentId=NEW.StudentId; " +
+            "DELETE FROM ccecoscholasticgrade WHERE ccecoscholasticgrade.Term=New.Term AND ccecoscholasticgrade.AspectId=NEW.AspectId AND ccecoscholasticgrade.StudentId=NEW.StudentId AND ccecoscholasticgrade.Term=NEW.Term; " +
             "END";
 
     String CREATE_DOWNLOADED_FILE = "CREATE TABLE downloadedfile(id INTEGER PRIMARY KEY, filename TEXT UNIQUE, " +

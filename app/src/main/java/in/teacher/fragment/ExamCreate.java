@@ -68,7 +68,8 @@ public class ExamCreate extends Fragment {
     private String examName;
     private TableLayout table;
     private Switch gradeSwitch;
-    private int width, strippedWidth, tag, percentage, term, grade, examId;
+    private int width, strippedWidth, tag, percentage, term, grade;
+    private long examId;
     private List<SubExams> subjectExams = new ArrayList<>();
     private StringBuilder ids = new StringBuilder();
 

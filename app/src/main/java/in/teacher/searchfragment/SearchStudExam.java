@@ -42,7 +42,7 @@ public class SearchStudExam extends Fragment {
     private ListView lv;
     private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private StudExamAdapter adapter;
-    private List<Integer> examIdList = new ArrayList<>();
+    private List<Long> examIdList = new ArrayList<>();
     private List<String> examNameList = new ArrayList<>();
     private List<Integer> avgList1 = new ArrayList<>();
     private List<Integer> avgList2 = new ArrayList<>();
@@ -137,7 +137,7 @@ public class SearchStudExam extends Fragment {
             Cursor c2 = sqliteDatabase.rawQuery("select ExamId,ExamName from exams where ClassId=" + classId, null);
             c2.moveToFirst();
             while (!c2.isAfterLast()) {
-                examIdList.add(c2.getInt(c2.getColumnIndex("ExamId")));
+                examIdList.add(c2.getLong(c2.getColumnIndex("ExamId")));
                 examNameList.add(c2.getString(c2.getColumnIndex("ExamName")));
                 c2.moveToNext();
             }
@@ -160,7 +160,7 @@ public class SearchStudExam extends Fragment {
             int actAvg = 0;
             int overallActAvg = 0;
             List<Integer> actList = new ArrayList<>();
-            for (Integer id : examIdList) {
+            for (Long id : examIdList) {
                 len = 0;
                 isSubGotActList.clear();
                 for (Integer subId : subIdList) {
@@ -211,7 +211,7 @@ public class SearchStudExam extends Fragment {
                 progressList1.clear();
             }
 
-            for (Integer id : examIdList) {
+            for (Long id : examIdList) {
                 avgList2.add(ExmAvgDao.getSeExamAvg(id, sectionId, sqliteDatabase));
             }
 

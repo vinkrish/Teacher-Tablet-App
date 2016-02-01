@@ -74,8 +74,8 @@ public class InsertSubActivityGrade extends Fragment {
     private MarksAdapter marksAdapter;
     private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, top, lastVisible, firstVisible, totalVisible;
-    private int schoolId, examId, subjectId, subId, classId, sectionId, calculation;
-    private long activityId, subActivityId;
+    private int schoolId, subjectId, subId, classId, sectionId, calculation;
+    private long examId, activityId, subActivityId;
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
     private Bitmap empty, entered;

@@ -60,6 +60,7 @@ public class UpdateCCSGrade extends Fragment {
     private ArrayList<String> gradList = new ArrayList<>();
     private ArrayList<Integer> valueList = new ArrayList<>();
     private ArrayList<String> inGradList = new ArrayList<>();
+    private List<Boolean> isgradePresentList = new ArrayList<>();
     private Button submit, insertA;
     private HashMap<String, Integer> map = new HashMap<>();
     private SparseArray<String> map2 = new SparseArray<>();
@@ -146,7 +147,25 @@ public class UpdateCCSGrade extends Fragment {
 
         studentsArray = StudentsDao.selectStudents(sectionId, sqliteDatabase);
 
-        Cursor c1 = sqliteDatabase.rawQuery("select Grade,Description from ccecoscholasticgrade where AspectId=" + AspectId + " and Term=" + Term + " and StudentId in " +
+        for (Students sArray: studentsArray) {
+            Cursor c1 = sqliteDatabase.rawQuery("select Grade,Description from ccecoscholasticgrade where AspectId=" + AspectId + " and Term=" + Term + " and StudentId = " + sArray.getStudentId(), null);
+            if (c1.getCount()>0){
+                c1.moveToFirst();
+                while (!c1.isAfterLast()) {
+                    intGradeList.add(c1.getInt(c1.getColumnIndex("Grade")));
+                    remarkList.add(c1.getString(c1.getColumnIndex("Description")));
+                    c1.moveToNext();
+                }
+                c1.close();
+                isgradePresentList.add(true);
+            } else {
+                intGradeList.add(0);
+                remarkList.add("");
+                isgradePresentList.add(false);
+            }
+        }
+
+        /*Cursor c1 = sqliteDatabase.rawQuery("select Grade,Description from ccecoscholasticgrade where AspectId=" + AspectId + " and Term=" + Term + " and StudentId in " +
                 "(select StudentId from students where SectionId=" + sectionId + " order by RollNoInClass)", null);
         c1.moveToFirst();
         while (!c1.isAfterLast()) {
@@ -154,7 +173,7 @@ public class UpdateCCSGrade extends Fragment {
             remarkList.add(c1.getString(c1.getColumnIndex("Description")));
             c1.moveToNext();
         }
-        c1.close();
+        c1.close();*/
 
         for (Integer i : intGradeList) {
             inGradList.add(map2.get(i));
@@ -203,6 +222,7 @@ public class UpdateCCSGrade extends Fragment {
                 CoSch coSch = coSchList.get(subLoop);
                 ccsg.setGrade(map.get(inGradList.get(subLoop)));
                 ccsg.setDescription(coSch.getRemark().replaceAll("\n", " ").replaceAll("\"", "'"));
+                ccsg.setGradeExist(isgradePresentList.get(subLoop));
                 subLoop += 1;
                 cceCoSchGrade.add(ccsg);
             }

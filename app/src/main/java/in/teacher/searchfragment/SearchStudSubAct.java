@@ -37,8 +37,8 @@ import in.teacher.util.ReplaceFragment;
  */
 public class SearchStudSubAct extends Fragment {
     private Context context;
-    private int studentId, examId, subjectId;
-    private long activityId;
+    private int studentId, subjectId;
+    private long examId, activityId;
     private String studentName, className, secName, examName, subjectName, activityName;
     private SQLiteDatabase sqliteDatabase;
     private List<Long> subActIdList = new ArrayList<>();

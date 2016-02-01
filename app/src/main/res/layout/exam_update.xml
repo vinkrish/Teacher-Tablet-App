@@ -58,7 +58,9 @@
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:stretchColumns="*">
 
         <TableRow android:id="@+id/rowId1">
@@ -70,39 +72,59 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/teal_border" />
 
-            <Button
-                android:id="@+id/save_butt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/button_submit"
-                android:text="@string/save"
-                android:textColor="#FFF" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/rowId2"
-            android:layout_marginTop="10dp">
-
             <Spinner
                 android:id="@+id/examSpinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/teal_border" />
-
-            <Button
-                android:id="@+id/delete_butt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/button_delete"
-                android:text="@string/delete_exam"
-                android:textColor="#FFF" />
+                android:background="@drawable/teal_border" />
 
         </TableRow>
     </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/edit_butt"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/teal_button_selector"
+            android:text="@string/edit"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/delete_butt"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_delete"
+            android:text="@string/delete"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/save_butt"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_submit"
+            android:text="@string/save_changes"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

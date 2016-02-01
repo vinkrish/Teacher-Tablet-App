@@ -58,7 +58,7 @@ public class StructuredExam extends Fragment {
     private List<Activiti> activitiList = new ArrayList<>();
     private final Map<Object, Object> mi1 = new HashMap<>();
     private final Map<Object, Object> mi2 = new HashMap<>();
-    private List<Integer> examIdList = new ArrayList<>();
+    private List<Long> examIdList = new ArrayList<>();
     private ArrayList<SeObject> circleArrayGrid = new ArrayList<>();
     private CircleAdapter cA;
     private GridView gridView;
@@ -195,7 +195,7 @@ public class StructuredExam extends Fragment {
     }
 
     public void viewClickListener(int position) {
-        int i = examIdList.get(position);
+        long i = examIdList.get(position);
         TempDao.updateExamId(i, sqliteDatabase);
         activitiList.clear();
         activitiList = ActivitiDao.selectActiviti(i, subjectId, sectionId, sqliteDatabase);

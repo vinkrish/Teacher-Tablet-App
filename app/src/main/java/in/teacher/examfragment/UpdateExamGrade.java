@@ -55,7 +55,8 @@ public class UpdateExamGrade extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Activity act;
-    private int sectionId, schoolId, subjectId, subId, classId, examId, partition;
+    private int sectionId, schoolId, subjectId, subId, classId, partition;
+    private long examId;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Integer> studentsArrayId = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();

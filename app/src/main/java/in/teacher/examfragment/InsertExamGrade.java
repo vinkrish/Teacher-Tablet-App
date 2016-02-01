@@ -55,7 +55,8 @@ public class InsertExamGrade extends Fragment {
     private Activity activity;
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, schoolId, subjectId, subId, classId, examId, partition;
+    private int sectionId, schoolId, subjectId, subId, classId, partition;
+    private long examId;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
     private ArrayList<Students> studentsArrayList = new ArrayList<>();

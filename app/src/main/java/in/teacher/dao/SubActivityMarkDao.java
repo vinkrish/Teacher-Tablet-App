@@ -80,11 +80,12 @@ public class SubActivityMarkDao {
                     + " and ActivityId=" + am.getActivityId() + " and SubjectId=" + am.getSubjectId();
             try {
                 sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 
@@ -139,11 +140,12 @@ public class SubActivityMarkDao {
                     m.getSchoolId() + "," + m.getExamId() + "," + m.getSubjectId() + "," + m.getStudentId() + "," + m.getActivityId() + "," + m.getSubActivityId() + ",'" + m.getMark() + "')";
             try {
                 sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 

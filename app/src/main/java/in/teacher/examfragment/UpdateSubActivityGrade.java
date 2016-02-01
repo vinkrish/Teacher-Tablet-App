@@ -63,8 +63,8 @@ public class UpdateSubActivityGrade extends Fragment {
     private Activity act;
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, schoolId, examId, subjectId, subId, classId, calculation;
-    private long activityId, subActivityId;
+    private int sectionId, schoolId, subjectId, subId, classId, calculation;
+    private long examId, activityId, subActivityId;
     private String activityName, subActivityName;
     private List<Students> studentsArray = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();

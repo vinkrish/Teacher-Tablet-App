@@ -2,7 +2,7 @@ package in.teacher.sqlite;
 
 public class Marks {
     private int schoolId;
-    private int examId;
+    private long examId;
     private int sectionId;
     private int subjectId;
     private int studentId;
@@ -10,11 +10,11 @@ public class Marks {
     private String mark;
     private String grade;
 
-    public int getExamId() {
+    public long getExamId() {
         return examId;
     }
 
-    public void setExamId(int examId) {
+    public void setExamId(long examId) {
         this.examId = examId;
     }
 

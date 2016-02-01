@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -116,8 +115,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             }
             c3.close();
 
-            Log.d("process_file_req", "...");
-
             int fileCount = downFileList2.size();
             int fileIndex = 0;
             int queryCount = 0;
@@ -166,7 +163,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                 e.printStackTrace();
                 isFirstTimeSync = true;
             }
-            Log.d("process_file_res", "...");
 
             publishProgress("100", 100 + "", "acknowledge processed file");
 
@@ -180,7 +176,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             c4.close();
 
             if (!isFirstTimeSync) {
-                Log.d("ack_file_req", "...");
                 if (sb.length() > 3) {
                     try {
                         JSONObject jsonObject = new JSONObject();
@@ -189,7 +184,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                         jsonObject.put("file_name", "'" + sb.substring(0, sb.length() - 3) + "'");
                         jsonObject.put("version", savedVersion);
                         jsonReceived = new JSONObject(RequestResponseHandler.reachServer(update_processed_file, jsonObject));
-                        Log.d("request_update", jsonObject + "");
                         if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
                             sqliteDatabase.execSQL("update downloadedfile set isack=1 where processed=1 and filename in ('" + sb.substring(0, sb.length() - 3) + "')");
                         }
@@ -197,12 +191,11 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                         e.printStackTrace();
                     }
                 }
-                Log.d("ack_file_res", "...");
             }
 
             publishProgress("0", 0 + "", "calculating average");
 
-            ArrayList<Integer> examIdList = new ArrayList<>();
+            ArrayList<Long> examIdList = new ArrayList<>();
             ArrayList<Integer> subjectIdList = new ArrayList<>();
             ArrayList<Long> activityIdList = new ArrayList<>();
             ArrayList<Long> subActIdList = new ArrayList<>();
@@ -212,7 +205,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                     "where Type=0 and ActivityId=0 and SubActivityId=0 and SectionId=0 and ExamId!=0 and SubjectId!=0", null);
             c5.moveToFirst();
             while (!c5.isAfterLast()) {
-                examIdList.add(c5.getInt(c5.getColumnIndex("ExamId")));
+                examIdList.add(c5.getLong(c5.getColumnIndex("ExamId")));
                 subjectIdList.add(c5.getInt(c5.getColumnIndex("SubjectId")));
                 c5.moveToNext();
             }
@@ -228,7 +221,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                     "where Type=1 and ActivityId=0 and SubActivityId=0 and SectionId=0 and ExamId!=0 and SubjectId!=0", null);
             c6.moveToFirst();
             while (!c6.isAfterLast()) {
-                examIdList.add(c6.getInt(c6.getColumnIndex("ExamId")));
+                examIdList.add(c6.getLong(c6.getColumnIndex("ExamId")));
                 subjectIdList.add(c6.getInt(c6.getColumnIndex("SubjectId")));
                 c6.moveToNext();
             }
@@ -246,7 +239,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                     "where Type=0 and SubActivityId=0 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubjectId!=0", null);
             c7.moveToFirst();
             while (!c7.isAfterLast()) {
-                examIdList.add(c7.getInt(c7.getColumnIndex("ExamId")));
+                examIdList.add(c7.getLong(c7.getColumnIndex("ExamId")));
                 activityIdList.add(c7.getLong(c7.getColumnIndex("ActivityId")));
                 subjectIdList.add(c7.getInt(c7.getColumnIndex("SubjectId")));
                 c7.moveToNext();
@@ -266,7 +259,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                     "where Type=1 and SubActivityId=0 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubjectId!=0", null);
             c8.moveToFirst();
             while (!c8.isAfterLast()) {
-                examIdList.add(c8.getInt(c8.getColumnIndex("ExamId")));
+                examIdList.add(c8.getLong(c8.getColumnIndex("ExamId")));
                 activityIdList.add(c8.getLong(c8.getColumnIndex("ActivityId")));
                 subjectIdList.add(c8.getInt(c8.getColumnIndex("SubjectId")));
                 c8.moveToNext();
@@ -288,7 +281,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                     "where Type=0 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubActivityId!=0 and SubjectId!=0", null);
             c9.moveToFirst();
             while (!c9.isAfterLast()) {
-                examIdList.add(c9.getInt(c9.getColumnIndex("ExamId")));
+                examIdList.add(c9.getLong(c9.getColumnIndex("ExamId")));
                 activityIdList.add(c9.getLong(c9.getColumnIndex("ActivityId")));
                 subActIdList.add(c9.getLong(c9.getColumnIndex("SubActivityId")));
                 subjectIdList.add(c9.getInt(c9.getColumnIndex("SubjectId")));
@@ -312,7 +305,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                     "where Type=1 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubActivityId!=0 and SubjectId!=0", null);
             c10.moveToFirst();
             while (!c10.isAfterLast()) {
-                examIdList.add(c10.getInt(c10.getColumnIndex("ExamId")));
+                examIdList.add(c10.getLong(c10.getColumnIndex("ExamId")));
                 activityIdList.add(c10.getLong(c10.getColumnIndex("ActivityId")));
                 subActIdList.add(c10.getLong(c10.getColumnIndex("SubActivityId")));
                 subjectIdList.add(c10.getInt(c10.getColumnIndex("SubjectId")));
@@ -375,7 +368,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("1", "1");
             SharedPreferences sharedPref = ProcessFiles.this.getSharedPreferences("db_access", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("is_sync", 0);
@@ -392,7 +384,6 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                 Intent syncService = new Intent(ProcessFiles.this, SyncIntentService.class);
                 startService(syncService);
             } else {
-                Log.d("3", "3");
                 Intent intent = new Intent(getApplicationContext(), in.teacher.activity.LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

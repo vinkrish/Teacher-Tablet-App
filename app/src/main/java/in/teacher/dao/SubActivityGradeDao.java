@@ -55,10 +55,12 @@ public class SubActivityGradeDao {
                     m.getSchoolId()+","+m.getExamId()+","+m.getSubjectId()+","+m.getStudentId()+","+m.getActivityId()+","+m.getSubActivityId()+",'"+m.getGrade()+"')";
             try{
                 sqliteDatabase.execSQL(sql);
-            }catch(SQLException e){}
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -68,10 +70,12 @@ public class SubActivityGradeDao {
                     +" and ActivityId="+am.getActivityId()+" and SubjectId="+am.getSubjectId();
             try{
                 sqliteDatabase.execSQL(sql);
-            }catch(SQLException e){}
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
         }
     }
 

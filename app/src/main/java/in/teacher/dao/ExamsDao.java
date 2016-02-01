@@ -34,7 +34,20 @@ public class ExamsDao {
         return eList;
     }
 
-    public static String selectExamName(int examId, SQLiteDatabase sqliteDatabase) {
+    public static Exams selectExam(long examId, SQLiteDatabase sqliteDatabase) {
+        Exams exam = new Exams();
+        Cursor c = sqliteDatabase.rawQuery("select * from exams where ExamId=" + examId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            exam.setExamName(c.getString(c.getColumnIndex("ExamName")));
+            exam.setPercentage(c.getString(c.getColumnIndex("Percentage")));
+            c.moveToNext();
+        }
+        c.close();
+        return exam;
+    }
+
+    public static String selectExamName(long examId, SQLiteDatabase sqliteDatabase) {
         String s = null;
         Cursor c = sqliteDatabase.rawQuery("select * from exams where ExamId=" + examId, null);
         c.moveToFirst();

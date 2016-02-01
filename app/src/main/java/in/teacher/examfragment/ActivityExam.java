@@ -49,7 +49,8 @@ import android.widget.TextView;
  */
 public class ActivityExam extends Fragment {
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, classId, subjectId, examId;
+    private int sectionId, classId, subjectId;
+    private long examId;
     private String className, sectionName, subjectName;
     private static boolean isSubActivity;
     private List<Long> actIdList = new ArrayList<>();

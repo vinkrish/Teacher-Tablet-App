@@ -1,6 +1,7 @@
 package in.teacher.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -11,6 +12,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -20,6 +22,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -34,12 +38,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.teacher.activity.R;
+import in.teacher.dao.ExamsDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
+import in.teacher.sqlite.Exams;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
-import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish on 27/10/15.
@@ -49,8 +54,9 @@ public class ExamEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, examSpinner;
-    private int classInChargePos, classId, examId, width, strippedWidth, tag;
-    final List<Integer> examIdList = new ArrayList<>();
+    private int classInChargePos, classId, width, strippedWidth, tag;
+    private long examId;
+    final List<Long> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
     private List<SubExams> subjectExams = new ArrayList<>();
     private TableLayout table;
@@ -67,6 +73,14 @@ public class ExamEdit extends Fragment {
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
 
         init();
+
+        view.findViewById(R.id.edit_butt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (examId != 0) examUpdateDialog();
+                else CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please select exam to edit");
+            }
+        });
 
         view.findViewById(R.id.delete_butt).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,7 +193,7 @@ public class ExamEdit extends Fragment {
                 if (position != 0) {
                     examId = examIdList.get(position);
                     generateTable();
-                }
+                } else examId = 0;
             }
 
             @Override
@@ -208,12 +222,12 @@ public class ExamEdit extends Fragment {
     private void updateExamSpinner() {
         examIdList.clear();
         examNameList.clear();
-        examIdList.add(0);
+        examIdList.add(0L);
         examNameList.add("Select Exam");
         Cursor c = sqliteDatabase.rawQuery("select ExamId, ExamName from exams where ClassId = " + classId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            examIdList.add(c.getInt(c.getColumnIndex("ExamId")));
+            examIdList.add(c.getLong(c.getColumnIndex("ExamId")));
             examNameList.add(c.getString(c.getColumnIndex("ExamName")));
             c.moveToNext();
         }
@@ -464,6 +478,61 @@ public class ExamEdit extends Fragment {
                 }
             }
         }
+    }
+
+    private Dialog examUpdateDialog() {
+        final Dialog dialog = new Dialog(getActivity(), R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.exam_edit_dialog);
+        dialog.setCancelable(false);
+
+        final EditText examName = (EditText) dialog.findViewById(R.id.exam_name);
+        final EditText percentage = (EditText) dialog.findViewById(R.id.percentage);
+
+        Exams editExam = ExamsDao.selectExam(examId, sqliteDatabase);
+        examName.setText(editExam.getExamName());
+        percentage.setText(editExam.getPercentage());
+
+        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.findViewById(R.id.update).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sql = "";
+
+                if (!examName.getText().toString().equals("") && !percentage.getText().toString().equals("")) {
+                    sql = "update exams set ExamName = \"" + examName.getText().toString().replaceAll("\n", " ") + "\", Percentage = " + percentage.getText().toString() + " where ExamId = " + examId;
+                } else {
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "No fields should be left blank");
+                }
+
+                try {
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.getWindow().setGravity(Gravity.TOP);
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.y = 80;
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(layoutParams);
+        dialog.show();
+
+        return dialog;
     }
 
 }

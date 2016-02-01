@@ -12,7 +12,7 @@ public class Temp {
     private int currentSection;
     private int currentSubject;
     private int currentClass;
-    private int examId;
+    private long examId;
     private long activityId;
     private long subActivityId;
     private long slipTestId;
@@ -20,6 +20,14 @@ public class Temp {
     private int isSync;
     private int studentId;
     private int subjectId;
+
+    public long getExamId() {
+        return examId;
+    }
+
+    public void setExamId(long examId) {
+        this.examId = examId;
+    }
 
     public long getActivityId() {
         return activityId;
@@ -123,14 +131,6 @@ public class Temp {
 
     public void setCurrentClass(int currentClass) {
         this.currentClass = currentClass;
-    }
-
-    public int getExamId() {
-        return examId;
-    }
-
-    public void setExamId(int examId) {
-        this.examId = examId;
     }
 
     public long getSlipTestId() {

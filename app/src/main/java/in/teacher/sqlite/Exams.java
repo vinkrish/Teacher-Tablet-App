@@ -3,7 +3,7 @@ package in.teacher.sqlite;
 public class Exams {
     private int schoolId;
     private int classId;
-    private int examId;
+    private long examId;
     private String subjectIDs;
     private String subjectGroupIds;
     private String examName;
@@ -15,6 +15,14 @@ public class Exams {
     private String FileName;
     private int markUploaded;
     private int gradeSystem;
+
+    public long getExamId() {
+        return examId;
+    }
+
+    public void setExamId(long examId) {
+        this.examId = examId;
+    }
 
     public String getSubjectGroupIds() {
         return subjectGroupIds;
@@ -30,14 +38,6 @@ public class Exams {
 
     public void setClassId(int classId) {
         this.classId = classId;
-    }
-
-    public int getExamId() {
-        return examId;
-    }
-
-    public void setExamId(int examId) {
-        this.examId = examId;
     }
 
     public String getSubjectIDs() {

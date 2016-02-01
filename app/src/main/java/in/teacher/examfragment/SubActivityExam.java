@@ -52,8 +52,8 @@ import in.teacher.util.ReplaceFragment;
 public class SubActivityExam extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId, classId, subjectId, examId;
-    private long activityId;
+    private int sectionId, classId, subjectId;
+    private long examId, activityId;
     private String className, sectionName, subjectName;
     private List<Long> subActIdList = new ArrayList<>();
     private ArrayList<SeObject> circleArrayGrid = new ArrayList<>();

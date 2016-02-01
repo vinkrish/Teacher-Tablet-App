@@ -46,12 +46,13 @@ public class CopyExamStructure extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, examSpinner, secSpinner;
-    private int classInChargePos, schoolId, classId, examId, sectionId;
-    final List<Integer> examIdList = new ArrayList<>();
+    private int classInChargePos, schoolId, classId, sectionId;
+    private long examId;
+    final List<Long> examIdList = new ArrayList<>();
     private List<String> examNameList = new ArrayList<>();
-    private List<Integer> othExamIdList = new ArrayList<>();
+    private List<Long> othExamIdList = new ArrayList<>();
     private List<String> othExamNameList = new ArrayList<>();
-    private List<Integer> selExamIdList = new ArrayList<>();
+    private List<Long> selExamIdList = new ArrayList<>();
     private List<String> selExamNameList = new ArrayList<>();
     final List<Integer> sectionIdList = new ArrayList<>();
     List<String> sectionNameList = new ArrayList<>();
@@ -227,12 +228,12 @@ public class CopyExamStructure extends Fragment {
         examNameList.clear();
         othExamIdList.clear();
         othExamNameList.clear();
-        examIdList.add(0);
+        examIdList.add(0L);
         examNameList.add("Select Exam");
         Cursor c = sqliteDatabase.rawQuery("select ExamId, ExamName from exams where ClassId = " + classId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            examIdList.add(c.getInt(c.getColumnIndex("ExamId")));
+            examIdList.add(c.getLong(c.getColumnIndex("ExamId")));
             examNameList.add(c.getString(c.getColumnIndex("ExamName")));
             c.moveToNext();
         }
@@ -492,7 +493,7 @@ public class CopyExamStructure extends Fragment {
         c2.close();
 
 
-        for (Integer eId : selExamIdList) {
+        for (Long eId : selExamIdList) {
 
             try {
                 String sql = "update exams set SubjectIDs='" + exm.getSubjectIDs() + "', SubjectGroupIds='" + exm.getSubjectGroupIds() +
@@ -617,7 +618,7 @@ public class CopyExamStructure extends Fragment {
                 act.setSchoolId(c2.getInt(c2.getColumnIndex("SchoolId")));
                 act.setClassId(c2.getInt(c2.getColumnIndex("ClassId")));
                 act.setSectionId(c2.getInt(c2.getColumnIndex("SectionId")));
-                act.setExamId(c2.getInt(c2.getColumnIndex("ExamId")));
+                act.setExamId(c2.getLong(c2.getColumnIndex("ExamId")));
                 act.setSubjectId(c2.getInt(c2.getColumnIndex("SubjectId")));
                 act.setRubrixId(c2.getInt(c2.getColumnIndex("RubrixId")));
                 act.setActivityName(c2.getString(c2.getColumnIndex("ActivityName")));
@@ -645,7 +646,7 @@ public class CopyExamStructure extends Fragment {
                     subAct.setSchoolId(c3.getInt(c3.getColumnIndex("SchoolId")));
                     subAct.setClassId(c3.getInt(c3.getColumnIndex("ClassId")));
                     subAct.setSectionId(c3.getInt(c3.getColumnIndex("SectionId")));
-                    subAct.setExamId(c3.getInt(c3.getColumnIndex("ExamId")));
+                    subAct.setExamId(c3.getLong(c3.getColumnIndex("ExamId")));
                     subAct.setSubjectId(c3.getInt(c3.getColumnIndex("SubjectId")));
                     subAct.setActivityId(c3.getInt(c3.getColumnIndex("ActivityId")));
                     subAct.setSubActivityName(c3.getString(c3.getColumnIndex("SubActivityName")));

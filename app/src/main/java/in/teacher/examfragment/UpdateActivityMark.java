@@ -69,8 +69,8 @@ public class UpdateActivityMark extends Fragment {
     private ListView lv;
     private MarksAdapter marksAdapter;
     private int index = 0, indexBound, top, firstVisible, lastVisible, totalVisible, marksCount;
-    private int schoolId, examId, subjectId, subId, classId, calculation;
-    private long activityId;
+    private int schoolId, subjectId, subId, classId, calculation;
+    private long examId, activityId;
     private Bitmap empty, entered;
     private TextView clasSecSub;
     private StringBuffer sf = new StringBuffer();
@@ -369,7 +369,7 @@ public class UpdateActivityMark extends Fragment {
 
         int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
         if (entry == 0) {
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, schoolId, sqliteDatabase);
+            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
         }
         ActivitiDao.updateActivityAvg(activityId, sqliteDatabase);
         ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);

@@ -28,6 +28,7 @@ import java.util.List;
 import in.teacher.activity.R;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.SectionDao;
+import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.examfragment.ActivityExam;
 import in.teacher.sqlite.CommonObject;
@@ -229,8 +230,9 @@ public class MoveStudent extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
+            int newRollNo = StudentsDao.getNewRollNumber(selSectionId, sqliteDatabase);
             for (int i = 0; i < selIdList.size(); i++) {
-                String query = "update students set SectionId = " + selSectionId + " where StudentId = " + selIdList.get(i);
+                String query = "update students set SectionId = " + selSectionId + ", RollNoInClass = "+newRollNo+" where StudentId = " + selIdList.get(i);
                 String sql = "insert into movestudent (SchoolId, Query, StudentId, StudentName, ClassName, " +
                         "SecIdFrom, SecIdTo, SectionFrom, SectionTo, Status) " +
                         "values (" + schoolId + ", '" + query + "', " + selIdList.get(i) + ", '" + selNameList.get(i) + "', '" +
@@ -241,7 +243,9 @@ public class MoveStudent extends Fragment {
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
                 } catch (SQLException e) {
+                    e.printStackTrace();
                 }
+                newRollNo++;
             }
             return null;
         }

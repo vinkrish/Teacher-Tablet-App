@@ -72,8 +72,8 @@ public class UpdateActivityGrade extends Fragment {
     private MarksAdapter marksAdapter;
     private GradeAdapter gradeAdapter;
     private int index = 0, indexBound, top, firstVisible, lastVisible, totalVisible, marksCount;
-    private int schoolId, examId, subjectId, subId, classId, sectionId, calculation;
-    private long activityId;
+    private int schoolId, subjectId, subId, classId, sectionId, calculation;
+    private long examId, activityId;
     private Bitmap empty, entered;
     private TextView clasSecSub;
     private StringBuffer sf = new StringBuffer();

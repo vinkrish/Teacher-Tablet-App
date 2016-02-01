@@ -1,13 +1,14 @@
 package in.teacher.dao;
 
-import in.teacher.sqlite.CceCoScholasticGrade;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import in.teacher.sqlite.CceCoScholasticGrade;
 
 public class CceCoScholasticGradeDao {
 
@@ -35,24 +36,44 @@ public class CceCoScholasticGradeDao {
 
     public static void insertCoSchGrade(List<CceCoScholasticGrade> cceList, SQLiteDatabase sqliteDatabase) {
         for (CceCoScholasticGrade cce : cceList) {
-            String sql = "insert into ccecoscholasticgrade (SchoolId, ClassId, SectionId, StudentId, Type, Term, TopicId, AspectId," +
-                    "Grade, Description) values(" + cce.getSchoolId() + "," + cce.getClassId() + "," + cce.getSectionId() + "," +
-                    cce.getStudentId() + "," + cce.getType() + "," + cce.getTerm() + "," + cce.getTopicId() + "," + cce.getAspectId() + "," +
-                    cce.getGrade() + ",\"" + cce.getDescription() + "\")";
-            sqliteDatabase.execSQL(sql);
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
+            try {
+                String sql = "insert into ccecoscholasticgrade (SchoolId, ClassId, SectionId, StudentId, Type, Term, TopicId, AspectId," +
+                        "Grade, Description) values(" + cce.getSchoolId() + "," + cce.getClassId() + "," + cce.getSectionId() + "," +
+                        cce.getStudentId() + "," + cce.getType() + "," + cce.getTerm() + "," + cce.getTopicId() + "," + cce.getAspectId() + "," +
+                        cce.getGrade() + ",\"" + cce.getDescription() + "\")";
+                sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public static void updateCoSchGrade(List<CceCoScholasticGrade> cceList, SQLiteDatabase sqliteDatabase) {
+
         for (CceCoScholasticGrade cce : cceList) {
-            String sql = "update ccecoscholasticgrade set Grade=" + cce.getGrade() + ", Description=\"" + cce.getDescription() + "\" where AspectId=" + cce.getAspectId() + " and StudentId=" + cce.getStudentId();
-            sqliteDatabase.execSQL(sql);
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
+            try {
+                if (cce.isGradeExist()) {
+                    String sql = "update ccecoscholasticgrade set Grade=" + cce.getGrade() + ", Description=\"" + cce.getDescription() + "\" where AspectId=" + cce.getAspectId() + " and StudentId=" + cce.getStudentId() + " and Term = " + cce.getTerm();
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                } else {
+                    String sql = "insert into ccecoscholasticgrade (SchoolId, ClassId, SectionId, StudentId, Type, Term, TopicId, AspectId," +
+                            "Grade, Description) values(" + cce.getSchoolId() + "," + cce.getClassId() + "," + cce.getSectionId() + "," +
+                            cce.getStudentId() + "," + cce.getType() + "," + cce.getTerm() + "," + cce.getTopicId() + "," + cce.getAspectId() + "," +
+                            cce.getGrade() + ",\"" + cce.getDescription() + "\")";
+                    sqliteDatabase.execSQL(sql);
+                    ContentValues cv = new ContentValues();
+                    cv.put("Query", sql);
+                    sqliteDatabase.insert("uploadsql", null, cv);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

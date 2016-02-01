@@ -5,7 +5,7 @@ public class SubActivity {
     private long subActivityId;
     private int classId;
     private int sectionId;
-    private int examId;
+    private long examId;
     private int subjectId;
     private long activityId;
     private String subActivityName;
@@ -15,6 +15,14 @@ public class SubActivity {
     private float subActivityAvg;
     private int completeEntry;
     private String uniqueKey;
+
+    public long getExamId() {
+        return examId;
+    }
+
+    public void setExamId(long examId) {
+        this.examId = examId;
+    }
 
     public long getSubActivityId() {
         return subActivityId;
@@ -70,14 +78,6 @@ public class SubActivity {
 
     public void setSectionId(int sectionId) {
         this.sectionId = sectionId;
-    }
-
-    public int getExamId() {
-        return examId;
-    }
-
-    public void setExamId(int examId) {
-        this.examId = examId;
     }
 
     public int getSubjectId() {

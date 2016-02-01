@@ -39,7 +39,8 @@ import android.widget.TextView;
  */
 public class SearchStudAct extends Fragment {
     private Context context;
-    private int studentId, sectionId, examId, subjectId;
+    private int studentId, sectionId, subjectId;
+    private long examId;
     private String studentName, className, secName, examName, subjectName;
     private SQLiteDatabase sqliteDatabase;
     private List<Long> actIdList = new ArrayList<>();

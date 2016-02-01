@@ -451,6 +451,7 @@
     <string name="calculation">Calculation :</string>
     <string name="cancel">Cancel</string>
     <string name="cc">content description</string>
+    <string name="cce_profile">CCE Profile</string>
     <string name="cce_student_profile">CCE Student Profile</string>
     <!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/values/values.xml -->
     <eat-comment/>
