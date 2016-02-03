@@ -41,11 +41,12 @@ public class ActivityGradeDao {
                     m.getSchoolId() + "," + m.getExamId() + "," + m.getSubjectId() + "," + m.getStudentId() + "," + m.getActivityId() + ",'" + m.getGrade() + "')";
             try {
                 sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 
@@ -88,38 +89,22 @@ public class ActivityGradeDao {
                         " and SubjectId=" + am.getSubjectId();
                 try {
                     sqliteDatabase.execSQL(sql);
-                } catch (SQLException e) {
-
-                }
-                if (am.getGrade().equals("")) {
-                    String sql2 = "update activitygrade set Grade=NULL where ActivityId=" + am.getActivityId() + " and StudentId=" + am.getStudentId() + " and ExamId=" + am.getExamId() +
-                            " and SubjectId=" + am.getSubjectId();
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql2);
-                    sqliteDatabase.insert("uploadsql", null, cv);
-                } else {
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             } else {
                 String sql = "insert into activitygrade(SchoolId, ExamId, SubjectId, StudentId, ActivityId, Grade) values(" +
                         am.getSchoolId() + "," + am.getExamId() + "," + am.getSubjectId() + "," + am.getStudentId() + "," + am.getActivityId() + ",'" + am.getGrade() + "')";
                 try {
                     sqliteDatabase.execSQL(sql);
-                } catch (SQLException e) {
-
-                }
-                if (am.getGrade().equals("")) {
-                    String sql2 = "insert into activitygrade(SchoolId, ExamId, SubjectId, StudentId, ActivityId, Grade) values(" +
-                            am.getSchoolId() + "," + am.getExamId() + "," + am.getSubjectId() + "," + am.getStudentId() + "," + am.getActivityId() + ",NULL)";
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql2);
-                    sqliteDatabase.insert("uploadsql", null, cv);
-                } else {
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
             c.close();

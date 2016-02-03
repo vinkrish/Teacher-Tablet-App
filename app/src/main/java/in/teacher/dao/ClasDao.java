@@ -2,6 +2,7 @@ package in.teacher.dao;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,17 @@ public class ClasDao {
         }
         c.close();
         return s;
+    }
+
+    public static boolean isSubjectGroupPresent(SQLiteDatabase sqliteDatabase, int classId){
+        Cursor c = sqliteDatabase.rawQuery("select SubjectGroupIds from class where ClassId=" + classId, null);
+        c.moveToFirst();
+        if (c.getCount() > 0 && !(c.getString(c.getColumnIndex("SubjectGroupIds")).equals(""))) {
+            c.close();
+            return true;
+        }
+        c.close();
+        return false;
     }
 
     public static boolean isSwitchClass(int teacherId, SQLiteDatabase sqliteDatabase) {

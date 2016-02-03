@@ -30,6 +30,7 @@ import java.util.Locale;
 import in.teacher.activity.R.animator;
 import in.teacher.attendancefragment.AbsentList;
 import in.teacher.attendancefragment.MarkAttendance;
+import in.teacher.dao.ClasDao;
 import in.teacher.dao.SlipTesttDao;
 import in.teacher.dao.StudentAttendanceDao;
 import in.teacher.dao.StudentsDao;
@@ -144,12 +145,15 @@ public class Dashboard extends BaseActivity {
                         if (isClassTeacher()) {
                             Temp t = TempDao.selectTemp(sqliteDatabase);
                             int sectionId = t.getSectionId();
+                            int classId = t.getClassId();
                             if (StudentsDao.isStudentPresent(sqliteDatabase, sectionId)) {
-                                if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId)) {
-                                    ReplaceFragment.replace(new SubjectMapStudentEdit(), getFragmentManager());
-                                } else {
-                                    ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
-                                }
+                                if (ClasDao.isSubjectGroupPresent(sqliteDatabase, classId)) {
+                                    if (StudentsDao.isStudentMapped(sqliteDatabase, sectionId))
+                                        ReplaceFragment.replace(new SubjectMapStudentEdit(), getFragmentManager());
+                                    else
+                                        ReplaceFragment.replace(new SubjectMapStudentCreate(), getFragmentManager());
+                                } else
+                                    CommonDialogUtils.displayAlertWhiteDialog(activity, "Subject group not assigned for this class");
                             } else
                                 CommonDialogUtils.displayAlertWhiteDialog(activity, "No students present for this class");
                         } else showNotAClassTeacher();

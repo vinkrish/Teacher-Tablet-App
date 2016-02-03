@@ -98,7 +98,7 @@ public class SubjectMapStudentCreate extends Fragment {
             }
             subjectGroupNameList = SubjectGroupDao.getSubjectGroupNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
 
-            mapSubjectBtn.setActivated(true);
+            mapSubjectBtn.setActivated(false);
             mapSubjectBtn.setOnClickListener(mapSubjectListener);
 
             editUpdateBtn.setOnClickListener(editListener);
@@ -132,7 +132,8 @@ public class SubjectMapStudentCreate extends Fragment {
                 }
                 studentSelections = new boolean[studIdList.size()];
                 showStudentDialog();
-            }
+            } else
+                CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please select subjects to map");
         }
     };
 

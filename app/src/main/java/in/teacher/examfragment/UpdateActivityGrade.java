@@ -35,6 +35,7 @@ import in.teacher.adapter.GradeAdapter;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityGradeDao;
+import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.GradesClassWiseDao;
@@ -47,6 +48,7 @@ import in.teacher.sqlite.ActivityGrade;
 import in.teacher.sqlite.GradesClassWise;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.ActToMarkConsolidation;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.GradeClassWiseSort;
 import in.teacher.util.PKGenerator;
@@ -248,6 +250,7 @@ public class UpdateActivityGrade extends Fragment {
                     sqliteDatabase.insert("uploadsql", null, cv);
                     ReplaceFragment.replace(new InsertActivityMark(), getFragmentManager());
                 } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -276,7 +279,6 @@ public class UpdateActivityGrade extends Fragment {
             pDialog.dismiss();
             ReplaceFragment.replace(new ActivityExam(), getFragmentManager());
         }
-
     }
 
     private void pushSubmit() {
@@ -302,124 +304,13 @@ public class UpdateActivityGrade extends Fragment {
             ActivityGradeDao.updateActivityGrade(mList, sqliteDatabase);
         else ActivityGradeDao.insertUpdateActGrade(mList, sqliteDatabase);
 
-        weightageCalculation();
-    }
+        //ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
 
-    /*
-    * This logic is right, work out the math yourself if you don't believe.
-    */
-    private void weightageCalculation() {
-        boolean isDynamicWeightage = true;
-        List<Activiti> actList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
-        List<Long> actIdList = new ArrayList<>();
-        List<Integer> weightageList = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        for (Activiti Act : actList) {
-            sb.append(+Act.getActivityId() + ",");
-            actIdList.add(Act.getActivityId());
-            weightageList.add(Act.getWeightage());
-            if (Act.getWeightage() == 0) isDynamicWeightage = false;
-        }
-        boolean exist = ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase);
-        if (exist) {
-            if (calculation == 0) {
-                float totalGradeMark = 0f;
-                for (Students st : studentsArray) {
-                    totalGradeMark = 0f;
-                    for (Activiti act : actList) {
-                        float gradePoint = 0f;
-                        float gradeWeightPoint;
-                        String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
-
-                        if (!grade.equals("")) gradePoint = getGradePoint(grade);
-
-                        if (isDynamicWeightage) gradeWeightPoint = (float) act.getWeightage() / 10;
-                        else gradeWeightPoint = (float) (100 / actIdList.size()) / 10;
-
-                        totalGradeMark += (gradePoint * gradeWeightPoint);
-                    }
-
-                    String finalGrade = getGrade(totalGradeMark);
-
-                    String sql = "update marks set Grade='" + finalGrade + "' where ExamId=" + examId + " and SubjectId=" + subjectId + " and StudentId=" + st.getStudentId();
-
-                    executeNsave(sql);
-                }
-            } else if (calculation == -1) {
-                int totalGradePoint;
-                for (Students st : studentsArray) {
-                    totalGradePoint = 0;
-                    for (Activiti act : actList) {
-                        String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
-                        if (!grade.equals("")) totalGradePoint += getGradePoint(grade);
-                    }
-
-                    float finalMark = (totalGradePoint / actList.size()) * 10;
-                    String finalGrade = getGrade(finalMark);
-
-                    String sql = "update marks set Grade='" + finalGrade + "' where ExamId=" + examId + " and SubjectId=" + subjectId + " and StudentId=" + st.getStudentId();
-
-                    executeNsave(sql);
-                }
-            } else {
-                List<Float> gradePointList = new ArrayList<>();
-                for (Students st : studentsArray) {
-                    gradePointList.clear();
-
-                    for (Activiti act : actList) {
-                        String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
-                        if (!grade.equals("")) gradePointList.add(getGradePoint(grade));
-                        else gradePointList.add(0f);
-                    }
-
-                    float bestOfPoints = 0f;
-                    QuickSort quickSort = new QuickSort();
-                    List<Float> sortedMarkList = quickSort.sort(gradePointList);
-                    for (int cal = 0; cal < calculation; cal++)
-                        bestOfPoints += sortedMarkList.get(cal);
-
-                    float finalMark = (bestOfPoints / calculation) * 10;
-                    String finalGrade = getGrade(finalMark);
-
-                    String sql = "update marks set Grade='" + finalGrade + "' where ExamId=" + examId + " and SubjectId=" + subjectId + " and StudentId=" + st.getStudentId();
-
-                    executeNsave(sql);
-                }
-            }
-        }
-    }
-
-    private float getGradePoint(String grade) {
-        int gradePoint = 0;
-        for (GradesClassWise gcw : gradesClassWiseList) {
-            if (grade.equals(gcw.getGrade())) {
-                gradePoint = gcw.getGradePoint();
-                break;
-            }
-        }
-        return gradePoint;
-    }
-
-    private String getGrade(float mark) {
-        String grade = "";
-        for (GradesClassWise gcw : gradesClassWiseList) {
-            if (mark <= gcw.getMarkTo()) {
-                grade = gcw.getGrade();
-                break;
-            }
-        }
-        return grade;
-    }
-
-    private void executeNsave(String sql) {
-        try {
-            sqliteDatabase.execSQL(sql);
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
+        if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
+            ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
+            ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
     }
 
     private void updateScoreField(String upScore) {

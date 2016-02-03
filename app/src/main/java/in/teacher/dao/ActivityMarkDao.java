@@ -40,6 +40,25 @@ public class ActivityMarkDao {
         return exist;
     }
 
+    public static boolean isAllActMarkOrGradeExist (List<Long> actIdList, SQLiteDatabase sqliteDatabase) {
+        int i;
+        boolean exist = true;
+        for (Long actId : actIdList) {
+            Cursor c = sqliteDatabase.rawQuery("select count(*) as count from activitymark where ActivityId=" + actId, null);
+            c.moveToFirst();
+            i = c.getInt(c.getColumnIndex("count"));
+            if (i == 0) {
+                Cursor c2 = sqliteDatabase.rawQuery("select count(*) as count from activitygrade where ActivityId="+actId, null);
+                c2.moveToFirst();
+                i = c2.getInt(c2.getColumnIndex("count"));
+                if (i == 0) exist = false;
+                c2.close();
+            }
+            c.close();
+        }
+        return exist;
+    }
+
     public static int getActMarksCount(long activityId, SQLiteDatabase sqliteDatabase) {
         int count = 0;
         Cursor c = sqliteDatabase.rawQuery("select count(*) as count from activitymark where ActivityId=" + activityId, null);

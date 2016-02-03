@@ -19,14 +19,14 @@ import java.net.URL;
 public class RequestResponseHandler {
 
     public static String reachServer(String urlString, JSONObject json) {
-        HttpURLConnection urlConnection = null;
-        InputStream inputStream = null;
+        HttpURLConnection urlConnection;
+        InputStream inputStream;
         String response = null;
         try {
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setConnectTimeout(8000);
-            urlConnection.setReadTimeout(30000);
+            urlConnection.setReadTimeout(20000);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestMethod("POST");

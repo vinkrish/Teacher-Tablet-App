@@ -20,7 +20,7 @@ public class StudentsDao {
             c.moveToNext();
         }
         c.close();
-        return rollNo++;
+        return ++rollNo;
     }
 
     public static int clasTotalStrength(int classId, SQLiteDatabase sqliteDatabase) {

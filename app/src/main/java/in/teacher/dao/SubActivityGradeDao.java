@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.teacher.sqlite.SubActivityGrade;
-import in.teacher.sqlite.SubActivityMark;
 
 public class SubActivityGradeDao {
 
@@ -39,54 +38,54 @@ public class SubActivityGradeDao {
         return exist;
     }
 
-    public static int isThereSubActGrade(long subActId, int subjectId, SQLiteDatabase sqliteDatabase){
+    public static int isThereSubActGrade(long subActId, int subjectId, SQLiteDatabase sqliteDatabase) {
         int isThere = 0;
-        Cursor c = sqliteDatabase.rawQuery("select * from subactivitygrade where SubActivityId="+subActId+" and SubjectId="+subjectId+" LIMIT 1", null);
-        if(c.getCount()>0){
+        Cursor c = sqliteDatabase.rawQuery("select * from subactivitygrade where SubActivityId=" + subActId + " and SubjectId=" + subjectId + " LIMIT 1", null);
+        if (c.getCount() > 0) {
             isThere = 1;
         }
         c.close();
         return isThere;
     }
 
-    public static void insertSubActivityGrade(List<SubActivityGrade> mList, SQLiteDatabase sqliteDatabase){
-        for(SubActivityGrade m: mList){
-            String sql = "insert into subactivitygrade(SchoolId, ExamId, SubjectId, StudentId, ActivityId, SubActivityId, Grade) values("+
-                    m.getSchoolId()+","+m.getExamId()+","+m.getSubjectId()+","+m.getStudentId()+","+m.getActivityId()+","+m.getSubActivityId()+",'"+m.getGrade()+"')";
-            try{
+    public static void insertSubActivityGrade(List<SubActivityGrade> mList, SQLiteDatabase sqliteDatabase) {
+        for (SubActivityGrade m : mList) {
+            String sql = "insert into subactivitygrade(SchoolId, ExamId, SubjectId, StudentId, ActivityId, SubActivityId, Grade) values(" +
+                    m.getSchoolId() + "," + m.getExamId() + "," + m.getSubjectId() + "," + m.getStudentId() + "," + m.getActivityId() + "," + m.getSubActivityId() + ",'" + m.getGrade() + "')";
+            try {
                 sqliteDatabase.execSQL(sql);
                 ContentValues cv = new ContentValues();
                 cv.put("Query", sql);
                 sqliteDatabase.insert("uploadsql", null, cv);
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void updateSubActivityGrade(List<SubActivityGrade> amList, SQLiteDatabase sqliteDatabase){
-        for(SubActivityGrade am: amList){
-            String sql = "update subactivitygrade set Grade='"+am.getGrade()+"' where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId()+" and ExamId="+am.getExamId()
-                    +" and ActivityId="+am.getActivityId()+" and SubjectId="+am.getSubjectId();
-            try{
+    public static void updateSubActivityGrade(List<SubActivityGrade> amList, SQLiteDatabase sqliteDatabase) {
+        for (SubActivityGrade am : amList) {
+            String sql = "update subactivitygrade set Grade='" + am.getGrade() + "' where SubActivityId=" + am.getSubActivityId() + " and StudentId=" + am.getStudentId() + " and ExamId=" + am.getExamId()
+                    + " and ActivityId=" + am.getActivityId() + " and SubjectId=" + am.getSubjectId();
+            try {
                 sqliteDatabase.execSQL(sql);
                 ContentValues cv = new ContentValues();
                 cv.put("Query", sql);
                 sqliteDatabase.insert("uploadsql", null, cv);
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static List<String> selectSubActivityGrade(long subActivityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase){
+    public static List<String> selectSubActivityGrade(long subActivityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase) {
         List<String> aList = new ArrayList<>();
-        for(Integer i: studentId){
-            Cursor c = sqliteDatabase.rawQuery("select Grade from subactivitygrade where SubActivityId="+subActivityId+" and StudentId="+i, null);
+        for (Integer i : studentId) {
+            Cursor c = sqliteDatabase.rawQuery("select Grade from subactivitygrade where SubActivityId=" + subActivityId + " and StudentId=" + i, null);
             c.moveToFirst();
-            if(c.getCount()>0){
+            if (c.getCount() > 0) {
                 aList.add(c.getString(c.getColumnIndex("Grade")));
-            }else{
+            } else {
                 aList.add("");
             }
             c.close();
@@ -94,54 +93,42 @@ public class SubActivityGradeDao {
         return aList;
     }
 
-    public static void insertUpdateSubActGrade(List<SubActivityGrade> amList, SQLiteDatabase sqliteDatabase){
-        for(SubActivityGrade am: amList){
-            Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitygrade where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId(), null);
+    public static void insertUpdateSubActGrade(List<SubActivityGrade> amList, SQLiteDatabase sqliteDatabase) {
+        for (SubActivityGrade am : amList) {
+            Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitygrade where SubActivityId=" + am.getSubActivityId() + " and StudentId=" + am.getStudentId(), null);
             c.moveToFirst();
-            if(c.getCount()>0){
-                String sql = "update subactivitygrade set Grade='"+am.getGrade()+"' where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId()+" and ExamId="+am.getExamId()
-                        +" and ActivityId="+am.getActivityId()+" and SubjectId="+am.getSubjectId();
-                try{
+            if (c.getCount() > 0) {
+                String sql = "update subactivitygrade set Grade='" + am.getGrade() + "' where SubActivityId=" + am.getSubActivityId() + " and StudentId=" + am.getStudentId() + " and ExamId=" + am.getExamId()
+                        + " and ActivityId=" + am.getActivityId() + " and SubjectId=" + am.getSubjectId();
+                try {
                     sqliteDatabase.execSQL(sql);
-                }catch(SQLException e){}
-                if(am.getGrade().equals("")){
-                    String sql2 = "update subactivitygrade set Mark=NULL where SubActivityId="+am.getSubActivityId()+" and StudentId="+am.getStudentId()+" and ExamId="+am.getExamId()
-                            +" and ActivityId="+am.getActivityId()+" and SubjectId="+am.getSubjectId();
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql2);
-                    sqliteDatabase.insert("uploadsql", null, cv);
-                }else{
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            }else{
-                String sql = "insert into subactivitygrade(SchoolId, ExamId, SubjectId, StudentId, ActivityId, SubActivityId, Grade) values("+
-                        am.getSchoolId()+","+am.getExamId()+","+am.getSubjectId()+","+am.getStudentId()+","+am.getActivityId()+","+am.getSubActivityId()+",'"+am.getGrade()+"')";
-                try{
+            } else {
+                String sql = "insert into subactivitygrade(SchoolId, ExamId, SubjectId, StudentId, ActivityId, SubActivityId, Grade) values(" +
+                        am.getSchoolId() + "," + am.getExamId() + "," + am.getSubjectId() + "," + am.getStudentId() + "," + am.getActivityId() + "," + am.getSubActivityId() + ",'" + am.getGrade() + "')";
+                try {
                     sqliteDatabase.execSQL(sql);
-                }catch(SQLException e){}
-                if(am.getGrade().equals("")){
-                    String sql2 = "insert into subactivitygrade(SchoolId, ExamId, SubjectId, StudentId, ActivityId, SubActivityId, Grade) values("+
-                            am.getSchoolId()+","+am.getExamId()+","+am.getSubjectId()+","+am.getStudentId()+","+am.getActivityId()+","+am.getSubActivityId()+",NULL)";
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql2);
-                    sqliteDatabase.insert("uploadsql", null, cv);
-                }else{
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
             c.close();
         }
     }
 
-    public static int getSubActGradeCount(long subActivityId, SQLiteDatabase sqliteDatabase){
+    public static int getSubActGradeCount(long subActivityId, SQLiteDatabase sqliteDatabase) {
         int count = 0;
-        Cursor c = sqliteDatabase.rawQuery("select count(*) as count from subactivitygrade where SubActivityId="+subActivityId, null);
+        Cursor c = sqliteDatabase.rawQuery("select count(*) as count from subactivitygrade where SubActivityId=" + subActivityId, null);
         c.moveToFirst();
-        while(!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             count = c.getInt(c.getColumnIndex("count"));
             c.moveToNext();
         }
