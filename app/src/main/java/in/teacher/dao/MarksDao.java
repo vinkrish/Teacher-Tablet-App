@@ -6,11 +6,57 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import in.teacher.sqlite.GradesClassWise;
 import in.teacher.sqlite.Marks;
+import in.teacher.util.GradeClassWiseSort;
 
 public class MarksDao {
+
+    static List<GradesClassWise> gradesClassWiseList = new ArrayList<>();
+
+    private static int getMarkTo(String grade) {
+        int markTo = 0;
+        for (GradesClassWise gcw : gradesClassWiseList) {
+            if (grade.equals(gcw.getGrade())) {
+                markTo = gcw.getMarkTo();
+                break;
+            }
+        }
+        return markTo;
+    }
+
+    public static int getSectionAvg(int classId, int subjectId, long examId, SQLiteDatabase sqliteDatabase) {
+        gradesClassWiseList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
+        Collections.sort(gradesClassWiseList, new GradeClassWiseSort());
+        int avg = 0;
+        Cursor c = sqliteDatabase.rawQuery("select Grade from marks where ExamId=" + examId + " and SubjectId=" + subjectId, null);
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                avg += getMarkTo(c.getString(c.getColumnIndex("Grade")));
+                c.moveToNext();
+            }
+            c.close();
+            return avg / c.getCount();
+        } else return 0;
+    }
+
+    public static int getSectionAvg(long examId, int subjectId, int sectionId, SQLiteDatabase sqliteDatabase) {
+        int avg = 0;
+        String sql = "SELECT (AVG(Mark)/A.MaximumMark)*100 as Average FROM exams A, marks B WHERE A.ExamId = B.ExamId and A.ExamId = " + examId +
+                " and B.SubjectId=" + subjectId + " and B.StudentId in (select StudentId from Students where SectionId = " + sectionId + ") and B.Mark!='-1'";
+        Cursor c = sqliteDatabase.rawQuery(sql, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            avg = c.getInt(c.getColumnIndex("Average"));
+            c.moveToNext();
+        }
+        c.close();
+        return avg;
+    }
 
     public static List<String> selectMarks(long examId, int subjectId, List<Integer> studentId, SQLiteDatabase sqliteDatabase) {
         List<String> mList = new ArrayList<>();

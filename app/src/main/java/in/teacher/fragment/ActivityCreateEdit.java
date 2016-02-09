@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,9 +56,8 @@ public class ActivityCreateEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, sectionSpinner, examSpinner, subjectSpinner, bestOf;
-    private int teacherId, classId, sectionId, examId, subjectId, activityPos, schoolId, activityCounter, width1, width2, calculationGlobal, tag;
+    private int teacherId, classId, sectionId, examId, subjectId, activityPos, schoolId, activityCounter, width1, width2, calculationGlobal, tag, rgCounter;
     private long generatedId;
-    private boolean bestOfSelection, rgSelection;
     final List<Integer> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
     final List<Integer> sectionIdList = new ArrayList<>();
@@ -173,8 +173,6 @@ public class ActivityCreateEdit extends Fragment {
     }
 
     private void init() {
-        bestOfSelection = false;
-        rgSelection = false;
         tag = 0;
         table = new TableLayout(getActivity());
         scrollView.addView(table);
@@ -218,24 +216,24 @@ public class ActivityCreateEdit extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.sum:
-                        if (rgSelection) {
+                        if (rgCounter != 0) {
                             calculationGlobal = -1;
                             updateActCalculation();
-                        } else rgSelection = true;
+                        }
                         break;
 
                     case R.id.average:
-                        if (rgSelection) {
+                        if (rgCounter != 0) {
                             calculationGlobal = 0;
                             updateActCalculation();
-                        } else rgSelection = true;
+                        }
                         break;
 
                     case R.id.best:
-                        if (rgSelection) {
+                        if (rgCounter != 0) {
                             calculationGlobal = bestOf.getSelectedItemPosition() + 1;
                             updateActCalculation();
-                        } else rgSelection = true;
+                        }
                         break;
 
                     default:
@@ -417,8 +415,6 @@ public class ActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
             }
-            rgSelection = false;
-            //bestOfSelection = false;
             resetActivityList();
             activityAdapter.notifyDataSetChanged();
             cancelActCreation.performClick();
@@ -445,9 +441,6 @@ public class ActivityCreateEdit extends Fragment {
                 }
             }
         }
-
-        //bestOfSelection = false;
-        rgSelection = false;
         resetActivityList();
         activityAdapter.notifyDataSetChanged();
     }
@@ -567,8 +560,7 @@ public class ActivityCreateEdit extends Fragment {
         subjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //bestOfSelection = false;
-                rgSelection = false;
+                rgCounter = 0;
                 if (position != 0) {
                     subjectId = subjectIdList.get(position);
                     createActivity.setActivated(true);
@@ -591,11 +583,11 @@ public class ActivityCreateEdit extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (bestOfSelection && calculationGlobal != 0 && calculationGlobal != -1) {
-                    calculationGlobal = bestOf.getSelectedItemPosition() + 1;
-                    updateActCalculation();
-                } else {
-                    bestOfSelection = true;
+                if (rgCounter != 0) {
+                    if (calculationGlobal != 0 && calculationGlobal != -1) {
+                        calculationGlobal = bestOf.getSelectedItemPosition() + 1;
+                        updateActCalculation();
+                    }
                 }
             }
 
@@ -676,14 +668,18 @@ public class ActivityCreateEdit extends Fragment {
         }
         c.close();
 
-        if (calculationGlobal == -1) {
-            sum.setChecked(true);
-        } else if (calculationGlobal == 0) {
-            avg.setChecked(true);
-        } else {
-            best.setChecked(true);
-            bestOf.setSelection(calculationGlobal - 1);
+        if (rgCounter == 0) {
+            if (calculationGlobal == -1) {
+                sum.setChecked(true);
+            } else if (calculationGlobal == 0) {
+                avg.setChecked(true);
+            } else {
+                best.setChecked(true);
+                bestOf.setSelection(calculationGlobal - 1);
+            }
+            rgCounter++;
         }
+
     }
 
     public class ActivityAdapter extends ArrayAdapter<ActivityItem> {
@@ -875,8 +871,6 @@ public class ActivityCreateEdit extends Fragment {
                 }
 
                 dialog.dismiss();
-                //bestOfSelection = false;
-                rgSelection = false;
                 resetActivityList();
                 activityAdapter.notifyDataSetChanged();
             }
@@ -917,8 +911,6 @@ public class ActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
                 dialog.cancel();
-                //bestOfSelection = false;
-                rgSelection = false;
                 resetActivityList();
                 activityAdapter.notifyDataSetChanged();
             }

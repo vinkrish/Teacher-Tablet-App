@@ -385,8 +385,6 @@ public class UpdateSubActivityMark extends Fragment {
         ActivitiDao.checkActSubActMarkEmpty(activityId, sqliteDatabase);
         ExmAvgDao.checkExmSubActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
 
-        //SubActToActConsolidation.subActMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
         if (SubActivityMarkDao.isAllSubActMarkExist(subActIdList, sqliteDatabase)){
             SubActToActConsolidation.subActMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);

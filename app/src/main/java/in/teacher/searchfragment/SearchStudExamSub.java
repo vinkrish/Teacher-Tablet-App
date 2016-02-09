@@ -6,15 +6,19 @@ import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.ExmAvgDao;
+import in.teacher.dao.GradesClassWiseDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.CommonObject;
+import in.teacher.sqlite.GradesClassWise;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.GradeClassWiseSort;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Fragment;
@@ -39,7 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class SearchStudExamSub extends Fragment {
     private Context context;
-    private int studentId, sectionId;
+    private int studentId, sectionId, classId;
     private long examId;
     private String studentName, className, secName, examName;
     private SQLiteDatabase sqliteDatabase;
@@ -53,6 +57,7 @@ public class SearchStudExamSub extends Fragment {
     private List<Integer> subIdList = new ArrayList<>();
     private List<String> scoreList = new ArrayList<>();
     private Button examBut;
+    private List<GradesClassWise> gradesClassWiseList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +83,7 @@ public class SearchStudExamSub extends Fragment {
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         studentId = t.getStudentId();
+        classId = t.getCurrentClass();
         examId = t.getExamId();
         sectionId = t.getSectionId();
 
@@ -153,6 +159,9 @@ public class SearchStudExamSub extends Fragment {
             }
             c.close();
 
+            gradesClassWiseList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
+            Collections.sort(gradesClassWiseList, new GradeClassWiseSort());
+
             final List<Integer> teacherIdList = new ArrayList<>();
             List<String> subNameList = new ArrayList<>();
             List<String> teacherNameList = new ArrayList<>();
@@ -200,21 +209,37 @@ public class SearchStudExamSub extends Fragment {
                     overallActAvg = actAvg / actList.size();
                     progressList1.add(overallActAvg);
                     scoreList.add(" ");
+                    progressList2.add(ExmAvgDao.selectSeAvg2(sectionId, sub, examId, sqliteDatabase));
                 } else {
-                    avg = MarksDao.getStudExamAvg(studentId, sub, examId, sqliteDatabase);
-                    if (avg != 0) {
+                    int sectionAvg = MarksDao.getSectionAvg(examId, sub, sectionId, sqliteDatabase);
+                    Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where ExamId=" + examId + " and SubjectId=" + sub + " and StudentId=" + studentId, null);
+                    cursor.moveToFirst();
+                    if (cursor.getCount() > 0 && sectionAvg != 0) {
+                        avg = MarksDao.getStudExamAvg(studentId, sub, examId, sqliteDatabase);
                         int score = MarksDao.getStudExamMark(studentId, sub, examId, sqliteDatabase);
                         int maxScore = MarksDao.getExamMaxMark(sub, examId, sqliteDatabase);
                         scoreList.add(score + "/" + maxScore);
+                        progressList1.add(avg);
+                        progressList2.add(sectionAvg);
                     } else {
-                        scoreList.add("-");
+                        Cursor cursor1 = sqliteDatabase.rawQuery("select Grade from marks where ExamId=" + examId + " and SubjectId=" + sub + " and StudentId=" + studentId, null);
+                        cursor1.moveToFirst();
+                        if (cursor1.getCount() > 0 && !cursor1.getString(cursor1.getColumnIndex("Grade")).equals("")) {
+                            while (!cursor1.isAfterLast()) {
+                                scoreList.add(cursor1.getString(cursor1.getColumnIndex("Grade")));
+                                progressList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
+                                cursor1.moveToNext();
+                            }
+                            progressList2.add(MarksDao.getSectionAvg(classId, sub, examId, sqliteDatabase));
+                        } else {
+                            progressList1.add(0);
+                            scoreList.add("-");
+                            progressList2.add(0);
+                        }
+                        cursor1.close();
                     }
-                    progressList1.add(avg);
+                    cursor.close();
                 }
-            }
-
-            for (Integer subId : subIdList) {
-                progressList2.add(ExmAvgDao.selectSeAvg2(sectionId, subId, examId, sqliteDatabase));
             }
 
             for (int i = 0; i < subIdList.size(); i++) {
@@ -231,6 +256,17 @@ public class SearchStudExamSub extends Fragment {
             adapter.notifyDataSetChanged();
             pDialog.dismiss();
         }
+    }
+
+    private int getMarkTo(String grade) {
+        int markTo = 0;
+        for (GradesClassWise gcw : gradesClassWiseList) {
+            if (grade.equals(gcw.getGrade())) {
+                markTo = gcw.getMarkTo();
+                break;
+            }
+        }
+        return markTo;
     }
 
 }

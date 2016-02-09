@@ -15,20 +15,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import in.teacher.activity.R;
 import in.teacher.adapter.StudActAdapter;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ExamsDao;
+import in.teacher.dao.GradesClassWiseDao;
 import in.teacher.dao.SubActivityDao;
+import in.teacher.dao.SubActivityGradeDao;
 import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
+import in.teacher.sqlite.GradesClassWise;
 import in.teacher.sqlite.SubActivity;
 import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.GradeClassWiseSort;
 import in.teacher.util.ReplaceFragment;
 
 /**
@@ -37,7 +42,7 @@ import in.teacher.util.ReplaceFragment;
  */
 public class SearchStudSubAct extends Fragment {
     private Context context;
-    private int studentId, subjectId;
+    private int studentId, subjectId, classId;
     private long examId, activityId;
     private String studentName, className, secName, examName, subjectName, activityName;
     private SQLiteDatabase sqliteDatabase;
@@ -53,6 +58,7 @@ public class SearchStudSubAct extends Fragment {
     private ProgressDialog pDialog;
     private TextView studTV, clasSecTV;
     private Button examBut, subBut, actBut;
+    private List<GradesClassWise> gradesClassWiseList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +90,7 @@ public class SearchStudSubAct extends Fragment {
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         studentId = t.getStudentId();
+        classId = t.getCurrentClass();
         examId = t.getExamId();
         subjectId = t.getSubjectId();
         activityId = t.getActivityId();
@@ -164,23 +171,44 @@ public class SearchStudSubAct extends Fragment {
             }
             c.close();
 
+            gradesClassWiseList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
+            Collections.sort(gradesClassWiseList, new GradeClassWiseSort());
+
             subActList = SubActivityDao.selectSubActivity(activityId, sqliteDatabase);
             for (SubActivity subact : subActList) {
-                int avg = SubActivityMarkDao.getStudSubActAvg(studentId, subact.getSubActivityId(), sqliteDatabase);
-                avgList1.add(avg);
-                if (avg == 0) {
-                    scoreList.add("-");
+                subActNameList.add(subact.getSubActivityName());
+                subActIdList.add(subact.getSubActivityId());
+
+                Cursor cursor = sqliteDatabase.rawQuery("select StudentId from subactivitymark where StudentId = " + studentId + " and SubActivityId = " + subact.getSubActivityId(), null);
+                if (cursor.getCount() > 0) {
+                    int avg = SubActivityMarkDao.getStudSubActAvg(studentId, subact.getSubActivityId(), sqliteDatabase);
+                    avgList1.add(avg);
+                    if (avg == 0) {
+                        scoreList.add("-");
+                    } else {
+                        int score = SubActivityMarkDao.getStudSubActMark(studentId, subact.getSubActivityId(), sqliteDatabase);
+                        float maxScore = SubActivityDao.getSubActMaxMark(subact.getSubActivityId(), sqliteDatabase);
+                        scoreList.add(score + "/" + maxScore);
+                    }
+                    avgList2.add(SubActivityMarkDao.getSectionAvg(subact.getSubActivityId(), sqliteDatabase));
                 } else {
-                    int score = SubActivityMarkDao.getStudSubActMark(studentId, subact.getSubActivityId(), sqliteDatabase);
-                    float maxScore = SubActivityDao.getSubActMaxMark(subact.getSubActivityId(), sqliteDatabase);
-                    scoreList.add(score + "/" + maxScore);
+                    Cursor cursor1 = sqliteDatabase.rawQuery("select Grade from subactivitygrade where StudentId = " + studentId + " and SubActivityId = " + subact.getSubActivityId(), null);
+                    if (cursor1.getCount() > 0) {
+                        cursor1.moveToFirst();
+                        while (!cursor1.isAfterLast()) {
+                            scoreList.add(cursor1.getString(cursor1.getColumnIndex("Grade")));
+                            avgList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
+                            avgList2.add(SubActivityGradeDao.getSectionAvg(classId, subact.getSubActivityId(), sqliteDatabase));
+                            cursor1.moveToNext();
+                        }
+                    } else {
+                        avgList1.add(0);
+                        scoreList.add("-");
+                        avgList2.add(0);
+                    }
+                    cursor1.close();
                 }
-            }
-            for (SubActivity at : subActList) {
-                subActNameList.add(at.getSubActivityName());
-                subActIdList.add(at.getSubActivityId());
-                int i = (int) (((double) at.getSubActivityAvg() / (double) 360) * 100);
-                avgList2.add(i);
+                cursor.close();
             }
 
             for (int i = 0; i < subActIdList.size(); i++) {
@@ -203,6 +231,17 @@ public class SearchStudSubAct extends Fragment {
             adapter.notifyDataSetChanged();
             pDialog.dismiss();
         }
+    }
+
+    private int getMarkTo(String grade) {
+        int markTo = 0;
+        for (GradesClassWise gcw : gradesClassWiseList) {
+            if (grade.equals(gcw.getGrade())) {
+                markTo = gcw.getMarkTo();
+                break;
+            }
+        }
+        return markTo;
     }
 
 }

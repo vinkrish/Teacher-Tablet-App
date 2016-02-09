@@ -282,10 +282,8 @@ public class InsertActivityGrade extends Fragment {
         }
         ActivityGradeDao.insertActivityGrade(mList, sqliteDatabase);
 
-        //ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
-
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
+        if (ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase))
             ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
         else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);

@@ -98,14 +98,14 @@ public class SubActivityDao {
 
     public static void updateSubActivityAvg(List<Long> subActList, SQLiteDatabase sqliteDatabase) {
         for (Long subAct : subActList) {
-            sqliteDatabase.execSQL("update subactivity set CompleteEntry=1, SubActivityAvg=(SELECT (AVG(Mark)/A.MaximumMark)*360 as Average FROM subactivity A, subactivitymark B WHERE A.SubActivityId = B.SubActivityId and" +
-                    " B.Mark!='0' and B.Mark!='-1' and A.SubActivityId=" + subAct + ") where SubActivityId=" + subAct);
+            sqliteDatabase.execSQL("update subactivity set CompleteEntry=1, SubActivityAvg=(SELECT (AVG(Mark)/A.MaximumMark)*360 as Average FROM subactivity A, subactivitymark B WHERE A.SubActivityId = B.SubActivityId" +
+                    " and B.Mark!='-1' and A.SubActivityId=" + subAct + ") where SubActivityId=" + subAct);
         }
     }
 
     public static void updateSubActivityAvg(long subActivityId, SQLiteDatabase sqliteDatabase) {
         String sql = "SELECT A.SubActivityId, (AVG(Mark)/A.MaximumMark)*360 as Average FROM subactivity A, subactivitymark B WHERE A.SubActivityId = B.SubActivityId " +
-                " and B.Mark!='0' and B.Mark!='-1' and A.SubActivityId=" + subActivityId + " GROUP BY A.SubActivityId,B.SubActivityId";
+                " and B.Mark!='-1' and A.SubActivityId=" + subActivityId + " GROUP BY A.SubActivityId,B.SubActivityId";
         Cursor c = sqliteDatabase.rawQuery(sql, null);
         c.moveToFirst();
         if (c.getCount() > 0) {
@@ -120,7 +120,7 @@ public class SubActivityDao {
 
     public static void updateSubActivityAvg(SQLiteDatabase sqliteDatabase) {
         String sql = "SELECT A.SubActivityId, (AVG(Mark)/A.MaximumMark)*360 as Average FROM subactivity A, subactivitymark B, students C WHERE B.StudentId=C.StudentId and A.SubActivityId = B.SubActivityId and " +
-                "B.Mark!='0' and B.Mark!='-1' GROUP BY A.SubActivityId,B.SubActivityId";
+                " B.Mark!='-1' GROUP BY A.SubActivityId,B.SubActivityId";
         Cursor c = sqliteDatabase.rawQuery(sql, null);
         String sql2 = "update subactivity set SubActivityAvg=? where SubActivityId=?";
         sqliteDatabase.beginTransaction();
@@ -156,6 +156,19 @@ public class SubActivityDao {
         String s = sb.substring(1, sb.length());
         sqliteDatabase.execSQL("update subactivity set CompleteEntry=1 where SubActivityId in (" + s + ") and (select count(*) from subactivity A, subactivitymark B WHERE A.SubActivityId=B.SubActivityId"
                 + " AND A.SubActivityId in (" + s + ") GROUP BY A.SubActivityId HAVING COUNT(*)>0)");
+    }
+
+    public static int getStudActAvg(int studentId, long activityId, SQLiteDatabase sqliteDatabase){
+        int i = 0;
+        Cursor c = sqliteDatabase.rawQuery("select (Avg(A.Mark)/B.MaximumMark)*100 as avg from activitymark A, activity B where A.ActivityId=B.ActivityId and A.ActivityId="+activityId+
+                " and StudentId="+studentId, null);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            i = c.getInt(c.getColumnIndex("avg"));
+            c.moveToNext();
+        }
+        c.close();
+        return i;
     }
 
 }

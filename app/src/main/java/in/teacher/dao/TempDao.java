@@ -41,6 +41,12 @@ public class TempDao {
         return t;
     }
 
+    public static void updateCurrentClass(int classId, SQLiteDatabase sqliteDatabase){
+        ContentValues cv = new ContentValues();
+        cv.put("CurrentClass", classId);
+        sqliteDatabase.update("temp", cv, "id=1", null);
+    }
+
     public static void updateTemp(Temp t, SQLiteDatabase sqliteDatabase) {
         ContentValues cv = new ContentValues();
         cv.put("ClassId", t.getClassId());
@@ -124,18 +130,6 @@ public class TempDao {
     public static void updateSyncComplete(SQLiteDatabase sqliteDatabase) {
         ContentValues cv = new ContentValues();
         cv.put("SyncTime", "Successfully synced the tablet");
-        sqliteDatabase.update("temp", cv, "id=1", null);
-    }
-
-    public static void updateSyncFailure(SQLiteDatabase sqliteDatabase) {
-        ContentValues cv = new ContentValues();
-        cv.put("SyncTime", "Failed to sync, try again..");
-        sqliteDatabase.update("temp", cv, "id=1", null);
-    }
-
-    public static void updateSyncProgress(SQLiteDatabase sqliteDatabase) {
-        ContentValues cv = new ContentValues();
-        cv.put("SyncTime", "Sync is in Progress..");
         sqliteDatabase.update("temp", cv, "id=1", null);
     }
 

@@ -36,7 +36,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,9 +55,8 @@ public class SubActivityCreateEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, sectionSpinner, examSpinner, subjectSpinner, activitySpinner, bestOf;
-    private int teacherId, classId, sectionId, examId, subjectId, subActivityPos, schoolId, subActCounter, width1, width2, calculationGlobal, tag;
+    private int teacherId, classId, sectionId, examId, subjectId, subActivityPos, schoolId, subActCounter, width1, width2, calculationGlobal, tag, rgCounter;
     private long generatedId, activityId;
-    private boolean bestOfSelection, rgSelection;
     final List<Integer> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
     final List<Integer> sectionIdList = new ArrayList<>();
@@ -177,8 +175,6 @@ public class SubActivityCreateEdit extends Fragment {
     }
 
     private void init() {
-        bestOfSelection = false;
-        rgSelection = false;
         tag = 0;
         table = new TableLayout(getActivity());
         scrollView.addView(table);
@@ -223,26 +219,23 @@ public class SubActivityCreateEdit extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.sum:
-                        if (rgSelection) {
+                        if (rgCounter != 0) {
                             calculationGlobal = -1;
                             updateSubActCalculation();
-                        } else rgSelection = true;
+                        }
                         break;
-
                     case R.id.average:
-                        if (rgSelection) {
+                        if (rgCounter != 0) {
                             calculationGlobal = 0;
                             updateSubActCalculation();
-                        } else rgSelection = true;
+                        }
                         break;
-
                     case R.id.best:
-                        if (rgSelection) {
+                        if (rgCounter != 0) {
                             calculationGlobal = bestOf.getSelectedItemPosition() + 1;
                             updateSubActCalculation();
-                        } else rgSelection = true;
+                        }
                         break;
-
                     default:
                         break;
                 }
@@ -396,8 +389,6 @@ public class SubActivityCreateEdit extends Fragment {
             }
         }
 
-        //bestOfSelection = false;
-        rgSelection = false;
         resetSubActivityList();
         subActivityAdapter.notifyDataSetChanged();
     }
@@ -549,8 +540,7 @@ public class SubActivityCreateEdit extends Fragment {
         activitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //bestOfSelection = false;
-                rgSelection = false;
+                rgCounter = 0;
                 if (position != 0) {
                     activityId = activityIdList.get(position);
                     createSubActivity.setActivated(true);
@@ -573,11 +563,11 @@ public class SubActivityCreateEdit extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (bestOfSelection && calculationGlobal != 0 && calculationGlobal != -1) {
-                    calculationGlobal = bestOf.getSelectedItemPosition() + 1;
-                    updateSubActCalculation();
-                } else {
-                    bestOfSelection = true;
+                if (rgCounter != 0) {
+                    if (calculationGlobal != -1 && calculationGlobal != 0) {
+                        calculationGlobal = bestOf.getSelectedItemPosition() + 1;
+                        updateSubActCalculation();
+                    }
                 }
 
             }
@@ -673,13 +663,16 @@ public class SubActivityCreateEdit extends Fragment {
         }
         c.close();
 
-        if (calculationGlobal == -1) {
-            sum.setChecked(true);
-        } else if (calculationGlobal == 0) {
-            avg.setChecked(true);
-        } else {
-            best.setChecked(true);
-            bestOf.setSelection(calculationGlobal - 1);
+        if (rgCounter == 0) {
+            if (calculationGlobal == -1) {
+                sum.setChecked(true);
+            } else if (calculationGlobal == 0) {
+                avg.setChecked(true);
+            } else {
+                best.setChecked(true);
+                bestOf.setSelection(calculationGlobal - 1);
+            }
+            rgCounter++;
         }
     }
 
@@ -830,8 +823,6 @@ public class SubActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
             }
-            //bestOfSelection = false;
-            rgSelection = false;
             resetSubActivityList();
             subActivityAdapter.notifyDataSetChanged();
             cancelSubActCreation.performClick();
@@ -926,8 +917,6 @@ public class SubActivityCreateEdit extends Fragment {
                 }
 
                 dialog.dismiss();
-                //bestOfSelection = false;
-                rgSelection = false;
                 resetSubActivityList();
                 subActivityAdapter.notifyDataSetChanged();
                 //activitySpinner.setSelection(0);
@@ -969,8 +958,6 @@ public class SubActivityCreateEdit extends Fragment {
                     e.printStackTrace();
                 }
                 dialog.cancel();
-                //bestOfSelection = false;
-                rgSelection = false;
                 resetSubActivityList();
                 subActivityAdapter.notifyDataSetChanged();
                 //activitySpinner.setSelection(0);

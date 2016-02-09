@@ -262,7 +262,7 @@ public class UpdateActivityGrade extends Fragment {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog.setMessage("Submitting marks...");
+            pDialog.setMessage("Submitting grades...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -304,10 +304,8 @@ public class UpdateActivityGrade extends Fragment {
             ActivityGradeDao.updateActivityGrade(mList, sqliteDatabase);
         else ActivityGradeDao.insertUpdateActGrade(mList, sqliteDatabase);
 
-        //ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
-
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
+        if (ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase))
             ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
         else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);

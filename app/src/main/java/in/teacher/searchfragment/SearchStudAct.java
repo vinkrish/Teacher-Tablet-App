@@ -3,19 +3,24 @@ package in.teacher.searchfragment;
 import in.teacher.activity.R;
 import in.teacher.adapter.StudActAdapter;
 import in.teacher.dao.ActivitiDao;
+import in.teacher.dao.ActivityGradeDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ExamsDao;
+import in.teacher.dao.GradesClassWiseDao;
 import in.teacher.dao.SubActivityDao;
 import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.CommonObject;
+import in.teacher.sqlite.GradesClassWise;
 import in.teacher.sqlite.Temp;
 import in.teacher.util.AppGlobal;
+import in.teacher.util.GradeClassWiseSort;
 import in.teacher.util.ReplaceFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Fragment;
@@ -39,7 +44,7 @@ import android.widget.TextView;
  */
 public class SearchStudAct extends Fragment {
     private Context context;
-    private int studentId, sectionId, subjectId;
+    private int studentId, sectionId, subjectId, classId;
     private long examId;
     private String studentName, className, secName, examName, subjectName;
     private SQLiteDatabase sqliteDatabase;
@@ -55,6 +60,7 @@ public class SearchStudAct extends Fragment {
     private ProgressDialog pDialog;
     private TextView studTV, clasSecTV;
     private Button examBut, subBut;
+    private List<GradesClassWise> gradesClassWiseList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +90,7 @@ public class SearchStudAct extends Fragment {
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
         studentId = t.getStudentId();
+        classId = t.getCurrentClass();
         examId = t.getExamId();
         subjectId = t.getSubjectId();
 
@@ -169,11 +176,17 @@ public class SearchStudAct extends Fragment {
             }
             c.close();
 
+            gradesClassWiseList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
+            Collections.sort(gradesClassWiseList, new GradeClassWiseSort());
+
             activitiList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
             List<Integer> subActList = new ArrayList<>();
             int subActAvg = 0;
             int overallSubActAvg = 0;
             for (Activiti act : activitiList) {
+                actNameList.add(act.getActivityName());
+                actIdList.add(act.getActivityId());
+
                 int cache = SubActivityDao.isThereSubAct(act.getActivityId(), sqliteDatabase);
                 if (cache == 1) {
                     subActList.clear();
@@ -193,22 +206,37 @@ public class SearchStudAct extends Fragment {
                     avgList1.add(overallSubActAvg);
                     scoreList.add(" ");
                 } else {
-                    int avg = ActivityMarkDao.getStudActAvg(studentId, act.getActivityId(), sqliteDatabase);
-                    avgList1.add(avg);
-                    if (avg == 0) {
-                        scoreList.add("");
+                    Cursor cursor = sqliteDatabase.rawQuery("select StudentId from activitymark where StudentId = " + studentId + " and ActivityId = " + act.getActivityId(), null);
+                    if (cursor.getCount() > 0) {
+                        int avg = ActivityMarkDao.getStudActAvg(studentId, act.getActivityId(), sqliteDatabase);
+                        avgList1.add(avg);
+                        if (avg == 0) {
+                            scoreList.add("-");
+                        } else {
+                            int score = ActivityMarkDao.getStudActMark(studentId, act.getActivityId(), sqliteDatabase);
+                            float maxScore = ActivitiDao.getActivityMaxMark(act.getActivityId(), sqliteDatabase);
+                            scoreList.add(score + "/" + maxScore);
+                        }
+                        avgList2.add(ActivityMarkDao.getSectionAvg(act.getActivityId(), sqliteDatabase));
                     } else {
-                        int score = ActivityMarkDao.getStudActMark(studentId, act.getActivityId(), sqliteDatabase);
-                        float maxScore = ActivitiDao.getActivityMaxMark(act.getActivityId(), sqliteDatabase);
-                        scoreList.add(score + "/" + maxScore);
+                        Cursor cursor1 = sqliteDatabase.rawQuery("select Grade from activitygrade where StudentId = " + studentId + " and ActivityId = " + act.getActivityId(), null);
+                        if (cursor1.getCount() > 0) {
+                            cursor1.moveToFirst();
+                            while (!cursor1.isAfterLast()) {
+                                scoreList.add(cursor1.getString(cursor1.getColumnIndex("Grade")));
+                                avgList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
+                                avgList2.add(ActivityGradeDao.getSectionAvg(classId, act.getActivityId(), sqliteDatabase));
+                                cursor1.moveToNext();
+                            }
+                        } else {
+                            avgList1.add(0);
+                            scoreList.add("-");
+                            avgList2.add(0);
+                        }
+                        cursor1.close();
                     }
+                    cursor.close();
                 }
-            }
-            for (Activiti at : activitiList) {
-                actNameList.add(at.getActivityName());
-                actIdList.add(at.getActivityId());
-                int i = (int) (((double) at.getActivityAvg() / (double) 360) * 100);
-                avgList2.add(i);
             }
 
             for (int i = 0; i < actIdList.size(); i++) {
@@ -230,6 +258,17 @@ public class SearchStudAct extends Fragment {
             adapter.notifyDataSetChanged();
             pDialog.dismiss();
         }
+    }
+
+    private int getMarkTo(String grade) {
+        int markTo = 0;
+        for (GradesClassWise gcw : gradesClassWiseList) {
+            if (grade.equals(gcw.getGrade())) {
+                markTo = gcw.getMarkTo();
+                break;
+            }
+        }
+        return markTo;
     }
 
 }

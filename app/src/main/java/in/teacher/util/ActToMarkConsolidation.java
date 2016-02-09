@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -423,7 +424,7 @@ public class ActToMarkConsolidation {
         }
         boolean markExist;
         if (calculation == 0) {
-            float totalGradeMark = 0f;
+            float totalGradeMark;
             for (Students st : studentsArray) {
                 Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where StudentId = " + st.getStudentId() + " and ExamId = " + examId + " and SubjectId = " + subjectId, null);
                 if (cursor.getCount() > 0) markExist = true;
@@ -437,8 +438,8 @@ public class ActToMarkConsolidation {
 
                     if (!grade.equals("")) gradePoint = getGradePoint(grade);
 
-                    if (isDynamicWeightage) gradeWeightPoint = (float) act.getWeightage() / 10;
-                    else gradeWeightPoint = (float) (100 / actIdList.size()) / 10;
+                    if (isDynamicWeightage) gradeWeightPoint = ((float) act.getWeightage() / 10);
+                    else gradeWeightPoint =  ((float)10 / actIdList.size());
 
                     totalGradeMark += (gradePoint * gradeWeightPoint);
                 }
@@ -457,7 +458,7 @@ public class ActToMarkConsolidation {
                 }
             }
         } else if (calculation == -1) {
-            int totalGradePoint;
+            float totalGradePoint;
             for (Students st : studentsArray) {
                 Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where StudentId = " + st.getStudentId() + " and ExamId = " + examId + " and SubjectId = " + subjectId, null);
                 if (cursor.getCount() > 0) markExist = true;
@@ -487,12 +488,11 @@ public class ActToMarkConsolidation {
         } else {
             List<Float> gradePointList = new ArrayList<>();
             for (Students st : studentsArray) {
-                Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where StudentId = " + st.getStudentId() + " and ExamId = " + examId + " and SubjectId = " + subjectId, null);
+                Cursor cursor = sqliteDatabase.rawQuery("select Grade from marks where StudentId = " + st.getStudentId() + " and ExamId = " + examId + " and SubjectId = " + subjectId, null);
                 if (cursor.getCount() > 0) markExist = true;
                 else markExist = false;
 
                 gradePointList.clear();
-
                 for (Activiti act : actList) {
                     String grade = ActivityGradeDao.getActivityGrade(act.getActivityId(), st.getStudentId(), act.getSubjectId(), sqliteDatabase);
                     if (!grade.equals("")) gradePointList.add(getGradePoint(grade));

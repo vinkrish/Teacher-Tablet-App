@@ -97,7 +97,7 @@ public class ActivitiDao {
 
     public static void updateActivityAvg(SQLiteDatabase sqliteDatabase) {
         String sql = "SELECT A.ActivityId, (AVG(Mark)/A.MaximumMark)*360 as Average FROM activity A, activitymark B , Students C WHERE B.StudentId=C.StudentId and A.ActivityId = B.ActivityId and " +
-                "B.Mark!='0' and B.Mark!='-1' GROUP BY A.ActivityId,B.ActivityId";
+                " B.Mark!='-1' GROUP BY A.ActivityId,B.ActivityId";
         Cursor c = sqliteDatabase.rawQuery(sql, null);
         String sql2 = "update activity set ActivityAvg=? where ActivityId=?";
         sqliteDatabase.beginTransaction();
@@ -117,7 +117,7 @@ public class ActivitiDao {
 
     public static void updateActivityAvg(List<Long> actList, SQLiteDatabase sqliteDatabase) {
         String sql = "Update activity set CompleteEntry=1,ActivityAvg= (SELECT (AVG(Mark)/A.MaximumMark)*360 as Average FROM activity A, activitymark B WHERE A.ActivityId = " +
-                "B.ActivityId and A.ActivityId=? and B.Mark!='0' and B.Mark!='-1') where ActivityId=?";
+                "B.ActivityId and A.ActivityId=? and B.Mark!='-1') where ActivityId=?";
         sqliteDatabase.beginTransaction();
         SQLiteStatement stmt = sqliteDatabase.compileStatement(sql);
         for (Long act : actList) {
@@ -180,7 +180,7 @@ public class ActivitiDao {
 
     public static void updateActivityAvg(long activityId, SQLiteDatabase sqliteDatabase) {
         String sql = "SELECT A.ActivityId, (AVG(Mark)/A.MaximumMark)*360 as Average FROM activity A, activitymark B WHERE A.ActivityId = B.ActivityId and A.ActivityId = " + activityId +
-                " and B.Mark!='0' and B.Mark!='-1' GROUP BY A.ActivityId";
+                " and B.Mark!='-1' GROUP BY A.ActivityId";
         Cursor c = sqliteDatabase.rawQuery(sql, null);
         c.moveToFirst();
         if (c.getCount() > 0) {

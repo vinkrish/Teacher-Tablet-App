@@ -12,6 +12,20 @@ import in.teacher.sqlite.ActivityMark;
 
 public class ActivityMarkDao {
 
+    public static int getSectionAvg(long activityId, SQLiteDatabase sqliteDatabase){
+        int avg = 0;
+        String sql = "SELECT A.ActivityId, (AVG(Mark)/A.MaximumMark)*100 as Average FROM activity A, activitymark B WHERE A.ActivityId = B.ActivityId and A.ActivityId = " + activityId +
+                " and B.Mark!='-1'" ;
+        Cursor c = sqliteDatabase.rawQuery(sql, null);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            avg = c.getInt(c.getColumnIndex("Average"));
+            c.moveToNext();
+        }
+        c.close();
+        return avg;
+    }
+
     public static List<String> selectActivityMarc(long activityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase) {
         List<String> mList = new ArrayList<>();
         for (Integer i : studentId) {

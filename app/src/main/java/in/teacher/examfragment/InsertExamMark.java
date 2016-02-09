@@ -250,9 +250,11 @@ public class InsertExamMark extends Fragment {
         }
         ExmAvgDao.insertAvgIntoExmAvg(sectionId, subjectId, examId, sqliteDatabase);
         ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
-        if (partition == 1) {
+        Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where ExamId = " + examId + " and SubjectId = "+subId, null);
+        if (partition == 1 && cursor.getCount()>0) {
+            updatePartitionMarks();
+        } else
             insertPartitionMarks();
-        }
     }
 
     private void insertPartitionMarks() {
@@ -275,6 +277,39 @@ public class InsertExamMark extends Fragment {
             int val1 = c2.getInt(c2.getColumnIndex("StudentId"));
             int val2 = c2.getInt(c2.getColumnIndex("Mark"));
             String sql = "insert into marks (SchoolId, ExamId, SubjectId, StudentId, Mark) values(" + schoolId + "," + examId + "," + subId + "," + val1 + ",'" + val2 + "')";
+            try {
+                sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            c2.moveToNext();
+        }
+        c2.close();
+    }
+
+    private void updatePartitionMarks() {
+        int subjectId1 = 0;
+        int subjectId2 = 0;
+        Cursor c1 = sqliteDatabase.rawQuery("select TheorySubjectId, PracticalSubjectId from subjects " +
+                "where has_partition=1 and SubjectId=" + subId, null);
+        c1.moveToFirst();
+        while (!c1.isAfterLast()) {
+            subjectId1 = c1.getInt(c1.getColumnIndex("TheorySubjectId"));
+            subjectId2 = c1.getInt(c1.getColumnIndex("PracticalSubjectId"));
+            c1.moveToNext();
+        }
+        c1.close();
+
+        Cursor c2 = sqliteDatabase.rawQuery("select StudentId, sum(Mark) as Mark " +
+                "from marks where (SubjectId=" + subjectId1 + " or SubjectId=" + subjectId2 + ") and ExamId=" + examId + " group by ExamId, StudentId", null);
+        c2.moveToFirst();
+        while (!c2.isAfterLast()) {
+            int val1 = c2.getInt(c2.getColumnIndex("StudentId"));
+            int val2 = c2.getInt(c2.getColumnIndex("Mark"));
+            String sql = "update marks set Mark='" + val2 + "' where StudentId=" + val1 + " and ExamId=" + examId + " and SubjectId=" + subId;
             try {
                 sqliteDatabase.execSQL(sql);
                 ContentValues cv = new ContentValues();

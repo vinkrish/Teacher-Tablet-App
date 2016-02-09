@@ -134,6 +134,8 @@ public class SearchStudExam extends Fragment {
             }
             c.close();
 
+            TempDao.updateCurrentClass(classId, sqliteDatabase);
+
             Cursor c2 = sqliteDatabase.rawQuery("select ExamId,ExamName from exams where ClassId=" + classId, null);
             c2.moveToFirst();
             while (!c2.isAfterLast()) {

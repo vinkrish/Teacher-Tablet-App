@@ -351,8 +351,6 @@ public class InsertActivityMark extends Fragment {
         ActivitiDao.checkActMarkEmpty(activityId, sqliteDatabase);
         ExmAvgDao.checkExmActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
 
-        //ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
             ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);

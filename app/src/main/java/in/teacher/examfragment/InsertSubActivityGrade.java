@@ -289,12 +289,10 @@ public class InsertSubActivityGrade extends Fragment {
         }
         SubActivityGradeDao.insertSubActivityGrade(mList, sqliteDatabase);
 
-        //SubActToActConsolidation.subActGradeToActGradeCalc(sqliteDatabase, calculation, studentsArray);
-
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
-        if (SubActivityMarkDao.isAllSubActMarkExist(subActIdList, sqliteDatabase)){
+        if (SubActivityGradeDao.isAllSubActGradeExist(subActIdList, sqliteDatabase)){
             SubActToActConsolidation.subActGradeToActGradeCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
+        } else if (SubActivityMarkDao.isAllSubActMarkOrGradeExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);
         }
     }

@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import in.teacher.dao.ActivitiDao;
+import in.teacher.dao.ActivityGradeDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.GradesClassWiseDao;
 import in.teacher.dao.SubActivityDao;
@@ -457,8 +459,8 @@ public class SubActToActConsolidation {
 
                     if (!grade.equals("")) gradePoint = getGradePoint(grade);
 
-                    if (isDynamicWeightage) gradeWeightPoint = (float) subAct.getWeightage() / 10;
-                    else gradeWeightPoint = (float) (100 / subActIdList.size()) / 10;
+                    if (isDynamicWeightage) gradeWeightPoint = ((float) subAct.getWeightage() / 10);
+                    else gradeWeightPoint = ((float)10 / subActIdList.size());
 
                     totalGradeMark += (gradePoint * gradeWeightPoint);
                 }
@@ -477,7 +479,7 @@ public class SubActToActConsolidation {
                 }
             }
         } else if (calculation == -1) {
-            int totalGradePoint;
+            float totalGradePoint;
             for (Students st : studentsArray) {
                 Cursor cursor = sqliteDatabase.rawQuery("select Grade from activitygrade where StudentId = " + st.getStudentId() + " and ActivityId = " + activityId, null);
                 if (cursor.getCount() > 0) gradeExist = true;
@@ -541,7 +543,7 @@ public class SubActToActConsolidation {
             }
         }
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
+        if (ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase))
             ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
         else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
