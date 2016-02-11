@@ -221,10 +221,11 @@ public class SubActToActConsolidation {
             }
         }
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
-            ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
+        if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        }
     }
 
     public static void subActToActMarkCalc(SQLiteDatabase sqliteDatabase, int calculation, List<Students> studentsArray) {
@@ -414,10 +415,11 @@ public class SubActToActConsolidation {
             }
         }
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
-            ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
+        if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        }
     }
 
     public static void subActGradeToActGradeCalc(SQLiteDatabase sqliteDatabase, int calculation, List<Students> studentsArray) {
@@ -543,10 +545,11 @@ public class SubActToActConsolidation {
             }
         }
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase))
-            ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
+        if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        }
     }
 
 }

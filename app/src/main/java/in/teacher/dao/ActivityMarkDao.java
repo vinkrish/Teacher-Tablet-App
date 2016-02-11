@@ -54,6 +54,18 @@ public class ActivityMarkDao {
         return exist;
     }
 
+    public static boolean isActMarkExist(List<Long> actIdList, SQLiteDatabase sqliteDatabase) {
+        boolean exist = false;
+        for (Long actId : actIdList) {
+            Cursor c = sqliteDatabase.rawQuery("select Mark from activitymark where ActivityId=" + actId+" LIMIT 1", null);
+            if (c.getCount()>0){
+                exist = true;
+            }
+            c.close();
+        }
+        return exist;
+    }
+
     public static boolean isAllActMarkOrGradeExist (List<Long> actIdList, SQLiteDatabase sqliteDatabase) {
         int i;
         boolean exist = true;

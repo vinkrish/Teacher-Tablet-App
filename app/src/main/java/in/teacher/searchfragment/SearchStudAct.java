@@ -180,63 +180,39 @@ public class SearchStudAct extends Fragment {
             Collections.sort(gradesClassWiseList, new GradeClassWiseSort());
 
             activitiList = ActivitiDao.selectActiviti(examId, subjectId, sectionId, sqliteDatabase);
-            List<Integer> subActList = new ArrayList<>();
-            int subActAvg = 0;
-            int overallSubActAvg = 0;
             for (Activiti act : activitiList) {
                 actNameList.add(act.getActivityName());
                 actIdList.add(act.getActivityId());
-
-                int cache = SubActivityDao.isThereSubAct(act.getActivityId(), sqliteDatabase);
-                if (cache == 1) {
-                    subActList.clear();
-                    subActAvg = 0;
-                    Cursor c3 = sqliteDatabase.rawQuery("select SubActivityId from subactivity where ActivityId=" + act.getActivityId(), null);
-                    c3.moveToFirst();
-                    while (!c3.isAfterLast()) {
-                        subActList.add(c3.getInt(c3.getColumnIndex("SubActivityId")));
-                        c3.moveToNext();
-                    }
-                    c3.close();
-
-                    for (Integer actId : subActList) {
-                        subActAvg += SubActivityMarkDao.getStudSubActAvg(studentId, actId, sqliteDatabase);
-                    }
-                    overallSubActAvg = subActAvg / subActList.size();
-                    avgList1.add(overallSubActAvg);
-                    scoreList.add(" ");
-                } else {
-                    Cursor cursor = sqliteDatabase.rawQuery("select StudentId from activitymark where StudentId = " + studentId + " and ActivityId = " + act.getActivityId(), null);
-                    if (cursor.getCount() > 0) {
-                        int avg = ActivityMarkDao.getStudActAvg(studentId, act.getActivityId(), sqliteDatabase);
-                        avgList1.add(avg);
-                        if (avg == 0) {
-                            scoreList.add("-");
-                        } else {
-                            int score = ActivityMarkDao.getStudActMark(studentId, act.getActivityId(), sqliteDatabase);
-                            float maxScore = ActivitiDao.getActivityMaxMark(act.getActivityId(), sqliteDatabase);
-                            scoreList.add(score + "/" + maxScore);
-                        }
-                        avgList2.add(ActivityMarkDao.getSectionAvg(act.getActivityId(), sqliteDatabase));
+                Cursor cursor = sqliteDatabase.rawQuery("select StudentId from activitymark where StudentId = " + studentId + " and ActivityId = " + act.getActivityId(), null);
+                if (cursor.getCount() > 0) {
+                    int avg = ActivityMarkDao.getStudActAvg(studentId, act.getActivityId(), sqliteDatabase);
+                    avgList1.add(avg);
+                    if (avg == 0) {
+                        scoreList.add("-");
                     } else {
-                        Cursor cursor1 = sqliteDatabase.rawQuery("select Grade from activitygrade where StudentId = " + studentId + " and ActivityId = " + act.getActivityId(), null);
-                        if (cursor1.getCount() > 0) {
-                            cursor1.moveToFirst();
-                            while (!cursor1.isAfterLast()) {
-                                scoreList.add(cursor1.getString(cursor1.getColumnIndex("Grade")));
-                                avgList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
-                                avgList2.add(ActivityGradeDao.getSectionAvg(classId, act.getActivityId(), sqliteDatabase));
-                                cursor1.moveToNext();
-                            }
-                        } else {
-                            avgList1.add(0);
-                            scoreList.add("-");
-                            avgList2.add(0);
-                        }
-                        cursor1.close();
+                        int score = ActivityMarkDao.getStudActMark(studentId, act.getActivityId(), sqliteDatabase);
+                        float maxScore = ActivitiDao.getActivityMaxMark(act.getActivityId(), sqliteDatabase);
+                        scoreList.add(score + "/" + maxScore);
                     }
-                    cursor.close();
+                    avgList2.add(ActivityMarkDao.getSectionAvg(act.getActivityId(), sqliteDatabase));
+                } else {
+                    Cursor cursor1 = sqliteDatabase.rawQuery("select Grade from activitygrade where StudentId = " + studentId + " and ActivityId = " + act.getActivityId(), null);
+                    if (cursor1.getCount() > 0) {
+                        cursor1.moveToFirst();
+                        while (!cursor1.isAfterLast()) {
+                            scoreList.add(cursor1.getString(cursor1.getColumnIndex("Grade")));
+                            avgList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
+                            avgList2.add(ActivityGradeDao.getSectionAvg(classId, act.getActivityId(), sqliteDatabase));
+                            cursor1.moveToNext();
+                        }
+                    } else {
+                        avgList1.add(0);
+                        scoreList.add("-");
+                        avgList2.add(0);
+                    }
+                    cursor1.close();
                 }
+                cursor.close();
             }
 
             for (int i = 0; i < actIdList.size(); i++) {

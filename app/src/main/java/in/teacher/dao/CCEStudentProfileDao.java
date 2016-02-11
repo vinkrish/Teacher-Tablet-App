@@ -15,7 +15,7 @@ public class CCEStudentProfileDao {
             try {
                 String sql = "insert into ccestudentprofile(SchoolId, ClassId, SectionId, StudentId, StudentName, Term, Height, Weight, " +
                         "TotalDays1, DaysAttended1, VisionL, VisionR) values('" + csp.getSchoolId() + "','" + csp.getClassId() + "','" +
-                        csp.getSectionId() + "','" + csp.getStudentId() + "','" + csp.getStudentName() + "'," + csp.getTerm() + ",'" +
+                        csp.getSectionId() + "','" + csp.getStudentId() + "',\"" + csp.getStudentName() + "\"," + csp.getTerm() + ",'" +
                         csp.getHeight() + "','" + csp.getWeight() + "'," + totalDays + "," + csp.getDaysAttended1() + ",\"" +
                         csp.getVisionL() + "\",\"" + csp.getVisionR() + "\")";
                 sqliteDatabase.execSQL(sql);

@@ -33,6 +33,7 @@ import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ActivitiDao;
+import in.teacher.dao.ActivityGradeDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
@@ -352,11 +353,11 @@ public class InsertActivityMark extends Fragment {
         ExmAvgDao.checkExmActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
 
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityMarkDao.isAllActMarkExist(actIdList, sqliteDatabase))
-            ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
+        if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
-
+        } else {
+            ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        }
     }
 
     private void updateScoreField(String upScore) {

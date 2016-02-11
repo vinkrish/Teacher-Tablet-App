@@ -311,10 +311,10 @@ public class UpdateSubActivityGrade extends Fragment {
             SubActivityGradeDao.insertUpdateSubActGrade(mList, sqliteDatabase);
 
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
-        if (SubActivityGradeDao.isAllSubActGradeExist(subActIdList, sqliteDatabase)){
-            SubActToActConsolidation.subActGradeToActGradeCalc(sqliteDatabase, calculation, studentsArray);
-        } else if (SubActivityMarkDao.isAllSubActMarkOrGradeExist(subActIdList, sqliteDatabase)) {
+        if (SubActivityMarkDao.isSubActMarkExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            SubActToActConsolidation.subActGradeToActGradeCalc(sqliteDatabase, calculation, studentsArray);
         }
     }
 

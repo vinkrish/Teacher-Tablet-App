@@ -305,10 +305,11 @@ public class UpdateActivityGrade extends Fragment {
         else ActivityGradeDao.insertUpdateActGrade(mList, sqliteDatabase);
 
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-        if (ActivityGradeDao.isAllActGradeExist(actIdList, sqliteDatabase))
-            ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        else if (ActivityMarkDao.isAllActMarkOrGradeExist(actIdList, sqliteDatabase))
+        if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        }
     }
 
     private void updateScoreField(String upScore) {

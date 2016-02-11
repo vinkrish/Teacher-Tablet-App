@@ -181,8 +181,8 @@ public class StudentProfileEdit extends Fragment {
         });
 
         if (gender.equals("")) genderSpinner.setSelection(0);
-        else if (gender.equals("Male")) genderSpinner.setSelection(1);
-        else if (gender.equals("Female")) genderSpinner.setSelection(2);
+        else if (gender.equals("Male") || gender.equalsIgnoreCase("m")) genderSpinner.setSelection(1);
+        else if (gender.equals("Female") || gender.equalsIgnoreCase("f")) genderSpinner.setSelection(2);
     }
 
     private void updateStudent() {

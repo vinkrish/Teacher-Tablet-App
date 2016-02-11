@@ -44,13 +44,13 @@ public class MarksDao {
         } else return 0;
     }
 
-    public static int getSectionAvg(long examId, int subjectId, int sectionId, SQLiteDatabase sqliteDatabase) {
+    public static int getSectionAvg(long examId, int subjectId, int sectionId, SQLiteDatabase sqliteDatabase){
         int avg = 0;
-        String sql = "SELECT (AVG(Mark)/A.MaximumMark)*100 as Average FROM exams A, marks B WHERE A.ExamId = B.ExamId and A.ExamId = " + examId +
-                " and B.SubjectId=" + subjectId + " and B.StudentId in (select StudentId from Students where SectionId = " + sectionId + ") and B.Mark!='-1'";
+        String sql = "SELECT (AVG(Mark)/C.MaximumMark)*100 as Average FROM exams A, marks B, subjectexams C WHERE A.ExamId = B.ExamId and C.ExamId=A.ExamId and A.ExamId = " + examId +
+                " and B.SubjectId="+subjectId+" and B.StudentId in (select StudentId from Students where SectionId = "+sectionId+") and B.Mark!='-1'" ;
         Cursor c = sqliteDatabase.rawQuery(sql, null);
         c.moveToFirst();
-        while (!c.isAfterLast()) {
+        while(!c.isAfterLast()){
             avg = c.getInt(c.getColumnIndex("Average"));
             c.moveToNext();
         }

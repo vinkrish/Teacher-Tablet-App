@@ -41,6 +41,7 @@ import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubActivityDao;
+import in.teacher.dao.SubActivityGradeDao;
 import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TempDao;
@@ -386,10 +387,10 @@ public class UpdateSubActivityMark extends Fragment {
         ExmAvgDao.checkExmSubActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
 
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
-        if (SubActivityMarkDao.isAllSubActMarkExist(subActIdList, sqliteDatabase)){
-            SubActToActConsolidation.subActMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
+        if (SubActivityGradeDao.isSubActGradeExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            SubActToActConsolidation.subActMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
         }
     }
 

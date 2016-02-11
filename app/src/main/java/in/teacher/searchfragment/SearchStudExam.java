@@ -1,20 +1,5 @@
 package in.teacher.searchfragment;
 
-import in.teacher.activity.R;
-import in.teacher.adapter.StudExamAdapter;
-import in.teacher.dao.ActivitiDao;
-import in.teacher.dao.ActivityMarkDao;
-import in.teacher.dao.ExmAvgDao;
-import in.teacher.dao.MarksDao;
-import in.teacher.dao.TempDao;
-import in.teacher.sqlite.CommonObject;
-import in.teacher.sqlite.Temp;
-import in.teacher.util.AppGlobal;
-import in.teacher.util.ReplaceFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,9 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.teacher.activity.R;
+import in.teacher.adapter.StudExamAdapter;
+import in.teacher.dao.TempDao;
+import in.teacher.sqlite.CommonObject;
+import in.teacher.sqlite.Temp;
+import in.teacher.util.AppGlobal;
+import in.teacher.util.ReplaceFragment;
 
 /**
  * Created by vinkrish.
@@ -44,9 +40,6 @@ public class SearchStudExam extends Fragment {
     private StudExamAdapter adapter;
     private List<Long> examIdList = new ArrayList<>();
     private List<String> examNameList = new ArrayList<>();
-    private List<Integer> avgList1 = new ArrayList<>();
-    private List<Integer> avgList2 = new ArrayList<>();
-    private List<Integer> isSubGotActList = new ArrayList<>();
     private ProgressDialog pDialog;
     private TextView studTV, clasSecTV;
 
@@ -84,8 +77,6 @@ public class SearchStudExam extends Fragment {
         commonObjectList.clear();
         examIdList.clear();
         examNameList.clear();
-        avgList1.clear();
-        avgList2.clear();
     }
 
     private View.OnClickListener searchSlipTest = new View.OnClickListener() {
@@ -155,73 +146,12 @@ public class SearchStudExam extends Fragment {
             }
             cc.close();
 
-            List<Integer> progressList1 = new ArrayList<>();
-            int cache = 0;
-            int average = 0;
-            int len = 0;
-            int actAvg = 0;
-            int overallActAvg = 0;
-            List<Integer> actList = new ArrayList<>();
-            for (Long id : examIdList) {
-                len = 0;
-                isSubGotActList.clear();
-                for (Integer subId : subIdList) {
-                    cache = ActivitiDao.isThereActivity(sectionId, subId, id, sqliteDatabase);
-                    if (cache == 1) {
-                        isSubGotActList.add(subId);
-                    }
-                }
-
-                overallActAvg = 0;
-                for (Integer sub : subIdList) {
-                    int avg = 0;
-                    if (isSubGotActList.contains(sub)) {
-                        actList.clear();
-                        actAvg = 0;
-                        Cursor c3 = sqliteDatabase.rawQuery("select ActivityId from activity where ExamId=" + id + " and SubjectId=" + sub + " and SectionId=" + sectionId, null);
-                        c3.moveToFirst();
-                        while (!c3.isAfterLast()) {
-                            actList.add(c3.getInt(c3.getColumnIndex("ActivityId")));
-                            c3.moveToNext();
-                        }
-                        c3.close();
-
-                        for (Integer actId : actList) {
-                            actAvg += ActivityMarkDao.getStudActAvg(studentId, actId, sqliteDatabase);
-                        }
-                        overallActAvg = actAvg / actList.size();
-                        if (overallActAvg != 0) {
-                            len++;
-                        }
-                        progressList1.add(overallActAvg);
-                    } else {
-                        avg = MarksDao.getStudExamAvg(studentId, sub, id, sqliteDatabase);
-                        if (avg != 0) {
-                            len++;
-                        }
-                        progressList1.add(avg);
-                    }
-                }
-                average = 0;
-                for (Integer i : progressList1) {
-                    average += i;
-                }
-                if (len == 0) {
-                    len = 1;
-                }
-                avgList1.add(average / len);
-                progressList1.clear();
-            }
-
-            for (Long id : examIdList) {
-                avgList2.add(ExmAvgDao.getSeExamAvg(id, sectionId, sqliteDatabase));
-            }
 
             for (int i = 0; i < examIdList.size(); i++) {
                 try {
-                    commonObjectList.add(new CommonObject(examNameList.get(i), avgList1.get(i), avgList2.get(i)));
+                    commonObjectList.add(new CommonObject(examNameList.get(i), ""));
                 } catch (IndexOutOfBoundsException e) {
-                    commonObjectList.add(new CommonObject(examNameList.get(i), 0, 0));
+                    commonObjectList.add(new CommonObject(examNameList.get(i), ""));
                 }
 
             }

@@ -167,4 +167,16 @@ public class ActivityGradeDao {
         }
         return exist;
     }
+
+    public static boolean isActGradeExist(List<Long> actIdList, SQLiteDatabase sqliteDatabase) {
+        boolean exist = false;
+        for (Long actId : actIdList) {
+            Cursor c = sqliteDatabase.rawQuery("select Grade from activitygrade where ActivityId=" + actId +" LIMIT 1", null);
+            if (c.getCount() > 0) {
+                exist = true;
+            }
+            c.close();
+        }
+        return exist;
+    }
 }

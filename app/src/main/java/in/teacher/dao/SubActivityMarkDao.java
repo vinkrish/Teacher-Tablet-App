@@ -63,6 +63,18 @@ public class SubActivityMarkDao {
         return exist;
     }
 
+    public static boolean isSubActMarkExist(List<Long> subActIdList, SQLiteDatabase sqliteDatabase) {
+        boolean exist = false;
+        for (Long subActId : subActIdList) {
+            Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitymark where SubActivityId=" + subActId + " LIMIT 1", null);
+            if (c.getCount()>0){
+                exist = true;
+            }
+            c.close();
+        }
+        return exist;
+    }
+
     public static boolean isAllSubActMarkOrGradeExist (List<Long> subActIdList, SQLiteDatabase sqliteDatabase) {
         int i;
         boolean exist = true;
