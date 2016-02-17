@@ -8,7 +8,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -34,10 +33,10 @@ import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ActivitiDao;
+import in.teacher.dao.ActivityGradeDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubActivityDao;
@@ -46,11 +45,11 @@ import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.fragment.Dashbord;
-import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.SubActivity;
 import in.teacher.sqlite.SubActivityMark;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.ActToMarkConsolidation;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.ReplaceFragment;
 import in.teacher.util.SubActToActConsolidation;
@@ -315,6 +314,8 @@ public class UpdateSubActivityMark extends Fragment {
                     ContentValues cv2 = new ContentValues();
                     cv2.put("Query", sql2);
                     sqliteDatabase.insert("uploadsql", null, cv2);
+
+                    consolidate();
                     
                     ReplaceFragment.replace(new InsertSubActivityGrade(), getFragmentManager());
                 } catch (SQLException e) {
@@ -375,22 +376,49 @@ public class UpdateSubActivityMark extends Fragment {
         else
             SubActivityMarkDao.insertUpdateSubActMark(mList, sqliteDatabase);
 
-        int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
-        if (entry == 0)
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
+        consolidate();
+    }
 
-        SubActivityDao.updateSubActivityAvg(subActivityId, sqliteDatabase);
-        ActivitiDao.updateSubactActAvg(activityId, sqliteDatabase);
-        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);
-        SubActivityDao.checkSubActMarkEmpty(subActivityId, sqliteDatabase);
-        ActivitiDao.checkActSubActMarkEmpty(activityId, sqliteDatabase);
-        ExmAvgDao.checkExmSubActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
+    private void consolidate() {
+        int avg = SubActivityMarkDao.getSectionAvg(subActivityId, sqliteDatabase);
+        SubActivityDao.updateSubActivity(subActivityId, sqliteDatabase, avg);
 
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
         if (SubActivityGradeDao.isSubActGradeExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
+        } else if (SubActivityMarkDao.isSubActMarkExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            StringBuilder studentsIn = new StringBuilder();
+            for (Students s : studentsArray)
+                studentsIn.append(s.getStudentId()+",");
+
+            ActivitiDao.updateActivity(activityId, sqliteDatabase, 0);
+
+            String sql = "delete from activitymark where ActivityId = " + activityId + " and StudentIn in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
+
+            String sql2 = "delete from activitygrade where ActivityId = " + activityId + " and StudentIn in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv2 = new ContentValues();
+            cv.put("Query", sql2);
+            sqliteDatabase.insert("uploadsql", null, cv2);
+
+            List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
+            if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
+                ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+            } else if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)){
+                ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+            } else {
+                String sql3 = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+                sqliteDatabase.execSQL(sql3);
+                ContentValues cv3 = new ContentValues();
+                cv.put("Query", sql3);
+                sqliteDatabase.insert("uploadsql", null, cv3);
+            }
         }
     }
 

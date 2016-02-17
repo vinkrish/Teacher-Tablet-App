@@ -254,7 +254,7 @@ public class SubActivityExam extends Fragment {
                     mi2.put(a.getSubActivityId(), true);
 
                 subActIdList.add(a.getSubActivityId());
-                int avg = (int) a.getSubActivityAvg();
+                int avg = (int) (a.getSubActivityAvg() * 3.6);
 
                 if (a.getCompleteEntry() == 1) {
                     circleArrayGrid.add(new SeObject(avg, Capitalize.capitalThis(a.getSubActivityName()), inserted));

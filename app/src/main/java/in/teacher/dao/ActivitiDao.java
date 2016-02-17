@@ -1,6 +1,8 @@
 package in.teacher.dao;
 
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
@@ -10,6 +12,18 @@ import java.util.List;
 import in.teacher.sqlite.Activiti;
 
 public class ActivitiDao {
+
+    public static void updateActivity(Long activityId, SQLiteDatabase sqliteDatabase, int avg) {
+        String sql = "update activity set ActivityAvg = " + avg + " where ActivityId = " + activityId;
+        try {
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static float getActivityMaxMark(long activityId, SQLiteDatabase sqliteDatabase) {
         float maxMark = 0;

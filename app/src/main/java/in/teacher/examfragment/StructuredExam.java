@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,7 +33,6 @@ import in.teacher.activity.R;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.SubjectExamsDao;
@@ -240,10 +240,9 @@ public class StructuredExam extends Fragment {
                 if (gradeEntry == 1) mi2.put(exam.getExamId(), true);
 
                 examIdList.add(exam.getExamId());
-                int avg = ExmAvgDao.selectedExmAvg(sectionId, subjectId, exam.getExamId(), sqliteDatabase);
+                int avg =  (int) (getExamAvg(exam.getExamId(), subjectId) * 3.6);
+                //int avg = ExmAvgDao.selectedExmAvg(sectionId, subjectId, exam.getExamId(), sqliteDatabase);
                 boolean imageFlag = false;
-                int i = ExmAvgDao.selectedExmComplete(sectionId, subjectId, exam.getExamId(), sqliteDatabase);
-                if (i == 1) imageFlag = true;
 
                 if (imageFlag) {
                     circleArrayGrid.add(new SeObject(avg, exam.getExamName(), inserted));
@@ -260,6 +259,27 @@ public class StructuredExam extends Fragment {
             clasSecSubTv.setText(exmName);
             cA.notifyDataSetChanged();
         }
+    }
+
+    private int getExamAvg (long examId, int subjectId) {
+        int avg = 0;
+        int sectionAvg = MarksDao.getSectionAvg(examId, subjectId, sectionId, sqliteDatabase);
+        Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where ExamId=" + examId + " and SubjectId=" + subjectId +
+                " and StudentId in (select StudentId from Students where SectionId = "+sectionId+")", null);
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0 && sectionAvg != 0) {
+            avg = sectionAvg;
+        } else {
+            Cursor cursor1 = sqliteDatabase.rawQuery("select Grade from marks where ExamId=" + examId + " and SubjectId=" + subjectId +
+                    " and StudentId in (select StudentId from Students where SectionId = "+sectionId+")", null);
+            cursor1.moveToFirst();
+            if (cursor1.getCount() > 0) {
+                avg = MarksDao.getSectionAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
+            }
+            cursor1.close();
+        }
+        cursor.close();
+        return avg;
     }
 
 }

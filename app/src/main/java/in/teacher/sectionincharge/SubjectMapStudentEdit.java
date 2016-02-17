@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,10 +110,8 @@ public class SubjectMapStudentEdit extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedSubjectId.size() == subjectGroupIdList.size()) {
-                    if (studentId != 0) new CalledSubmit().execute();
-                } else
-                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Please select at least one subject in each subject group");
+                if (studentId != 0) new CalledSubmit().execute();
+                else CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please select student to update");
             }
         });
     }
@@ -136,15 +135,16 @@ public class SubjectMapStudentEdit extends Fragment {
         c.moveToFirst();
         while (!c.isAfterLast()) {
             ids = c.getString(c.getColumnIndex("SubjectIds"));
+            Log.d(ids, "subjectIds");
             c.moveToNext();
         }
         c.close();
-        try{
+        try {
             String[] idArray = ids.split("#");
             for (String id : idArray) {
                 if (!id.equals("")) selectedSubjectId.add(Integer.parseInt(id));
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             ids = "";
             String[] idArray = ids.split("#");
             for (String id : idArray) {
@@ -322,11 +322,12 @@ public class SubjectMapStudentEdit extends Fragment {
             }
             String sql = "update students set SubjectIds = '" + sb.substring(0, sb.length() - 1) + "' where StudentId = " + studentId;
             try {
-                sqliteDatabase.execSQL(sql);
+                //sqliteDatabase.execSQL(sql);
                 ContentValues cv = new ContentValues();
                 cv.put("Query", sql);
                 sqliteDatabase.insert("uploadsql", null, cv);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
             return null;
         }

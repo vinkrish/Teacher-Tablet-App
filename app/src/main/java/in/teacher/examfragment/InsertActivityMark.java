@@ -3,11 +3,8 @@ package in.teacher.examfragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,7 +34,6 @@ import in.teacher.dao.ActivityGradeDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectExamsDao;
@@ -343,14 +339,9 @@ public class InsertActivityMark extends Fragment {
             j++;
         }
         ActivityMarkDao.insertActivityMark(mList, sqliteDatabase);
-        int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
-        if (entry == 0) {
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
-        }
-        ActivitiDao.updateActivityAvg(activityId, sqliteDatabase);
-        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);
-        ActivitiDao.checkActMarkEmpty(activityId, sqliteDatabase);
-        ExmAvgDao.checkExmActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
+
+        int avg = ActivityMarkDao.getSectionAvg(activityId, sqliteDatabase);
+        ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
 
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {

@@ -8,7 +8,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -38,7 +37,6 @@ import in.teacher.dao.ActivityGradeDao;
 import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubjectExamsDao;
@@ -78,6 +76,7 @@ public class UpdateActivityMark extends Fragment {
     private StringBuffer sf = new StringBuffer();
     private SharedPreferences sharedPref;
     private Button previous, next, submit, clear;
+    private StringBuilder studentsIn = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -318,6 +317,8 @@ public class UpdateActivityMark extends Fragment {
                     cv2.put("Query", sql2);
                     sqliteDatabase.insert("uploadsql", null, cv2);
 
+                    consolidate();
+
                     ReplaceFragment.replace(new InsertActivityGrade(), getFragmentManager());
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -377,20 +378,24 @@ public class UpdateActivityMark extends Fragment {
             ActivityMarkDao.insertUpdateActMark(mList, sqliteDatabase);
         }
 
-        int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
-        if (entry == 0) {
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
-        }
-        ActivitiDao.updateActivityAvg(activityId, sqliteDatabase);
-        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);
-        ActivitiDao.checkActMarkEmpty(activityId, sqliteDatabase);
-        ExmAvgDao.checkExmActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
+        consolidate();
+    }
+
+    private void consolidate() {
+        int avg = ActivityMarkDao.getSectionAvg(activityId, sqliteDatabase);
+        ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
 
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
+        } else if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)){
             ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 
@@ -462,11 +467,11 @@ public class UpdateActivityMark extends Fragment {
             else
                 studentsArray = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
 
-            for (int idx = 0; idx < studentsArray.size(); idx++)
+            for (Students s : studentsArray) {
                 studentIndicate.add(false);
-
-            for (Students s : studentsArray)
                 studentsArrayId.add(s.getStudentId());
+                studentsIn.append(s.getStudentId()+",");
+            }
 
             List<String> amList = ActivityMarkDao.selectActivityMarc(activityId, studentsArrayId, sqliteDatabase);
             for (String m : amList)

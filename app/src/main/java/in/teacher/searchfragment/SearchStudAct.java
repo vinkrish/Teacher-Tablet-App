@@ -202,9 +202,9 @@ public class SearchStudAct extends Fragment {
                         while (!cursor1.isAfterLast()) {
                             scoreList.add(cursor1.getString(cursor1.getColumnIndex("Grade")));
                             avgList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
-                            avgList2.add(ActivityGradeDao.getSectionAvg(classId, act.getActivityId(), sqliteDatabase));
                             cursor1.moveToNext();
                         }
+                        avgList2.add(ActivityGradeDao.getSectionAvg(classId, act.getActivityId(), sqliteDatabase));
                     } else {
                         avgList1.add(0);
                         scoreList.add("-");

@@ -58,9 +58,9 @@
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:stretchColumns="*">
 
         <TableRow android:id="@+id/rowId1">
@@ -70,14 +70,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/teal_border" />
+                android:background="@drawable/teal_border"
+                android:padding="10dp" />
 
             <Spinner
                 android:id="@+id/examSpinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/teal_border" />
+                android:background="@drawable/teal_border"
+                android:padding="10dp" />
 
         </TableRow>
     </TableLayout>

@@ -289,6 +289,9 @@ public class InsertSubActivityGrade extends Fragment {
         }
         SubActivityGradeDao.insertSubActivityGrade(mList, sqliteDatabase);
 
+        int avg = SubActivityGradeDao.getSectionAvg(classId, subActivityId, sqliteDatabase);
+        SubActivityDao.updateSubActivity(subActivityId, sqliteDatabase, avg);
+
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
         if (SubActivityMarkDao.isSubActMarkExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);

@@ -220,6 +220,10 @@ public class SubActToActConsolidation {
                 }
             }
         }
+
+        int avg = ActivityMarkDao.getSectionAvg(activityId, sqliteDatabase);
+        ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
+
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
@@ -414,6 +418,10 @@ public class SubActToActConsolidation {
                 }
             }
         }
+
+        int avg = ActivityMarkDao.getSectionAvg(activityId, sqliteDatabase);
+        ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
+
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
@@ -544,6 +552,10 @@ public class SubActToActConsolidation {
                 }
             }
         }
+
+        int avg = ActivityGradeDao.getSectionAvg(classId, activityId, sqliteDatabase);
+        ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
+
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);

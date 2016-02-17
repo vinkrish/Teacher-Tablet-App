@@ -12,13 +12,13 @@ import in.teacher.sqlite.SubActivityMark;
 
 public class SubActivityMarkDao {
 
-    public static int getSectionAvg(long subActivityId, SQLiteDatabase sqliteDatabase){
+    public static int getSectionAvg(long subActivityId, SQLiteDatabase sqliteDatabase) {
         int avg = 0;
         String sql = "SELECT (AVG(Mark)/A.MaximumMark)*100 as Average FROM subactivity A, subactivitymark B WHERE A.SubActivityId = B.SubActivityId" +
-                " and B.Mark!='-1' and A.SubActivityId=" + subActivityId ;
+                " and B.Mark!='-1' and A.SubActivityId=" + subActivityId;
         Cursor c = sqliteDatabase.rawQuery(sql, null);
         c.moveToFirst();
-        while(!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             avg = c.getInt(c.getColumnIndex("Average"));
             c.moveToNext();
         }
@@ -67,7 +67,7 @@ public class SubActivityMarkDao {
         boolean exist = false;
         for (Long subActId : subActIdList) {
             Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitymark where SubActivityId=" + subActId + " LIMIT 1", null);
-            if (c.getCount()>0){
+            if (c.getCount() > 0) {
                 exist = true;
             }
             c.close();
@@ -75,7 +75,7 @@ public class SubActivityMarkDao {
         return exist;
     }
 
-    public static boolean isAllSubActMarkOrGradeExist (List<Long> subActIdList, SQLiteDatabase sqliteDatabase) {
+    public static boolean isAllSubActMarkOrGradeExist(List<Long> subActIdList, SQLiteDatabase sqliteDatabase) {
         int i;
         boolean exist = true;
         for (Long subActId : subActIdList) {
@@ -196,7 +196,9 @@ public class SubActivityMarkDao {
 
     public static int getStudSubActAvg(int studentId, long subActivityId, SQLiteDatabase sqliteDatabase) {
         int i = 0;
-        Cursor c = sqliteDatabase.rawQuery("select (Avg(A.Mark)/B.MaximumMark)*100 as avg from subactivitymark A, subactivity B where A.SubActivityId=B.SubActivityId and A.SubActivityId=" + subActivityId +
+        Cursor c = sqliteDatabase.rawQuery("select (Avg(A.Mark)/B.MaximumMark)*100 as avg " +
+                "from subactivitymark A, subactivity B " +
+                "where A.SubActivityId = B.SubActivityId and B.Mark!='-1' and A.SubActivityId=" + subActivityId +
                 " and StudentId=" + studentId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {

@@ -28,20 +28,26 @@ public class MarksDao {
         return markTo;
     }
 
-    public static int getSectionAvg(int classId, int subjectId, long examId, SQLiteDatabase sqliteDatabase) {
+    public static int getSectionAvg(int classId, int sectionId, int subjectId, long examId, SQLiteDatabase sqliteDatabase) {
         gradesClassWiseList = GradesClassWiseDao.getGradeClassWise(classId, sqliteDatabase);
         Collections.sort(gradesClassWiseList, new GradeClassWiseSort());
         int avg = 0;
-        Cursor c = sqliteDatabase.rawQuery("select Grade from marks where ExamId=" + examId + " and SubjectId=" + subjectId, null);
-        if (c.getCount() > 0) {
-            c.moveToFirst();
-            while (!c.isAfterLast()) {
-                avg += getMarkTo(c.getString(c.getColumnIndex("Grade")));
-                c.moveToNext();
-            }
-            c.close();
-            return avg / c.getCount();
-        } else return 0;
+        Cursor c = sqliteDatabase.rawQuery("select Grade from marks where ExamId=" + examId + " and SubjectId=" + subjectId +
+                " and StudentId in (select StudentId from Students where SectionId = "+sectionId+")", null);
+        try {
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+                while (!c.isAfterLast()) {
+                    avg += getMarkTo(c.getString(c.getColumnIndex("Grade")));
+                    c.moveToNext();
+                }
+                c.close();
+                return avg / c.getCount();
+            } else return 0;
+        } catch(NullPointerException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     public static int getSectionAvg(long examId, int subjectId, int sectionId, SQLiteDatabase sqliteDatabase){

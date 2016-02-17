@@ -31,10 +31,7 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import in.teacher.dao.ActivitiDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.StAvgDao;
-import in.teacher.dao.SubActivityDao;
 import in.teacher.dao.TempDao;
 import in.teacher.dao.UploadSqlDao;
 import in.teacher.sqlite.Temp;
@@ -102,9 +99,9 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
             isFirstTimeSync = false;
 
-            publishProgress(40 + "", 40 + "", "creating file to be uploaded");
+            publishProgress(20 + "", 20 + "", "creating file to be uploaded");
             createUploadFile();
-            publishProgress(70 + "", 70 + "", "creating file to be uploaded");
+            publishProgress(40 + "", 40 + "", "creating file to be uploaded");
 
             ArrayList<String> downFileList2 = new ArrayList<>();
             Cursor c3 = sqliteDatabase.rawQuery("select filename from downloadedfile where processed = 0 and downloaded = 1", null);
@@ -164,7 +161,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
                 isFirstTimeSync = true;
             }
 
-            publishProgress("100", 100 + "", "acknowledge processed file");
+            publishProgress("50", 50 + "", "acknowledge processed file");
 
             StringBuffer sb = new StringBuffer();
             Cursor c4 = sqliteDatabase.rawQuery("select filename from downloadedfile where processed=1 and isack=0", null);
@@ -195,135 +192,9 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
 
             publishProgress("0", 0 + "", "calculating average");
 
-            ArrayList<Long> examIdList = new ArrayList<>();
             ArrayList<Integer> subjectIdList = new ArrayList<>();
-            ArrayList<Long> activityIdList = new ArrayList<>();
-            ArrayList<Long> subActIdList = new ArrayList<>();
             ArrayList<Integer> sectionIdList = new ArrayList<>();
 
-            Cursor c5 = sqliteDatabase.rawQuery("select distinct ExamId,SubjectId from avgtrack " +
-                    "where Type=0 and ActivityId=0 and SubActivityId=0 and SectionId=0 and ExamId!=0 and SubjectId!=0", null);
-            c5.moveToFirst();
-            while (!c5.isAfterLast()) {
-                examIdList.add(c5.getLong(c5.getColumnIndex("ExamId")));
-                subjectIdList.add(c5.getInt(c5.getColumnIndex("SubjectId")));
-                c5.moveToNext();
-            }
-            c5.close();
-            for (int i = 0, j = examIdList.size(); i < j; i++) {
-                ExmAvgDao.insertExmAvg(examIdList.get(i), subjectIdList.get(i), sqliteDatabase);
-                ExmAvgDao.checkExamMarkEmpty(examIdList.get(i), subjectIdList.get(i), sqliteDatabase);
-            }
-            examIdList.clear();
-            subjectIdList.clear();
-
-            Cursor c6 = sqliteDatabase.rawQuery("select distinct ExamId,SubjectId from avgtrack " +
-                    "where Type=1 and ActivityId=0 and SubActivityId=0 and SectionId=0 and ExamId!=0 and SubjectId!=0", null);
-            c6.moveToFirst();
-            while (!c6.isAfterLast()) {
-                examIdList.add(c6.getLong(c6.getColumnIndex("ExamId")));
-                subjectIdList.add(c6.getInt(c6.getColumnIndex("SubjectId")));
-                c6.moveToNext();
-            }
-            c6.close();
-            for (int i = 0, j = examIdList.size(); i < j; i++) {
-                ExmAvgDao.updateExmAvg(examIdList.get(i), subjectIdList.get(i), sqliteDatabase);
-                ExmAvgDao.checkExamMarkEmpty(examIdList.get(i), subjectIdList.get(i), sqliteDatabase);
-            }
-            examIdList.clear();
-            subjectIdList.clear();
-
-            publishProgress("20", 20 + "", "calculating average");
-
-            Cursor c7 = sqliteDatabase.rawQuery("select distinct ExamId,ActivityId,SubjectId from avgtrack " +
-                    "where Type=0 and SubActivityId=0 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubjectId!=0", null);
-            c7.moveToFirst();
-            while (!c7.isAfterLast()) {
-                examIdList.add(c7.getLong(c7.getColumnIndex("ExamId")));
-                activityIdList.add(c7.getLong(c7.getColumnIndex("ActivityId")));
-                subjectIdList.add(c7.getInt(c7.getColumnIndex("SubjectId")));
-                c7.moveToNext();
-            }
-            if (c7.getCount() > 0) {
-                ActivitiDao.updateActivityAvg(activityIdList, sqliteDatabase);
-                ActivitiDao.checkActivityMarkEmpty(activityIdList, sqliteDatabase);
-                ExmAvgDao.insertExmActAvg(examIdList, subjectIdList, sqliteDatabase);
-                ExmAvgDao.checkExmActMarkEmpty(examIdList, subjectIdList, sqliteDatabase);
-            }
-            c7.close();
-            examIdList.clear();
-            activityIdList.clear();
-            subjectIdList.clear();
-
-            Cursor c8 = sqliteDatabase.rawQuery("select distinct ExamId,ActivityId,SubjectId from avgtrack " +
-                    "where Type=1 and SubActivityId=0 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubjectId!=0", null);
-            c8.moveToFirst();
-            while (!c8.isAfterLast()) {
-                examIdList.add(c8.getLong(c8.getColumnIndex("ExamId")));
-                activityIdList.add(c8.getLong(c8.getColumnIndex("ActivityId")));
-                subjectIdList.add(c8.getInt(c8.getColumnIndex("SubjectId")));
-                c8.moveToNext();
-            }
-            if (c8.getCount() > 0) {
-                ActivitiDao.updateActivityAvg(activityIdList, sqliteDatabase);
-                ActivitiDao.checkActivityMarkEmpty(activityIdList, sqliteDatabase);
-                ExmAvgDao.updateExmActAvg(examIdList, subjectIdList, sqliteDatabase);
-                ExmAvgDao.checkExmActMarkEmpty(examIdList, subjectIdList, sqliteDatabase);
-            }
-            c8.close();
-            examIdList.clear();
-            activityIdList.clear();
-            subjectIdList.clear();
-
-            publishProgress("40", 40 + "", "calculating average");
-
-            Cursor c9 = sqliteDatabase.rawQuery("select distinct ExamId,ActivityId,SubActivityId,SubjectId from avgtrack " +
-                    "where Type=0 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubActivityId!=0 and SubjectId!=0", null);
-            c9.moveToFirst();
-            while (!c9.isAfterLast()) {
-                examIdList.add(c9.getLong(c9.getColumnIndex("ExamId")));
-                activityIdList.add(c9.getLong(c9.getColumnIndex("ActivityId")));
-                subActIdList.add(c9.getLong(c9.getColumnIndex("SubActivityId")));
-                subjectIdList.add(c9.getInt(c9.getColumnIndex("SubjectId")));
-                c9.moveToNext();
-            }
-            if (c9.getCount() > 0) {
-                SubActivityDao.updateSubActivityAvg(subActIdList, sqliteDatabase);
-                ActivitiDao.updateActSubActAvg(activityIdList, sqliteDatabase);
-                ExmAvgDao.insertExmActAvg(examIdList, subjectIdList, sqliteDatabase);
-                SubActivityDao.checkSubActivityMarkEmpty(subActIdList, sqliteDatabase);
-                ActivitiDao.checkActivityMarkEmpty(activityIdList, sqliteDatabase);
-                ExmAvgDao.checkExmSubActMarkEmpty(examIdList, subjectIdList, sqliteDatabase);
-            }
-            c9.close();
-            examIdList.clear();
-            activityIdList.clear();
-            subActIdList.clear();
-            subjectIdList.clear();
-
-            Cursor c10 = sqliteDatabase.rawQuery("select distinct ExamId,ActivityId,SubActivityId,SubjectId from avgtrack " +
-                    "where Type=1 and SectionId=0 and ExamId!=0 and ActivityId!=0 and SubActivityId!=0 and SubjectId!=0", null);
-            c10.moveToFirst();
-            while (!c10.isAfterLast()) {
-                examIdList.add(c10.getLong(c10.getColumnIndex("ExamId")));
-                activityIdList.add(c10.getLong(c10.getColumnIndex("ActivityId")));
-                subActIdList.add(c10.getLong(c10.getColumnIndex("SubActivityId")));
-                subjectIdList.add(c10.getInt(c10.getColumnIndex("SubjectId")));
-                c10.moveToNext();
-            }
-            if (c10.getCount() > 0) {
-                SubActivityDao.updateSubActivityAvg(subActIdList, sqliteDatabase);
-                ActivitiDao.updateActSubActAvg(activityIdList, sqliteDatabase);
-                ExmAvgDao.updateExmActAvg(examIdList, subjectIdList, sqliteDatabase);
-                SubActivityDao.checkSubActivityMarkEmpty(subActIdList, sqliteDatabase);
-                ActivitiDao.checkActivityMarkEmpty(activityIdList, sqliteDatabase);
-                ExmAvgDao.checkExmSubActMarkEmpty(examIdList, subjectIdList, sqliteDatabase);
-            }
-            c10.close();
-            examIdList.clear();
-            activityIdList.clear();
-            subActIdList.clear();
-            subjectIdList.clear();
 
             publishProgress("60", 60 + "", "calculating average");
 
@@ -359,7 +230,7 @@ public class ProcessFiles extends BaseActivity implements StringConstant {
             subjectIdList.clear();
             sectionIdList.clear();
 
-            publishProgress("90", 90 + "", "calculating average");
+            publishProgress("70", 70 + "", "calculating average");
 
             UploadSqlDao.deleteTable("avgtrack", sqliteDatabase);
 

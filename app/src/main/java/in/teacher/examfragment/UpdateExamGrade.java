@@ -72,6 +72,7 @@ public class UpdateExamGrade extends Fragment {
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
     private SharedPreferences sharedPref;
+    private StringBuilder studentsIn = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -180,7 +181,8 @@ public class UpdateExamGrade extends Fragment {
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
-                String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId;
+                String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId +
+                        " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
                 try {
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
@@ -188,6 +190,7 @@ public class UpdateExamGrade extends Fragment {
                     sqliteDatabase.insert("uploadsql", null, cv);
                     ReplaceFragment.replace(new InsertExamMark(), getFragmentManager());
                 } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -359,11 +362,11 @@ public class UpdateExamGrade extends Fragment {
             else
                 studentsArray = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
 
-            for (int idx = 0; idx < studentsArray.size(); idx++)
+            for (Students s : studentsArray) {
                 studentIndicate.add(false);
-
-            for (Students s : studentsArray)
                 studentsArrayId.add(s.getStudentId());
+                studentsIn.append(s.getStudentId()+",");
+            }
 
             List<String> mList = MarksDao.selectGrade(examId, subjectId, studentsArrayId, sqliteDatabase);
             for (String m : mList)

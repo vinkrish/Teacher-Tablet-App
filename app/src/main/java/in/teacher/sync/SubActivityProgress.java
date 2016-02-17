@@ -1,15 +1,15 @@
 package in.teacher.sync;
 
-import in.teacher.dao.SubActivityDao;
-import in.teacher.sqlite.SqlDbHelper;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
+import in.teacher.sqlite.SqlDbHelper;
+
 /**
  * Created by vinkrish.
+ * Currently commented the logic to calculate average of subactivity on master data.
  */
 public class SubActivityProgress {
     private Context context;
@@ -37,9 +37,7 @@ public class SubActivityProgress {
             sqlHandler = SqlDbHelper.getInstance(context);
             sqliteDatabase = sqlHandler.getWritableDatabase();
 
-            SubActivityDao.updateSubActivityAvg(sqliteDatabase);
-         //   SubActivityDao.checkSubActivityIsMark(sqliteDatabase);
-         //   SubActivityDao.checkSubActivityMarkEmpty(sqliteDatabase);
+            //SubActivityDao.updateSubActivityAvg(sqliteDatabase);
 
             return null;
         }

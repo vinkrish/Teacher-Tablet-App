@@ -81,6 +81,7 @@ public class UpdateActivityGrade extends Fragment {
     private StringBuffer sf = new StringBuffer();
     private SharedPreferences sharedPref;
     private Button previous, next, submit, clear;
+    private StringBuilder studentsIn = new StringBuilder();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -248,6 +249,9 @@ public class UpdateActivityGrade extends Fragment {
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+
+                    consolidate();
+
                     ReplaceFragment.replace(new InsertActivityMark(), getFragmentManager());
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -304,11 +308,24 @@ public class UpdateActivityGrade extends Fragment {
             ActivityGradeDao.updateActivityGrade(mList, sqliteDatabase);
         else ActivityGradeDao.insertUpdateActGrade(mList, sqliteDatabase);
 
+        consolidate();
+    }
+
+    private void consolidate() {
+        int avg = ActivityGradeDao.getSectionAvg(classId, activityId, sqliteDatabase);
+        ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
+
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
+        } else if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)){
             ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 
@@ -380,11 +397,11 @@ public class UpdateActivityGrade extends Fragment {
             else
                 studentsArray = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
 
-            for (int idx = 0; idx < studentsArray.size(); idx++)
+            for (Students s : studentsArray) {
                 studentIndicate.add(false);
-
-            for (Students s : studentsArray)
                 studentsArrayId.add(s.getStudentId());
+                studentsIn.append(s.getStudentId() + ",");
+            }
 
             List<String> amList = ActivityGradeDao.selectActivityGrade(activityId, studentsArrayId, sqliteDatabase);
             for (String m : amList)

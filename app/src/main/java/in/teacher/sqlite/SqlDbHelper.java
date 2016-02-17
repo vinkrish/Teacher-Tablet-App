@@ -49,7 +49,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL(CREATE_PORTION);
         db.execSQL(CREATE_SLIPTEST);
         db.execSQL(CREATE_HOMEWORK);
-        db.execSQL(CREATE_EXMAVG);
         db.execSQL(CREATE_STAVG);
         db.execSQL(CREATE_SUBJECT_EXAMS);
         db.execSQL(CREATE_GCW);
@@ -64,12 +63,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL("insert into temp(id,DeviceId, SchoolId, ClassId, SectionId, ClassInchargeId, TeacherId, StudentId, SubjectId, " +
                 "CurrentSection, CurrentSubject, CurrentClass, ExamId, ActivityId, SubActivityId, SlipTestId, SyncTime, IsSync) " +
                 "values(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'Not Yet Synced',0)");
-        db.execSQL(HOMEWORK_TRIGGER);
-        db.execSQL(MARKS_TRIGGER);
-        db.execSQL(ACTIVITYMARK_TRIGGER);
-        db.execSQL(ACTIVITYGRADE_TRIGGER);
-        db.execSQL(SUBACTMARK_TRIGGER);
-        db.execSQL(SUBACTGRADE_TRIGGER);
         db.execSQL(CREATE_CCE_STUDENT_PROFILE);
         db.execSQL(CREATE_SUB_GROUPS);
         db.execSQL(CREATE_TIMETABLE);
@@ -105,7 +98,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL("DROP TABLE IF EXISTS portion");
         db.execSQL("DROP TABLE IF EXISTS sliptest");
         db.execSQL("DROP TABLE IF EXISTS homeworkmessage");
-        db.execSQL("DROP TABLE IF EXISTS exmavg");
         db.execSQL("DROP TABLE IF EXISTS stavg");
         db.execSQL("DROP TABLE IF EXISTS subjectexams");
         db.execSQL("DROP TABLE IF EXISTS dwnautoid");
@@ -135,12 +127,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     }
 
     public void createTrigger(int schoolId, SQLiteDatabase sqliteDatabase) {
-        sqliteDatabase.execSQL(INSERT_MARK_TRIGGER);
-        sqliteDatabase.execSQL(UPDATE_MARK_TRIGGER);
-        sqliteDatabase.execSQL(IN_ACTMARK_TRIGGER);
-        sqliteDatabase.execSQL(UP_ACTMARK_TRIGGER);
-        sqliteDatabase.execSQL(IN_SUBACTMARK_TRIGGER);
-        sqliteDatabase.execSQL(UP_SUBACTMARK_TRIGGER);
         sqliteDatabase.execSQL(ATTENDANCE_TRIGGER);
         sqliteDatabase.execSQL(SLIPTEST_TRIGGER);
         sqliteDatabase.execSQL(CCEGRADE_TRIGGER);
@@ -153,6 +139,12 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL(MOVE_STUDENT_TRIGGER);
         sqliteDatabase.execSQL(CREATE_SUBJECTTEACHER_TRIGGER);
         sqliteDatabase.execSQL(CREATE_SUBJECTEXAMS_TRIGGER);
+        sqliteDatabase.execSQL(HOMEWORK_TRIGGER);
+        sqliteDatabase.execSQL(MARKS_TRIGGER);
+        sqliteDatabase.execSQL(ACTIVITYMARK_TRIGGER);
+        sqliteDatabase.execSQL(ACTIVITYGRADE_TRIGGER);
+        sqliteDatabase.execSQL(SUBACTMARK_TRIGGER);
+        sqliteDatabase.execSQL(SUBACTGRADE_TRIGGER);
         sqliteDatabase.execSQL("CREATE TRIGGER insert_stmark BEFORE INSERT ON sliptestmark_" + schoolId +
                 " FOR EACH ROW " +
                 "BEGIN " +
@@ -177,12 +169,10 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     }
 
     public void dropTrigger(SQLiteDatabase sqliteDatabase) {
-        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS insert_mark");
-        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS update_mark");
-        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS insert_act_mark");
-        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS update_act_mark");
-        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS insert_subact_mark");
-        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS update_subact_mark");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_homework");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_marks");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_actmark");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_subactmark");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS insert_stmark");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS update_stmark");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS stmark_trigger");
@@ -216,7 +206,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     }
 
     public void deleteTables(SQLiteDatabase sqliteDatabase) {
-        sqliteDatabase.delete("exmavg", null, null);
         sqliteDatabase.delete("stavg", null, null);
         sqliteDatabase.delete("tempattendance", null, null);
         sqliteDatabase.delete("downloadedfile", null, null);

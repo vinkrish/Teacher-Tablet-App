@@ -6,7 +6,6 @@ import in.teacher.adapter.MarksAdapter;
 import in.teacher.util.StudentsSort;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
@@ -244,12 +243,7 @@ public class InsertExamMark extends Fragment {
             k++;
         }
         MarksDao.insertMarks(mList, sqliteDatabase);
-        int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
-        if (entry == 0) {
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
-        }
-        ExmAvgDao.insertAvgIntoExmAvg(sectionId, subjectId, examId, sqliteDatabase);
-        ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
+
         Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where ExamId = " + examId + " and SubjectId = "+subId, null);
         if (partition == 1 && cursor.getCount()>0) {
             updatePartitionMarks();

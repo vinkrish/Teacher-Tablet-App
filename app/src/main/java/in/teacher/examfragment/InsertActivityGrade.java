@@ -39,6 +39,8 @@ import in.teacher.dao.ExamsDao;
 import in.teacher.dao.GradesClassWiseDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
+import in.teacher.dao.SubActivityDao;
+import in.teacher.dao.SubActivityGradeDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Activiti;
@@ -281,6 +283,9 @@ public class InsertActivityGrade extends Fragment {
             j++;
         }
         ActivityGradeDao.insertActivityGrade(mList, sqliteDatabase);
+
+        int avg = ActivityGradeDao.getSectionAvg(classId, activityId, sqliteDatabase);
+        ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
 
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {

@@ -35,6 +35,7 @@ import in.teacher.adapter.GradeAdapter;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ActivitiDao;
 import in.teacher.dao.ActivityGradeDao;
+import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
 import in.teacher.dao.GradesClassWiseDao;
@@ -51,6 +52,7 @@ import in.teacher.sqlite.Students;
 import in.teacher.sqlite.SubActivity;
 import in.teacher.sqlite.SubActivityGrade;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.ActToMarkConsolidation;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.GradeClassWiseSort;
 import in.teacher.util.PKGenerator;
@@ -252,8 +254,12 @@ public class UpdateSubActivityGrade extends Fragment {
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+
+                    consolidate();
+
                     ReplaceFragment.replace(new InsertSubActivityMark(), getFragmentManager());
                 } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -310,11 +316,49 @@ public class UpdateSubActivityGrade extends Fragment {
         else
             SubActivityGradeDao.insertUpdateSubActGrade(mList, sqliteDatabase);
 
+        consolidate();
+    }
+
+    private void consolidate() {
+        int avg = SubActivityGradeDao.getSectionAvg(classId, subActivityId, sqliteDatabase);
+        SubActivityDao.updateSubActivity(subActivityId, sqliteDatabase, avg);
+
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
         if (SubActivityMarkDao.isSubActMarkExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
+        } else if (SubActivityGradeDao.isSubActGradeExist(subActIdList, sqliteDatabase)){
             SubActToActConsolidation.subActGradeToActGradeCalc(sqliteDatabase, calculation, studentsArray);
+        } else {
+            StringBuilder studentsIn = new StringBuilder();
+            for (Students s : studentsArray)
+                studentsIn.append(s.getStudentId()+",");
+
+            ActivitiDao.updateActivity(activityId, sqliteDatabase, 0);
+
+            String sql = "delete from activitymark where ActivityId = " + activityId + " and StudentIn in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv = new ContentValues();
+            cv.put("Query", sql);
+            sqliteDatabase.insert("uploadsql", null, cv);
+
+            String sql2 = "delete from activitygrade where ActivityId = " + activityId + " and StudentIn in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+            sqliteDatabase.execSQL(sql);
+            ContentValues cv2 = new ContentValues();
+            cv.put("Query", sql2);
+            sqliteDatabase.insert("uploadsql", null, cv2);
+
+            List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
+            if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {
+                ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+            } else if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)){
+                ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
+            } else {
+                String sql3 = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+                sqliteDatabase.execSQL(sql3);
+                ContentValues cv3 = new ContentValues();
+                cv.put("Query", sql3);
+                sqliteDatabase.insert("uploadsql", null, cv3);
+            }
         }
     }
 

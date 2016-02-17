@@ -1,20 +1,18 @@
 package in.teacher.sync;
 
-import in.teacher.dao.ExmAvgDao;
-import in.teacher.sqlite.SqlDbHelper;
-
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+
+import in.teacher.sqlite.SqlDbHelper;
 
 /**
  * Created by vinkrish.
+ * Currently removed the logic to calculate average of exam on master data.
  */
 public class ExamProgress {
     private Context context;
     private SqlDbHelper sqlHandler;
-    private SQLiteDatabase sqliteDatabase;
     private ProgressDialog pDialog;
 
     public ExamProgress(Context con_text) {
@@ -35,20 +33,6 @@ public class ExamProgress {
         @Override
         protected String doInBackground(String... params) {
             sqlHandler = SqlDbHelper.getInstance(context);
-            sqliteDatabase = sqlHandler.getWritableDatabase();
-
-            ExmAvgDao.insertExmAvg(sqliteDatabase);
-            ExmAvgDao.insertExmActAvg(sqliteDatabase);
-            ExmAvgDao.insertExmSubActAvg(sqliteDatabase);
-
-            //  ExmAvgDao.checkExamIsMark(sqliteDatabase);
-            //	ExmAvgDao.checkExamMarkEmpty(sqliteDatabase);
-
-            //  ExmAvgDao.checkExmActIsMark(sqliteDatabase);
-            //	ExmAvgDao.checkExmActMarkEmpty(sqliteDatabase);
-
-            //  ExmAvgDao.checkExmSubActIsMark(sqliteDatabase);
-            //	ExmAvgDao.checkExmSubActMarkEmpty(sqliteDatabase);
 
             return null;
         }

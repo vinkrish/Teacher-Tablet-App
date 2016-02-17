@@ -245,7 +245,7 @@ public class ActivityExam extends Fragment {
                     mi2.put(a.getActivityId(), true);
 
                 actIdList.add(a.getActivityId());
-                int avg = (int) a.getActivityAvg();
+                int avg = (int) (a.getActivityAvg() * 3.6);
 
                 if (a.getCompleteEntry() == 1) {
                     circleArrayGrid.add(new SeObject(avg, Capitalize.capitalThis(a.getActivityName()), inserted));

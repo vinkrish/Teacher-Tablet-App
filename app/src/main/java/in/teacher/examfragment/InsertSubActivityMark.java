@@ -3,11 +3,8 @@ package in.teacher.examfragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,10 +30,8 @@ import in.teacher.activity.R;
 import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ActivitiDao;
-import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.SubActivityDao;
@@ -44,7 +39,6 @@ import in.teacher.dao.SubActivityGradeDao;
 import in.teacher.dao.SubActivityMarkDao;
 import in.teacher.dao.SubjectExamsDao;
 import in.teacher.dao.TempDao;
-import in.teacher.sqlite.Activiti;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.SubActivity;
 import in.teacher.sqlite.SubActivityMark;
@@ -346,15 +340,9 @@ public class InsertSubActivityMark extends Fragment {
             j++;
         }
         SubActivityMarkDao.insertSubActivityMark(mList, sqliteDatabase);
-        int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
-        if (entry == 0)
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
-        SubActivityDao.updateSubActivityAvg(subActivityId, sqliteDatabase);
-        ActivitiDao.updateSubactActAvg(activityId, sqliteDatabase);
-        ExmAvgDao.updateActExmAvg(sectionId, subjectId, examId, sqliteDatabase);
-        SubActivityDao.checkSubActMarkEmpty(subActivityId, sqliteDatabase);
-        ActivitiDao.checkActSubActMarkEmpty(activityId, sqliteDatabase);
-        ExmAvgDao.checkExmSubActMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
+
+        int avg = SubActivityMarkDao.getSectionAvg(subActivityId, sqliteDatabase);
+        SubActivityDao.updateSubActivity(subActivityId, sqliteDatabase, avg);
 
         List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
         if (SubActivityGradeDao.isSubActGradeExist(subActIdList, sqliteDatabase)) {

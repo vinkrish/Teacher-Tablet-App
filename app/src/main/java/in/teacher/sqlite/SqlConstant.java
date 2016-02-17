@@ -6,7 +6,7 @@ package in.teacher.sqlite;
 public interface SqlConstant {
 
     String DATABASE_NAME = "teacher.db";
-    int DATABASE_VERSION = 7;
+    int DATABASE_VERSION = 8;
 
     String CREATE_CLASS = "CREATE TABLE class(SchoolId INTEGER, ClassId INT DEFAULT 0, " +
             "ClassName TEXT, ClassType TEXT, DateTimeRecordInserted DATETIME, SubjectGroupIds TEXT)";
@@ -97,18 +97,6 @@ public interface SqlConstant {
             "DELETE FROM marks WHERE marks.ExamId=NEW.ExamId AND marks.SubjectId=NEW.SubjectId AND marks.StudentId=NEW.StudentId; " +
             "END";
 
-    String INSERT_MARK_TRIGGER = "CREATE TRIGGER insert_mark AFTER INSERT ON marks " +
-            "FOR EACH ROW " +
-            "BEGIN " +
-            "INSERT INTO avgtrack(ExamId,SubjectId,Type) values(NEW.ExamId,NEW.SubjectId,0); " +
-            "END";
-
-    String UPDATE_MARK_TRIGGER = "CREATE TRIGGER update_mark AFTER UPDATE ON marks " +
-            "FOR EACH ROW " +
-            "BEGIN " +
-            "INSERT INTO avgtrack(ExamId,SubjectId,Type) values(NEW.ExamId,NEW.SubjectId,1); " +
-            "END";
-
     String CREATE_TEMP = "CREATE TABLE temp(id INTEGER PRIMARY KEY, DeviceId TEXT, SchoolId INTEGER, ClassId INTEGER, " +
             "SectionId INTEGER, ClassInchargeId INTEGER, TeacherId INTEGER, StudentId INTEGER, SubjectId INTEGER, CurrentSection INTEGER, " +
             "CurrentSubject INTEGER, CurrentClass INTEGER, ExamId INTEGER, ActivityId INTEGER, SubActivityId INTEGER, SlipTestId INTEGER, " +
@@ -143,18 +131,6 @@ public interface SqlConstant {
             "DELETE FROM activitygrade WHERE activitygrade.ActivityId=NEW.ActivityId AND activitygrade.StudentId=NEW.StudentId; " +
             "END";
 
-    String IN_ACTMARK_TRIGGER = "CREATE TRIGGER insert_act_mark AFTER INSERT ON activitymark " +
-            "FOR EACH ROW " +
-            "BEGIN " +
-            "INSERT INTO avgtrack(ExamId,ActivityId,SubjectId,Type) values(NEW.ExamId,NEW.ActivityId,NEW.SubjectId,0); " +
-            "END";
-
-    String UP_ACTMARK_TRIGGER = "CREATE TRIGGER update_act_mark AFTER UPDATE ON activitymark " +
-            "FOR EACH ROW " +
-            "BEGIN " +
-            "INSERT INTO avgtrack(ExamId,ActivityId,SubjectId,Type) values(NEW.ExamId,NEW.ActivityId,NEW.SubjectId,1); " +
-            "END";
-
     String CREATE_SUB_ACTIVITY = "CREATE TABLE subactivity(SubActivityId INT DEFAULT 0, SchoolId INTEGER, " +
             "ClassId INTEGER, SectionId INTEGER, ExamId INTEGER, SubjectId INTEGER, ActivityId INTEGER, SubActivityName TEXT, " +
             "MaximumMark INTEGER, Weightage INTEGER, Calculation INTEGER, SubActivityAvg REAL DEFAULT 0, " +
@@ -186,18 +162,6 @@ public interface SqlConstant {
             "DELETE FROM subactivitygrade WHERE subactivitygrade.SubActivityId=NEW.SubActivityId AND subactivitygrade.StudentId=NEW.StudentId; " +
             "END";
 
-    String IN_SUBACTMARK_TRIGGER = "CREATE TRIGGER insert_subact_mark AFTER INSERT ON subactivitymark " +
-            "FOR EACH ROW " +
-            "BEGIN " +
-            "INSERT INTO avgtrack(ExamId,ActivityId,SubActivityId,SubjectId,Type) values(NEW.ExamId,NEW.ActivityId,NEW.SubActivityId,NEW.SubjectId,0); " +
-            "END";
-
-    String UP_SUBACTMARK_TRIGGER = "CREATE TRIGGER update_subact_mark AFTER UPDATE ON subactivitymark " +
-            "FOR EACH ROW " +
-            "BEGIN " +
-            "INSERT INTO avgtrack(ExamId,ActivityId,SubActivityId,SubjectId,Type) values(NEW.ExamId,NEW.ActivityId,NEW.SubActivityId,NEW.SubjectId,1); " +
-            "END";
-
     String CREATE_UPLOAD_SQL = "CREATE TABLE uploadsql(SyncId INTEGER PRIMARY KEY AUTOINCREMENT,Query TEXT)";
 
     String CREATE_PORTION = "CREATE TABLE portion(PortionId INT DEFAULT 0, SchoolId INTEGER, ClassId INTEGER, " +
@@ -224,9 +188,6 @@ public interface SqlConstant {
             "BEGIN " +
             "DELETE FROM homeworkmessage WHERE homeworkmessage.SectionId=NEW.SectionId and homeworkmessage.HomeworkDate=NEW.HomeworkDate; " +
             "END";
-
-    String CREATE_EXMAVG = "CREATE TABLE exmavg(ClassId INTEGER, SectionId INTEGER, SubjectId INTEGER, " +
-            "ExamId INTEGER, ExamAvg REAL DEFAULT 0, CompleteEntry INTEGER DEFAULT 0, PRIMARY KEY(SectionId, SubjectId, ExamId))";
 
     String CREATE_STAVG = "CREATE TABLE stavg(ClassId INTEGER, SectionId INTEGER, SubjectId INTEGER, " +
             "SlipTestAvg REAL DEFAULT 0, PRIMARY KEY(SectionId, SubjectId))";

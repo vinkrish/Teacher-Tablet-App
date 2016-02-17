@@ -3,9 +3,7 @@ package in.teacher.searchfragment;
 import in.teacher.activity.R;
 import in.teacher.adapter.StudExamSubAdapter;
 import in.teacher.dao.ActivitiDao;
-import in.teacher.dao.ActivityMarkDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.GradesClassWiseDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.TempDao;
@@ -43,7 +41,7 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class SearchStudExamSub extends Fragment {
     private Context context;
-    private int studentId, sectionId, classId;
+    private int studentId, sectionId, classId, currentSecId;
     private long examId;
     private String studentName, className, secName, examName;
     private SQLiteDatabase sqliteDatabase;
@@ -85,6 +83,7 @@ public class SearchStudExamSub extends Fragment {
         classId = t.getCurrentClass();
         examId = t.getExamId();
         sectionId = t.getSectionId();
+        currentSecId = t.getCurrentSection();
 
         new CalledBackLoad().execute();
 
@@ -181,7 +180,7 @@ public class SearchStudExamSub extends Fragment {
 
             for (Integer sub : subIdList) {
                 int avg;
-                int sectionAvg = MarksDao.getSectionAvg(examId, sub, sectionId, sqliteDatabase);
+                int sectionAvg = MarksDao.getSectionAvg(examId, sub, currentSecId, sqliteDatabase);
                 Cursor cursor = sqliteDatabase.rawQuery("select Mark from marks where ExamId=" + examId + " and SubjectId=" + sub + " and StudentId=" + studentId, null);
                 cursor.moveToFirst();
                 if (cursor.getCount() > 0 && sectionAvg != 0) {
@@ -200,7 +199,7 @@ public class SearchStudExamSub extends Fragment {
                             progressList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
                             cursor1.moveToNext();
                         }
-                        progressList2.add(MarksDao.getSectionAvg(classId, sub, examId, sqliteDatabase));
+                        progressList2.add(MarksDao.getSectionAvg(classId, currentSecId, sub, examId, sqliteDatabase));
                     } else {
                         progressList1.add(0);
                         scoreList.add("-");

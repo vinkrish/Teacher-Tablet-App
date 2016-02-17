@@ -198,9 +198,9 @@ public class SearchStudSubAct extends Fragment {
                         while (!cursor1.isAfterLast()) {
                             scoreList.add(cursor1.getString(cursor1.getColumnIndex("Grade")));
                             avgList1.add(getMarkTo(cursor1.getString(cursor1.getColumnIndex("Grade"))));
-                            avgList2.add(SubActivityGradeDao.getSectionAvg(classId, subact.getSubActivityId(), sqliteDatabase));
                             cursor1.moveToNext();
                         }
+                        avgList2.add(SubActivityGradeDao.getSectionAvg(classId, subact.getSubActivityId(), sqliteDatabase));
                     } else {
                         avgList1.add(0);
                         scoreList.add("-");

@@ -35,7 +35,6 @@ import in.teacher.adapter.Capitalize;
 import in.teacher.adapter.MarksAdapter;
 import in.teacher.dao.ClasDao;
 import in.teacher.dao.ExamsDao;
-import in.teacher.dao.ExmAvgDao;
 import in.teacher.dao.MarksDao;
 import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
@@ -71,6 +70,8 @@ public class UpdateExamMark extends Fragment {
     private StringBuffer sf = new StringBuffer();
     private TextView clasSecSub;
     private SharedPreferences sharedPref;
+    private StringBuilder studentsIn = new StringBuilder();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -184,15 +185,9 @@ public class UpdateExamMark extends Fragment {
         } else {
             MarksDao.insertUpdateMarks(mList, sqliteDatabase);
         }
-        int entry = ExmAvgDao.checkExmEntry(sectionId, subjectId, examId, sqliteDatabase);
-        if (entry == 0) {
-            ExmAvgDao.insertIntoExmAvg(classId, sectionId, subjectId, examId, sqliteDatabase);
-        }
-        ExmAvgDao.insertAvgIntoExmAvg(sectionId, subjectId, examId, sqliteDatabase);
-        ExmAvgDao.checkExmMarkEmpty(examId, sectionId, subjectId, sqliteDatabase);
-        if (partition == 1) {
-            updatePartitionMarks();
-        }
+
+        if (partition == 1) updatePartitionMarks();
+
     }
 
     private void updatePartitionMarks() {
@@ -380,7 +375,8 @@ public class UpdateExamMark extends Fragment {
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
-                String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId;
+                String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId +
+                        " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
                 try {
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
@@ -388,6 +384,7 @@ public class UpdateExamMark extends Fragment {
                     sqliteDatabase.insert("uploadsql", null, cv);
                     ReplaceFragment.replace(new InsertExamGrade(), getFragmentManager());
                 } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -461,11 +458,11 @@ public class UpdateExamMark extends Fragment {
             else
                 studentsArray = StudentsDao.selectStudents2(sectionId, subjectId, sqliteDatabase);
 
-            for (int idx = 0; idx < studentsArray.size(); idx++)
+            for (Students s : studentsArray) {
                 studentIndicate.add(false);
-
-            for (Students s : studentsArray)
                 studentsArrayId.add(s.getStudentId());
+                studentsIn.append(s.getStudentId()+",");
+            }
 
             List<String> mList = MarksDao.selectMarks(examId, subjectId, studentsArrayId, sqliteDatabase);
             for (String m : mList)
