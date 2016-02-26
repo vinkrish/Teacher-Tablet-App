@@ -9,6 +9,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -62,6 +63,7 @@ public class SubjectMapStudentEdit extends Fragment {
     private List<String> subjectNameList = new ArrayList<>();
     private List<Integer> selectedSubjectId = new ArrayList<>();
     private TableLayout table;
+    private int generateId = 1234567;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -178,12 +180,8 @@ public class SubjectMapStudentEdit extends Fragment {
 
         subjectIdList.clear();
         subjectIdList = SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, groupId);
-        StringBuilder sb = new StringBuilder();
-        for (Integer ids : subjectIdList) {
-            sb.append(ids + ",");
-        }
         subjectNameList.clear();
-        subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
+        subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, subjectIdList);
 
         final RadioButton[] rb = new RadioButton[subjectIdList.size()];
         RadioGroup rg = new RadioGroup(getActivity());
@@ -193,11 +191,17 @@ public class SubjectMapStudentEdit extends Fragment {
         rg.setTag(groupId);
         // rg.setBackgroundResource(R.drawable.radio_border);
         rg.setOrientation(RadioGroup.VERTICAL);
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         for (int j = 0; j < subjectNameList.size(); j++) {
             rb[j] = new RadioButton(getActivity());
-            rb[j].setId(View.generateViewId());
+
+            if (currentapiVersion >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+                rb[j].setId(View.generateViewId());
+            } else{
+                rb[j].setId(generateId++);
+            }
             rb[j].setGravity(Gravity.CENTER_VERTICAL);
-            rb[j].setPadding(5, 10, 0, 10);
+            //rb[j].setPadding(5, 10, 0, 10);
             rb[j].setTag(subjectIdList.get(j));
             rb[j].setText(subjectNameList.get(j));
             if (selectedSubjectId.contains(subjectIdList.get(j))) {
@@ -322,7 +326,7 @@ public class SubjectMapStudentEdit extends Fragment {
             }
             String sql = "update students set SubjectIds = '" + sb.substring(0, sb.length() - 1) + "' where StudentId = " + studentId;
             try {
-                //sqliteDatabase.execSQL(sql);
+                sqliteDatabase.execSQL(sql);
                 ContentValues cv = new ContentValues();
                 cv.put("Query", sql);
                 sqliteDatabase.insert("uploadsql", null, cv);

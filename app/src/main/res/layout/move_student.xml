@@ -18,10 +18,13 @@
             android:background="@color/layout_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/dashboard"
+            android:drawableLeft="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -38,9 +41,12 @@
             android:background="@color/universal"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/move"
+            android:drawableLeft="@drawable/move"
             android:gravity="start|center_vertical"
             android:paddingEnd="30dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
             android:text="@string/move_student"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -100,6 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/teal_border" />
 
             <Button
@@ -107,6 +114,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/teal_button_selector"
                 android:text="@string/confirm_move"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -121,6 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
         android:text="@string/pending_move"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_black" />
@@ -143,6 +152,8 @@
             android:layout_weight="2"
             android:paddingEnd="0dp"
             android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="0dp"
             android:text="@string/studentname"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_black"

@@ -10,6 +10,7 @@
         android:layout_height="30dp"
         android:layout_gravity="start"
         android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:background="@drawable/schoolcom_txt"
         android:contentDescription="@string/cc" />
 

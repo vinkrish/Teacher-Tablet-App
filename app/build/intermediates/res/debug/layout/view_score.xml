@@ -19,10 +19,13 @@
             android:background="@color/layout_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/dashboard"
+            android:drawableLeft="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -39,6 +42,7 @@
             android:background="@color/universal"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/attendance"
+            android:drawableLeft="@drawable/attendance"
             android:gravity="start|center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -64,6 +68,8 @@
         android:gravity="center_vertical"
         android:paddingEnd="0dp"
         android:paddingStart="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="0dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_black" />
 
@@ -104,6 +110,8 @@
                 android:layout_weight="0.3"
                 android:paddingEnd="0dp"
                 android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:text="@string/datecolumn"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/universal" />
@@ -115,6 +123,8 @@
                 android:layout_weight="0.6"
                 android:paddingEnd="0dp"
                 android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:text="@string/portioncolumn"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/universal" />
@@ -126,6 +136,8 @@
                 android:layout_weight="0.4"
                 android:paddingEnd="0dp"
                 android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:text="@string/graphcolumn"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/universal" />

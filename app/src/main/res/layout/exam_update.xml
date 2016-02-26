@@ -19,10 +19,13 @@
             android:background="@color/layout_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/dashboard"
+            android:drawableLeft="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toClassInchargeDash"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/incharge_dash"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -39,9 +42,12 @@
             android:background="@color/universal"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/attendance"
+            android:drawableLeft="@drawable/attendance"
             android:gravity="start|center_vertical"
             android:paddingEnd="20dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
             android:text="@string/exam_update"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -70,6 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/teal_border"
                 android:padding="10dp" />
 
@@ -78,6 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/teal_border"
                 android:padding="10dp" />
 

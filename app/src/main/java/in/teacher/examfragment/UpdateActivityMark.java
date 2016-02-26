@@ -317,7 +317,25 @@ public class UpdateActivityMark extends Fragment {
                     cv2.put("Query", sql2);
                     sqliteDatabase.insert("uploadsql", null, cv2);
 
-                    consolidate();
+                    String sql3 = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in (" + studentsIn.substring(0, studentsIn.length() - 1) + ")";
+                    sqliteDatabase.execSQL(sql3);
+                    ContentValues cv3 = new ContentValues();
+                    cv3.put("Query", sql3);
+                    sqliteDatabase.insert("uploadsql", null, cv3);
+
+                    int avg = ActivityMarkDao.getSectionAvg(activityId, sqliteDatabase);
+                    ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
+
+                    List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
+                    boolean actMarksExist = ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase);
+                    boolean actGradeExist = ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase);
+                    if (actMarksExist && actGradeExist) {
+                        ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    } else if (actMarksExist) {
+                        ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    } else if (actGradeExist) {
+                        ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    }
 
                     ReplaceFragment.replace(new InsertActivityGrade(), getFragmentManager());
                 } catch (SQLException e) {
@@ -388,14 +406,8 @@ public class UpdateActivityMark extends Fragment {
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)){
+        } else if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
-            String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
-            sqliteDatabase.execSQL(sql);
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
     }
 
@@ -470,7 +482,7 @@ public class UpdateActivityMark extends Fragment {
             for (Students s : studentsArray) {
                 studentIndicate.add(false);
                 studentsArrayId.add(s.getStudentId());
-                studentsIn.append(s.getStudentId()+",");
+                studentsIn.append(s.getStudentId() + ",");
             }
 
             List<String> amList = ActivityMarkDao.selectActivityMarc(activityId, studentsArrayId, sqliteDatabase);

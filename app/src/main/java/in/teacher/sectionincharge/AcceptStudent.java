@@ -170,6 +170,7 @@ public class AcceptStudent extends Fragment {
                         cv.put("Query", sql);
                         sqliteDatabase.insert("uploadsql", null, cv);
                     } catch (SQLException e) {
+                        e.printStackTrace();
                     }
                     ReplaceFragment.replace(new AcceptStudent(), getFragmentManager());
                 }
@@ -185,6 +186,7 @@ public class AcceptStudent extends Fragment {
                         cv.put("Query", sql);
                         sqliteDatabase.insert("uploadsql", null, cv);
                     } catch (SQLException e) {
+                        e.printStackTrace();
                     }
                     try {
                         sqliteDatabase.execSQL(query);
@@ -192,8 +194,9 @@ public class AcceptStudent extends Fragment {
                         cv.put("Query", query);
                         sqliteDatabase.insert("uploadsql", null, cv);
                     } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                    String[] tables = {"studentattendance", "marks", "activitymark", "subactivitymark", "ccestudentprofile", "ccecoscholasticgrade"};
+                    String[] tables = {"studentattendance", "marks", "activitymark", "subactivitymark", "activitygrade", "subactivitygrade", "ccestudentprofile", "ccecoscholasticgrade"};
                     for (String table : tables) {
                         try {
                             String sqlDelete = "delete from " + table + " where StudentId = " + ms.getStudentId();
@@ -202,6 +205,7 @@ public class AcceptStudent extends Fragment {
                             cv.put("Query", sqlDelete);
                             sqliteDatabase.insert("uploadsql", null, cv);
                         } catch (SQLException e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -212,6 +216,7 @@ public class AcceptStudent extends Fragment {
                         cv.put("Query", sqlUpdate);
                         sqliteDatabase.insert("uploadsql", null, cv);
                     } catch (SQLException e) {
+                        e.printStackTrace();
                     }
 
                     ReplaceFragment.replace(new AcceptStudent(), getFragmentManager());

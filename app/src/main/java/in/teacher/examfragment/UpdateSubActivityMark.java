@@ -302,20 +302,57 @@ public class UpdateSubActivityMark extends Fragment {
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
-                String sql = "delete from subactivitymark where SubActivityId = " + subActivityId;
+
                 try {
+                    String sql0 = "delete from subactivitymark where SubActivityId = " + subActivityId;
+                    sqliteDatabase.execSQL(sql0);
+                    ContentValues cv0 = new ContentValues();
+                    cv0.put("Query", sql0);
+                    sqliteDatabase.insert("uploadsql", null, cv0);
+
+                    String sql1 = "update subactivity set SubActivityAvg = 0 where SubActivityId = " + subActivityId;
+                    sqliteDatabase.execSQL(sql1);
+                    ContentValues cv1 = new ContentValues();
+                    cv1.put("Query", sql1);
+                    sqliteDatabase.insert("uploadsql", null, cv1);
+
+                    StringBuilder studentsIn = new StringBuilder();
+                    for (Students s : studentsArray)
+                        studentsIn.append(s.getStudentId()+",");
+
+                    ActivitiDao.updateActivity(activityId, sqliteDatabase, 0);
+
+                    String sql = "delete from activitymark where ActivityId = " + activityId;
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
 
-                    String sql2 = "update subactivity set SubActivityAvg = 0 where SubActivityId = " + subActivityId;
+                    String sql2 = "delete from activitygrade where ActivityId = " + activityId;
                     sqliteDatabase.execSQL(sql2);
                     ContentValues cv2 = new ContentValues();
                     cv2.put("Query", sql2);
                     sqliteDatabase.insert("uploadsql", null, cv2);
 
-                    consolidate();
+                    String sql3 = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
+                    sqliteDatabase.execSQL(sql3);
+                    ContentValues cv3 = new ContentValues();
+                    cv3.put("Query", sql3);
+                    sqliteDatabase.insert("uploadsql", null, cv3);
+
+                    int avg = SubActivityMarkDao.getSectionAvg(subActivityId, sqliteDatabase);
+                    SubActivityDao.updateSubActivity(subActivityId, sqliteDatabase, avg);
+
+                    List<Long> subActIdList = SubActivityDao.getSubActIds(activityId, sqliteDatabase);
+                    boolean subActMarksExist = SubActivityMarkDao.isSubActMarkExist(subActIdList, sqliteDatabase);
+                    boolean subActGradeExist = SubActivityGradeDao.isSubActGradeExist(subActIdList, sqliteDatabase);
+                    if (subActMarksExist && subActGradeExist) {
+                        SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    } else if (subActMarksExist) {
+                        SubActToActConsolidation.subActMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    } else if (subActGradeExist) {
+                        SubActToActConsolidation.subActGradeToActGradeCalc(sqliteDatabase, calculation, studentsArray);
+                    }
                     
                     ReplaceFragment.replace(new InsertSubActivityGrade(), getFragmentManager());
                 } catch (SQLException e) {
@@ -388,37 +425,6 @@ public class UpdateSubActivityMark extends Fragment {
             SubActToActConsolidation.subActToActMarkCalc(sqliteDatabase, calculation, studentsArray);
         } else if (SubActivityMarkDao.isSubActMarkExist(subActIdList, sqliteDatabase)) {
             SubActToActConsolidation.subActMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
-            StringBuilder studentsIn = new StringBuilder();
-            for (Students s : studentsArray)
-                studentsIn.append(s.getStudentId()+",");
-
-            ActivitiDao.updateActivity(activityId, sqliteDatabase, 0);
-
-            String sql = "delete from activitymark where ActivityId = " + activityId + " and StudentIn in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
-            sqliteDatabase.execSQL(sql);
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
-
-            String sql2 = "delete from activitygrade where ActivityId = " + activityId + " and StudentIn in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
-            sqliteDatabase.execSQL(sql);
-            ContentValues cv2 = new ContentValues();
-            cv.put("Query", sql2);
-            sqliteDatabase.insert("uploadsql", null, cv2);
-
-            List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
-            if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
-                ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
-            } else if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)){
-                ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
-            } else {
-                String sql3 = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
-                sqliteDatabase.execSQL(sql3);
-                ContentValues cv3 = new ContentValues();
-                cv.put("Query", sql3);
-                sqliteDatabase.insert("uploadsql", null, cv3);
-            }
         }
     }
 

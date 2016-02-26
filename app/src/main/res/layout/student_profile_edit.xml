@@ -20,10 +20,13 @@
             android:background="@color/layout_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/dashboard"
+            android:drawableLeft="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />

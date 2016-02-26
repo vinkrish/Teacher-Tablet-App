@@ -89,11 +89,7 @@ public class SubjectTeacherMapping extends Fragment {
             for (Integer groupId : subjectGroupIdList) {
                 subjectIdList.addAll(SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, groupId));
             }
-            StringBuilder sb = new StringBuilder();
-            for (Integer ids : subjectIdList) {
-                sb.append(ids + ",");
-            }
-            subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
+            subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, subjectIdList);
 
             Cursor c = sqliteDatabase.rawQuery("select TeacherId, Name from teacher", null);
             c.moveToFirst();

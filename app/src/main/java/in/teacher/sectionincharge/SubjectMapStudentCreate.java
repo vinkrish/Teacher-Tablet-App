@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -62,6 +63,7 @@ public class SubjectMapStudentCreate extends Fragment {
     private ArrayList<String> studNameList = new ArrayList<>();
     protected boolean[] studentSelections;
     private List<Integer> selectedStudentsId = new ArrayList<>();
+    private int generateId = 1234567;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -294,10 +296,19 @@ public class SubjectMapStudentCreate extends Fragment {
         }
 
         private void setComponentsId() {
-            this.tableA.setId(View.generateViewId());
-            this.tableB.setId(View.generateViewId());
-            this.scrollViewC.setId(View.generateViewId());
-            this.scrollViewD.setId(View.generateViewId());
+            int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+            if (currentapiVersion >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+                this.tableA.setId(View.generateViewId());
+                this.tableB.setId(View.generateViewId());
+                this.scrollViewC.setId(View.generateViewId());
+                this.scrollViewD.setId(View.generateViewId());
+            } else{
+                this.tableA.setId(generateId++);
+                this.tableB.setId(generateId++);
+                this.scrollViewC.setId(generateId++);
+                this.scrollViewD.setId(generateId++);
+            }
+
         }
 
         private void setScrollViewAndHorizontalScrollViewTag() {
@@ -411,12 +422,8 @@ public class SubjectMapStudentCreate extends Fragment {
 
             subjectIdList.clear();
             subjectIdList = SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, groupId);
-            StringBuilder sb = new StringBuilder();
-            for (Integer ids : subjectIdList) {
-                sb.append(ids + ",");
-            }
             subjectNameList.clear();
-            subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
+            subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, subjectIdList);
 
             //subjectGroupMap.put(groupId, subjectIdList);
 
@@ -433,7 +440,7 @@ public class SubjectMapStudentCreate extends Fragment {
             for (int j = 0; j < subjectNameList.size(); j++) {
                 rb[j] = new RadioButton(this.getContext());
                 rb[j].setGravity(Gravity.CENTER_VERTICAL);
-                rb[j].setPadding(5, 10, 0, 10);
+                //rb[j].setPadding(5, 10, 0, 10);
                 rb[j].setTag(subjectIdList.get(j));
                 rb[j].setText(subjectNameList.get(j));
                 //rb[l].setId(l + 100);

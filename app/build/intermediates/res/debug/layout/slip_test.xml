@@ -20,10 +20,13 @@
             android:background="@color/layout_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/dashboard"
+            android:drawableLeft="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -41,9 +44,12 @@
             android:background="@color/universal"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/attendance"
+            android:drawableLeft="@drawable/attendance"
             android:gravity="start|center_vertical"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/st"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -64,6 +70,7 @@
         android:layout_below="@id/dividerup"
         android:layout_marginBottom="15dp"
         android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
         android:text="@string/evaluation"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -75,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/evaluationText"
         android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:checkedButton="@+id/slipTest"
         android:orientation="horizontal">
 
@@ -83,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:text="@string/sliptest"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -91,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:text="@string/projects"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -114,6 +124,8 @@
         android:paddingBottom="10dp"
         android:paddingEnd="0dp"
         android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="0dp"
         android:paddingTop="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -130,6 +142,8 @@
         android:hint="@string/stdate"
         android:paddingEnd="0dp"
         android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="0dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RelativeLayout
@@ -150,6 +164,8 @@
             android:inputType="number"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <RelativeLayout
@@ -165,6 +181,7 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/teal_button_selector"
                 android:padding="10dp"
                 android:text="@string/submit"
@@ -176,7 +193,9 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@id/sliptestsubmit"
+                android:layout_toRightOf="@id/sliptestsubmit"
                 android:background="@drawable/teal_button_selector"
                 android:padding="10dp"
                 android:text="@string/reset"
@@ -205,6 +224,8 @@
             android:paddingBottom="10dp"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:paddingTop="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -220,6 +241,8 @@
             android:inputType="number"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <RelativeLayout
@@ -235,6 +258,7 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/teal_button_selector"
                 android:padding="10dp"
                 android:text="@string/submit"
@@ -246,7 +270,9 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@id/sliptestsubmit2"
+                android:layout_toRightOf="@id/sliptestsubmit2"
                 android:background="@drawable/teal_button_selector"
                 android:padding="10dp"
                 android:text="@string/reset"

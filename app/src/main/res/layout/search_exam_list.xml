@@ -13,6 +13,8 @@
         android:gravity="start"
         android:paddingEnd="0dp"
         android:paddingStart="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="0dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
 
@@ -26,7 +28,8 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/chart"/>
+            android:src="@drawable/chart"
+            android:contentDescription="@string/cc"/>
 
     </LinearLayout>
 

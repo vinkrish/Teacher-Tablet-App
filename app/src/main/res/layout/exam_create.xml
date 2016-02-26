@@ -19,10 +19,13 @@
             android:background="@color/layout_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/dashboard"
+            android:drawableLeft="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toClassInchargeDash"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/incharge_dash"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -39,9 +42,12 @@
             android:background="@color/universal"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/attendance"
+            android:drawableLeft="@drawable/attendance"
             android:gravity="start|center_vertical"
             android:paddingEnd="20dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
             android:text="@string/exam_create"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF" />
@@ -128,6 +134,8 @@
                 android:checked="false"
                 android:paddingEnd="0dp"
                 android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
                 android:text="@string/grade_system" />
 
             <Button

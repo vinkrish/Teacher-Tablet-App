@@ -243,14 +243,38 @@ public class UpdateActivityGrade extends Fragment {
         alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
-                String sql = "delete from activitygrade where ActivityId = " + activityId;
                 try {
+                    String sql = "delete from activitygrade where ActivityId = " + activityId;
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
 
-                    consolidate();
+                    String sql2 = "delete from activitymark where ActivityId = " + activityId;
+                    sqliteDatabase.execSQL(sql2);
+                    ContentValues cv2 = new ContentValues();
+                    cv2.put("Query", sql2);
+                    sqliteDatabase.insert("uploadsql", null, cv2);
+
+                    String sql3 = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in (" + studentsIn.substring(0, studentsIn.length() - 1) + ")";
+                    sqliteDatabase.execSQL(sql3);
+                    ContentValues cv3 = new ContentValues();
+                    cv3.put("Query", sql3);
+                    sqliteDatabase.insert("uploadsql", null, cv3);
+
+                    int avg = ActivityMarkDao.getSectionAvg(activityId, sqliteDatabase);
+                    ActivitiDao.updateActivity(activityId, sqliteDatabase, avg);
+
+                    List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
+                    boolean actMarksExist = ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase);
+                    boolean actGradeExist = ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase);
+                    if (actMarksExist && actGradeExist) {
+                        ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    } else if (actMarksExist) {
+                        ActToMarkConsolidation.actMarkToMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    } else if (actGradeExist) {
+                        ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
+                    }
 
                     ReplaceFragment.replace(new InsertActivityMark(), getFragmentManager());
                 } catch (SQLException e) {
@@ -318,15 +342,10 @@ public class UpdateActivityGrade extends Fragment {
         List<Long> actIdList = ActivitiDao.getActivityIds(examId, subjectId, sectionId, sqliteDatabase);
         if (ActivityMarkDao.isActMarkExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)){
+        } else if (ActivityGradeDao.isActGradeExist(actIdList, sqliteDatabase)) {
             ActToMarkConsolidation.actGradeToMarkCalc(sqliteDatabase, calculation, studentsArray);
-        } else {
-            String sql = "delete from marks where ExamId = " + examId + " and SubjectId = " + subjectId + " and StudentId in ("+studentsIn.substring(0, studentsIn.length()-1)+")";
-            sqliteDatabase.execSQL(sql);
-            ContentValues cv = new ContentValues();
-            cv.put("Query", sql);
-            sqliteDatabase.insert("uploadsql", null, cv);
         }
+
     }
 
     private void updateScoreField(String upScore) {

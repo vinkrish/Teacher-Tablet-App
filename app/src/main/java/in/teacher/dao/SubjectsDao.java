@@ -16,15 +16,17 @@ public class SubjectsDao {
         return s;
     }
 
-    public static List<String> getSubjectNameList(SQLiteDatabase sqliteDatabase, String ids) {
-        Cursor c = sqliteDatabase.rawQuery("SELECT SubjectName FROM subjects where SubjectId in (" + ids + ")", null);
+    public static List<String> getSubjectNameList(SQLiteDatabase sqliteDatabase, List<Integer> ids) {
         List<String> list = new ArrayList<>();
-        c.moveToFirst();
-        while (!c.isAfterLast()) {
-            list.add(c.getString(c.getColumnIndex("SubjectName")));
-            c.moveToNext();
+        for (Integer id: ids) {
+            Cursor c = sqliteDatabase.rawQuery("SELECT SubjectName FROM subjects where SubjectId =" + id, null);
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                list.add(c.getString(c.getColumnIndex("SubjectName")));
+                c.moveToNext();
+            }
+            c.close();
         }
-        c.close();
         return list;
     }
 

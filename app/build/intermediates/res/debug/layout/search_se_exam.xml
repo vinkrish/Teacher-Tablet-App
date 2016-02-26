@@ -37,6 +37,7 @@
             android:background="@color/dark_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/homework"
+            android:drawableLeft="@drawable/homework"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/se"
@@ -58,7 +59,9 @@
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingEnd="0dp"
-        android:paddingStart="10dp">
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="0dp">
 
         <LinearLayout
             android:layout_width="0dp"

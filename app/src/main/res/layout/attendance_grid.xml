@@ -10,8 +10,10 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black" />
 
@@ -22,6 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/rollNo"
+        android:layout_toRightOf="@id/rollNo"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black" />
 
@@ -30,8 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
         android:contentDescription="@string/cc" />
 
 </RelativeLayout>

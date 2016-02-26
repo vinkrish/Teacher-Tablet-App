@@ -21,10 +21,13 @@
             android:background="@color/layout_black"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/dashboard"
+            android:drawableLeft="@drawable/dashboard"
             android:gravity="start|center_vertical"
             android:onClick="toDashbord"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="@string/dashboard"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -41,9 +44,12 @@
             android:background="@color/universal"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/evaluate"
+            android:drawableLeft="@drawable/evaluate"
             android:gravity="start|center_vertical"
             android:paddingEnd="20dp"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
             android:text="@string/coscholastic"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
@@ -75,7 +81,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="30dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp">
 
         <TextView
             android:layout_width="wrap_content"

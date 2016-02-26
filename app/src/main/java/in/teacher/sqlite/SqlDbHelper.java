@@ -172,6 +172,8 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_homework");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_marks");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_actmark");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_actgrade");
+        sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_subactgrade");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS before_subactmark");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS insert_stmark");
         sqliteDatabase.execSQL("DROP TRIGGER IF EXISTS update_stmark");

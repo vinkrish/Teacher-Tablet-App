@@ -227,11 +227,7 @@ public class ExamCreate extends Fragment {
     private void generateTable() {
         for (int i = 0; i < selectedSubGroupId.size(); i++) {
             List<Integer> subjectIdList = SubjectGroupDao.getSubjectIdsInGroup(sqliteDatabase, selectedSubGroupId.get(i));
-            StringBuilder sb = new StringBuilder();
-            for (Integer ids : subjectIdList) {
-                sb.append(ids + ",");
-            }
-            List<String> subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, sb.substring(0, sb.length() - 1));
+            List<String> subjectNameList = SubjectsDao.getSubjectNameList(sqliteDatabase, subjectIdList);
             for (int k = 0; k < subjectIdList.size(); k++) {
                 TableRow tableRow = tableRow(subjectIdList.get(k), subjectNameList.get(k));
                 table.addView(tableRow);

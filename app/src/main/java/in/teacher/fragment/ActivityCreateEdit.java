@@ -901,12 +901,19 @@ public class ActivityCreateEdit extends Fragment {
         submitBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
-                String sql = "delete from activity where ActivityId = " + activityId;
+
                 try {
+                    String sql = "delete from activity where ActivityId = " + activityId;
                     sqliteDatabase.execSQL(sql);
                     ContentValues cv = new ContentValues();
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
+
+                    String sql2 = "delete from subactivity where ActivityId = " + activityId;
+                    sqliteDatabase.execSQL(sql2);
+                    ContentValues cv2 = new ContentValues();
+                    cv2.put("Query", sql2);
+                    sqliteDatabase.insert("uploadsql", null, cv2);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
