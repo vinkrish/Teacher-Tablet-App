@@ -34,6 +34,7 @@ import in.teacher.examfragment.ActivityExam;
 import in.teacher.sqlite.CommonObject;
 import in.teacher.sqlite.MovStudent;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
@@ -68,7 +69,18 @@ public class MoveStudent extends Fragment {
         initView(view);
         init();
 
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                animateView();
+            }
+        });
+
         return view;
+    }
+
+    private void animateView(){
+        AnimationUtils.alphaTranslate(confirmMoveBtn, getActivity());
     }
 
     private void initView(View view) {

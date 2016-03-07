@@ -56,7 +56,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="60dp"
-            android:background="#333333" />
+            android:background="@color/dash_seperator" />
 
         <Button
             android:id="@+id/homeworkButton"
@@ -119,8 +119,8 @@
                 android:gravity="end|center"
                 android:paddingEnd="10dp"
                 android:paddingStart="0dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="10dp"
                 android:text="@string/class_incharge"
                 android:textColor="#79787D"
                 app:showText="false" />

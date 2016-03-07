@@ -35,6 +35,7 @@ import in.teacher.dao.SectionDao;
 import in.teacher.dao.StudentsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
@@ -62,7 +63,18 @@ public class StudentAdd extends Fragment {
         initView(view);
         init();
 
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                animateView();
+            }
+        });
+
         return view;
+    }
+
+    private void animateView(){
+        AnimationUtils.alphaTranslate(addStudent, getActivity());
     }
 
     private void initView(View view) {

@@ -13,6 +13,7 @@ import in.teacher.sqlite.SqlDbHelper;
 import in.teacher.sqlite.Students;
 import in.teacher.sqlite.Temp;
 import in.teacher.sqlite.TempAttendance;
+import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.ReplaceFragment;
@@ -36,6 +37,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -61,6 +63,7 @@ public class MarkAttendance extends Fragment {
     private int schoolId, classId, sectionId;
     private int index, absentCount;
     private TextView ptTV;
+    private Button verifyBtn, noAbsenteesBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,12 +96,27 @@ public class MarkAttendance extends Fragment {
 
         });
 
-        view.findViewById(R.id.verify).setOnClickListener(verifyAbsentees);
-        view.findViewById(R.id.noAbsentees).setOnClickListener(noAbsentees);
+        verifyBtn = (Button) view.findViewById(R.id.verify);
+        noAbsenteesBtn = (Button) view.findViewById(R.id.noAbsentees);
+
+        verifyBtn.setOnClickListener(verifyAbsentees);
+        noAbsenteesBtn.setOnClickListener(noAbsentees);
         view.findViewById(R.id.yesterday).setOnClickListener(yesterdayAbsentees);
         view.findViewById(R.id.otherday).setOnClickListener(otherdayAbsentees);
 
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                animateView();
+            }
+        });
+
         return view;
+    }
+
+    private void animateView(){
+        AnimationUtils.animateViewFly(verifyBtn, -verifyBtn.getWidth(),0,0,0,Animation.ABSOLUTE,300,0);
+        AnimationUtils.animateViewFly(noAbsenteesBtn, noAbsenteesBtn.getWidth(),0,0,0,Animation.ABSOLUTE,300,0);
     }
 
     private void init(){

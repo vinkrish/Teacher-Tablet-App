@@ -43,6 +43,7 @@ import in.teacher.dao.SubjectsDao;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Exams;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
@@ -81,7 +82,18 @@ public class ExamCreate extends Fragment {
         initView(view);
         init();
 
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                animateView();
+            }
+        });
+
         return view;
+    }
+
+    private void animateView(){
+        AnimationUtils.alphaTranslate(selectSubjectGroup, context);
     }
 
     private void initView(View view) {

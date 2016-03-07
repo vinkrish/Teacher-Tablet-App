@@ -11,6 +11,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -35,6 +36,7 @@ import in.teacher.dao.TempDao;
 import in.teacher.model.HW;
 import in.teacher.sqlite.Homework;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
@@ -59,6 +61,7 @@ public class InsertHomework extends Fragment {
     private TextView hwTv;
     private ListView lv;
     private ArrayList<HW> hwList = new ArrayList<>();
+    private Button submit, reset;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,8 +79,8 @@ public class InsertHomework extends Fragment {
         lv.setAdapter(homeworkViewAdapter);
 
         hwTv = (TextView) view.findViewById(R.id.hwPleaseTap);
-        Button submit = (Button) view.findViewById(R.id.hwSubmit);
-        Button reset = (Button) view.findViewById(R.id.hwReset);
+        submit = (Button) view.findViewById(R.id.hwSubmit);
+        reset = (Button) view.findViewById(R.id.hwReset);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +150,19 @@ public class InsertHomework extends Fragment {
 
         lv.setOnItemClickListener(clickOnSubject);
 
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                animateView();
+            }
+        });
+
         return view;
+    }
+
+    private void animateView(){
+        AnimationUtils.animateViewFly(submit, -submit.getWidth(), 0, 0, 0, Animation.ABSOLUTE, 300, 0);
+        AnimationUtils.animateViewFly(reset, reset.getWidth(),0,0,0,Animation.ABSOLUTE,300,0);
     }
 
     private AdapterView.OnItemClickListener clickOnSubject = new AdapterView.OnItemClickListener() {

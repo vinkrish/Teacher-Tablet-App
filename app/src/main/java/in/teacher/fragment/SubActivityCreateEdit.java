@@ -43,6 +43,7 @@ import java.util.List;
 import in.teacher.activity.R;
 import in.teacher.dao.TempDao;
 import in.teacher.sqlite.Temp;
+import in.teacher.util.AnimationUtils;
 import in.teacher.util.AppGlobal;
 import in.teacher.util.CommonDialogUtils;
 import in.teacher.util.PKGenerator;
@@ -141,7 +142,18 @@ public class SubActivityCreateEdit extends Fragment {
             }
         });
 
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                animateView();
+            }
+        });
+
         return view;
+    }
+
+    private void animateView(){
+        AnimationUtils.alphaTranslate(createSubActivity, context);
     }
 
     private void initView(View view) {
