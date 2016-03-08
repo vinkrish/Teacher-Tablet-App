@@ -44,7 +44,7 @@ public class ActivityGradeDao {
         } else return 0;
     }
 
-    public static String getActivityGrade(long actId, int studentId, int subjectId, SQLiteDatabase sqLiteDatabase) {
+    public static String getActivityGrade(long actId, long studentId, int subjectId, SQLiteDatabase sqLiteDatabase) {
         String grade = "";
         Cursor c = sqLiteDatabase.rawQuery("select Grade from activitygrade " +
                 "where StudentId = " + studentId + " and ActivityId = " + actId + " and SubjectId = " + subjectId, null);
@@ -97,9 +97,9 @@ public class ActivityGradeDao {
         }
     }
 
-    public static List<String> selectActivityGrade(long activityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase) {
+    public static List<String> selectActivityGrade(long activityId, List<Long> studentId, SQLiteDatabase sqliteDatabase) {
         List<String> mList = new ArrayList<>();
-        for (Integer i : studentId) {
+        for (Long i : studentId) {
             Cursor c = sqliteDatabase.rawQuery("select Grade from activitygrade where ActivityId=" + activityId + " and StudentId=" + i, null);
             c.moveToFirst();
             if (c.getCount() > 0) {

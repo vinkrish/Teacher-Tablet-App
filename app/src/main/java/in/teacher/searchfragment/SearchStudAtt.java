@@ -49,7 +49,8 @@ import android.widget.TextView;
 public class SearchStudAtt extends Fragment {
     private Activity act;
     private Context context;
-    private int studentId, classId, classStrength;
+    private int classId, classStrength;
+    private long studentId;
     private String studentName, className, secName;
     private SQLiteDatabase sqliteDatabase;
     private JSONObject monObject;
@@ -349,7 +350,7 @@ public class SearchStudAtt extends Fragment {
         }
     }
 
-    public List<Integer> studMonthlyAttendance(List<String> startDate, List<String> endDate, int studId) {
+    public List<Integer> studMonthlyAttendance(List<String> startDate, List<String> endDate, long studId) {
         List<Integer> absList = new ArrayList<>();
         for (int i = 0; i < startDate.size(); i++) {
             absList.add(StudentAttendanceDao.studMontAbsCnt(startDate.get(i), endDate.get(i), studId, sqliteDatabase));

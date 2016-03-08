@@ -22,13 +22,13 @@ public class StudentAttendanceDao {
 		return marked;
 	}
 	
-	public static List<Integer> selectStudentIds(String date, int sectionId, SQLiteDatabase sqliteDatabase){
+	public static List<Long> selectStudentIds(String date, int sectionId, SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery("select StudentId from studentattendance where DateAttendance='"+date+"' and SectionId="+sectionId+" and StudentId!=0  group by StudentId", null);
-		List<Integer> sList = new ArrayList<Integer>();
+		List<Long> sList = new ArrayList<>();
 		if(c.getCount()>0){
 			c.moveToFirst();
 			while(!c.isAfterLast()){
-				Integer i = c.getInt(c.getColumnIndex("StudentId"));
+				long i = c.getLong(c.getColumnIndex("StudentId"));
 				sList.add(i);
 				c.moveToNext();
 			}
@@ -51,7 +51,7 @@ public class StudentAttendanceDao {
 		return cnt;
 	}
 	
-	public static int studMontAbsCnt(String startDate, String endDate, int studId, SQLiteDatabase sqliteDatabase){
+	public static int studMontAbsCnt(String startDate, String endDate, long studId, SQLiteDatabase sqliteDatabase){
 		int cnt = 0;
 		String sql = "SELECT count(*) as count FROM studentattendance where DateAttendance>='"+startDate+"' and DateAttendance<='"+endDate+"' and StudentId="+studId;
 		Cursor c = sqliteDatabase.rawQuery(sql, null);
@@ -111,11 +111,11 @@ public class StudentAttendanceDao {
 	
 	public static List<Students> selectTempAttendance(SQLiteDatabase sqliteDatabase){
 		Cursor c = sqliteDatabase.rawQuery("select * from tempattendance", null);
-		List<Students> sList = new ArrayList<Students>();
+		List<Students> sList = new ArrayList<>();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			Students s = new Students();
-			s.setClassId(c.getInt(c.getColumnIndex("StudentId")));
+			s.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
 			s.setClassId(c.getInt(c.getColumnIndex("ClassId")));
 			s.setSectionId(c.getInt(c.getColumnIndex("SectionId")));
 			s.setStudentId(c.getInt(c.getColumnIndex("StudentId")));

@@ -6,7 +6,7 @@ package in.teacher.sqlite;
 public class MovStudent {
     private int schooId;
     private String query;
-    private int studentId;
+    private long studentId;
     private String studentName;
     private String className;
     private int secIdFrom;
@@ -15,11 +15,11 @@ public class MovStudent {
     private String sectionTo;
     private int status;
 
-    public int getStudentId() {
+    public long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(long studentId) {
         this.studentId = studentId;
     }
 

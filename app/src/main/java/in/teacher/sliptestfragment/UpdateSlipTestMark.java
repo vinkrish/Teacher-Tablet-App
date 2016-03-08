@@ -59,7 +59,7 @@ public class UpdateSlipTestMark extends Fragment {
     private String className, sectionName, subjectName, portionName;
     private Long slipTestId;
     private List<Students> studentsArray = new ArrayList<>();
-    private List<Integer> studentsArrayId = new ArrayList<>();
+    private List<Long> studentsArrayId = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
     private ArrayList<Students> studentsArrayList = new ArrayList<>();
     private List<String> studentScore = new ArrayList<>();

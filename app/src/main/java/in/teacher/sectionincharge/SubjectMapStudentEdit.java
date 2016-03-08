@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,11 +50,12 @@ import in.teacher.util.ReplaceFragment;
  */
 public class SubjectMapStudentEdit extends Fragment {
     private SQLiteDatabase sqliteDatabase;
-    private int classId, sectionId, studentId;
+    private int classId, sectionId;
+    private long studentId;
     private ListView listView;
     private ScrollView scrollView;
     private Button save;
-    private ArrayList<Integer> studIdList = new ArrayList<>();
+    private ArrayList<Long> studIdList = new ArrayList<>();
     private StudentAdapter studentAdapter;
     private List<Integer> subjectGroupIdList = new ArrayList<>();
     private List<String> subjectGroupNameList = new ArrayList<>();
@@ -113,7 +113,8 @@ public class SubjectMapStudentEdit extends Fragment {
             @Override
             public void onClick(View v) {
                 if (studentId != 0) new CalledSubmit().execute();
-                else CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please select student to update");
+                else
+                    CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "please select student to update");
             }
         });
     }
@@ -130,14 +131,13 @@ public class SubjectMapStudentEdit extends Fragment {
         }
     };
 
-    private void getSelectedSubjects(int studentId) {
+    private void getSelectedSubjects(long studentId) {
         selectedSubjectId.clear();
         String ids = "";
         Cursor c = sqliteDatabase.rawQuery("select SubjectIds from students where StudentId = " + studentId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             ids = c.getString(c.getColumnIndex("SubjectIds"));
-            Log.d(ids, "subjectIds");
             c.moveToNext();
         }
         c.close();
@@ -195,9 +195,9 @@ public class SubjectMapStudentEdit extends Fragment {
         for (int j = 0; j < subjectNameList.size(); j++) {
             rb[j] = new RadioButton(getActivity());
 
-            if (currentapiVersion >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            if (currentapiVersion >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 rb[j].setId(View.generateViewId());
-            } else{
+            } else {
                 rb[j].setId(generateId++);
             }
             rb[j].setGravity(Gravity.CENTER_VERTICAL);

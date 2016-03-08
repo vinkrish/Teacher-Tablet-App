@@ -131,7 +131,7 @@ public class AbsentList extends Fragment {
             if (flag) {
                 String today = getToday();
                 //	List<Integer> studentIdList = sqlHandler.selectStudentIds(today, sectionId);
-                List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(today, sectionId, sqliteDatabase);
+                List<Long> studentIdList = StudentAttendanceDao.selectStudentIds(today, sectionId, sqliteDatabase);
                 if (!studentIdList.isEmpty()) {
                     studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
                     Collections.sort(studentsArray, new StudentsSort());
@@ -162,7 +162,7 @@ public class AbsentList extends Fragment {
                 flag = true;
             }
             if (flag) {
-                List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(yesterday, sectionId, sqliteDatabase);
+                List<Long> studentIdList = StudentAttendanceDao.selectStudentIds(yesterday, sectionId, sqliteDatabase);
                 if (!studentIdList.isEmpty()) {
                     studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
                     Collections.sort(studentsArray, new StudentsSort());
@@ -192,7 +192,7 @@ public class AbsentList extends Fragment {
                     flag = true;
                 }
                 if (flag) {
-                    List<Integer> studentIdList = StudentAttendanceDao.selectStudentIds(otherdate, sectionId, sqliteDatabase);
+                    List<Long> studentIdList = StudentAttendanceDao.selectStudentIds(otherdate, sectionId, sqliteDatabase);
                     if (!studentIdList.isEmpty()) {
                         studentsArray = StudentsDao.selectAbsentStudents(studentIdList, sqliteDatabase);
                         Collections.sort(studentsArray, new StudentsSort());

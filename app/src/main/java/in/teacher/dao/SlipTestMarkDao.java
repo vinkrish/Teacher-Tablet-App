@@ -30,8 +30,8 @@ public class SlipTestMarkDao {
                 if (Double.parseDouble(c.getString(c.getColumnIndex("Mark"))) > maxMark) {
                     maxMark = Double.parseDouble(c.getString(c.getColumnIndex("Mark")));
                 }
-            } catch (NullPointerException e) {
-            } catch (NumberFormatException e) {
+            } catch (NullPointerException | NumberFormatException e) {
+                e.printStackTrace();
             }
             c.moveToNext();
         }
@@ -51,9 +51,9 @@ public class SlipTestMarkDao {
         return count;
     }
 
-    public static List<String> selectSlipTestMark(long slipTestId, List<Integer> studentId, int schoolId, SQLiteDatabase sqliteDatabase) {
-        List<String> stMarkList = new ArrayList<String>();
-        for (Integer i : studentId) {
+    public static List<String> selectSlipTestMark(long slipTestId, List<Long> studentId, int schoolId, SQLiteDatabase sqliteDatabase) {
+        List<String> stMarkList = new ArrayList<>();
+        for (Long i : studentId) {
             Cursor c = sqliteDatabase.rawQuery("select * from sliptestmark_" + schoolId + " where SlipTestId=" + slipTestId + " and StudentId=" + i, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
@@ -159,6 +159,7 @@ public class SlipTestMarkDao {
             try {
                 sqliteDatabase.execSQL(sql);
             } catch (SQLException e) {
+                e.printStackTrace();
             }
             ContentValues cv = new ContentValues();
             cv.put("Query", sql);
@@ -186,6 +187,7 @@ public class SlipTestMarkDao {
         try {
             sqliteDatabase.execSQL(sql);
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

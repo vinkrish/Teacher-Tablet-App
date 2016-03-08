@@ -36,14 +36,14 @@ public class StudentsDao {
         return i;
     }
 
-    public static List<Students> selectAbsentStudents(List<Integer> ids, SQLiteDatabase sqliteDatabase) {
+    public static List<Students> selectAbsentStudents(List<Long> ids, SQLiteDatabase sqliteDatabase) {
         List<Students> sList = new ArrayList<>();
-        for (Integer id : ids) {
+        for (Long id : ids) {
             Cursor c = sqliteDatabase.rawQuery("select * from students where StudentId=" + id, null);
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 Students stud = new Students();
-                stud.setStudentId(c.getInt(c.getColumnIndex("StudentId")));
+                stud.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
                 stud.setClassId(c.getInt(c.getColumnIndex("ClassId")));
                 stud.setSectionId(c.getInt(c.getColumnIndex("SectionId")));
                 stud.setRollNoInClass(c.getInt(c.getColumnIndex("RollNoInClass")));
@@ -62,7 +62,7 @@ public class StudentsDao {
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Students stud = new Students();
-            stud.setStudentId(c.getInt(c.getColumnIndex("StudentId")));
+            stud.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
             stud.setClassId(c.getInt(c.getColumnIndex("ClassId")));
             stud.setSectionId(c.getInt(c.getColumnIndex("SectionId")));
             stud.setRollNoInClass(c.getInt(c.getColumnIndex("RollNoInClass")));
@@ -80,7 +80,7 @@ public class StudentsDao {
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Students stud = new Students();
-            stud.setStudentId(c.getInt(c.getColumnIndex("StudentId")));
+            stud.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
             stud.setRollNoInClass(c.getInt(c.getColumnIndex("RollNoInClass")));
             stud.setName(c.getString(c.getColumnIndex("Name")));
             sList.add(stud);
@@ -104,7 +104,7 @@ public class StudentsDao {
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Students stud = new Students();
-            stud.setStudentId(c.getInt(c.getColumnIndex("StudentId")));
+            stud.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
             stud.setClassId(c.getInt(c.getColumnIndex("ClassId")));
             stud.setSectionId(c.getInt(c.getColumnIndex("SectionId")));
             stud.setRollNoInClass(c.getInt(c.getColumnIndex("RollNoInClass")));

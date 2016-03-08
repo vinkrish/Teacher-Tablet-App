@@ -64,9 +64,9 @@ public class MarksDao {
         return avg;
     }
 
-    public static List<String> selectMarks(long examId, int subjectId, List<Integer> studentId, SQLiteDatabase sqliteDatabase) {
+    public static List<String> selectMarks(long examId, int subjectId, List<Long> studentId, SQLiteDatabase sqliteDatabase) {
         List<String> mList = new ArrayList<>();
-        for (Integer i : studentId) {
+        for (Long i : studentId) {
             Cursor c = sqliteDatabase.rawQuery("select Mark from marks where ExamId=" + examId + " AND SubjectId=" + subjectId + " AND StudentId=" + i, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
@@ -79,9 +79,9 @@ public class MarksDao {
         return mList;
     }
 
-    public static List<String> selectGrade(long examId, int subjectId, List<Integer> studentId, SQLiteDatabase sqliteDatabase) {
+    public static List<String> selectGrade(long examId, int subjectId, List<Long> studentId, SQLiteDatabase sqliteDatabase) {
         List<String> mList = new ArrayList<>();
-        for (Integer i : studentId) {
+        for (Long i : studentId) {
             Cursor c = sqliteDatabase.rawQuery("select Grade from marks where ExamId=" + examId + " AND SubjectId=" + subjectId + " AND StudentId=" + i, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
@@ -268,7 +268,7 @@ public class MarksDao {
         }
     }
 
-    public static int getStudExamAvg(int studentId, int subjectId, long examId, SQLiteDatabase sqliteDatabase) {
+    public static int getStudExamAvg(long studentId, int subjectId, long examId, SQLiteDatabase sqliteDatabase) {
         int i = 0;
         Cursor c = sqliteDatabase.rawQuery("select (AVG(A.Mark)/B.MaximumMark)*100 as avg from Marks A, subjectexams B where A.ExamId=B.ExamId and A.StudentId=" + studentId + " and" +
                 " A.SubjectId=B.SubjectId and A.SubjectId=" + subjectId + " and A.ExamId=" + examId, null);
@@ -281,7 +281,7 @@ public class MarksDao {
         return i;
     }
 
-    public static int getStudExamMark(int studentId, int subjectId, long examId, SQLiteDatabase sqliteDatabase) {
+    public static int getStudExamMark(long studentId, int subjectId, long examId, SQLiteDatabase sqliteDatabase) {
         int i = 0;
         Cursor c = sqliteDatabase.rawQuery("select Mark from Marks where ExamId=" + examId + " and SubjectId=" + subjectId + " and StudentId=" + studentId, null);
         c.moveToFirst();

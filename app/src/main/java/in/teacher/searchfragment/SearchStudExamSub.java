@@ -41,7 +41,8 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class SearchStudExamSub extends Fragment {
     private Context context;
-    private int studentId, sectionId, classId, currentSecId;
+    private int sectionId, classId, currentSecId;
+    private long studentId;
     private long examId;
     private String studentName, className, secName, examName;
     private SQLiteDatabase sqliteDatabase;

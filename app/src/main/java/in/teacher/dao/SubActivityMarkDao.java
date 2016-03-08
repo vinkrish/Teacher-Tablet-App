@@ -26,7 +26,7 @@ public class SubActivityMarkDao {
         return avg;
     }
 
-    public static int getStudSubActMark(int studentId, long subActivityId, SQLiteDatabase sqliteDatabase) {
+    public static int getStudSubActMark(long studentId, long subActivityId, SQLiteDatabase sqliteDatabase) {
         int i = 0;
         Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitymark where StudentId=" + studentId + " and SubActivityId=" + subActivityId, null);
         c.moveToFirst();
@@ -104,9 +104,9 @@ public class SubActivityMarkDao {
         return isThere;
     }
 
-    public static List<String> selectSubActivityMarc(Long subActivityId, List<Integer> studentId, SQLiteDatabase sqliteDatabase) {
+    public static List<String> selectSubActivityMarc(Long subActivityId, List<Long> studentId, SQLiteDatabase sqliteDatabase) {
         List<String> aList = new ArrayList<>();
-        for (Integer i : studentId) {
+        for (Long i : studentId) {
             Cursor c = sqliteDatabase.rawQuery("select Mark from subactivitymark where SubActivityId=" + subActivityId + " and StudentId=" + i, null);
             c.moveToFirst();
             if (c.getCount() > 0) {
@@ -194,7 +194,7 @@ public class SubActivityMarkDao {
         }
     }
 
-    public static int getStudSubActAvg(int studentId, long subActivityId, SQLiteDatabase sqliteDatabase) {
+    public static int getStudSubActAvg(long studentId, long subActivityId, SQLiteDatabase sqliteDatabase) {
         int i = 0;
         Cursor c = sqliteDatabase.rawQuery("select (Avg(A.Mark)/B.MaximumMark)*100 as avg " +
                 "from subactivitymark A, subactivity B " +

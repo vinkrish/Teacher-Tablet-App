@@ -58,7 +58,7 @@ public class UpdateExamGrade extends Fragment {
     private int sectionId, schoolId, subjectId, subId, classId, partition;
     private long examId;
     private List<Students> studentsArray = new ArrayList<>();
-    private List<Integer> studentsArrayId = new ArrayList<>();
+    private List<Long> studentsArrayId = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
     private ArrayList<Students> studentsArrayList = new ArrayList<>();
     private List<String> studentScore = new ArrayList<>();

@@ -21,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -47,7 +46,8 @@ import in.teacher.util.ReplaceFragment;
  */
 public class StudentAdd extends Fragment {
     private SQLiteDatabase sqliteDatabase;
-    private int schoolId, classId, sectionId, studentId;
+    private int schoolId, classId, sectionId;
+    private long studentId;
     private String gender;
     private static TextView dob;
     private EditText studentName, className, sectionName, rollNo, admissionNo;
@@ -73,7 +73,7 @@ public class StudentAdd extends Fragment {
         return view;
     }
 
-    private void animateView(){
+    private void animateView() {
         AnimationUtils.alphaTranslate(addStudent, getActivity());
     }
 
@@ -174,25 +174,23 @@ public class StudentAdd extends Fragment {
             CommonDialogUtils.displayAlertWhiteDialog(getActivity(), "Mobile number should be of 10 digits");
         } else {
             Toast.makeText(getActivity(), "Student created", Toast.LENGTH_SHORT).show();
+
+            //studentId = PKGenerator.generateExamId(schoolId, sectionId, studentName.getText().toString() + fatherName.getText().toString());
+            studentId = PKGenerator.returnPrimaryKey(schoolId);
+            String sql = "insert into students(StudentId, SchoolId , ClassId, SectionId, SubjectIds, AdmissionNo, RollNoInClass, Username, Password, Name, " +
+                    "FatherName, MotherName, DateOfBirth, Gender, Mobile1, Mobile2, Address, Pincode) values (" + studentId + ", " +
+                    schoolId + ", " + classId + ", " + sectionId + ", '','" + admissionNo.getText().toString() + "', " + rollNo.getText().toString() + ", 'S" +
+                    mobile1.getText().toString() + "','S" + mobile1.getText().toString() + "','" +
+                    studentName.getText().toString() + "', '" + fatherName.getText().toString() + "', '" + motherName.getText().toString() + "', '" +
+                    dob.getText().toString() + "', '" + gender + "', '" + mobile1.getText().toString() + "', '" +
+                    mobile2.getText().toString() + "', \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\", '" +
+                    pincode.getText().toString() + "')";
             try {
-                studentId = PKGenerator.generateExamId(schoolId, sectionId, studentName.getText().toString() + fatherName.getText().toString());
-                String sql = "insert into students(StudentId, SchoolId , ClassId, SectionId, SubjectIds, AdmissionNo, RollNoInClass, Username, Password, Name, " +
-                        "FatherName, MotherName, DateOfBirth, Gender, Mobile1, Mobile2, Address, Pincode) values (" + studentId + ", " +
-                        schoolId + ", " + classId + ", " + sectionId + ", '','" + admissionNo.getText().toString() + "', " + rollNo.getText().toString() + ", 'S" +
-                        mobile1.getText().toString() + "','S" + mobile1.getText().toString() + "','" +
-                        studentName.getText().toString() + "', '" + fatherName.getText().toString() + "', '" + motherName.getText().toString() + "', '" +
-                        dob.getText().toString() + "', '" + gender + "', '" + mobile1.getText().toString() + "', '" +
-                        mobile2.getText().toString() + "', \"" + address.getText().toString().replaceAll("\n", " ").replace("\"", "'") + "\", '" +
-                        pincode.getText().toString() + "')";
-                try {
-                    sqliteDatabase.execSQL(sql);
-                    ContentValues cv = new ContentValues();
-                    cv.put("Query", sql);
-                    sqliteDatabase.insert("uploadsql", null, cv);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } catch (NoSuchAlgorithmException e) {
+                sqliteDatabase.execSQL(sql);
+                ContentValues cv = new ContentValues();
+                cv.put("Query", sql);
+                sqliteDatabase.insert("uploadsql", null, cv);
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
             ReplaceFragment.replace(new StudentProfile(), getFragmentManager());

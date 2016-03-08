@@ -22,7 +22,7 @@ public class ExamsDao {
         while (!c.isAfterLast()) {
             Exams e = new Exams();
             e.setClassId(c.getInt(c.getColumnIndex("ClassId")));
-            e.setExamId(c.getInt(c.getColumnIndex("ExamId")));
+            e.setExamId(c.getLong(c.getColumnIndex("ExamId")));
             e.setSubjectIDs(c.getString(c.getColumnIndex("SubjectIDs")));
             e.setExamName(c.getString(c.getColumnIndex("ExamName")));
             e.setMarkUploaded(c.getInt(c.getColumnIndex("MarkUploaded")));

@@ -59,10 +59,10 @@ public class SubjectMapStudentCreate extends Fragment {
     private List<String> subjectNameList = new ArrayList<>();
     private List<Integer> selectedSubjectId = new ArrayList<>();
     private Button editUpdateBtn, mapSubjectBtn;
-    private ArrayList<Integer> studIdList = new ArrayList<>();
+    private ArrayList<Long> studIdList = new ArrayList<>();
     private ArrayList<String> studNameList = new ArrayList<>();
     protected boolean[] studentSelections;
-    private List<Integer> selectedStudentsId = new ArrayList<>();
+    private List<Long> selectedStudentsId = new ArrayList<>();
     private int generateId = 1234567;
 
     @Override
@@ -125,7 +125,7 @@ public class SubjectMapStudentCreate extends Fragment {
             if (mapSubjectBtn.isActivated()) {
                 studIdList.clear();
                 studNameList.clear();
-                studIdList.add(0);
+                studIdList.add(0l);
                 studNameList.add("Select All Students");
                 List<Students> studentList = StudentsDao.selectStudentsUnmapped(sectionId, sqliteDatabase);
                 for (Students s : studentList) {
@@ -205,7 +205,7 @@ public class SubjectMapStudentCreate extends Fragment {
             for (Integer sbi : selectedSubjectId) {
                 sb.append(sbi).append("#");
             }
-            for (Integer ssi : selectedStudentsId) {
+            for (Long ssi : selectedStudentsId) {
                 String sql = "update students set SubjectIds = '" + sb.substring(0, sb.length() - 1) + "' where StudentId = " + ssi;
                 try {
                     sqliteDatabase.execSQL(sql);
@@ -213,6 +213,7 @@ public class SubjectMapStudentCreate extends Fragment {
                     cv.put("Query", sql);
                     sqliteDatabase.insert("uploadsql", null, cv);
                 } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
             return null;

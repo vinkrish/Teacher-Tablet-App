@@ -8,8 +8,16 @@ public class SlipTestMark {
     private int subjectId;
     private int newSubjectId;
     private long slipTestId;
-    private int studentId;
+    private long studentId;
     private String mark;
+
+    public long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
+    }
 
     public int getMarkId() {
         return markId;
@@ -73,13 +81,5 @@ public class SlipTestMark {
 
     public void setMark(String mark) {
         this.mark = mark;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
     }
 }

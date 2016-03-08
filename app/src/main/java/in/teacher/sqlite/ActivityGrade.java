@@ -4,12 +4,20 @@ public class ActivityGrade {
     private int schoolId;
     private long examId;
     private int subjectId;
-    private int studentId;
+    private long studentId;
     private long activityId;
     private String grade;
 
     public long getExamId() {
         return examId;
+    }
+
+    public long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
     }
 
     public void setExamId(long examId) {
@@ -38,14 +46,6 @@ public class ActivityGrade {
 
     public void setSchoolId(int schoolId) {
         this.schoolId = schoolId;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
     }
 
     public String getGrade() {

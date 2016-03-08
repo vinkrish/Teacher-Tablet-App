@@ -41,7 +41,7 @@ public class StudentClassSec extends Fragment {
     private TextView clasSecSubTv;
     private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private List<Integer> studentIdList = new ArrayList<>();
-    private List<Integer> studIDList = new ArrayList<>();
+    private List<Long> studIDList = new ArrayList<>();
     private List<String> studentNameList = new ArrayList<>();
 
     @Override

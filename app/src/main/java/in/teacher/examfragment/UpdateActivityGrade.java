@@ -66,7 +66,7 @@ public class UpdateActivityGrade extends Fragment {
     private List<Students> studentsArray = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
     private ArrayList<Students> studentsArrayList = new ArrayList<>();
-    private List<Integer> studentsArrayId = new ArrayList<>();
+    private List<Long> studentsArrayId = new ArrayList<>();
     private List<String> studentScore = new ArrayList<>();
     private List<String> gradeList = new ArrayList<>();
     private List<GradesClassWise> gradesClassWiseList = new ArrayList<>();

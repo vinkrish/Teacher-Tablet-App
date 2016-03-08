@@ -76,7 +76,7 @@ public class TextSms extends Fragment implements StringConstant {
     private EditText studentSpinner, textSms;
     private TextView studentContext;
     private int sectionId, teacherId, schoolId;
-    private ArrayList<Integer> studIdList;
+    private ArrayList<Long> studIdList;
     private ArrayList<String> studNameList;
     private ArrayList<Long> idList = new ArrayList<>();
     protected boolean[] studentSelections;

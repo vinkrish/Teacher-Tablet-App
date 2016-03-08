@@ -5,7 +5,7 @@ public class CceCoScholasticGrade {
     private int schoolId;
     private int classId;
     private int sectionId;
-    private int studentId;
+    private long studentId;
     private int type;
     private int term;
     private int topicId;
@@ -13,6 +13,14 @@ public class CceCoScholasticGrade {
     private int grade;
     private String description;
     private boolean gradeExist;
+
+    public long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
+    }
 
     public boolean isGradeExist() {
         return gradeExist;
@@ -52,14 +60,6 @@ public class CceCoScholasticGrade {
 
     public void setSectionId(int sectionId) {
         this.sectionId = sectionId;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
     }
 
     public int getType() {

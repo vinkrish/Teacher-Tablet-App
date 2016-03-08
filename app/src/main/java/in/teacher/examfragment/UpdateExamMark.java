@@ -58,7 +58,7 @@ public class UpdateExamMark extends Fragment {
     private long examId;
     private float maxMark;
     private List<Students> studentsArray = new ArrayList<>();
-    private List<Integer> studentsArrayId = new ArrayList<>();
+    private List<Long> studentsArrayId = new ArrayList<>();
     private List<Boolean> studentIndicate = new ArrayList<>();
     private ArrayList<Students> studentsArrayList = new ArrayList<>();
     private List<String> studentScore = new ArrayList<>();
