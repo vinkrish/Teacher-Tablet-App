@@ -51,7 +51,8 @@ public class StudentProfileEdit extends Fragment {
     private EditText className, sectionName, rollNo, admissionNo;
     private EditText fatherName, motherName, mobile1, mobile2, address, pincode;
     private Button studentProfile, saveBtn, deleteBtn;
-    private int studentId, classId, sectionId;
+    private int classId, sectionId;
+    private long studentId;
     private Spinner genderSpinner;
 
     @Override
@@ -117,7 +118,6 @@ public class StudentProfileEdit extends Fragment {
             mobile2.setText(c.getString(c.getColumnIndex("Mobile2")));
             address.setText(c.getString(c.getColumnIndex("Address")));
             pincode.setText(c.getString(c.getColumnIndex("Pincode")));
-
             c.moveToNext();
         }
         c.close();
@@ -180,9 +180,14 @@ public class StudentProfileEdit extends Fragment {
             }
         });
 
-        if (gender.equals("")) genderSpinner.setSelection(0);
-        else if (gender.equals("Male") || gender.equalsIgnoreCase("m")) genderSpinner.setSelection(1);
-        else if (gender.equals("Female") || gender.equalsIgnoreCase("f")) genderSpinner.setSelection(2);
+        try{
+            if (gender.equals("")) genderSpinner.setSelection(0, false);
+            else if (gender.equals("Male") || gender.equalsIgnoreCase("m")) genderSpinner.setSelection(1);
+            else if (gender.equals("Female") || gender.equalsIgnoreCase("f")) genderSpinner.setSelection(2);
+        } catch(NullPointerException e) {
+            genderSpinner.setSelection(0, false);
+            e.printStackTrace();
+        }
     }
 
     private void updateStudent() {
@@ -234,6 +239,7 @@ public class StudentProfileEdit extends Fragment {
             cv.put("Query", sql);
             sqliteDatabase.insert("uploadsql", null, cv);
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         ReplaceFragment.replace(new StudentProfile(), getFragmentManager());
     }

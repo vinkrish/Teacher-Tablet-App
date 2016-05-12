@@ -183,7 +183,7 @@ public class StudentsDao {
         return false;
     }
 
-    public static boolean isRollNoAvailable(SQLiteDatabase sqliteDatabase, int sectionId, int rollNo, int studentId) {
+    public static boolean isRollNoAvailable(SQLiteDatabase sqliteDatabase, int sectionId, int rollNo, long studentId) {
         Cursor c = sqliteDatabase.rawQuery("select StudentId from students where RollNoInClass=" + rollNo + " and SectionId=" + sectionId + " and StudentId!=" + studentId, null);
         if (c.getCount() > 0) {
             c.close();

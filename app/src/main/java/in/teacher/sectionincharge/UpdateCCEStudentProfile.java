@@ -137,7 +137,7 @@ public class UpdateCCEStudentProfile extends Fragment {
         int loop = 0;
         while (!c.isAfterLast()) {
             totalDay = c.getInt(c.getColumnIndex("TotalDays1"));
-            int cid = c.getInt(c.getColumnIndex("StudentId"));
+            long cid = c.getLong(c.getColumnIndex("StudentId"));
             newStudentsSB.append(cid + ",");
 
             CCEStudentProfile cceItem = new CCEStudentProfile();
@@ -165,7 +165,7 @@ public class UpdateCCEStudentProfile extends Fragment {
                 "where SectionId = " + sectionId + " and StudentId not in (" + newStudentsSB.substring(0, newStudentsSB.length() - 1) + ")", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int cid = cursor.getInt(cursor.getColumnIndex("StudentId"));
+            long cid = cursor.getLong(cursor.getColumnIndex("StudentId"));
 
             CCEStudentProfile cceItem = new CCEStudentProfile();
             cceItem.setSchoolId(schoolId + "");

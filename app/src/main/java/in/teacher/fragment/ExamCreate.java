@@ -213,11 +213,7 @@ public class ExamCreate extends Fragment {
             if (gradeSwitch.isChecked()) grade = 1;
             else grade = 0;
 
-            try {
-                examId = PKGenerator.generateExamId(schoolId, classId, examName);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
+            examId = PKGenerator.returnPrimaryKey(schoolId);
 
             ll.setVisibility(View.GONE);
             scrollView.setVisibility(View.VISIBLE);

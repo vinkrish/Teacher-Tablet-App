@@ -118,7 +118,7 @@ public class StudentAttendanceDao {
 			s.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
 			s.setClassId(c.getInt(c.getColumnIndex("ClassId")));
 			s.setSectionId(c.getInt(c.getColumnIndex("SectionId")));
-			s.setStudentId(c.getInt(c.getColumnIndex("StudentId")));
+			s.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
 			s.setName(c.getString(c.getColumnIndex("Name")));
 			s.setRollNoInClass(c.getInt(c.getColumnIndex("RollNoInClass")));
 			sList.add(s);

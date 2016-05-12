@@ -49,7 +49,6 @@ public class SearchStudExamSub extends Fragment {
     private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private StudExamSubAdapter adapter;
     private ListView lv;
-    private List<Activiti> activitiList = new ArrayList<>();
     private ProgressDialog pDialog;
     private TextView studTV, clasSecTV;
     private List<Integer> subIdList = new ArrayList<>();
@@ -95,7 +94,6 @@ public class SearchStudExamSub extends Fragment {
 
     private void clearList() {
         commonObjectList.clear();
-        activitiList.clear();
         subIdList.clear();
         scoreList.clear();
     }

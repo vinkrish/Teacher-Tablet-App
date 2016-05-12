@@ -91,7 +91,7 @@ public class AcceptStudent extends Fragment {
         while (!c.isAfterLast()) {
             MovStudent ms = new MovStudent();
             ms.setSchooId(schoolId);
-            ms.setStudentId(c.getInt(c.getColumnIndex("StudentId")));
+            ms.setStudentId(c.getLong(c.getColumnIndex("StudentId")));
             ms.setStudentName(c.getString(c.getColumnIndex("StudentName")));
             ms.setQuery(c.getString(c.getColumnIndex("Query")));
             ms.setClassName(c.getString(c.getColumnIndex("ClassName")));

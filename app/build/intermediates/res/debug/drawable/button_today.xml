@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/blue_today" android:state_activated="true" />
-    <item android:drawable="@drawable/today" android:state_activated="false" />
-    <item android:drawable="@drawable/today" />
-
-</selector>
-<!-- From: file:/Users/vinkrish/StudioProjects/Teacher-Tablet-App/app/src/main/res/drawable/button_today.xml -->

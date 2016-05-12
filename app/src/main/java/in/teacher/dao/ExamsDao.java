@@ -47,6 +47,18 @@ public class ExamsDao {
         return exam;
     }
 
+    /*public static boolean isExamExist(SQLiteDatabase sqliteDatabase, String examName) {
+        boolean examExist = false;
+        Cursor c = sqliteDatabase.rawQuery("select ExamId from exams where ExamId=" + examId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            exam.setExamName(c.getString(c.getColumnIndex("ExamName")));
+            exam.setPercentage(c.getString(c.getColumnIndex("Percentage")));
+            c.moveToNext();
+        }
+        c.close();
+    }*/
+
     public static String selectExamName(long examId, SQLiteDatabase sqliteDatabase) {
         String s = null;
         Cursor c = sqliteDatabase.rawQuery("select * from exams where ExamId=" + examId, null);

@@ -95,9 +95,6 @@ public class FirstTimeProcessTask extends AsyncTask<String, String, Void> implem
                 jsonObject.put("tab_id", deviceId);
                 jsonObject.put("file_name", "'" + f + "'");
                 jsonReceived = new JSONObject(RequestResponseHandler.reachServer(update_downloaded_file, jsonObject));
-                if (jsonReceived.getInt(TAG_SUCCESS) == 1) {
-
-                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

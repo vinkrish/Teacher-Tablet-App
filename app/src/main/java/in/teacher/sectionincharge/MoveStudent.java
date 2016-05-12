@@ -51,9 +51,9 @@ public class MoveStudent extends Fragment {
     private Button studentsSelBtn, confirmMoveBtn;
     private Spinner sectionSpinner;
     private ListView listView;
-    private List<Integer> idList = new ArrayList<>();
+    private List<Long> idList = new ArrayList<>();
     private List<String> nameList = new ArrayList<>();
-    private List<Integer> selIdList = new ArrayList<>();
+    private List<Long> selIdList = new ArrayList<>();
     private List<String> selNameList = new ArrayList<>();
     private List<Integer> sectionIdList = new ArrayList<>();
     private List<String> sectionNameList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class MoveStudent extends Fragment {
                 sectionId + " order by RollNoInClass", null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            idList.add(c.getInt(c.getColumnIndex("StudentId")));
+            idList.add(c.getLong(c.getColumnIndex("StudentId")));
             nameList.add(c.getString(c.getColumnIndex("Name")));
             c.moveToNext();
         }

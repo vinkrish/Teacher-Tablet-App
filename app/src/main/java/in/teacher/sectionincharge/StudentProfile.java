@@ -29,13 +29,8 @@ import in.teacher.util.ReplaceFragment;
  * Don't expect comments explaining every piece of code, class and function names are self explanatory.
  */
 public class StudentProfile extends Fragment {
-    private Context context;
     private SQLiteDatabase sqliteDatabase;
-    private int sectionId;
-    private List<Integer> idList = new ArrayList<>();
-    private List<String> nameList = new ArrayList<>();
-    private List<Integer> rollNoList = new ArrayList<>();
-    private List<String> admissionList = new ArrayList<>();
+    private List<Long> idList = new ArrayList<>();
     private ListView listView;
     private ArrayList<CommonObject> commonObjectList = new ArrayList<>();
     private Button addBtn;
@@ -54,25 +49,21 @@ public class StudentProfile extends Fragment {
     }
 
     private void init(){
-        context = AppGlobal.getContext();
+        Context context = AppGlobal.getContext();
         sqliteDatabase = AppGlobal.getSqliteDatabase();
         CommonDialogUtils.hideKeyboard(getActivity());
 
         Temp t = TempDao.selectTemp(sqliteDatabase);
-        sectionId = t.getSectionId();
+        int sectionId = t.getSectionId();
 
         Cursor c = sqliteDatabase.rawQuery("select StudentId, AdmissionNo, RollNoInClass, Name from students where SectionId = " +
                 sectionId + " order by RollNoInClass", null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            idList.add(c.getInt(c.getColumnIndex("StudentId")));
+            idList.add(c.getLong(c.getColumnIndex("StudentId")));
             String admission = c.getString(c.getColumnIndex("AdmissionNo"));
             int rollNo = c.getInt(c.getColumnIndex("RollNoInClass"));
             String name = c.getString(c.getColumnIndex("Name"));
-
-            admissionList.add(admission);
-            rollNoList.add(rollNo);
-            nameList.add(name);
 
             commonObjectList.add(new CommonObject(rollNo+"", admission, name));
 
