@@ -2,88 +2,88 @@
 <items version="2" >
 
     <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_01d1fa26e0eb288f62216b8bf848702fd3533255.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.1.1_8fccdf2d1520ab4592aed2acb01cbf408c7ab04a.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_6e8abc629b000bcc8f0107b3019214fdccb8c2ba.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_702ba557bb6466b3bf28e8ad222140ff986bddef.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_6a36e19e6a0b6e3a3ebeb6ebbebd371033ca9194.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="cb8523b8df1f5055c85c9775a2f2d2aa601fb7bb">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_b831d39ed6dfc9a58e8698ae070938dd92b5b992.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/libs/aws-android-sdk-core-2.2.5.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="ccd427b798b68d6add14c1926e987903b6d762b3">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/aws-android-sdk-core-2.2.5_ed5c7e2485811dbcceef8ea0f0e0c6530faabdce.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/libs/aws-android-sdk-s3-2.2.5.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="b6307ddcf3dee4bb3b2be06cb4f392d69c1ca309">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/aws-android-sdk-s3-2.2.5_75dd9fc209d56bd874c2f91861f6a18b4e140146.jar" />
-    </item>
-    <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_20fa3bf9b3a017aa3a9774806e22aea960e3185b.jar" />
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.1.1_4576a5eb87aac1691aa81c9fc1640d1e3086f05b\classes.dex" />
     </item>
     <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/libs/achartengine-1.1.0.jar"
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0_5e324ea79992d2103e0b594225004a6bdf9e531a.jar" />
+        sha1="cfeef1020a3ca202c43968d5f8a0c28c2135a11e">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_9079290ad755226bcd0f0a80a0b8f61bd98687b2\classes.dex" />
     </item>
     <item
-        jar="/Users/vinkrish/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jar="C:\Users\Shrey\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_a6f725a1ac2e880eb0c4614ff32f69d9a22a7013.jar" />
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_82bbcf219d8214bb7eb810e9ab4430377441cd27\classes.dex" />
     </item>
     <item
-        jar="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="b61803ae5d83eb2cef22c9b05a49cb364fd7f635">
-        <dex dex="/Users/vinkrish/AndroidStudioProjects/Teacher-Tablet-App/app/build/intermediates/pre-dexed/debug/instant-run_209f2c7745f5661fa6a2f0659eef67f5c9214357.jar" />
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_c833f041f76deb303fdcfd0e71adf0ed9412d3d3\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\libs\aws-android-sdk-s3-2.2.5.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b6307ddcf3dee4bb3b2be06cb4f392d69c1ca309">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\2\aws-android-sdk-s3-2.2.5_a40e72ee9d6d4c64b6f4b735677fa62f9d06256b\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.1.1_5374080b6ad3861aa8a8ca3c3abdd4208c9a5dc7\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.1.1_835dfce19799f51b9d9764bad3ee349425da4aa6\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c580e3fceb9611d8b76ff630e1016819347649d6">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e9e4ab74b11480abfacb6407af70d52fdd2a620e\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_c2f64d4fb6e8026af830929e0390cd583aca0119\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.1_cdb6f1dfb88f0748809e9a7b1ec693bda69b8cde\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\libs\achartengine-1.1.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\2\achartengine-1.1.0_2db74a8a72ef1b144ecd7f64700706ea40795873\classes.dex" />
+    </item>
+    <item
+        jar="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\libs\aws-android-sdk-core-2.2.5.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ccd427b798b68d6add14c1926e987903b6d762b3">
+        <dex dex="E:\SchoolCom\Android Source\Teacher-Tablet-App\app\build\intermediates\transforms\dex\debug\folders\1000\2\aws-android-sdk-core-2.2.5_e3b50b02fff4aa4a29e667e2ba6815961f57900c\classes.dex" />
     </item>
 
 </items>

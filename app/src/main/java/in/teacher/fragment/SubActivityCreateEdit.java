@@ -56,9 +56,9 @@ public class SubActivityCreateEdit extends Fragment {
     private Context context;
     private SQLiteDatabase sqliteDatabase;
     private Spinner classSpinner, sectionSpinner, examSpinner, subjectSpinner, activitySpinner, bestOf;
-    private int teacherId, classId, sectionId, examId, subjectId, subActivityPos, schoolId, subActCounter, width1, width2, calculationGlobal, tag, rgCounter;
-    private long generatedId, activityId;
-    final List<Integer> examIdList = new ArrayList<>();
+    private int teacherId, classId, sectionId, subjectId, subActivityPos, schoolId, subActCounter, width1, width2, calculationGlobal, tag, rgCounter;
+    private long generatedId, activityId, examId;
+    final List<Long> examIdList = new ArrayList<>();
     List<String> examNameList = new ArrayList<>();
     final List<Integer> sectionIdList = new ArrayList<>();
     List<String> sectionNameList = new ArrayList<>();
@@ -606,12 +606,12 @@ public class SubActivityCreateEdit extends Fragment {
     private void initExamSpinner() {
         examIdList.clear();
         examNameList.clear();
-        examIdList.add(0);
+        examIdList.add(0l);
         examNameList.add("Select Exam");
         Cursor c = sqliteDatabase.rawQuery("select ExamId, ExamName from exams where ClassId = " + classId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            examIdList.add(c.getInt(c.getColumnIndex("ExamId")));
+            examIdList.add(c.getLong(c.getColumnIndex("ExamId")));
             examNameList.add(c.getString(c.getColumnIndex("ExamName")));
             c.moveToNext();
         }
